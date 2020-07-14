@@ -1,53 +1,311 @@
-.App {
-  text-align: center;
+/* Declarations of CSS Variables */
+
+:root {
+  --yellow: #fbc93d;
+  --red: #fb4f4f;
+  --blue: #2f8fe2;
+  --darkblue: #0f131a;
+
+  --darkest: #010101;
+  --darker: #0e0e0e;
+  --dark: #1a1a1a;
+  --light: #272727;
+  --lighter: #343434;
+  --lightest: #414141;
+  --superlight: #4d4d4d;
+
+  --text-color: white;
+  --body-bg: var(--darkblue);
+  --highlight: var(--blue);
+
+  --nav-bg: var(--darkest);
+  --vert-nav-bg: var(--darker);
+  --nav-height: 7vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* Reset, from https://cssreset.com/scripts/eric-meyer-reset-css/ */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-body {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+html,
+body {
+  line-height: 1;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--body-bg);
+  font-family: "Merriweather", serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#App {
+  text-align: center;
+  width: 100vw;
+  height: auto;
+}
+
+label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-color);
+  font-size: 1.25rem;
+  font-family: "Lora", serif;
+}
+
+p {
+  color: var(--text-color);
+  font-size: 1rem;
+  font-family: "Merriweather", serif;
+}
+
+i {
+  color: var(--text-color);
+  font-style: normal;
+}
+
+button {
+  color: var(--text-color);
+}
+
+img {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+/* Global Classes, used everywhere */
+
+.inline-icon {
+  margin: 0 0.5rem;
+}
+
+.force-center {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.hoverfx {
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+.hoverfx:hover {
+  cursor: pointer;
+}
+
+.hoverfx:hover,
+.hoverfx:focus {
+  transform: scale(1.05);
+  background-color: var(--highlight);
+}
+
+.hoverfx:active {
+  transform: scale(0.9);
+}
+
+.contentWrapper {
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  margin-top: var(--nav-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background-color: var(--darker);
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: lightgray;
+}
+
+/* Loading Animation */
+
+#loading {
+  color: var(--text-color);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
