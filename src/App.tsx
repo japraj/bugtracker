@@ -1,6 +1,7 @@
 import React from "react";
+import { hot } from "react-hot-loader/root";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Navigation from "./components/navigation/NavigationDisplay";
+import Navigation from "./components/navigation/NavigationWrapper";
 import GenericRoute from "./routes/GenericRoute";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import styled from "styled-components";
@@ -10,9 +11,12 @@ const ContentWrapper = styled.main`
   margin: var(--nav-height) 0 0
     ${(props: { sideNavWidth: number }) => props.sideNavWidth}px;
   height: 100%;
+  @media (max-width: 1100px) {
+    margin-left: 0;
+  }
 `;
 
-function App() {
+const App = () => {
   return (
     <div id="App">
       <BrowserRouter>
@@ -21,7 +25,7 @@ function App() {
           <Route
             path="/"
             exact={true}
-            render={() => <GenericRoute name="Home" />}
+            render={() => <GenericRoute name="Homettttttt" />}
           />
           <Route path="/login" render={() => <GenericRoute name="Login" />} />
           <Route
@@ -32,7 +36,7 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+};
 
 /* 
   Loading Animation
@@ -46,4 +50,4 @@ function App() {
   </div>
   </div>; */
 
-export default App;
+export default hot(App);

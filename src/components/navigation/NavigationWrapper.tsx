@@ -1,6 +1,11 @@
 import React from "react";
 import TopNavigation from "./subcomponents/TopNavigation";
 import SideNavigation from "./subcomponents/SideNavigation";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  toggleCollapse,
+  selectCollapsed,
+} from "../../features/navigation/NavigationSlice";
 
 export type NavigationItem = {
   path: string;
@@ -32,28 +37,35 @@ const DashboardItem: NavigationItem = {
   text: "Dashboard",
 };
 
-const LogoutItem: NavigationItem = {
+export const LogoutItem: NavigationItem = {
   path: "",
   iconClassNames: "fas fa-sign-out-alt",
   text: "Logout",
 };
 
 const defaultNavSet: NavigationItem[] = [HomeItem, LoginItem, RegisterItem];
-
 const authNavSet: NavigationItem[] = [HomeItem, DashboardItem, LogoutItem];
 
+const authenticated: boolean = false;
+const collapsedWidth: number = 53;
+const extendedWidth: number = 175;
+
 export default () => {
-  const collapsed: boolean = false;
-  const authenticated: boolean = false;
-  const collapsedWidth: number = 70;
-  const extendedWidth: number = 180;
+  const dispatch = useDispatch();
+  const collapsed: boolean = useSelector(selectCollapsed);
+  const toggle = () => dispatch(toggleCollapse());
   return (
     <React.Fragment>
-      <TopNavigation expandSideNav={() => console.log("clicked")} />
+      <TopNavigation expandSideNav={toggle} />
       <SideNavigation
         collapsed={collapsed}
         {...{ collapsedWidth, extendedWidth }}
         navItemSet={authenticated ? authNavSet : defaultNavSet}
+        toggleCollapsed={collapsed ? () => {} : toggle}
+        logout={() => {
+          // Logout logic
+          console.log("Logout");
+        }}
       />
     </React.Fragment>
   );

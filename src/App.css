@@ -20,7 +20,7 @@
 
   --nav-bg: var(--darkest);
   --vert-nav-bg: var(--darker);
-  --nav-height: 7vh;
+  --nav-height: 8vh;
 }
 
 /* Reset, from https://cssreset.com/scripts/eric-meyer-reset-css/ */
@@ -214,14 +214,16 @@ img {
   transform: translateX(-50%);
 }
 
-.hoverfx {
+.hoverfx,
+.hoverfx2 {
   -moz-osx-font-smoothing: grayscale;
   backface-visibility: hidden;
   transform: translateZ(0);
   transition: transform 0.25s ease-out;
 }
 
-.hoverfx:hover {
+.hoverfx:hover,
+.hoverfx2:hover {
   cursor: pointer;
 }
 
@@ -231,7 +233,14 @@ img {
   background-color: var(--highlight);
 }
 
-.hoverfx:active {
+.hoverfx2:hover,
+.hoverfx2:focus {
+  transform: scaleY(1.1);
+  border-right: 0.5rem solid var(--highlight);
+}
+
+.hoverfx:active,
+.hoverfx2:active {
   transform: scale(0.9);
 }
 

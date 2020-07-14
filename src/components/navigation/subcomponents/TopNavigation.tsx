@@ -19,10 +19,11 @@ const TopNav = styled.nav`
 `;
 
 const Label = styled.h1`
+  font-size: 1.25rem;
   margin: 0 auto;
-  transform: translateX(-24px);
+  transform: translateX(-30px);
 `;
-// Note: label is translated 24px left to perfectly center it; the IconButton is 48px wide.
+// Note: label is translated 30px left to perfectly center it; the IconButton is 60px wide.
 
 export default ({ expandSideNav }: { expandSideNav: () => void }) => {
   return (
@@ -33,7 +34,7 @@ export default ({ expandSideNav }: { expandSideNav: () => void }) => {
         aria-label="menu"
         onClick={expandSideNav}
       >
-        <MenuIcon />
+        <MenuIcon style={{ fontSize: "2.25rem" }} />
       </IconButton>
       <Label>
         <i className="fas fa-bug inline-icon" />
