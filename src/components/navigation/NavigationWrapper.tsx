@@ -46,11 +46,10 @@ export const LogoutItem: NavigationItem = {
 const defaultNavSet: NavigationItem[] = [HomeItem, LoginItem, RegisterItem];
 const authNavSet: NavigationItem[] = [HomeItem, DashboardItem, LogoutItem];
 
-const authenticated: boolean = false;
 const collapsedWidth: number = 53;
 const extendedWidth: number = 175;
 
-export default () => {
+export default ({ authenticated }: { authenticated: boolean }) => {
   const dispatch = useDispatch();
   const collapsed: boolean = useSelector(selectCollapsed);
   const toggle = () => dispatch(toggleCollapse());
