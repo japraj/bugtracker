@@ -4,6 +4,7 @@
   --yellow: #fbc93d;
   --red: #fb4f4f;
   --blue: #2f8fe2;
+  --gblue: #2d88ff;
   --darkblue: #0f131a;
 
   --darkest: #010101;
@@ -14,6 +15,8 @@
   --lightest: #414141;
   --superlight: #4d4d4d;
 
+  --text-grey: rgb(170, 170, 170);
+  --text-lightgrey: rgb(214, 214, 214);
   --text-color: white;
   --body-bg: var(--darkblue);
   --highlight: var(--blue);
@@ -168,6 +171,7 @@ code {
   height: auto;
 }
 
+strong,
 label,
 h1,
 h2,
@@ -178,6 +182,10 @@ h6 {
   color: var(--text-color);
   font-size: 1.25rem;
   font-family: "Lora", serif;
+}
+
+strong {
+  font-size: 1.5rem;
 }
 
 p {

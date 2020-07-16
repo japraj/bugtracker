@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   toggleCollapse,
   selectCollapsed,
+  collapsedWidth,
+  extendedWidth,
 } from "../../features/navigation/NavigationSlice";
 
 export type NavigationItem = {
@@ -45,9 +47,6 @@ export const LogoutItem: NavigationItem = {
 
 const defaultNavSet: NavigationItem[] = [HomeItem, LoginItem, RegisterItem];
 const authNavSet: NavigationItem[] = [HomeItem, DashboardItem, LogoutItem];
-
-const collapsedWidth: number = 53;
-const extendedWidth: number = 175;
 
 export default ({ authenticated }: { authenticated: boolean }) => {
   const dispatch = useDispatch();

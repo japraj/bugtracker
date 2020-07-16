@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
-export type User = {
+export interface User {
   authenticated: boolean;
   id: number;
   permissions: number;
-};
+}
+//  Note: the permissions integer stored in the front-end
+// is only meant to be used for soft-locking the user;
+// even if they somehow access a restricted section
+// of the site, the components should make a request
+// with their id & back-end will verify it, preventing
+// any trickery
 
 interface AuthState {
   loaded: boolean;
