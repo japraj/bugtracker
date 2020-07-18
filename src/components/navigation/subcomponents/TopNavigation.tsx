@@ -27,8 +27,7 @@ const TopNav = styled.nav`
   top: 0;
   right: 0;
   padding: 1rem;
-  margin-right: var(--scrollwidth);
-  width: calc(100vw - var(--scrollwidth));
+  width: 100vw;
   height: var(--nav-height);
   display: flex;
   flex-direction: row;
@@ -37,6 +36,7 @@ const TopNav = styled.nav`
   z-index: 8;
   color: var(--text-color);
   border-bottom: 1px solid var(--dark);
+  border-right: var(--scrollwidth) solid rgba(0, 0, 0, 0.8);
 `;
 
 const Label = styled.h1`

@@ -17,8 +17,9 @@ export default ({ activitySet }: { activitySet: Activity[] }) => {
       );
     });
   return (
-    <WidgetWrapper style={{ maxWidth: "500px" }}>
+    <WidgetWrapper style={{ maxWidth: "500px", alignSelf: "flex-start" }}>
       <WidgetHeader>
+        <i className="fa fa-calendar" aria-hidden="true" />
         <h1>Recent Activity</h1>
       </WidgetHeader>
       {activityNodes}

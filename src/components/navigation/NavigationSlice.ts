@@ -9,7 +9,7 @@ interface NavigationState {
 }
 
 const initialState: NavigationState = {
-  collapsed: true,
+  collapsed: false,
 };
 
 export const navigationSlice = createSlice({

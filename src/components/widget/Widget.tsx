@@ -28,6 +28,11 @@ export const WidgetHeader = styled.div`
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
 
+  i {
+    margin-right: 0.7rem;
+    font-size: 1.25rem;
+  }
+
   h1 {
     text-transform: uppercase;
     font-weight: bold;

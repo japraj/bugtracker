@@ -1,15 +1,43 @@
 import React from "react";
 import styled from "styled-components";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const Button = styled.button`
-  padding: 3rem;
-  background-color: var(--blue);
-  border: 1px solid var(--darker);
+  background: rgba(0, 0, 0, 0);
+  border-color: var(--highlight);
+  border-radius: 5px;
+  transition: all 0.1s ease;
+  padding: 10px 16px;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  display: inline-block;
+  line-height: 1.3333333;
   margin: 0;
   height: auto;
-  width: 80%;
+  width: auto;
+
+  :focus {
+    outline: none;
+  }
 `;
 
-export default ({ text }: { text: string }) => {
-  return <Button className="hoverfx">{text}</Button>;
+export default (props: {
+  className: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}) => {
+  return (
+    // ButtonBase from MaterialUI gives the ripple effect!
+    <ButtonBase>
+      <Button className={props.className} onClick={props.onClick}>
+        {props.children}
+      </Button>
+    </ButtonBase>
+  );
 };

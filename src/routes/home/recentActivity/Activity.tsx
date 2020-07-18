@@ -40,11 +40,12 @@ const CellText = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin-left: 0.5rem;
+  margin: 0 0.5rem;
 
   strong {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
+    text-transform: capitalize;
   }
 
   h2 {
@@ -54,5 +55,6 @@ const CellText = styled.div`
     color: var(--text-lightgrey);
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-transform: lowercase;
   }
 `;
