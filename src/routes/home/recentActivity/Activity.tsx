@@ -11,10 +11,10 @@ export interface Activity {
 export default ({ activity }: { activity: Activity }) => {
   return (
     <Cell>
-      <TimeStamp>{activity.timestamp}</TimeStamp>
       <CellImg src={activity.avatarUrl} alt="Profile Picture" />
       <strong>{activity.username}</strong>
       <h2>{activity.description}</h2>
+      <TimeStamp>{activity.timestamp}</TimeStamp>
     </Cell>
   );
 };
@@ -26,18 +26,19 @@ const Cell = styled.div`
   justify-content: flex-start;
   padding: 0.5rem 0.5rem 0.5rem 1rem;
   width: 100%;
-  height: 50px;
+  height: 70px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   margin: 0.5rem 0;
 
   strong {
-    margin-right: 0.3rem;
+    margin: 0 0.3rem 0 0.5rem;
   }
 
   h2 {
     color: var(--text-lightgrey);
+    margin-right: 0.3rem;
   }
 `;
 
@@ -46,9 +47,9 @@ const TimeStamp = styled.h3`
 `;
 
 const CellImg = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
-  margin: 0 1rem;
+  margin: 0;
   border: 1px solid var(--light);
 `;

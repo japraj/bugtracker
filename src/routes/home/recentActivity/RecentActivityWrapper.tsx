@@ -13,11 +13,11 @@ export default ({ activitySet }: { activitySet: Activity[] }) => {
     );
   });
   return (
-    <WidgetWrapper>
-      <WidgetHeader>
-        <h1>Recent Activity</h1>
-      </WidgetHeader>
-      {activityNodes}
-    </WidgetWrapper>
+      <WidgetWrapper>
+        <WidgetHeader>
+          <h1>Recent Activity</h1>
+        </WidgetHeader>
+        {activityNodes}
+      </WidgetWrapper>
   );
 };

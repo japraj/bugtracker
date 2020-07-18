@@ -7,6 +7,10 @@
   --gblue: #2d88ff;
   --darkblue: #0f131a;
 
+  --shadow-1: rgba(0, 0, 0, 0.1);
+  --shadow-2: rgba(0, 0, 0, 0.2);
+  --shadow-5: rgba(0, 0, 0, 0.5);
+
   --darkest: #010101;
   --darker: #0e0e0e;
   --dark: #1a1a1a;
@@ -20,10 +24,41 @@
   --text-color: white;
   --body-bg: var(--darkblue);
   --highlight: var(--blue);
-
   --nav-bg: var(--darkest);
   --vert-nav-bg: var(--darker);
   --nav-height: 8vh;
+
+  --g900: rgb(79, 93, 115);
+  --g800: rgb(99, 111, 131);
+  --g700: rgb(118, 129, 146);
+  --g600: rgb(138, 147, 162);
+  --g500: rgb(157, 165, 177);
+  --g400: rgb(177, 183, 193);
+  --g300: rgb(196, 201, 208);
+  --g200: rgb(216, 219, 224);
+  --g100: rgb(235, 237, 239);
+
+  /* primary/background */
+  --darkest: #18191a;
+  /* secondary/elements */
+  --darker: #242526;
+  /* tertiary/interactive */
+  --dark: #393a3b;
+  /* borders/accents */
+  --light: #3a3b3c;
+  /* text secondary */
+  --lighter: #b0b3b8;
+  /* text primary */
+  --lightest: #e5e6eb;
+
+  --text-grey: var(--lighter);
+  --text-lightgrey: var(--lightest);
+  --text-color: var(--lightest);
+  --body-bg: var(--darkest);
+  --highlight: var(--blue);
+  --nav-bg: var(--darker);
+  --vert-nav-bg: var(--darker);
+  --nav-height: 6vh;
 }
 
 /* Reset, from https://cssreset.com/scripts/eric-meyer-reset-css/ */
@@ -223,7 +258,8 @@ img {
 }
 
 .hoverfx,
-.hoverfx2 {
+.hoverfx2,
+.hoverfx3 {
   -moz-osx-font-smoothing: grayscale;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -231,7 +267,8 @@ img {
 }
 
 .hoverfx:hover,
-.hoverfx2:hover {
+.hoverfx2:hover,
+.hoverfx3 {
   cursor: pointer;
 }
 
@@ -250,6 +287,14 @@ img {
 .hoverfx:active,
 .hoverfx2:active {
   transform: scale(0.9);
+}
+
+.hoverfx3:hover,
+.hoverfx3:focus,
+.hoverfx3:hover i,
+.hoverfx3:focus i {
+  color: var(--text-color) !important;
+  background-color: var(--highlight);
 }
 
 .contentWrapper {

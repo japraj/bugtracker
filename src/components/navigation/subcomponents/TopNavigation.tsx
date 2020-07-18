@@ -35,6 +35,7 @@ const TopNav = styled.nav`
   background-color: var(--nav-bg);
   z-index: 8;
   color: var(--text-color);
+  border-bottom: 1px solid var(--dark);
 `;
 
 const Label = styled.h1`

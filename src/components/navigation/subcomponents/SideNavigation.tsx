@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { NavigationItem } from "../NavigationWrapper";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -20,6 +21,7 @@ export default ({
   toggleCollapsed: () => void;
   logout: () => void;
 }) => {
+  const location = useLocation().pathname;
   const NavLinkSet = navItemSet.map((navItem) => (
     <NavLink
       to={"/" + navItem.path}
@@ -39,7 +41,12 @@ export default ({
           fontFamily: "Merriweather",
         }}
       >
-        <li className="hoverfx2" key={navItem.text}>
+        <li
+          className={`hoverfx3 ${
+            "/" + navItem.path === location ? "selected" : ""
+          }`}
+          key={navItem.text}
+        >
           <i className={navItem.iconClassNames + " inline-icon"} />
           {collapsed ? "" : navItem.text}
         </li>
@@ -69,6 +76,12 @@ const SideNav = styled.nav`
   margin-top: var(--nav-height);
   background-color: var(--vert-nav-bg);
   z-index: 7;
+  border-right: 1px solid var(--dark);
+
+  .selected,
+  .selected i {
+    color: var(--highlight);
+  }
 
   ul li {
     display: flex;

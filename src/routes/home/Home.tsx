@@ -26,11 +26,12 @@ export default () => {
 
 const HomeWrapper = styled.section`
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 1rem;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  padding: 0 20vw;
   width: 100%;
   height: auto;
 `;
