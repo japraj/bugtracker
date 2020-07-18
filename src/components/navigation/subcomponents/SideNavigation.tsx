@@ -25,20 +25,13 @@ export default ({
   const NavLinkSet = navItemSet.map((navItem) => (
     <NavLink
       to={"/" + navItem.path}
-      onClick={
-        navItem === LogoutItem
-          ? () => {
-              logout();
-              toggleCollapsed();
-            }
-          : toggleCollapsed
-      }
+      onClick={navItem === LogoutItem ? logout : () => {}}
     >
       <ButtonBase
         focusRipple
         style={{
           width: collapsed ? collapsedWidth : extendedWidth,
-          fontFamily: "Merriweather",
+          fontFamily: "Roboto",
         }}
       >
         <li
@@ -83,12 +76,17 @@ const SideNav = styled.nav`
     color: var(--highlight);
   }
 
+  .inline-icon {
+    width: 25px;
+    margin-right: 1rem;
+  }
+
   ul li {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    padding: 0.6rem 0;
+    padding: 0.8rem 0;
     ${(props: { collapsed: boolean; sideNavWidth: number }) =>
       props.collapsed
         ? "padding-left: 0.3rem; font-size: 1.5rem;"
@@ -99,6 +97,8 @@ const SideNav = styled.nav`
     ${(props: { collapsed: boolean; sideNavWidth: number }) =>
       props.collapsed ? "width: 0; ul {display: none;}" : "width: 60vw;"}
     transition: width 0.1s;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
 
     ul {
       padding-top: 10vh;
@@ -120,9 +120,9 @@ const GlassDiv = styled.div`
     position: fixed;
     top: 0;
     right: 0;
-    width: 40vw;
+    width: calc(40vw - var(--scrollwidth));
     height: calc(100vh - var(--nav-height));
-    margin-top: var(--nav-height);
+    margin: var(--nav-height) var(--scrollwidth) 0 0;
     z-index: 6;
     backdrop-filter: blur(4px);
   }

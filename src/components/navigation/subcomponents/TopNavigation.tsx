@@ -27,7 +27,8 @@ const TopNav = styled.nav`
   top: 0;
   right: 0;
   padding: 1rem;
-  width: 100vw;
+  margin-right: var(--scrollwidth);
+  width: calc(100vw - var(--scrollwidth));
   height: var(--nav-height);
   display: flex;
   flex-direction: row;

@@ -7,7 +7,7 @@ import {
   selectCollapsed,
   collapsedWidth,
   extendedWidth,
-} from "../../features/navigation/NavigationSlice";
+} from "./NavigationSlice";
 
 export type NavigationItem = {
   path: string;

@@ -9,8 +9,8 @@ for (let i = 0; i < 10; i++) {
     avatarUrl:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.9BgnL75oBYrWpn7bZ069YwHaE8%26pid%3DApi&f=1]",
     username: "Infamous",
-    description: "commented on a ticket and created an issue",
-    timestamp: "24 hours ago",
+    description:
+      "commented on a ticket and created an issue reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
   });
 }
 
@@ -26,7 +26,7 @@ export default () => {
 
 const HomeWrapper = styled.section`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 8fr 1fr;
   grid-gap: 1rem;
   justify-content: center;
   align-items: center;

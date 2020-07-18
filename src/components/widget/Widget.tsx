@@ -1,17 +1,18 @@
 import styled from "styled-components";
 
 export const WidgetWrapper = styled.section`
-  background-color: var(--dark);
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.1);
   color: var(--text-color);
-  border-radius: 8px;
+  padding-bottom: 0.5rem;
   height: auto;
   width: 100%;
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 2px var(--shadow-2);
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);
 `;
 
 export const WidgetHeader = styled.div`
@@ -21,9 +22,8 @@ export const WidgetHeader = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  background-color: var(--dark);
   padding: 16px 22px 14px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.12);
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
@@ -35,4 +35,10 @@ export const WidgetHeader = styled.div`
   }
 `;
 
-export const WidgetSection = styled.div``;
+export const WidgetSection = styled.div`
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  margin: 0.1rem 0;
+  width: 100%;
+`;

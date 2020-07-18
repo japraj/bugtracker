@@ -1,23 +1,27 @@
 import React from "react";
-import WidgetWrapper from "../../../components/widget/widgetWrapper/WidgetWrapper";
-import WidgetHeader from "../../../components/widget/widgetHeader/WidgetHeader";
+import {
+  WidgetWrapper,
+  WidgetHeader,
+  WidgetSection,
+} from "../../../components/widget/Widget";
 import ActivityCell, { Activity } from "./Activity";
 
 export default ({ activitySet }: { activitySet: Activity[] }) => {
-  const activityNodes = activitySet.map((activity) => {
-    return (
-      <ActivityCell
-        key={activity.username + activity.timestamp}
-        {...{ activity }}
-      />
-    );
-  });
+  const activityNodes = activitySet
+    .filter((activity, index) => index < 5)
+    .map((activity) => {
+      return (
+        <WidgetSection>
+          <ActivityCell key={activity.username} {...{ activity }} />
+        </WidgetSection>
+      );
+    });
   return (
-      <WidgetWrapper>
-        <WidgetHeader>
-          <h1>Recent Activity</h1>
-        </WidgetHeader>
-        {activityNodes}
-      </WidgetWrapper>
+    <WidgetWrapper style={{ maxWidth: "500px" }}>
+      <WidgetHeader>
+        <h1>Recent Activity</h1>
+      </WidgetHeader>
+      {activityNodes}
+    </WidgetWrapper>
   );
 };
