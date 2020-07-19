@@ -1,23 +1,27 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   User,
   initialState,
   selectAuthSlice,
   finishedLoading,
   loadUser,
-} from "./features/auth/AuthSlice";
-import { selectSideNavWidth } from "./components/navigation/NavigationSlice";
-import { useSelector, useDispatch } from "react-redux";
+} from "../features/auth/AuthSlice";
 import { hot } from "react-hot-loader/root";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import LoadingRing from "./components/loadingRing/LoadingRing";
-import Navigation from "./components/navigation/NavigationWrapper";
-import Home from "./routes/home/Home";
-import GenericRoute from "./routes/GenericRoute";
+import LoadingRing from "../components/misc/loadingRing/LoadingRing";
+
+import Navigation from "../components/global/navigation/NavigationWrapper";
+import { selectSideNavWidth } from "../components/global/navigation/NavigationSlice";
+
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import GenericRoute from "../routes/GenericRoute";
+import Home from "../routes/home/Home";
+
 import styled from "styled-components";
+
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
-import "./components/alert/Alert.css";
+import "../components/misc/alert/Alert.css";
 
 const Context = React.createContext(initialState);
 const serverURL: string = "localhost:5000";

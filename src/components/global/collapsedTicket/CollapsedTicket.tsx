@@ -1,5 +1,5 @@
 import React from "react";
-import { WidgetSection } from "../widget/Widget";
+import { WidgetSection } from "../../container/widget/Widget";
 import styled from "styled-components";
 
 export interface CollapsedTicket {

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import { RootState } from "../../../app/store";
 
 export const collapsedWidth: number = 53;
 export const extendedWidth: number = 175;

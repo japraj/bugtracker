@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import RecentActivity from "./recentActivity/RecentActivityWrapper";
 import { Activity } from "./recentActivity/Activity";
-import TableTicket from "../../components/collapsedTicket/CollapsedTicket";
-import Table from "../../components/table/TicketTable";
+import TableTicket from "../../components/global/collapsedTicket/CollapsedTicket";
+import Table from "../../components/container/table/TicketTable";
 
 const activitySet: Activity[] = [];
 for (let i = 0; i < 10; i++) {

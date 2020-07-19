@@ -1,7 +1,7 @@
 import React from "react";
 import { WidgetWrapper, WidgetHeader } from "../widget/Widget";
-import Button from "../button/Button";
-import Select, { SelectOption } from "../select/Select";
+import Button from "../../input/button/Button";
+import Select, { SelectOption } from "../../input/select/Select";
 import styled from "styled-components";
 
 type Props = {

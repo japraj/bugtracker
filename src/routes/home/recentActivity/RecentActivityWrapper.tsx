@@ -3,7 +3,7 @@ import {
   WidgetWrapper,
   WidgetHeader,
   WidgetSection,
-} from "../../../components/widget/Widget";
+} from "../../../components/container/widget/Widget";
 import ActivityCell, { Activity } from "./Activity";
 
 export default ({ activitySet }: { activitySet: Activity[] }) => {
