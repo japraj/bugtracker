@@ -6,12 +6,12 @@ import {
   selectAuthSlice,
   finishedLoading,
   loadUser,
-} from "../features/auth/AuthSlice";
+} from "./flux/auth/authSlice";
 import { hot } from "react-hot-loader/root";
 import LoadingRing from "../components/misc/loadingRing/LoadingRing";
 
 import Navigation from "../components/global/navigation/NavigationWrapper";
-import { selectSideNavWidth } from "../components/global/navigation/NavigationSlice";
+import { selectSideNavWidth } from "../components/global/navigation/navigationSlice";
 
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import GenericRoute from "../routes/GenericRoute";
