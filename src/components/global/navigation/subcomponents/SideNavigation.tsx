@@ -37,7 +37,11 @@ export default ({
       >
         <li
           className={`hoverfx3 ${
-            "/" + navItem.path === location ? "selected" : ""
+            navItem === LogoutItem
+              ? ""
+              : "/" + navItem.path === location
+              ? "selected"
+              : ""
           }`}
           key={navItem.text}
         >
