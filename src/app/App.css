@@ -17,6 +17,8 @@
   --theme-red: rgba(232, 86, 86, 0.85);
   --theme-yellow: rgba(223, 184, 28, 0.85);
   --theme-blue: rgba(45, 172, 209, 0.85);
+  --theme-darkred: #a50101;
+  --theme-black: rgba(0, 0, 0, 0.8);
 
   --shadow-1: rgba(0, 0, 0, 0.1);
   --shadow-2: rgba(0, 0, 0, 0.2);

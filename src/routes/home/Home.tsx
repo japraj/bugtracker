@@ -24,7 +24,7 @@ for (let i = 0; i < 10; i++) {
     userInfo: {
       userTag: Math.random().toString(36).substr(2, 22),
       profileImg: generateImage(),
-      userRank: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
+      userRank: Math.abs(Math.floor(Math.random() * 4 - 0.01)),
     },
     description:
       "commented on a ticket reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",

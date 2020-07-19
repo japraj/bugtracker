@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Popover from "@material-ui/core/Popover";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Notes:
@@ -31,6 +32,13 @@ enum UserRank {
   "Developer",
   "Manager",
   "Admin",
+}
+
+enum UserRankColors {
+  "green",
+  "blue",
+  "darkred",
+  "black",
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -107,7 +115,17 @@ export default (props: Props) => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography>{UserRank[props.userInfo.userRank]}</Typography>
+        <Chip
+          style={{
+            color: "white",
+            backgroundColor: `var(--theme-${
+              UserRankColors[props.userInfo.userRank]
+            })`,
+          }}
+          variant="outlined"
+          size="small"
+          label={UserRank[props.userInfo.userRank]}
+        />
       </Popover>
     </ProfileWrapper>
   );
