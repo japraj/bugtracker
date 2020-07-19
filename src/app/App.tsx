@@ -43,7 +43,7 @@ const App = () => {
     setTimeout(() => {
       dispatch(finishedLoading());
       dispatch(loadUser(user));
-    }, 99000);
+    }, 2000);
   }, [dispatch]);
 
   const authSlice = useSelector(selectAuthSlice);
