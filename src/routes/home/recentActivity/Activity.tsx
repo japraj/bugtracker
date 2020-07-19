@@ -1,18 +1,30 @@
 import React from "react";
+import UserLink from "../../../components/global/userLink/UserLink";
+import { UserInfo } from "../../../components/global/collapsedTicket/CollapsedTicket";
 import styled from "styled-components";
 
 export interface Activity {
-  avatarUrl: string;
-  username: string;
+  userInfo: UserInfo;
   description: string;
 }
 
 export default ({ activity }: { activity: Activity }) => {
   return (
     <Cell>
-      <CellImg src={activity.avatarUrl} alt="Profile Picture" />
+      <UserLink
+        styleConfig={{
+          className: "",
+          showImg: true,
+          imgLength: 50,
+          internalSpacing: "0",
+          showTag: false,
+          tagColor: "rgba(0, 0, 0, 0)",
+          tagSize: "0",
+        }}
+        userInfo={activity.userInfo}
+      />
       <CellText>
-        <strong>{activity.username}</strong>
+        <strong>{activity.userInfo.userTag}</strong>
         <h2>{activity.description}</h2>
       </CellText>
     </Cell>
@@ -27,25 +39,16 @@ const Cell = styled.div`
   height: 70px;
 `;
 
-const CellImg = styled.img`
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  margin: 0;
-  border: 1px solid var(--light);
-`;
-
 const CellText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 0 0.5rem;
+  margin: 0 0.5rem 0 0.7rem;
 
   strong {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
-    text-transform: capitalize;
   }
 
   h2 {

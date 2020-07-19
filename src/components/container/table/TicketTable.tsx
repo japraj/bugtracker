@@ -16,12 +16,14 @@ enum Sort {
   NEW = "NEW",
   OLD = "OLD",
   SEVERITY = "SEVERITY",
+  STATUS = "STATUS",
 }
 
 const sortSelectOptions: SelectOption[] = [
   { value: Sort.NEW, label: "Sort by Newest" },
   { value: Sort.OLD, label: "Sort by Oldest" },
   { value: Sort.SEVERITY, label: "Sort by Severity" },
+  { value: Sort.STATUS, label: "Sort by Status" },
 ];
 
 export default (props: Props) => (
@@ -35,7 +37,7 @@ export default (props: Props) => (
         options={sortSelectOptions}
       />
       <Button className="hoverfx" onClick={props.buttonCallback}>
-        View More
+        Reload
       </Button>
     </TableHeader>
     {props.nodeSet.map((node) => (

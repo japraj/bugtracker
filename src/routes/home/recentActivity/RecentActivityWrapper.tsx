@@ -12,7 +12,7 @@ export default ({ activitySet }: { activitySet: Activity[] }) => {
     .map((activity) => {
       return (
         <WidgetSection>
-          <ActivityCell key={activity.username} {...{ activity }} />
+          <ActivityCell key={activity.userInfo.userTag} {...{ activity }} />
         </WidgetSection>
       );
     });

@@ -1,9 +1,16 @@
 import React from "react";
 import { WidgetSection } from "../../container/widget/Widget";
 import styled from "styled-components";
+import UserLink from "../userLink/UserLink";
+
+export interface UserInfo {
+  profileImg: string;
+  userTag: string;
+  userRank: number;
+}
 
 export interface CollapsedTicket {
-  author: string;
+  userInfo: UserInfo;
   creationDate: string;
   title: string;
   severity: number;
@@ -43,7 +50,18 @@ export default (props: { ticket: CollapsedTicket }) => {
             </span>
           </h3>
           <h3>{"Date: " + props.ticket.creationDate}</h3>
-          <h3 className="author">{props.ticket.author}</h3>
+          <UserLink
+            styleConfig={{
+              className: "author",
+              showImg: true,
+              imgLength: 30,
+              internalSpacing: "0.5rem",
+              showTag: true,
+              tagColor: "var(--text-color)",
+              tagSize: "1.25rem",
+            }}
+            userInfo={props.ticket.userInfo}
+          />
         </TicketSection>
       </TicketBody>
     </TicketWrapper>
@@ -103,7 +121,7 @@ const TicketSection = styled.div`
 `;
 
 const TicketTitle = styled(TicketSection)`
-  margin: 1rem auto 1.3rem;
+  margin: 1rem auto 0.8rem;
 
   h1 {
     text-transform: capitalize;
