@@ -24,8 +24,8 @@ export default class extends React.Component<{}, {}> {
           ticket={{
             author: Math.random().toString(36).substr(2, 22),
             creationDate: Math.random().toString(36).substr(2, 15),
-            id: Math.abs(Math.floor(Math.random() * 100)),
-            title: Math.random().toString(36).substr(2, 30),
+            title:
+              "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
             severity: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
             status: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
           }}
@@ -41,7 +41,7 @@ export default class extends React.Component<{}, {}> {
     return (
       <HomeWrapper>
         <Table
-          minWidth={"40vw"}
+          minWidth={"45vw"}
           iconClassName="fa fa-ticket-alt"
           tableTitle="New Tickets"
           buttonCallback={this.resolvedCallback}
@@ -49,7 +49,7 @@ export default class extends React.Component<{}, {}> {
         />
         <RecentActivity activitySet={activitySet} />
         <Table
-          minWidth={"40vw"}
+          minWidth={"45vw"}
           iconClassName="fas fa-tasks"
           tableTitle="Resolved Tickets"
           buttonCallback={() => {}}
@@ -62,7 +62,7 @@ export default class extends React.Component<{}, {}> {
 
 const HomeWrapper = styled.section`
   display: grid;
-  grid-template-columns: 8fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 5vh;
   justify-content: center;
   align-items: center;

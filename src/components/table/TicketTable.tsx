@@ -39,7 +39,7 @@ export default (props: Props) => (
       </Button>
     </TableHeader>
     {props.nodeSet.map((node) => (
-      <WidgetSection>{node}</WidgetSection>
+      <React.Fragment>{node}</React.Fragment>
     ))}
   </WidgetWrapper>
 );

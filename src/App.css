@@ -5,6 +5,7 @@
   --pink: rgb(255, 131, 152);
   --green: rgb(0, 255, 64);
   --red: #fb4f4f;
+  --darkred: #ff0000;
   --blue: #2f8fe2;
   --gblue: #2d88ff;
   --darkblue: #0f131a;
@@ -277,6 +278,37 @@ img {
   align-items: center;
 }
 
+/* Ticket Status/Severity Span Colors */
+
+.statusIndicator {
+  font-size: 2rem;
+  margin-right: 0.5rem;
+}
+
+.unresolved {
+  color: var(--theme-red);
+}
+
+.work-in-progress {
+  color: var(--theme-blue);
+}
+
+.resolved {
+  color: var(--theme-green);
+}
+
+.trivial {
+  color: var(--text-grey);
+}
+
+.minor {
+  color: var(--text-lightgrey);
+}
+
+.major {
+  color: var(--darkred);
+}
+
 /* Scrollbar */
 
 ::-webkit-scrollbar {
@@ -291,7 +323,7 @@ img {
   background-color: lightgray;
 }
 
-/* Loading Animation Wrapper */
+/* Loading Animation Wrapper (only used on main screen) */
 
 #loading {
   color: var(--text-color);

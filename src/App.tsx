@@ -79,8 +79,8 @@ const App = () => {
 
 const ContentWrapper = styled.main`
   padding: 2rem 40px 8px 40px;
-  margin: var(--nav-height) 0 0;
-  ${(props: { sideNavWidth: number }) => props.sideNavWidth}px;
+  margin: var(--nav-height) 0 0
+    ${(props: { sideNavWidth: number }) => props.sideNavWidth}px;
   height: 100%;
 
   @media (max-width: 1100px) {
