@@ -11,37 +11,37 @@ import {
 
 export type NavigationItem = {
   path: string;
-  iconClassNames: string;
+  iconName: string;
   text: string;
 };
 
 const HomeItem: NavigationItem = {
   path: "",
-  iconClassNames: "fas fa-home",
+  iconName: "home",
   text: "Home",
 };
 
 const LoginItem: NavigationItem = {
   path: "login",
-  iconClassNames: "fas fa-sign-in-alt",
+  iconName: "vpn_key",
   text: "Login",
 };
 
 const RegisterItem: NavigationItem = {
   path: "register",
-  iconClassNames: "fa fa-user-plus",
+  iconName: "person_add",
   text: "Register",
 };
 
 const DashboardItem: NavigationItem = {
   path: "dashboard",
-  iconClassNames: "fas fa-user",
+  iconName: "person",
   text: "Dashboard",
 };
 
 export const LogoutItem: NavigationItem = {
   path: "",
-  iconClassNames: "fas fa-sign-out-alt",
+  iconName: "exit_to_app_sharp",
   text: "Logout",
 };
 

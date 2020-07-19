@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { LogoutItem } from "../NavigationWrapper";
+import Icon from "@material-ui/core/Icon";
 
 export default ({
   collapsed,
@@ -40,7 +41,7 @@ export default ({
           }`}
           key={navItem.text}
         >
-          <i className={navItem.iconClassNames + " inline-icon"} />
+          <Icon className="inline-icon">{navItem.iconName}</Icon>
           {collapsed ? "" : navItem.text}
         </li>
       </ButtonBase>
@@ -78,7 +79,7 @@ const SideNav = styled.nav`
 
   .inline-icon {
     width: 25px;
-    margin-right: 1rem;
+    margin-right: 0.8rem;
   }
 
   ul li {
