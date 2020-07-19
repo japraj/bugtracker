@@ -8,7 +8,7 @@ import {
   loadUser,
 } from "./flux/auth/authSlice";
 import { hot } from "react-hot-loader/root";
-import LoadingRing from "../components/misc/loadingRing/LoadingRing";
+import FancyLoading from "../components/misc/loadingRing/FancyLoading";
 
 import Navigation from "../components/global/navigation/NavigationWrapper";
 import { selectSideNavWidth } from "../components/global/navigation/navigationSlice";
@@ -43,7 +43,7 @@ const App = () => {
     setTimeout(() => {
       dispatch(finishedLoading());
       dispatch(loadUser(user));
-    }, 1000);
+    }, 99000);
   }, [dispatch]);
 
   const authSlice = useSelector(selectAuthSlice);
@@ -74,7 +74,7 @@ const App = () => {
         </div>
       ) : (
         <div id="loading">
-          <LoadingRing />
+          <FancyLoading />
         </div>
       )}
     </Context.Provider>

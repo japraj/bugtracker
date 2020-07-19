@@ -10,15 +10,15 @@ export default class extends React.Component<Props, {}> {
 
   render = () => (
     <RingWrapper length={this.props.length}>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div />
+      <div />
+      <div />
+      <div />
     </RingWrapper>
   );
 }
 
-const loadingAnimation = keyframes`
+export const spin = keyframes`
     0% {
       transform: rotate(0deg);
     }
@@ -44,7 +44,7 @@ const RingWrapper = styled.div`
     margin: 8px;
     border: 8px solid #fff;
     border-radius: 50%;
-    animation: ${loadingAnimation} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    animation: ${spin} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #fff transparent transparent transparent;
   }
 
