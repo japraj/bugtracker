@@ -17,6 +17,7 @@ import GenericRoute from "./routes/GenericRoute";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
+import "./components/alert/Alert.css";
 
 const Context = React.createContext(initialState);
 const serverURL: string = "localhost:5000";
@@ -81,6 +82,7 @@ const ContentWrapper = styled.main`
   margin: var(--nav-height) 0 0;
   ${(props: { sideNavWidth: number }) => props.sideNavWidth}px;
   height: 100%;
+
   @media (max-width: 1100px) {
     margin-left: 0;
   }

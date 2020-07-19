@@ -24,10 +24,10 @@ export default class extends React.Component<{}, {}> {
           ticket={{
             author: Math.random().toString(36).substr(2, 22),
             creationDate: Math.random().toString(36).substr(2, 15),
-            id: Math.floor(Math.random() * 100),
+            id: Math.abs(Math.floor(Math.random() * 100)),
             title: Math.random().toString(36).substr(2, 30),
-            severity: Math.floor(Math.random() * 3 - 0.1),
-            status: Math.floor(Math.random() * 3 - 0.1),
+            severity: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
+            status: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
           }}
         />
       );
@@ -42,9 +42,8 @@ export default class extends React.Component<{}, {}> {
       <HomeWrapper>
         <Table
           minWidth={"40vw"}
-          iconClassName="fas fa-tasks"
+          iconClassName="fa fa-ticket-alt"
           tableTitle="New Tickets"
-          buttonText="View More"
           buttonCallback={this.resolvedCallback}
           nodeSet={this.fetchTickets()}
         />
@@ -53,8 +52,7 @@ export default class extends React.Component<{}, {}> {
           minWidth={"40vw"}
           iconClassName="fas fa-tasks"
           tableTitle="Resolved Tickets"
-          buttonText="View More"
-          buttonCallback={this.resolvedCallback}
+          buttonCallback={() => {}}
           nodeSet={this.fetchTickets()}
         />
       </HomeWrapper>

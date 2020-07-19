@@ -49,7 +49,7 @@ const CellText = styled.div`
   }
 
   h2 {
-    max-width: 400px;
+    max-width: 300px;
     font-size: 1rem;
     overflow: hidden;
     color: var(--text-lightgrey);

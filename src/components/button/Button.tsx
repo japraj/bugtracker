@@ -33,7 +33,7 @@ export default (props: {
   children: React.ReactNode;
 }) => {
   return (
-    // ButtonBase from MaterialUI gives the ripple effect!
+    // ButtonBase from MaterialUI gives the ripple effect
     <ButtonBase>
       <Button className={props.className} onClick={props.onClick}>
         {props.children}

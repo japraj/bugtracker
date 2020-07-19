@@ -1,0 +1,20 @@
+.MuiList-root,
+.MuiPaper-root {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+  backdrop-filter: blur(3px) !important;
+}
+
+.MuiMenuItem-root {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.MuiListItem-root.Mui-selected:hover,
+.MuiMenuItem-root:hover {
+  color: var(--text-color) !important;
+  background-color: var(--highlight) !important;
+}
+
+.MuiListItem-root.Mui-selected {
+  color: var(--highlight) !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}

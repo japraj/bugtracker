@@ -9,6 +9,14 @@
   --gblue: #2d88ff;
   --darkblue: #0f131a;
 
+  --theme-navy: #005562;
+  --theme-aqua: #0e8174;
+  --theme-lightgreen: #b9f2a1;
+  --theme-green: rgba(144, 185, 0, 0.85);
+  --theme-red: rgba(232, 86, 86, 0.85);
+  --theme-yellow: rgba(223, 184, 28, 0.85);
+  --theme-blue: rgba(45, 172, 209, 0.85);
+
   --shadow-1: rgba(0, 0, 0, 0.1);
   --shadow-2: rgba(0, 0, 0, 0.2);
   --shadow-5: rgba(0, 0, 0, 0.5);
