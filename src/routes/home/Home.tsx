@@ -41,7 +41,7 @@ export default class extends React.Component<{}, {}> {
     return (
       <HomeWrapper>
         <Table
-          minWidth={"45vw"}
+          className="tableContainer"
           iconClassName="fa fa-ticket-alt"
           tableTitle="New Tickets"
           buttonCallback={this.resolvedCallback}
@@ -49,7 +49,7 @@ export default class extends React.Component<{}, {}> {
         />
         <RecentActivity activitySet={activitySet} />
         <Table
-          minWidth={"45vw"}
+          className="tableContainer"
           iconClassName="fas fa-tasks"
           tableTitle="Resolved Tickets"
           buttonCallback={() => {}}
@@ -70,4 +70,8 @@ const HomeWrapper = styled.section`
   padding: 0 20vw;
   width: 100%;
   height: auto;
+
+  .tableContainer {
+    width: 45vw;
+  }
 `;

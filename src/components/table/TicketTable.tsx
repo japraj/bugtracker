@@ -5,7 +5,7 @@ import Select, { SelectOption } from "../select/Select";
 import styled from "styled-components";
 
 type Props = {
-  minWidth: string;
+  className: string;
   iconClassName: string;
   tableTitle: string;
   buttonCallback: () => void;
@@ -25,7 +25,7 @@ const sortSelectOptions: SelectOption[] = [
 ];
 
 export default (props: Props) => (
-  <WidgetWrapper style={{ minWidth: `${props.minWidth}` }}>
+  <WidgetWrapper className={props.className}>
     <TableHeader>
       <i className={props.iconClassName} aria-hidden="true" />
       <h1>{props.tableTitle}</h1>
