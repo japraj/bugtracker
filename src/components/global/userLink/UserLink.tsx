@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Popover from "@material-ui/core/Popover";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+import { Link } from "react-router-dom";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // Notes:
@@ -70,8 +71,7 @@ export default (props: Props) => {
   return (
     <ProfileWrapper
       className={props.styleConfig.className}
-      target="_self"
-      href={`/user/${props.userInfo.userTag}`}
+      to={`/user/${props.userInfo.userTag}`}
       aria-owns={open ? "mouse-over-popover" : undefined}
       aria-haspopup="true"
       onMouseEnter={handlePopoverOpen}
@@ -130,7 +130,7 @@ export default (props: Props) => {
   );
 };
 
-const ProfileWrapper = styled.a`
+const ProfileWrapper = styled(Link)`
   display: flex;
   flex-direction: row;
   align-items: center;
