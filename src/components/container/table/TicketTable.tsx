@@ -79,13 +79,11 @@ export default (props: Props) => (
         Reload
       </Button>
     </TableControls>
-    {props.nodeSet.map((node, index) =>
-      index < props.nodesPerPage ? (
+    {props.nodeSet
+      .filter((node, index) => index < props.nodesPerPage)
+      .map((node) => (
         <React.Fragment>{node}</React.Fragment>
-      ) : (
-        <React.Fragment />
-      )
-    )}
+      ))}
   </WidgetWrapper>
 );
 
