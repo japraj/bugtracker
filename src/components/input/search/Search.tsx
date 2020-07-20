@@ -26,11 +26,7 @@ export default (props: Props) => {
           }}
           placeholder={props.label}
         />
-        <Button
-          baseClassName="searchButtonBase"
-          buttonClassName="searchButton hoverfx"
-          onClick={props.onSubmit}
-        >
+        <Button className="searchButton hoverfx" onClick={props.onSubmit}>
           <SearchIcon>search</SearchIcon>
         </Button>
       </SearchWrapper>
@@ -57,8 +53,7 @@ const SearchWrapper = styled.div`
     padding: 0.2rem 0.5rem 0.2rem 0.2rem;
   }
 
-  .searchButton,
-  .searchButtonBase {
+  .searchButton {
     border-radius: 0;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;

@@ -78,11 +78,7 @@ export default (props: Props) => {
           onChange={(newValue: string) => console.log(newValue)}
           options={sortSelectOptions}
         />
-        <Button
-          baseClassName=""
-          buttonClassName="hoverfx"
-          onClick={props.buttonCallback}
-        >
+        <Button className="hoverfx" onClick={props.buttonCallback}>
           Reload
         </Button>
       </TableControls>
