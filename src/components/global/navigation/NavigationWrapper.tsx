@@ -1,6 +1,6 @@
 import React from "react";
-import TopNavigation from "./subcomponents/TopNavigation";
-import SideNavigation from "./subcomponents/SideNavigation";
+import TopNavigation from "./TopNavigation";
+import SideNavigation from "./SideNavigation";
 import { useSelector, useDispatch } from "react-redux";
 import {
   toggleCollapse,

@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { NavigationItem } from "../NavigationWrapper";
+import { NavigationItem } from "./NavigationWrapper";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import { LogoutItem } from "../NavigationWrapper";
+import { LogoutItem } from "./NavigationWrapper";
 import Icon from "@material-ui/core/Icon";
 
 export default ({
