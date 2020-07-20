@@ -54,10 +54,6 @@ export default () => {
         </LinkWrapper>
       }
       onSubmit={verifyValues}
-      bottomLink={{
-        text: "Don't have an account yet? Go to the Register Page!",
-        to: "/register",
-      }}
     />
   );
 };

@@ -51,10 +51,6 @@ interface Props {
   displayButtonSibling: boolean;
   buttonSibling: React.ReactNode;
   onSubmit: (fields: string[]) => () => void;
-  bottomLink: {
-    text: string;
-    to: string;
-  };
 }
 
 interface State {
