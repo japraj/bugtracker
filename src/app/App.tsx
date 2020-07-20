@@ -13,7 +13,7 @@ import FancyLoading from "../components/misc/loadingRing/FancyLoading";
 import Navigation from "../components/global/navigation/NavigationWrapper";
 import { selectSideNavWidth } from "../components/global/navigation/navigationSlice";
 
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import GenericRoute from "../routes/GenericRoute";
 import Home from "../routes/home/Home";
 
@@ -56,31 +56,32 @@ const App = () => {
           <BrowserRouter>
             <Navigation authenticated={authSlice.user.authenticated} />
             <ContentWrapper {...{ sideNavWidth }}>
-              <Route path="/" exact={true} render={() => <Home />} />
-              <Route
-                path="/login"
-                render={() => <GenericRoute name="Login" />}
-              />
-              <Route
-                path="/register"
-                render={() => <GenericRoute name="Register" />}
-              />
-              <Route
-                path="/loginRequired"
-                render={() => <GenericRoute name="Login to view this page" />}
-              />
-              <Route path="/404" render={() => <GenericRoute name="404" />} />
-              <ProtectedRoute
-                authenticated={authenticated}
-                path="/dashboard"
-                component={<GenericRoute name="Dashboard" />}
-              />
-              <ProtectedRoute
-                authenticated={authenticated}
-                path="/create"
-                component={<GenericRoute name="Create" />}
-              />
-              <Redirect to="/404" />
+              <Switch>
+                <Route path="/" exact={true} render={() => <Home />} />
+                <Route
+                  path="/login"
+                  render={() => <GenericRoute name="Login" />}
+                />
+                <Route
+                  path="/register"
+                  render={() => <GenericRoute name="Register" />}
+                />
+                <Route
+                  path="/loginRequired"
+                  render={() => <GenericRoute name="Login to view this page" />}
+                />
+                <ProtectedRoute
+                  authenticated={authenticated}
+                  path="/dashboard"
+                  component={<GenericRoute name="Dashboard" />}
+                />
+                <ProtectedRoute
+                  authenticated={authenticated}
+                  path="/create"
+                  component={<GenericRoute name="Create" />}
+                />
+                <Route render={() => <GenericRoute name="404" />} />
+              </Switch>
             </ContentWrapper>
           </BrowserRouter>
         </div>
