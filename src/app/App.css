@@ -327,6 +327,12 @@ img {
   background-color: lightgray;
 }
 
+/* Text Highlighting */
+
+::selection {
+  background: var(--highlight);
+}
+
 /* Loading Animation Wrapper (only used on main screen) */
 
 #loading {
@@ -337,6 +343,8 @@ img {
   justify-content: center;
   align-items: center;
 }
+
+/* Alert Dynamic Offset! */
 
 @media only screen and (max-width: 1100px) {
   :root {
