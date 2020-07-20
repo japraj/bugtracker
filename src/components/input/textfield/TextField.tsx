@@ -33,7 +33,6 @@ export default (props: Props) => {
           <React.Fragment />
         )}
         <Input
-          defaultValue={props.setDefaultValue ? props.defaultValue : ""}
           style={{ width: "inputWidth" }}
           type={props.type}
           placeholder={props.placeholder}
