@@ -1,15 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { initialState } from "../tableSlice";
+import { initialState } from "./tableSlice";
 import {
   setPageIndex,
   setNodesPerPage,
   selectPageIndex,
   selectTotalPages,
-} from "../tableSlice";
-import { WidgetSection } from "../../widget/Widget";
-import theme from "../../../input/InputTheme";
-import TextField from "../../../input/textfield/TextField";
+} from "./tableSlice";
+import { WidgetSection } from "../../../components/container/widget/Widget";
+import theme from "../../../components/input/InputTheme";
+import TextField from "../../../components/input/textfield/TextField";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import styled from "styled-components";

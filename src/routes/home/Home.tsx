@@ -3,7 +3,7 @@ import styled from "styled-components";
 import RecentActivity from "./recentActivity/RecentActivityWrapper";
 import { Activity } from "./recentActivity/Activity";
 import TableTicket from "../../components/global/collapsedTicket/CollapsedTicket";
-import Table from "../../components/container/table/TicketTable";
+import Table from "./table/TicketTable";
 
 const generateImage = () => {
   const gen = Math.random();

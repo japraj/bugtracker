@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectNodesPerPage } from "./tableSlice";
-import { WidgetWrapper, WidgetHeader } from "../widget/Widget";
-import TablePagination from "./subcomponents/TablePagination";
-import TableTabs, { Tab } from "./subcomponents/TableTabs";
-import Search from "../../input/search/Search";
-import Select, { SelectOption } from "../../input/select/Select";
-import Button from "../../input/button/Button";
+import {
+  WidgetWrapper,
+  WidgetHeader,
+} from "../../../components/container/widget/Widget";
+import TablePagination from "./TablePagination";
+import TableTabs, { Tab } from "./TableTabs";
+import Search from "../../../components/input/search/Search";
+import Select, { SelectOption } from "../../../components/input/select/Select";
+import Button from "../../../components/input/button/Button";
 import styled from "styled-components";
 
 type Props = {

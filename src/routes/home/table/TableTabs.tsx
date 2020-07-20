@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setTabIndex, selectTabIndex } from "../tableSlice";
-import { WidgetHeader } from "../../widget/Widget";
+import { setTabIndex, selectTabIndex } from "./tableSlice";
+import { WidgetHeader } from "../../../components/container/widget/Widget";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
 
