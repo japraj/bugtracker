@@ -64,7 +64,6 @@ export default class extends React.Component<{}, {}> {
           className="tableContainer"
           buttonCallback={this.resolvedCallback}
           nodeSet={this.fetchTickets()}
-          nodesPerPage={5}
         />
         <RecentActivity activitySet={activitySet} />
       </HomeWrapper>

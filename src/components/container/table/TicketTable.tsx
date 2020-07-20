@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectNodesPerPage } from "./tableSlice";
 import { WidgetWrapper, WidgetHeader } from "../widget/Widget";
-import TableTabs, { Tab } from "./TableTabs";
+import TablePagination from "./subcomponents/TablePagination";
+import TableTabs, { Tab } from "./subcomponents/TableTabs";
 import Search from "../../input/search/Search";
 import Select, { SelectOption } from "../../input/select/Select";
 import Button from "../../input/button/Button";
@@ -10,7 +13,6 @@ type Props = {
   className: string;
   buttonCallback: () => void;
   nodeSet: React.ReactNode[];
-  nodesPerPage: number;
 };
 
 enum Sort {
@@ -55,37 +57,41 @@ const tabSet: Tab[] = [
   },
 ];
 
-export default (props: Props) => (
-  <WidgetWrapper className={props.className}>
-    <TableTabs tabSet={tabSet} />
-    <TableControls>
-      <Search
-        label="Search"
-        onChange={() => {}}
-        onSubmit={() => {
-          console.log("submitted");
-        }}
-      />
-      <Select
-        width={150}
-        onChange={(newValue: string) => console.log(newValue)}
-        options={sortSelectOptions}
-      />
-      <Button
-        baseClassName=""
-        buttonClassName="hoverfx"
-        onClick={props.buttonCallback}
-      >
-        Reload
-      </Button>
-    </TableControls>
-    {props.nodeSet
-      .filter((node, index) => index < props.nodesPerPage)
-      .map((node) => (
-        <React.Fragment>{node}</React.Fragment>
-      ))}
-  </WidgetWrapper>
-);
+export default (props: Props) => {
+  const nodesPerPage = useSelector(selectNodesPerPage);
+  return (
+    <WidgetWrapper className={props.className}>
+      <TableTabs tabSet={tabSet} />
+      <TableControls>
+        <Search
+          label="Search"
+          onChange={() => {}}
+          onSubmit={() => {
+            console.log("submitted");
+          }}
+        />
+        <Select
+          width={150}
+          onChange={(newValue: string) => console.log(newValue)}
+          options={sortSelectOptions}
+        />
+        <Button
+          baseClassName=""
+          buttonClassName="hoverfx"
+          onClick={props.buttonCallback}
+        >
+          Reload
+        </Button>
+      </TableControls>
+      {props.nodeSet
+        .filter((node, index) => index < nodesPerPage)
+        .map((node) => (
+          <React.Fragment>{node}</React.Fragment>
+        ))}
+      <TablePagination nodesPerPage={nodesPerPage} />
+    </WidgetWrapper>
+  );
+};
 
 const TableControls = styled(WidgetHeader)`
   padding-top: 8px;

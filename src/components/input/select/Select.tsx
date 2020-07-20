@@ -1,5 +1,6 @@
 import React from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../InputTheme";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -45,18 +46,6 @@ export default (props: Props) => {
     </FormWrapper>
   );
 };
-
-export const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#209e91",
-    },
-    secondary: {
-      main: "#209e91",
-    },
-  },
-});
 
 const FormWrapper = styled.div`
   display: flex;

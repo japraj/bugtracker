@@ -43,7 +43,7 @@ export const WidgetHeader = styled.div`
 export const WidgetSection = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.12);
-  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  padding: 0.25rem 1rem;
   margin: 0.1rem 0;
   width: 100%;
 `;

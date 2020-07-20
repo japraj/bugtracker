@@ -2,20 +2,55 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../app/store";
 
 interface TableState {
-  selectedIndex: number;
+  tabIndex: number;
+  pageIndex: number;
+  nodesPerPage: number;
+  totalPages: number;
 }
 
-const initialState: TableState = {
-  selectedIndex: 0,
+export const initialState: TableState = {
+  tabIndex: 0,
+  pageIndex: 1,
+  nodesPerPage: 5,
+  totalPages: 10,
 };
 
 export const tableSlice = createSlice({
   name: "table",
   initialState,
   reducers: {
-    setSelected: {
+    setTabIndex: {
       reducer(state, action: PayloadAction<number>) {
-        state.selectedIndex = action.payload;
+        state.tabIndex = action.payload;
+      },
+      prepare(payload: number) {
+        return { payload };
+      },
+    },
+    setPageIndex: {
+      reducer(state, action: PayloadAction<number>) {
+        if (action.payload < 1) action.payload = 1;
+        else if (action.payload > state.totalPages)
+          action.payload = state.totalPages;
+        state.pageIndex = action.payload;
+      },
+      prepare(payload: number) {
+        return { payload };
+      },
+    },
+    setNodesPerPage: {
+      reducer(state, action: PayloadAction<number>) {
+        if (action.payload < 1) action.payload = 1;
+        else if (action.payload > state.totalPages) action.payload = 50;
+        state.nodesPerPage = action.payload;
+      },
+      prepare(payload: number) {
+        return { payload };
+      },
+    },
+    setTotalPages: {
+      reducer(state, action: PayloadAction<number>) {
+        state.totalPages = action.payload;
       },
       prepare(payload: number) {
         return { payload };
@@ -24,9 +59,20 @@ export const tableSlice = createSlice({
   },
 });
 
-export const { setSelected } = tableSlice.actions;
+export const {
+  setTabIndex,
+  setPageIndex,
+  setNodesPerPage,
+  setTotalPages,
+} = tableSlice.actions;
 
-export const selectCurrentIndex = (state: RootState) =>
-  state.table.selectedIndex;
+export const selectTabIndex = (state: RootState) => state.table.tabIndex;
+
+export const selectPageIndex = (state: RootState) => state.table.pageIndex;
+
+export const selectNodesPerPage = (state: RootState) =>
+  state.table.nodesPerPage;
+
+export const selectTotalPages = (state: RootState) => state.table.totalPages;
 
 export default tableSlice.reducer;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelected, selectCurrentIndex } from "./tableSlice";
-import { WidgetHeader } from "../widget/Widget";
+import { setTabIndex, selectTabIndex } from "../tableSlice";
+import { WidgetHeader } from "../../widget/Widget";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
 
@@ -12,15 +12,15 @@ export interface Tab {
 }
 
 export default ({ tabSet }: { tabSet: Tab[] }) => {
-  const selectedIndex = useSelector(selectCurrentIndex);
+  const selectedIndex = useSelector(selectTabIndex);
   const dispatch = useDispatch();
   const tabs = tabSet.map((tab, index) => (
     <TableTab
       className={index === selectedIndex ? "selected" : ""}
       key={tab.title}
-      onClick={() => dispatch(setSelected(index))}
+      onClick={() => dispatch(setTabIndex(index))}
     >
-      <Icon className="inline-icon">{tab.iconName + "_outlined"}</Icon>
+      <Icon className="inline-icon">{tab.iconName}</Icon>
       <h1>{tab.title}</h1>
     </TableTab>
   ));
