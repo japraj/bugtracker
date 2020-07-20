@@ -51,7 +51,13 @@ const authNavSet: NavigationItem[] = [HomeItem, DashboardItem, LogoutItem];
 export default ({ authenticated }: { authenticated: boolean }) => {
   const dispatch = useDispatch();
   const collapsed: boolean = useSelector(selectCollapsed);
-  const toggle = () => dispatch(toggleCollapse());
+  const toggle = () => {
+    document.documentElement.style.setProperty(
+      "--rs-alert-offset",
+      !collapsed ? "26.5px" : "87.5px"
+    );
+    dispatch(toggleCollapse());
+  };
   return (
     <React.Fragment>
       <TopNavigation expandSideNav={toggle} />

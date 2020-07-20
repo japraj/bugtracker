@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type FormField = {
   label: string;
+  labelWidth: number;
   type: string;
   required: boolean;
 };
@@ -93,20 +94,19 @@ export default (props: Props) => {
       <InputLabel className={props.fieldErrors[index] ? "error" : ""}>
         {formField.label}
       </InputLabel>
-      {formField.type === "text" ? (
+      {formField.type !== "password" ? (
         <OutlinedInput
           required={formField.required}
           error={props.fieldErrors[index]}
-          type={"text"}
+          type={formField.type}
           value={values.fields[index]}
-          labelWidth={70}
+          labelWidth={formField.labelWidth}
           onChange={handleFieldChange(index)}
         />
       ) : (
         <OutlinedInput
           required={formField.required}
           type={values.showPassword ? "text" : "password"}
-          //   value={values.fields[index]}
           error={props.fieldErrors[index]}
           onChange={handleFieldChange(index)}
           endAdornment={
@@ -133,7 +133,7 @@ export default (props: Props) => {
           <FormHeader>{props.formHeader}</FormHeader>
           <FormWrapper>
             {fieldNodes}
-            <FormSection>
+            <FormSection setMargin={props.displayButtonSibling}>
               <Button
                 className="formButton hoverfx"
                 onClick={props.onSubmit(values.fields)}
@@ -182,7 +182,8 @@ const FormSection = styled(DarkWidgetSection)`
 
   .formButton {
     background-color: var(--highlight);
-    margin-right: auto;
+    margin-right: ${(props: { setMargin: boolean }) =>
+      props.setMargin ? "auto" : "0"};
     font-size: 1.15rem !important;
   }
 `;

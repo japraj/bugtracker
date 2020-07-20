@@ -1,16 +1,17 @@
 import React from "react";
 import FormPage from "../formPage/FormPage";
-import HyperLink from "../../components/global/hyperLink/HyperLink";
 import history from "../../app/history";
-import styled from "styled-components";
+import { Alert } from "rsuite";
 
 interface State {
+  emailError: boolean;
   usernameError: boolean;
   passwordError: boolean;
 }
 
 export default () => {
   const [values, setValues] = React.useState<State>({
+    emailError: false,
     usernameError: false,
     passwordError: false,
   });
@@ -18,21 +19,34 @@ export default () => {
   const verifyValues = (fields: string[]) => () => {
     // verify inputs
 
+    const duplicateEmail: boolean = true;
+
+    if (duplicateEmail)
+      Alert.error("An account with this e-mail already exists.", 3000);
+
+    const emailError: boolean = true;
     const usernameError: boolean = true;
     const passwordError: boolean = true;
 
     setValues({
+      emailError: emailError,
       usernameError: usernameError,
       passwordError: passwordError,
     });
 
-    if (!usernameError && !passwordError) history.push("/");
+    if (!emailError && !usernameError && !passwordError) history.push("/");
   };
 
   return (
     <FormPage
-      formHeader="Login"
+      formHeader="Register"
       formFields={[
+        {
+          label: "Email",
+          labelWidth: 40,
+          type: "email",
+          required: true,
+        },
         {
           label: "Username",
           labelWidth: 75,
@@ -47,21 +61,10 @@ export default () => {
         },
       ]}
       fieldErrors={[values.usernameError, values.passwordError]}
-      buttonText="Login"
-      displayButtonSibling={true}
-      buttonSibling={
-        <LinkWrapper>
-          <HyperLink to="/resetPassword">Forgot Password?</HyperLink>
-        </LinkWrapper>
-      }
+      buttonText="Register"
+      displayButtonSibling={false}
+      buttonSibling={<React.Fragment />}
       onSubmit={verifyValues}
     />
   );
 };
-
-const LinkWrapper = styled.div`
-  width: 40%;
-  font-size: 1rem;
-  display: flex;
-  justify-content: flex-end;
-`;

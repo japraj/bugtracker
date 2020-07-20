@@ -39,6 +39,8 @@
   --vert-nav-bg: rgba(0, 0, 0, 0.5);
   --nav-height: 6vh;
   --scrollwidth: 8px;
+
+  --rs-alert-offset: 87.5px;
 }
 
 /* Reset, from https://cssreset.com/scripts/eric-meyer-reset-css/ */
@@ -334,4 +336,10 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 1100px) {
+  :root {
+    --rs-alert-offset: 0px;
+  }
 }

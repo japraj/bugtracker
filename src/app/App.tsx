@@ -19,6 +19,7 @@ import GenericRoute from "../routes/GenericRoute";
 import Home from "../routes/home/Home";
 import ErrorPage from "../routes/errorPage/ErrorPage";
 import Login from "../routes/login/Login";
+import Register from "../routes/register/Register";
 
 import styled from "styled-components";
 
@@ -62,10 +63,7 @@ const App = () => {
               <Switch>
                 <Route path="/" exact={true} render={() => <Home />} />
                 <Route path="/login" render={() => <Login />} />
-                <Route
-                  path="/register"
-                  render={() => <GenericRoute name="Register" />}
-                />
+                <Route path="/register" render={() => <Register />} />
                 <ProtectedRoute
                   authenticated={authenticated}
                   path="/dashboard"

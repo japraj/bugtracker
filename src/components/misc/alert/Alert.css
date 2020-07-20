@@ -15,6 +15,7 @@
     transform: scaleY(1);
   }
 }
+
 @keyframes alertMoverIn {
   0% {
     opacity: 0;
@@ -31,6 +32,7 @@
     transform: scaleY(1);
   }
 }
+
 @-webkit-keyframes alertMoveOut {
   0% {
     opacity: 1;
@@ -69,31 +71,38 @@
     overflow: hidden;
   }
 }
+
 .rs-alert {
   position: fixed;
-  z-index: 1080;
+  z-index: 1;
   pointer-events: none;
 }
+
 .rs-alert-item {
   pointer-events: auto;
 }
+
 .rs-alert-item-wrapper:not(.rs-alert-fade-exited) + .rs-alert-item-wrapper {
   margin-top: 10px;
 }
+
 .rs-alert-container {
-  margin-top: var(--nav-height);
+  margin-top: calc(var(--nav-height) + 8vh);
   left: 50%;
 }
+
 .rs-alert-item-wrapper {
   display: block;
   text-align: center;
   width: 100%;
   margin-left: -50%;
 }
+
 .rs-alert-item-wrapper .rs-alert-item {
   display: inline-block;
   position: relative;
 }
+
 .rs-alert-item-content {
   text-align: left;
   padding: 20px;
@@ -106,9 +115,11 @@
   padding-right: 46px;
   position: relative;
 }
+
 .rs-alert-item-content p {
   margin-bottom: 0;
 }
+
 .rs-alert-item-content .rs-icon {
   position: absolute;
   top: 23px;
@@ -117,26 +128,12 @@
   font-size: 12px;
   line-height: 12px;
 }
-.rs-alert-item-close {
-  position: absolute;
-  top: 20px;
-  right: 16px;
-  padding: 4px;
-  font-size: 12px;
-  line-height: 1;
-  outline: none !important;
-  cursor: pointer;
-}
-.rs-alert-item-close-x::before {
-  font-family: "rsuite-icon-font";
-  font-style: normal;
-  line-height: 1;
-  content: "\f00d";
-}
+
 .rs-alert-fade-exited,
 .rs-alert-fade-entering {
   opacity: 0;
 }
+
 .rs-alert-fade-exited {
   -webkit-transform-origin: 0% 0%;
   transform-origin: 0% 0%;
@@ -145,57 +142,65 @@
   max-height: 0;
   overflow: hidden;
 }
+
 .rs-alert-fade-entered {
   -webkit-animation: alertMoverIn 0.3s ease-in forwards;
   animation: alertMoverIn 0.3s ease-in forwards;
 }
+
 .rs-alert-fade-leave-active {
   -webkit-animation: alertMoveOut 0.3s ease-out forwards;
   animation: alertMoveOut 0.3s ease-out forwards;
 }
+
 .rs-alert-container .rs-alert-success .rs-alert-item-content {
   background-color: #58b15b;
   color: #e9ebf0;
 }
+
 .rs-alert-container .rs-alert-success .rs-alert-item-content .rs-icon {
   color: #fff;
 }
+
 .rs-alert-container .rs-alert-success .rs-alert-item-close {
   color: #fff;
 }
+
 .rs-alert-container .rs-alert-info .rs-alert-item-content {
   background-color: #1499ef;
   color: #e9ebf0;
 }
+
 .rs-alert-container .rs-alert-info .rs-alert-item-content .rs-icon {
   color: #fff;
 }
+
 .rs-alert-container .rs-alert-info .rs-alert-item-close {
   color: #fff;
 }
+
 .rs-alert-container .rs-alert-warning .rs-alert-item-content {
   background-color: #ffc757;
   color: #e9ebf0;
 }
+
 .rs-alert-container .rs-alert-warning .rs-alert-item-content .rs-icon {
   color: #0f131a;
 }
+
 .rs-alert-container .rs-alert-warning .rs-alert-item-close {
   color: #0f131a;
 }
+
 .rs-alert-container .rs-alert-error .rs-alert-item-content {
   background-color: #f04f43;
   color: #e9ebf0;
 }
-.rs-alert-container .rs-alert-error .rs-alert-item-content .rs-icon {
-  color: #fff;
-}
-.rs-alert-container .rs-alert-error .rs-alert-item-close {
-  color: #fff;
-}
+
 .rs-alert .rs-alert-warning .rs-alert-item-content {
   color: #0f131a;
 }
+
 @font-face {
   font-family: "rsuite-icon-font";
   src: url("https://cdn.jsdelivr.net/npm/rsuite/dist/styles/fonts/rsuite-icon-font.ttf")
@@ -205,23 +210,11 @@
   font-weight: normal;
   font-style: normal;
 }
+
 .rs-icon {
-  position: absolute;
-  top: 23px;
-  left: 20px;
-  margin-right: 10px;
-  font-size: 12px;
-  line-height: 12px;
+  display: none;
 }
 
-.rs-icon-check-circle::before {
-  font-family: "rsuite-icon-font";
-  font-style: normal;
-  content: "\ea11";
-}
-
-.rs-icon-close-circle::before {
-  font-family: "rsuite-icon-font";
-  font-style: normal;
-  content: "\e90c";
+body .rs-alert-container {
+  margin-left: var(--rs-alert-offset);
 }
