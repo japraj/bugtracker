@@ -45,7 +45,8 @@ export default (props: Props) => {
     </FormWrapper>
   );
 };
-const theme = createMuiTheme({
+
+export const theme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {

@@ -1,7 +1,8 @@
 import React from "react";
 import { WidgetWrapper, WidgetHeader } from "../widget/Widget";
-import Button from "../../input/button/Button";
+import Search from "../../input/search/Search";
 import Select, { SelectOption } from "../../input/select/Select";
+import Button from "../../input/button/Button";
 import styled from "styled-components";
 
 type Props = {
@@ -31,12 +32,23 @@ export default (props: Props) => (
     <TableHeader>
       <i className={props.iconClassName} aria-hidden="true" />
       <h1>{props.tableTitle}</h1>
+      <Search
+        label="Search"
+        onChange={() => {}}
+        onSubmit={() => {
+          console.log("submitted");
+        }}
+      />
       <Select
         width={150}
         onChange={(newValue: string) => console.log(newValue)}
         options={sortSelectOptions}
       />
-      <Button className="hoverfx" onClick={props.buttonCallback}>
+      <Button
+        baseClassName=""
+        buttonClassName="hoverfx"
+        onClick={props.buttonCallback}
+      >
         Reload
       </Button>
     </TableHeader>

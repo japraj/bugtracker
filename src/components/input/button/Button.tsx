@@ -28,14 +28,15 @@ const Button = styled.button`
 `;
 
 export default (props: {
-  className: string;
+  baseClassName: string;
+  buttonClassName: string;
   onClick: () => void;
   children: React.ReactNode;
 }) => {
   return (
     // ButtonBase from MaterialUI gives the ripple effect
-    <ButtonBase>
-      <Button className={props.className} onClick={props.onClick}>
+    <ButtonBase className={props.baseClassName}>
+      <Button className={props.buttonClassName} onClick={props.onClick}>
         {props.children}
       </Button>
     </ButtonBase>
