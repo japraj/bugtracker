@@ -47,6 +47,7 @@ const App = () => {
   }, [dispatch]);
 
   const authSlice = useSelector(selectAuthSlice);
+  const authenticated = authSlice.user.authenticated;
   const sideNavWidth = useSelector(selectSideNavWidth);
   return (
     <Context.Provider value={authSlice}>
@@ -64,11 +65,22 @@ const App = () => {
                 path="/register"
                 render={() => <GenericRoute name="Register" />}
               />
+              <Route
+                path="/loginRequired"
+                render={() => <GenericRoute name="Login to view this page" />}
+              />
+              <Route path="/404" render={() => <GenericRoute name="404" />} />
               <ProtectedRoute
-                authenticated={authSlice.user.authenticated}
+                authenticated={authenticated}
                 path="/dashboard"
                 component={<GenericRoute name="Dashboard" />}
               />
+              <ProtectedRoute
+                authenticated={authenticated}
+                path="/create"
+                component={<GenericRoute name="Create" />}
+              />
+              <Redirect to="/404" />
             </ContentWrapper>
           </BrowserRouter>
         </div>
@@ -109,7 +121,7 @@ const ProtectedRoute = ({
         return authenticated ? (
           component
         ) : (
-          <Redirect to={{ pathname: "/login" }} />
+          <Redirect to={{ pathname: "/loginRequired" }} />
         );
       }}
     />

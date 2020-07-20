@@ -4,6 +4,7 @@ import RecentActivity from "./recentActivity/RecentActivityWrapper";
 import { Activity } from "./recentActivity/Activity";
 import TableTicket from "../../components/global/collapsedTicket/CollapsedTicket";
 import Table from "./table/TicketTable";
+import CreateLink from "./createLink/CreateLink";
 
 const generateImage = () => {
   const gen = Math.random();
@@ -65,7 +66,10 @@ export default class extends React.Component<{}, {}> {
           buttonCallback={this.resolvedCallback}
           nodeSet={this.fetchTickets()}
         />
-        <RecentActivity activitySet={activitySet} />
+        <div className="asideContainer">
+          <RecentActivity activitySet={activitySet} />
+          <CreateLink />
+        </div>
       </HomeWrapper>
     );
   }
@@ -84,5 +88,9 @@ const HomeWrapper = styled.section`
 
   .tableContainer {
     width: 45vw;
+  }
+
+  .asideContainer {
+    margin-bottom: auto;
   }
 `;
