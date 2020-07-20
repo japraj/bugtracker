@@ -8,14 +8,22 @@ import {
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default () => {
+interface Props {
+  width: string;
+  header: string;
+  bodyText: string;
+  linkText: string;
+  linkHref: string;
+}
+
+export default (props: Props) => {
   return (
     <DarkWidgetWrapper>
-      <DarkWidget style={{ width: "660px" }}>
-        <DarkWidgetHeader>404 Error</DarkWidgetHeader>
+      <DarkWidget style={{ width: props.width }}>
+        <DarkWidgetHeader>{props.header}</DarkWidgetHeader>
         <DarkWidgetSection>
-          Sorry, that page doesn't exist.{" "}
-          <HyperLink to="/">Go to Home Page.</HyperLink>
+          {props.bodyText}
+          <HyperLink to={props.linkHref}>{props.linkText}</HyperLink>
         </DarkWidgetSection>
       </DarkWidget>
     </DarkWidgetWrapper>

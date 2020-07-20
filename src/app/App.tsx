@@ -16,7 +16,7 @@ import { selectSideNavWidth } from "../components/global/navigation/navigationSl
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import GenericRoute from "../routes/GenericRoute";
 import Home from "../routes/home/Home";
-import FourZeroFour from "../routes/404/404";
+import ErrorPage from "../routes/errorPage/ErrorPage";
 
 import styled from "styled-components";
 
@@ -81,7 +81,17 @@ const App = () => {
                   path="/create"
                   component={<GenericRoute name="Create" />}
                 />
-                <Route render={() => <FourZeroFour />} />
+                <Route
+                  render={() => (
+                    <ErrorPage
+                      width="660px"
+                      header="404 Error"
+                      bodyText="Sorry, that page doesn't exist. "
+                      linkText="Go to Home Page."
+                      linkHref="/"
+                    />
+                  )}
+                />
               </Switch>
             </ContentWrapper>
           </BrowserRouter>
