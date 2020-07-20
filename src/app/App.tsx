@@ -16,6 +16,7 @@ import { selectSideNavWidth } from "../components/global/navigation/navigationSl
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import GenericRoute from "../routes/GenericRoute";
 import Home from "../routes/home/Home";
+import FourZeroFour from "../routes/404/404";
 
 import styled from "styled-components";
 
@@ -80,7 +81,7 @@ const App = () => {
                   path="/create"
                   component={<GenericRoute name="Create" />}
                 />
-                <Route render={() => <GenericRoute name="404" />} />
+                <Route render={() => <FourZeroFour />} />
               </Switch>
             </ContentWrapper>
           </BrowserRouter>
