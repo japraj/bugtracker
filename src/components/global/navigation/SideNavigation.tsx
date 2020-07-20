@@ -25,6 +25,7 @@ export default ({
   const location = useLocation().pathname;
   const NavLinkSet = navItemSet.map((navItem) => (
     <NavLink
+      key={navItem.text}
       to={"/" + navItem.path}
       onClick={navItem === LogoutItem ? logout : () => {}}
     >

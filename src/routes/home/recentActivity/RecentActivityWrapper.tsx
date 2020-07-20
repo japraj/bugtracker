@@ -9,9 +9,9 @@ import ActivityCell, { Activity } from "./Activity";
 export default ({ activitySet }: { activitySet: Activity[] }) => {
   const activityNodes = activitySet
     .filter((activity, index) => index < 5)
-    .map((activity) => {
+    .map((activity, index) => {
       return (
-        <WidgetSection>
+        <WidgetSection key={activity.userInfo.userTag + index}>
           <ActivityCell key={activity.userInfo.userTag} {...{ activity }} />
         </WidgetSection>
       );

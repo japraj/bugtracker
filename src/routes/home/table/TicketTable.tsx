@@ -88,8 +88,8 @@ export default (props: Props) => {
       </TableControls>
       {props.nodeSet
         .filter((node, index) => index < nodesPerPage)
-        .map((node) => (
-          <React.Fragment>{node}</React.Fragment>
+        .map((node, index) => (
+          <React.Fragment key={index}>{node}</React.Fragment>
         ))}
       <TablePagination nodesPerPage={nodesPerPage} />
     </WidgetWrapper>
