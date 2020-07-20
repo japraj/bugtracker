@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Popover from "@material-ui/core/Popover";
 import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
