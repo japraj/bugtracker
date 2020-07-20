@@ -20,7 +20,7 @@ export default ({ tabSet }: { tabSet: Tab[] }) => {
       key={tab.title}
       onClick={() => dispatch(setSelected(index))}
     >
-      <Icon className="inline-icon">{tab.iconName}</Icon>
+      <Icon className="inline-icon">{tab.iconName + "_outlined"}</Icon>
       <h1>{tab.title}</h1>
     </TableTab>
   ));
@@ -34,10 +34,11 @@ export default ({ tabSet }: { tabSet: Tab[] }) => {
 const TabContainer = styled(WidgetHeader)`
   padding: 0;
   border-bottom: 1px solid transparent;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.15);
 
-  .selected {
-    background-color: rgba(0, 0, 0, 0.25);
+  .selected,
+  .selected:hover {
+    background-color: rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -62,7 +63,7 @@ const TableTab = styled.li`
 
   :hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 
   .inline-icon {

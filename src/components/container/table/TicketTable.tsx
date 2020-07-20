@@ -10,6 +10,7 @@ type Props = {
   className: string;
   buttonCallback: () => void;
   nodeSet: React.ReactNode[];
+  nodesPerPage: number;
 };
 
 enum Sort {
@@ -78,14 +79,18 @@ export default (props: Props) => (
         Reload
       </Button>
     </TableControls>
-    {props.nodeSet.map((node) => (
-      <React.Fragment>{node}</React.Fragment>
-    ))}
+    {props.nodeSet.map((node, index) =>
+      index < props.nodesPerPage ? (
+        <React.Fragment>{node}</React.Fragment>
+      ) : (
+        <React.Fragment />
+      )
+    )}
   </WidgetWrapper>
 );
 
 const TableControls = styled(WidgetHeader)`
-  // padding-top: 0.2rem;
+  padding-top: 8px;
 
   h1 {
     margin-right: auto;
