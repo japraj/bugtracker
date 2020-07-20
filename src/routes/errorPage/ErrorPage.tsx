@@ -5,8 +5,7 @@ import {
   DarkWidgetHeader,
   DarkWidgetSection,
 } from "../../components/container/darkWidget/DarkWidget";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import HyperLink from "../../components/global/hyperLink/HyperLink";
 
 interface Props {
   width: string;
@@ -29,8 +28,3 @@ export default (props: Props) => {
     </DarkWidgetWrapper>
   );
 };
-
-const HyperLink = styled(Link)`
-  color: var(--highlight);
-  text-decoration: none;
-`;

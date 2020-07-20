@@ -13,10 +13,12 @@ import FancyLoading from "../components/misc/loadingRing/FancyLoading";
 import Navigation from "../components/global/navigation/NavigationWrapper";
 import { selectSideNavWidth } from "../components/global/navigation/navigationSlice";
 
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { Router, Route, Redirect, Switch } from "react-router-dom";
+import history from "./history";
 import GenericRoute from "../routes/GenericRoute";
 import Home from "../routes/home/Home";
 import ErrorPage from "../routes/errorPage/ErrorPage";
+import Login from "../routes/login/Login";
 
 import styled from "styled-components";
 
@@ -54,15 +56,12 @@ const App = () => {
     <Context.Provider value={authSlice}>
       {authSlice.loaded ? (
         <div id="App">
-          <BrowserRouter>
+          <Router history={history}>
             <Navigation authenticated={authSlice.user.authenticated} />
             <ContentWrapper {...{ sideNavWidth }}>
               <Switch>
                 <Route path="/" exact={true} render={() => <Home />} />
-                <Route
-                  path="/login"
-                  render={() => <GenericRoute name="Login" />}
-                />
+                <Route path="/login" render={() => <Login />} />
                 <Route
                   path="/register"
                   render={() => <GenericRoute name="Register" />}
@@ -102,7 +101,7 @@ const App = () => {
                 />
               </Switch>
             </ContentWrapper>
-          </BrowserRouter>
+          </Router>
         </div>
       ) : (
         <div id="loading">
@@ -125,6 +124,8 @@ const ContentWrapper = styled.main`
 `;
 
 // A protected route is one which can only be accessed by authenticated users.
+// If an unauthenticated user tries to access one of these, they are redirected
+// to the /loginRequired page.
 const ProtectedRoute = ({
   authenticated,
   component,
