@@ -67,10 +67,6 @@ const App = () => {
                   path="/register"
                   render={() => <GenericRoute name="Register" />}
                 />
-                <Route
-                  path="/loginRequired"
-                  render={() => <GenericRoute name="Login to view this page" />}
-                />
                 <ProtectedRoute
                   authenticated={authenticated}
                   path="/dashboard"
@@ -80,6 +76,18 @@ const App = () => {
                   authenticated={authenticated}
                   path="/create"
                   component={<GenericRoute name="Create" />}
+                />
+                <Route
+                  path="/loginRequired"
+                  render={() => (
+                    <ErrorPage
+                      width="660px"
+                      header="Authentication Error"
+                      bodyText="Sorry, you must be logged in to view that page. "
+                      linkText="Go to Login Page."
+                      linkHref="/login"
+                    />
+                  )}
                 />
                 <Route
                   render={() => (
