@@ -1,5 +1,6 @@
 import React from "react";
 import { WidgetWrapper, WidgetHeader } from "../widget/Widget";
+import TableTabs, { Tab } from "./TableTabs";
 import Search from "../../input/search/Search";
 import Select, { SelectOption } from "../../input/select/Select";
 import Button from "../../input/button/Button";
@@ -7,8 +8,6 @@ import styled from "styled-components";
 
 type Props = {
   className: string;
-  iconClassName: string;
-  tableTitle: string;
   buttonCallback: () => void;
   nodeSet: React.ReactNode[];
 };
@@ -27,11 +26,38 @@ const sortSelectOptions: SelectOption[] = [
   { value: Sort.STATUS, label: "Sort by Status" },
 ];
 
+const tabSet: Tab[] = [
+  {
+    iconName: "new_releases",
+    title: "New",
+    requiredRank: 0,
+  },
+  {
+    iconName: "assignment_turned_in",
+    title: "Resolved",
+    requiredRank: 0,
+  },
+  {
+    iconName: "confirmation_number",
+    title: "My Tickets",
+    requiredRank: 0,
+  },
+  {
+    iconName: "assignment",
+    title: "Assigned",
+    requiredRank: 1,
+  },
+  {
+    iconName: "work",
+    title: "Delegated",
+    requiredRank: 2,
+  },
+];
+
 export default (props: Props) => (
   <WidgetWrapper className={props.className}>
-    <TableHeader>
-      <i className={props.iconClassName} aria-hidden="true" />
-      <h1>{props.tableTitle}</h1>
+    <TableTabs tabSet={tabSet} />
+    <TableControls>
       <Search
         label="Search"
         onChange={() => {}}
@@ -51,21 +77,21 @@ export default (props: Props) => (
       >
         Reload
       </Button>
-    </TableHeader>
+    </TableControls>
     {props.nodeSet.map((node) => (
       <React.Fragment>{node}</React.Fragment>
     ))}
   </WidgetWrapper>
 );
 
-const TableHeader = styled(WidgetHeader)`
-  padding-top: 1.2rem;
+const TableControls = styled(WidgetHeader)`
+  // padding-top: 0.2rem;
 
   h1 {
     margin-right: auto;
   }
 
   .selectFormWrapper {
-    margin-right: 1rem;
+    margin: 0 1rem 0 auto;
   }
 `;

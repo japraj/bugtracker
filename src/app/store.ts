@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import navigationReducer from "../components/global/navigation/navigationSlice";
 import authReducer from "./flux/auth/authSlice";
+import tableReducer from "../components/container/table/tableSlice";
 
 export const store = configureStore({
   reducer: {
     navigation: navigationReducer,
     authentication: authReducer,
+    table: tableReducer,
   },
 });
 

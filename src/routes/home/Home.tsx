@@ -62,19 +62,10 @@ export default class extends React.Component<{}, {}> {
       <HomeWrapper>
         <Table
           className="tableContainer"
-          iconClassName="fa fa-ticket-alt"
-          tableTitle="New Tickets"
           buttonCallback={this.resolvedCallback}
           nodeSet={this.fetchTickets()}
         />
         <RecentActivity activitySet={activitySet} />
-        <Table
-          className="tableContainer"
-          iconClassName="fas fa-tasks"
-          tableTitle="Resolved Tickets"
-          buttonCallback={() => {}}
-          nodeSet={this.fetchTickets()}
-        />
       </HomeWrapper>
     );
   }
