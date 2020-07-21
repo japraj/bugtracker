@@ -34,7 +34,7 @@ export default () => {
       passwordError: passwordError,
     });
 
-    if (!emailError && !usernameError && !passwordError) history.push("/");
+    if (!emailError && !usernameError && !passwordError) history.push("/login");
   };
 
   return (
