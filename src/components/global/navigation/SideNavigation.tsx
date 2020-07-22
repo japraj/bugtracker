@@ -36,6 +36,7 @@ export default ({
         focusRipple
         style={{
           width: collapsed ? collapsedWidth : extendedWidth,
+          height: "100%",
           fontFamily: "Roboto",
         }}
       >
@@ -82,7 +83,7 @@ const SideNav = styled.nav`
 
   .selected,
   .selected i {
-    color: var(--highlight);
+    color: var(--highlight) !important;
   }
 
   .inline-icon {
@@ -146,7 +147,6 @@ const SideNav = styled.nav`
 
             li:hover {
               background-color: rgba(0, 0, 0, 0);
-              color: var(--highlight)!important;
             }
           }
         `
