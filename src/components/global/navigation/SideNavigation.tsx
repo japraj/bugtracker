@@ -83,7 +83,13 @@ const SideNav = styled.nav`
 
   .selected,
   .selected i {
-    color: var(--highlight) !important;
+    color: var(--highlight);
+
+    @media (min-width: 600px) {
+      :hover {
+        color: var(--text-color);
+      }
+    }
   }
 
   .inline-icon {

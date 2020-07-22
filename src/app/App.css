@@ -269,7 +269,7 @@ img {
 .hoverfx3:focus,
 .hoverfx3:hover i,
 .hoverfx3:focus i {
-  color: var(--text-color) !important;
+  color: var(--text-color);
   background-color: var(--highlight);
 }
 
