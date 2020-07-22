@@ -12,7 +12,9 @@ export default ({ expandSideNav }: { expandSideNav: () => void }) => {
         aria-label="menu"
         onClick={expandSideNav}
       >
-        <MenuIcon style={{ fontSize: "2.25rem" }} />
+        <MenuIcon
+          style={{ fontSize: window.innerWidth < 600 ? "1.5rem" : "2.25rem" }}
+        />
       </IconButton>
       <Label>
         <i className="fas fa-bug inline-icon" />
@@ -43,5 +45,9 @@ const Label = styled.h1`
   font-size: 1.25rem;
   margin: 0 auto;
   transform: translateX(-30px);
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 // Note: label is translated 30px left to perfectly center it; the IconButton is 60px wide.

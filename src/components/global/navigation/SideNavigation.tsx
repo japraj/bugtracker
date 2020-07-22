@@ -27,7 +27,10 @@ export default ({
     <NavLink
       key={navItem.text}
       to={"/" + navItem.path}
-      onClick={navItem === LogoutItem ? logout : () => {}}
+      onClick={() => {
+        if (window.innerWidth < 600) toggleCollapsed();
+        if (navItem === LogoutItem) logout();
+      }}
     >
       <ButtonBase
         focusRipple
@@ -111,24 +114,56 @@ const SideNav = styled.nav`
       ${(props: { collapsed: boolean; sideNavWidth: number }) =>
         props.collapsed ? "display: none;" : "display: flex;"}
       flex-direction: column;
-    }
 
-    ul li {
-      margin: 0.1rem;
+      li {
+        margin: 0.1rem;
+      }
     }
+  }
+
+  @media (max-width: 600px) {
+    ${(props: { collapsed: boolean; sideNavWidth: number }) =>
+      props.collapsed
+        ? `
+          display: block;
+          width: 100vw;
+          margin-top: auto;
+          bottom: 0;
+          left: 0;
+          height: 8vh;
+
+          ul {
+            padding-top: 0;
+            height: 8vh;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            a {
+              margin: 0 0.5rem;
+            }
+
+            li:hover {
+              background-color: rgba(0, 0, 0, 0);
+              color: var(--highlight)!important;
+            }
+          }
+        `
+        : "width: 100vw;"}
   }
 `;
 
 const GlassDiv = styled.div`
-  @media (max-width: 1100px) {
+  @media (max-width: 1100px) and (min-width: 601px) {
     ${(props: { collapsed: boolean }) =>
       props.collapsed ? "display: none;" : ""}
     position: fixed;
     top: 0;
     right: 0;
-    width: calc(40vw - var(--scrollwidth));
+    width: calc(40vw);
     height: calc(100vh - var(--nav-height));
-    margin: var(--nav-height) var(--scrollwidth) 0 0;
+    margin: var(--nav-height) 0 0 0;
     z-index: 6;
     backdrop-filter: blur(4px);
   }
