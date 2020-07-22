@@ -163,7 +163,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   background-color: var(--body-bg);
-  background-image: url("../assets/blur-bg.jpg");
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url("../assets/blur-bg.jpg") no-repeat center center;
+  background-size: cover;
+  will-change: transform;
+  z-index: -1;
   max-width: 100%;
   width: 100%;
   height: 100%;

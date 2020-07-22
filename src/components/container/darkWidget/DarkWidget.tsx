@@ -14,6 +14,10 @@ export const DarkWidget = styled(WidgetWrapper)`
   border-radius: 5px;
   padding: 32px;
   margin-bottom: 20vh;
+
+  @media (max-width: 800px) {
+    margin-bottom: 10vh;
+  }
 `;
 
 export const DarkWidgetHeader = styled(WidgetHeader)`

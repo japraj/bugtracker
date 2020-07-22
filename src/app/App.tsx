@@ -79,7 +79,7 @@ const App = () => {
                   render={() => (
                     <ErrorPage
                       width="660px"
-                      header="Authentication Error"
+                      header="Auth Error"
                       bodyText="Sorry, you must be logged in to view that page. "
                       linkText="Go to Login Page."
                       linkHref="/login"
@@ -118,6 +118,7 @@ const ContentWrapper = styled.main`
 
   @media (max-width: 1100px) {
     margin-left: 0;
+    padding: 1rem 0;
   }
 `;
 

@@ -155,10 +155,14 @@ export default (props: Props) => {
 
 const FormWidget = styled(DarkWidget)`
   width: 350px;
+
+  @media (max-width: 380px) {
+    width: 90vw;
+  }
 `;
 
 const FormHeader = styled(DarkWidgetHeader)`
-  font-size: 2.25rem;
+  font-size: 1.5rem;
 `;
 
 const FormWrapper = styled.form`
