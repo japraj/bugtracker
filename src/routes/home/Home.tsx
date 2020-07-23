@@ -100,10 +100,12 @@ const HomeWrapper = styled.section`
   .tableContainer {
     min-width: 1000px;
     width: 45vw;
+    justify-self: center;
   }
 
   .asideContainer {
     margin-bottom: auto;
+    justify-self: center;
   }
 
   @media (min-width: 1101px) and (max-width: 1670px) {

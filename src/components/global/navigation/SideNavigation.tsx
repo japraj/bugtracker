@@ -109,7 +109,7 @@ const SideNav = styled.nav`
         : "padding-left: 0.8rem; font-size: 1.3rem;"}
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1215px) {
     ${(props: { collapsed: boolean; sideNavWidth: number }) =>
       props.collapsed ? "width: 0; ul {display: none;}" : "width: 60vw;"}
     transition: width 0.1s;
@@ -161,7 +161,7 @@ const SideNav = styled.nav`
 `;
 
 const GlassDiv = styled.div`
-  @media (max-width: 1100px) and (min-width: 601px) {
+  @media (max-width: 1215px) and (min-width: 601px) {
     ${(props: { collapsed: boolean }) =>
       props.collapsed ? "display: none;" : ""}
     position: fixed;

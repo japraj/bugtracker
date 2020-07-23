@@ -116,6 +116,11 @@ const ContentWrapper = styled.main`
     ${(props: { sideNavWidth: number }) => props.sideNavWidth}px;
   height: 100%;
 
+  @media (max-width: 1215px) and (min-width: 1101px) {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
   @media (max-width: 1100px) {
     margin-left: 0;
     padding: 1rem 0;
