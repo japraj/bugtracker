@@ -106,7 +106,7 @@ const HomeWrapper = styled.section`
     margin-bottom: auto;
   }
 
-  @media (min-width: 1101px) and (max-width: 1575px) {
+  @media (min-width: 1101px) and (max-width: 1670px) {
     padding: 0 1rem;
     grid-template-columns: 1fr;
     grid-gap: 1.5rem;
