@@ -36,7 +36,7 @@ const App = () => {
     let user: User = {
       authenticated: false,
       id: 0,
-      permissions: 0,
+      permissions: 2,
     };
     // User loading logic; make fetch request to serverURL
     // (must specify the endpoint though), store results
@@ -119,6 +119,10 @@ const ContentWrapper = styled.main`
   @media (max-width: 1100px) {
     margin-left: 0;
     padding: 1rem 0;
+  }
+
+  @media (max-width: 600px) {
+    padding-bottom: calc(var(--mobile-nav-height) + 1rem);
   }
 `;
 

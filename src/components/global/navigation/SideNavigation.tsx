@@ -137,11 +137,11 @@ const SideNav = styled.nav`
           margin-top: auto;
           bottom: 0;
           left: 0;
-          height: 8vh;
+          height: var(--mobile-nav-height);
 
           ul {
             padding-top: 0;
-            height: 8vh;
+            height: 100%;
             width: 100%;
             display: flex;
             flex-direction: row;

@@ -8,8 +8,8 @@ export default () => {
   return (
     <LinkWrapper to={"/create"}>
       <LinkWidget>
-        <Label>Create a new Ticket</Label>
-        <Icon>create</Icon>
+        <h1>Create a new Ticket</h1>
+        <Icon className="icon">create</Icon>
       </LinkWidget>
     </LinkWrapper>
   );
@@ -20,7 +20,6 @@ const LinkWrapper = styled(Link)`
 `;
 
 const LinkWidget = styled(WidgetWrapper)`
-  margin-top: 1.5rem;
   display: flex;
   padding: 1rem;
   flex-direction: row;
@@ -31,8 +30,18 @@ const LinkWidget = styled(WidgetWrapper)`
     background-color: var(--highlight);
     cursor: pointer;
   }
-`;
 
-const Label = styled.h1`
-  margin-right: auto;
+  h1 {
+    margin-right: auto;
+  }
+
+  @media (max-width: 1100px) {
+    .icon {
+      font-size: 1.2rem;
+    }
+
+    h1 {
+      font-size: 0.9rem;
+    }
+  }
 `;

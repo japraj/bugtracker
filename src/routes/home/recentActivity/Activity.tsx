@@ -15,7 +15,7 @@ export default ({ activity }: { activity: Activity }) => {
         styleConfig={{
           className: "",
           showImg: true,
-          imgLength: 50,
+          imgLength: window.innerWidth > 1100 ? 50 : 40,
           internalSpacing: "0",
           showTag: false,
           tagColor: "rgba(0, 0, 0, 0)",
@@ -32,6 +32,7 @@ export default ({ activity }: { activity: Activity }) => {
 };
 
 const Cell = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -45,19 +46,28 @@ const CellText = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin: 0 0.5rem 0 0.7rem;
+  width: calc(100% - 50px);
 
   strong {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
+
+    @media (max-width: 1100px) {
+      font-size: 0.9rem;
+    }
   }
 
   h2 {
-    max-width: 300px;
+    max-width: 95%;
     font-size: 1rem;
     overflow: hidden;
     color: var(--text-lightgrey);
     white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: lowercase;
+
+    @media (max-width: 1100px) {
+      font-size: 0.8rem;
+    }
   }
 `;

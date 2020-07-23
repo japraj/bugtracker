@@ -18,6 +18,10 @@ export const DarkWidget = styled(WidgetWrapper)`
   @media (max-width: 800px) {
     margin-bottom: 10vh;
   }
+
+  @media (max-width: 600px) {
+    padding: 32px 10px;
+  }
 `;
 
 export const DarkWidgetHeader = styled(WidgetHeader)`

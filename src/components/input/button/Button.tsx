@@ -8,17 +8,7 @@ export default (props: {
   children: React.ReactNode;
 }) => {
   return (
-    <Button
-      style={{
-        fontSize: "14px",
-        padding: "10px 16px",
-        width: "auto",
-        height: "auto",
-        borderRadius: "5px",
-      }}
-      className={props.className}
-      onClick={props.onClick}
-    >
+    <Button className={props.className} onClick={props.onClick}>
       {props.children}
     </Button>
   );
@@ -31,6 +21,11 @@ const Button = styled(ButtonBase)`
   white-space: nowrap;
   touch-action: manipulation;
   line-height: 1.3333333;
+  font-size: 14px !important;
+  padding: 10px 16px !important;
+  width: auto !important;
+  height: auto !important ;
+  border-radius: 5px !important;
 
   :focus {
     outline: none;

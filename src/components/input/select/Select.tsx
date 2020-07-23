@@ -14,6 +14,7 @@ export interface SelectOption {
 
 type Props = {
   width: number;
+  mobileWidth: number;
   onChange: (newValue: string) => void;
   options: SelectOption[];
 };
@@ -28,7 +29,7 @@ export default (props: Props) => {
   return (
     <FormWrapper className="selectFormWrapper">
       <ThemeProvider theme={theme}>
-        <Form width={props.width}>
+        <Form width={props.width} mobileWidth={props.mobileWidth}>
           <Select
             labelId="select-label"
             id="select"
@@ -56,7 +57,7 @@ const FormWrapper = styled.div`
 `;
 
 const Form = styled(FormControl)`
-  width: ${(props: { width: number }) => props.width}px;
+  width: ${(props: { width: number; mobileWidth: number }) => props.width}px;
 
   #select-label,
   #select {
@@ -71,5 +72,13 @@ const Form = styled(FormControl)`
   input {
     border-color: white;
     color: white;
+  }
+
+  @media (max-width: 600px) {
+    width: ${(props: { width: number; mobileWidth: number }) =>
+      props.mobileWidth}px;
+    div {
+      font-size: 12px !important;
+    }
   }
 `;

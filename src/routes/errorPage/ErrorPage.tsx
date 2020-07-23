@@ -36,8 +36,6 @@ const ErrorPage = styled(DarkWidget)`
   width: ${(props: { width: string }) => props.width};
 
   h1 {
-    line-height: 140%;
-  }
-  @media (max-width: 600px) {
+    line-height: 160%;
   }
 `;

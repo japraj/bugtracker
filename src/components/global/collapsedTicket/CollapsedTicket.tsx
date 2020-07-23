@@ -1,5 +1,6 @@
 import React from "react";
 import { WidgetSection } from "../../container/widget/Widget";
+import StatusIndicator from "./StatusIndicator";
 import styled from "styled-components";
 import UserLink from "../userLink/UserLink";
 
@@ -15,6 +16,7 @@ export interface CollapsedTicket {
   title: string;
   severity: number;
   status: number;
+  comments: number;
 }
 
 export enum Status {
@@ -29,106 +31,127 @@ export enum Severity {
   "major",
 }
 
-export default (props: { ticket: CollapsedTicket }) => {
+const statLen = "25px";
+const statRightMarg = "0.5rem";
+const statLeftMarg = "0.5rem";
+
+export default ({ ticket }: { ticket: CollapsedTicket }) => {
   return (
     <TicketWrapper>
-      <TicketStatus
-        className={`fa fa-circle statusIndicator ${
-          Status[props.ticket.status]
-        }`}
-        aria-hidden="true"
-      />
+      <TicketHeader>
+        <StatusIndicator
+          className={Status[ticket.status]}
+          styles={{
+            length: statLen,
+            rightMargin: statRightMarg,
+            leftMargin: statLeftMarg,
+          }}
+        />
+        <h1>{ticket.title}</h1>
+      </TicketHeader>
       <TicketBody>
-        <TicketTitle>
-          <h1>{props.ticket.title}</h1>
-        </TicketTitle>
-        <TicketSection>
+        <TicketBodyCell>
           <h3 className="severity">
             Severity:
-            <span className={Severity[props.ticket.severity]}>
-              {Severity[props.ticket.severity]}
+            <span className={Severity[ticket.severity]}>
+              {Severity[ticket.severity]}
             </span>
           </h3>
-          <h3>{"Date: " + props.ticket.creationDate}</h3>
+        </TicketBodyCell>
+        <TicketBodyCell>
+          <h3>{"Latest Update: " + ticket.creationDate}</h3>
+        </TicketBodyCell>
+        <TicketBodyCell>
+          <h3>{"Comments: " + ticket.comments}</h3>
+        </TicketBodyCell>
+        <TicketBodyCell>
           <UserLink
             styleConfig={{
               className: "author",
               showImg: true,
-              imgLength: 30,
+              imgLength: 20,
               internalSpacing: "0.5rem",
               showTag: true,
               tagColor: "var(--text-color)",
               tagSize: "1.25rem",
             }}
-            userInfo={props.ticket.userInfo}
+            userInfo={ticket.userInfo}
           />
-        </TicketSection>
+        </TicketBodyCell>
       </TicketBody>
     </TicketWrapper>
   );
 };
 
 const TicketWrapper = styled(WidgetSection)`
-  padding: 0.25rem 1rem 0.25rem 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 0.3rem;
-`;
-
-const TicketStatus = styled.i`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 75px;
-`;
-
-const TicketBody = styled.div`
-  width: calc(100% - 75px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
 `;
 
-const TicketSection = styled.div`
+const TicketHeader = styled.div`
+  padding-top: 0.3rem;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 0.5rem;
-
-  h3 {
-    font-size: 1rem;
-  }
-
-  .severity {
-    text-align: left;
-    width: 160px;
-
-    span {
-      margin-left: 0.3rem;
-    }
-  }
-
-  .author {
-    margin-left: auto;
-    margin-right: 1rem;
-  }
-`;
-
-const TicketTitle = styled(TicketSection)`
-  margin: 1rem auto 0.8rem;
+  margin-bottom: 0.4rem;
 
   h1 {
-    text-transform: capitalize;
-    font-size: 1.3rem;
-    max-width: 100%;
+    width: calc(92% - ${statLen});
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 1rem;
+  }
+`;
+
+const TicketBody = styled.div`
+  width: 100%;
+  display: grid;
+  margin-left: 8%;
+  grid-template-columns: 32% 60%;
+  align-items: center;
+  padding-bottom: 0.2rem;
+
+  @media (max-width: 335px) {
+    grid-template-columns: 40% 52%;
+  }
+`;
+
+const TicketBodyCell = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding-left: 4px;
+  padding-right: 4px;
+  height: 30px;
+
+  h3 {
+    font-size: 0.8rem;
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+
+  --tcell-border: 1px solid rgba(255, 255, 255, 0.15);
+
+  :nth-child(odd) {
+    border-right: var(--tcell-border);
+  }
+
+  :nth-child(even) {
+    padding-left: 10px;
+  }
+
+  :nth-last-child(1),
+  :nth-last-child(2) {
+    border-top: var(--tcell-border);
+    height: 33px;
   }
 `;

@@ -22,7 +22,7 @@ export const WidgetHeader = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 16px 22px 14px;
+  padding: 16px 1rem 14px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.12);
   border-top-right-radius: 8px;
@@ -37,6 +37,18 @@ export const WidgetHeader = styled.div`
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1.25rem;
+  }
+
+  @media (max-width: 1100px) {
+    padding: 16px 0.5rem 14px;
+
+    .inline-icon {
+      font-size: 1.2rem;
+    }
+
+    h1 {
+      font-size: 0.9rem;
+    }
   }
 `;
 

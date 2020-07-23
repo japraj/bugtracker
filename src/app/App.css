@@ -39,6 +39,7 @@
   --vert-nav-bg: rgba(0, 0, 0, 0.5);
   --nav-height: 6vh;
   --scrollwidth: 8px;
+  --mobile-nav-height: 8vh;
 
   --rs-alert-offset: 87.5px;
 }
@@ -163,18 +164,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   background-color: var(--body-bg);
-  position: fixed;
   width: 100%;
+  max-width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   background: url("../assets/blur-bg.jpg") no-repeat center center;
   background-size: cover;
-  will-change: transform;
   z-index: -1;
-  max-width: 100%;
-  width: 100%;
-  height: 100%;
 }
 
 code {
@@ -292,21 +287,16 @@ img {
 
 /* Ticket Status/Severity Span Colors */
 
-.statusIndicator {
-  font-size: 2rem;
-  margin-right: 0.5rem;
-}
-
 .unresolved {
-  color: var(--theme-red);
+  background-color: var(--theme-red);
 }
 
 .work-in-progress {
-  color: var(--theme-blue);
+  background-color: var(--theme-blue);
 }
 
 .resolved {
-  color: var(--theme-green);
+  background-color: var(--theme-green);
 }
 
 .trivial {
@@ -357,5 +347,16 @@ img {
 @media only screen and (max-width: 1100px) {
   :root {
     --rs-alert-offset: 0px;
+  }
+}
+
+/* Mobile scroll fix */
+
+@media only screen and (max-width: 600px) {
+  html,
+  body {
+    width: auto;
+    max-width: none;
+    height: auto;
   }
 }

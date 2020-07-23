@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import RecentActivity from "./recentActivity/RecentActivityWrapper";
 import { Activity } from "./recentActivity/Activity";
-import TableTicket from "../../components/global/collapsedTicket/CollapsedTicket";
 import Table from "./table/TicketTable";
+import { CollapsedTicket } from "../../components/global/collapsedTicket/CollapsedTicket";
 import CreateLink from "./createLink/CreateLink";
 
 const generateImage = () => {
@@ -33,25 +33,22 @@ for (let i = 0; i < 10; i++) {
 }
 
 export default class extends React.Component<{}, {}> {
-  fetchTickets = (): React.ReactNode[] => {
-    let ticketSet: React.ReactNode[] = [];
+  fetchTickets = (): CollapsedTicket[] => {
+    let ticketSet: CollapsedTicket[] = [];
     for (let i = 0; i < 20; i++) {
-      ticketSet.push(
-        <TableTicket
-          ticket={{
-            userInfo: {
-              userTag: Math.random().toString(36).substr(2, 22),
-              profileImg: generateImage(),
-              userRank: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
-            },
-            creationDate: Math.random().toString(36).substr(2, 15),
-            title:
-              "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
-            severity: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
-            status: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
-          }}
-        />
-      );
+      ticketSet.push({
+        userInfo: {
+          userTag: Math.random().toString(36).substr(2, 22),
+          profileImg: generateImage(),
+          userRank: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
+        },
+        creationDate: Math.random().toString(36).substr(2, 15),
+        title:
+          "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
+        severity: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
+        status: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
+        comments: Math.floor(Math.random() * 999),
+      });
     }
     return ticketSet;
   };
@@ -64,10 +61,13 @@ export default class extends React.Component<{}, {}> {
         <Table
           className="tableContainer"
           buttonCallback={this.resolvedCallback}
-          nodeSet={this.fetchTickets()}
+          ticketSet={this.fetchTickets()}
         />
         <div className="asideContainer">
-          <RecentActivity activitySet={activitySet} />
+          <RecentActivity
+            className="recentActivity"
+            activitySet={activitySet}
+          />
           <CreateLink />
         </div>
       </HomeWrapper>
@@ -86,11 +86,56 @@ const HomeWrapper = styled.section`
   width: 100%;
   height: auto;
 
+  @media (min-width: 1101px) {
+    .asideContainer,
+    .recentActivity {
+      width: 400px;
+    }
+
+    .recentActivity {
+      margin-bottom: 1.5rem;
+    }
+  }
+
   .tableContainer {
+    min-width: 880px;
     width: 45vw;
   }
 
   .asideContainer {
     margin-bottom: auto;
+  }
+
+  @media (min-width: 1101px) and (max-width: 1575px) {
+    padding: 0 1rem;
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+
+    .tableContainer,
+    .asideContainer {
+      width: 98%;
+    }
+
+    .asideContainer {
+      .recentActivity {
+        margin-right: 1.5rem;
+      }
+
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    padding: 0 1rem;
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+
+    .tableContainer,
+    .asideContainer {
+      width: 95vw;
+      margin: 0 auto;
+    }
   }
 `;

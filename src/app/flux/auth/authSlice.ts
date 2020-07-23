@@ -49,4 +49,7 @@ export const { finishedLoading, loadUser } = authSlice.actions;
 
 export const selectAuthSlice = (state: RootState) => state.authentication;
 
+export const selectUserPermissions = (state: RootState) =>
+  state.authentication.user.permissions;
+
 export default authSlice.reducer;

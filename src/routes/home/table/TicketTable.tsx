@@ -7,16 +7,12 @@ import {
 } from "../../../components/container/widget/Widget";
 import TablePagination from "./TablePagination";
 import TableTabs, { Tab } from "./TableTabs";
+import TableTicket, {
+  CollapsedTicket,
+} from "../../../components/global/collapsedTicket/CollapsedTicket";
 import Search from "../../../components/input/search/Search";
 import Select, { SelectOption } from "../../../components/input/select/Select";
-import Button from "../../../components/input/button/Button";
 import styled from "styled-components";
-
-type Props = {
-  className: string;
-  buttonCallback: () => void;
-  nodeSet: React.ReactNode[];
-};
 
 enum Sort {
   NEW = "NEW",
@@ -35,13 +31,18 @@ const sortSelectOptions: SelectOption[] = [
 const tabSet: Tab[] = [
   {
     iconName: "new_releases",
-    title: "New",
+    title: "Latest",
     requiredRank: 0,
   },
   {
     iconName: "assignment_turned_in",
     title: "Resolved",
     requiredRank: 0,
+  },
+  {
+    iconName: "cached",
+    title: "WIP",
+    requiredRank: 1,
   },
   {
     iconName: "confirmation_number",
@@ -60,6 +61,12 @@ const tabSet: Tab[] = [
   },
 ];
 
+type Props = {
+  className: string;
+  buttonCallback: () => void;
+  ticketSet: CollapsedTicket[];
+};
+
 export default (props: Props) => {
   const nodesPerPage = useSelector(selectNodesPerPage);
   return (
@@ -75,17 +82,15 @@ export default (props: Props) => {
         />
         <Select
           width={150}
+          mobileWidth={115}
           onChange={(newValue: string) => console.log(newValue)}
           options={sortSelectOptions}
         />
-        <Button className="hoverfx" onClick={props.buttonCallback}>
-          Reload
-        </Button>
       </TableControls>
-      {props.nodeSet
-        .filter((node, index) => index < nodesPerPage)
-        .map((node, index) => (
-          <React.Fragment key={index}>{node}</React.Fragment>
+      {props.ticketSet
+        .filter((ticket, index) => index < nodesPerPage)
+        .map((ticket, index) => (
+          <TableTicket key={index} ticket={ticket} />
         ))}
       <TablePagination nodesPerPage={nodesPerPage} />
     </WidgetWrapper>
@@ -94,10 +99,6 @@ export default (props: Props) => {
 
 const TableControls = styled(WidgetHeader)`
   padding-top: 8px;
-
-  h1 {
-    margin-right: auto;
-  }
 
   .selectFormWrapper {
     margin: 0 1rem 0 auto;

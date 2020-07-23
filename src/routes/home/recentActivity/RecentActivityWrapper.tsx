@@ -5,21 +5,28 @@ import {
   WidgetSection,
 } from "../../../components/container/widget/Widget";
 import ActivityCell, { Activity } from "./Activity";
+import Icon from "@material-ui/core/Icon";
 
-export default ({ activitySet }: { activitySet: Activity[] }) => {
+export default ({
+  activitySet,
+  className,
+}: {
+  activitySet: Activity[];
+  className: string;
+}) => {
   const activityNodes = activitySet
     .filter((activity, index) => index < 5)
     .map((activity, index) => {
       return (
         <WidgetSection key={activity.userInfo.userTag + index}>
-          <ActivityCell key={activity.userInfo.userTag} {...{ activity }} />
+          <ActivityCell {...{ activity }} />
         </WidgetSection>
       );
     });
   return (
-    <WidgetWrapper style={{ maxWidth: "400px", alignSelf: "flex-start" }}>
+    <WidgetWrapper className={className}>
       <WidgetHeader>
-        <i className="fa fa-calendar" aria-hidden="true" />
+        <Icon className="inline-icon">today</Icon>
         <h1>Recent Activity</h1>
       </WidgetHeader>
       {activityNodes}

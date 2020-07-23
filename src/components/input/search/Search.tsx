@@ -48,15 +48,18 @@ const SearchWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: auto;
-    padding: 0.2rem 0.5rem 0.2rem 0.2rem;
-  }
+    height: 32px !important;
+    // width: 32px !important;
+    padding: 0.3rem 0.5rem 0.3rem 0.2rem !important;
+    border-radius: 0 !important;
+    border-top-right-radius: 30px !important;
+    border-bottom-right-radius: 30px !important;
 
-  .searchButton {
-    border-radius: 0;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
+    :hover {
+      border-radius: 0 !important;
+      border-top-right-radius: 30px !important;
+      border-bottom-right-radius: 30px !important;
+    }
   }
 `;
 
