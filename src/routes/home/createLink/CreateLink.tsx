@@ -17,6 +17,7 @@ export default () => {
 
 const LinkWrapper = styled(Link)`
   text-decoration: none;
+  min-width: 400px;
 `;
 
 const LinkWidget = styled(WidgetWrapper)`

@@ -98,7 +98,7 @@ const HomeWrapper = styled.section`
   }
 
   .tableContainer {
-    min-width: 880px;
+    min-width: 950px;
     width: 45vw;
   }
 

@@ -49,7 +49,7 @@ const CellText = styled.div`
   width: calc(100% - 50px);
 
   strong {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
 
     @media (max-width: 1100px) {
@@ -58,8 +58,8 @@ const CellText = styled.div`
   }
 
   h2 {
+    font-size: 0.9rem;
     max-width: 95%;
-    font-size: 1rem;
     overflow: hidden;
     color: var(--text-lightgrey);
     white-space: nowrap;
