@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Popover from "@material-ui/core/Popover";
+import Popper from "@material-ui/core/Popper";
+import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
-import { Link } from "react-router-dom";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import LinkButton from "../../input/linkButton/LinkButton";
 
 // Notes:
 //  - imgLength is in pixels; it denotes both width & height because img must be a square for border radius to make it a circle
@@ -41,41 +41,20 @@ enum UserRankColors {
   "black",
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: "none",
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  })
-);
-
 export default (props: Props) => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
-  const handlePopoverOpen = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
 
   const open = Boolean(anchorEl);
 
   return (
     <ProfileWrapper
       className={props.styleConfig.className}
-      to={`/user/${props.userInfo.userTag}`}
       aria-owns={open ? "mouse-over-popover" : undefined}
       aria-haspopup="true"
-      onMouseEnter={handlePopoverOpen}
-      onMouseLeave={handlePopoverClose}
+      onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) =>
+        setAnchorEl(anchorEl === null ? event.currentTarget : null)
+      }
+      onMouseLeave={() => setAnchorEl(null)}
     >
       {props.styleConfig.showImg ? (
         <Avatar
@@ -96,48 +75,51 @@ export default (props: Props) => {
       >
         {props.userInfo.userTag}
       </ProfileTag>
-      <Popover
-        className={classes.popover}
-        classes={{
-          paper: classes.paper,
-        }}
-        open={open}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-        <Chip
-          style={{
-            color: "white",
-            backgroundColor: `var(--theme-${
-              UserRankColors[props.userInfo.userRank]
-            })`,
-          }}
-          variant="outlined"
-          size="small"
-          label={UserRank[props.userInfo.userRank]}
-        />
-      </Popover>
+      <Popper open={open} anchorEl={anchorEl} transition>
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <PopperContent>
+              <Avatar
+                src={props.userInfo.profileImg}
+                style={{
+                  width: "50px",
+                  height: "50px",
+                }}
+              />
+              <PopperTag>{props.userInfo.userTag}</PopperTag>
+              <Chip
+                style={{
+                  color: "white",
+                  backgroundColor: `var(--theme-${
+                    UserRankColors[props.userInfo.userRank]
+                  })`,
+                }}
+                variant="outlined"
+                size="small"
+                label={UserRank[props.userInfo.userRank]}
+              />
+              <LinkButton to={`/user/${props.userInfo.userTag}`}>
+                View Profile
+              </LinkButton>
+            </PopperContent>
+          </Fade>
+        )}
+      </Popper>
     </ProfileWrapper>
   );
 };
 
-const ProfileWrapper = styled(Link)`
+const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
   color: var(--text-color);
   width: auto;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 interface TagProps {
@@ -152,5 +134,26 @@ const ProfileTag = styled.h3`
   font-size: ${(props: TagProps) => props.fontSize};
   color: ${(props: TagProps) => props.color};
   margin: 0 0 0 ${(props: TagProps) => props.marginLeft};
+  white-space: nowrap;
+`;
+
+const PopperContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+
+  a {
+    margin-top: 0.8rem;
+  }
+`;
+
+const PopperTag = styled.h1`
+  margin: 0.8rem 0;
+  color: var(--text-color);
   white-space: nowrap;
 `;
