@@ -29,7 +29,7 @@ export default (props: Props) => {
   return (
     <FormWrapper className="selectFormWrapper">
       <ThemeProvider theme={theme}>
-        <Form width={props.width} mobileWidth={props.mobileWidth}>
+        <Form width={props.width} mobilewidth={props.mobileWidth}>
           <Select
             labelId="select-label"
             id="select"
@@ -57,7 +57,7 @@ const FormWrapper = styled.div`
 `;
 
 const Form = styled(FormControl)`
-  width: ${(props: { width: number; mobileWidth: number }) => props.width}px;
+  width: ${(props: { width: number; mobilewidth: number }) => props.width}px;
 
   #select-label,
   #select {
@@ -75,8 +75,8 @@ const Form = styled(FormControl)`
   }
 
   @media (max-width: 600px) {
-    width: ${(props: { width: number; mobileWidth: number }) =>
-      props.mobileWidth}px;
+    width: ${(props: { width: number; mobilewidth: number }) =>
+      props.mobilewidth}px;
     div {
       font-size: 12px !important;
     }
