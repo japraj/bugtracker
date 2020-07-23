@@ -107,6 +107,10 @@ const TableTab = styled.li`
     .inline-icon {
       font-size: 0.8rem;
     }
+
+    .inline-icon {
+      margin-right: 0.3rem;
+    }
   }
 
   @media (max-width: 300px) {

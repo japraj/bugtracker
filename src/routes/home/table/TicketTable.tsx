@@ -41,12 +41,12 @@ const tabSet: Tab[] = [
   },
   {
     iconName: "cached",
-    title: "WIP",
+    title: "Unassigned",
     requiredRank: 1,
   },
   {
     iconName: "confirmation_number",
-    title: "My Tickets",
+    title: "My Issues",
     requiredRank: 0,
   },
   {

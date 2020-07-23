@@ -98,7 +98,7 @@ const HomeWrapper = styled.section`
   }
 
   .tableContainer {
-    min-width: 950px;
+    min-width: 1000px;
     width: 45vw;
   }
 
@@ -134,8 +134,13 @@ const HomeWrapper = styled.section`
 
     .tableContainer,
     .asideContainer {
+      min-width: 0;
       width: 95vw;
       margin: 0 auto;
+    }
+
+    .recentActivity {
+      margin-bottom: 1.5rem;
     }
   }
 `;
