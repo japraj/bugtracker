@@ -71,7 +71,6 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
               imgLength: "20px",
               internalSpacing: "0.5rem",
               showTag: true,
-              tagColor: "var(--text-color)",
               tagSize: "1.25rem",
             }}
             userInfo={ticket.userInfo}

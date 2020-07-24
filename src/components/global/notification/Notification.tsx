@@ -22,7 +22,6 @@ export default ({
           imgLength: `${window.innerWidth > 1100 ? 50 : 40}px`,
           internalSpacing: "0",
           showTag: false,
-          tagColor: "rgba(0, 0, 0, 0)",
           tagSize: "0",
         }}
         userInfo={notification.author}
@@ -35,7 +34,6 @@ export default ({
             imgLength: "0",
             internalSpacing: "0",
             showTag: true,
-            tagColor: "var(--text-color)",
             tagSize: "1rem",
           }}
           userInfo={notification.author}

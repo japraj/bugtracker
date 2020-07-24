@@ -25,7 +25,6 @@ interface StyleConfig {
   imgLength: string;
   internalSpacing: string;
   showTag: boolean;
-  tagColor: string;
   tagSize: string;
 }
 
@@ -48,6 +47,12 @@ enum UserRankColors {
   "black",
 }
 
+enum UserNameColors {
+  "white",
+  "darkblue",
+  "darkred",
+  "black",
+}
 export default (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
@@ -78,7 +83,7 @@ export default (props: Props) => {
         showTag={props.styleConfig.showTag}
         marginLeft={props.styleConfig.internalSpacing}
         fontSize={props.styleConfig.tagSize}
-        color={props.styleConfig.tagColor}
+        color={`var(--theme-${UserNameColors[props.userInfo.rank]})`}
       >
         {props.userInfo.tag}
       </ProfileTag>

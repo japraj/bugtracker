@@ -91,7 +91,6 @@ export default (props: Props) => {
           imgLength: length,
           internalSpacing: "0",
           showTag: false,
-          tagColor: "rgba(0, 0, 0, 0)",
           tagSize: "0",
         }}
         userInfo={user.info}
