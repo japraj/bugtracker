@@ -6,6 +6,14 @@ import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton/LinkButton";
 import { UserInfo } from "../../../app/flux/auth/authSlice";
+// Use a css file because of Material UI's portal functionality.
+// in short, Material UI places the Popper and all its children
+// in a separate div (meaning it is no longer a child of profile
+// wrapper); in order to circumvent this, a css file is required.
+// I think if there is a way to select a child's parent using css
+// then a css file could be avoided. I found the ':has' selector
+// which is currently not supported by any browser (July, 2020)
+import "./Popper.css";
 
 // Notes:
 //  - imgLength is in pixels; it denotes both width & height because img must be a square for border radius to make it a circle
@@ -72,7 +80,7 @@ export default (props: Props) => {
       >
         {props.userInfo.tag}
       </ProfileTag>
-      <Popper open={open} anchorEl={anchorEl} transition>
+      <Popper className="popper" open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <PopperContent>
@@ -140,9 +148,6 @@ const PopperContent = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 15px;
-  backdrop-filter: blur(8px);
 
   a {
     margin-top: 0.8rem;
