@@ -8,7 +8,7 @@ export default () => {
   return (
     <LinkWrapper to={"/create"}>
       <LinkWidget>
-        <h1>Create a new Ticket</h1>
+        <h1>Create a new Issue</h1>
         <Icon className="icon">create</Icon>
       </LinkWidget>
     </LinkWrapper>

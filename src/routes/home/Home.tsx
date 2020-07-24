@@ -27,8 +27,7 @@ for (let i = 0; i < 10; i++) {
       profileImg: generateImage(),
       rank: Math.abs(Math.floor(Math.random() * 4 - 0.01)),
     },
-    message:
-      "commented on a ticket reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    message: "commented on issue 'There is too much yeet.",
     new: false,
   });
 }
