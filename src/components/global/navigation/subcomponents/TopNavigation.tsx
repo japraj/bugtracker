@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import Logo from "../../logo/Logo";
 
 export default ({ expandSideNav }: { expandSideNav: () => void }) => {
   return (
@@ -17,7 +18,7 @@ export default ({ expandSideNav }: { expandSideNav: () => void }) => {
         />
       </IconButton>
       <Label>
-        <i className="fas fa-bug inline-icon" />
+        <Logo className="inline-icon" />
         Bug Tracker
       </Label>
     </TopNav>
@@ -42,12 +43,23 @@ const TopNav = styled.nav`
 `;
 
 const Label = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1.25rem;
   margin: 0 auto;
   transform: translateX(-30px);
 
+  .inline-icon {
+    font-size: 1.25rem;
+  }
+
   @media (max-width: 600px) {
     font-size: 1rem;
+
+    .inline-icon {
+      font-size: 1rem;
+    }
   }
 `;
 // Note: label is translated 30px left to perfectly center it; the IconButton is 60px wide.
