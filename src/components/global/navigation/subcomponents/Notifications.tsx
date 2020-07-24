@@ -1,4 +1,5 @@
 import React from "react";
+import { ModalContentWrapper } from "../../../container/modalContent/ModalContent";
 import { Notification } from "../../../../app/flux/auth/authSlice";
 import NotificationCell from "../../notification/Notification";
 import styled from "styled-components";
@@ -29,17 +30,7 @@ export default ({
   );
 };
 
-const NotificationWrapper = styled.div`
-  position: absolute;
-  top: 10vh;
-  width: ${(props: { width: string }) => props.width};
-  left: calc(50% - calc(${(props: { width: string }) => props.width} / 2));
-  height: 80vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(3px);
-  border-radius: 4px;
+const NotificationWrapper = styled(ModalContentWrapper)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,23 +38,12 @@ const NotificationWrapper = styled.div`
 
   .notification {
     padding-left: 1rem;
-    background-color: rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .new {
     background-color: var(--transparent-highlight);
-  }
-
-  ::-webkit-scrollbar {
-    width: 3px;
-    background-color: rgba(0, 0, 0, 0);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.5);
   }
 `;
 
