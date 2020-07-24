@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { WidgetWrapper, WidgetHeader, WidgetSection } from "../widget/Widget";
 
+// A generic container, meant to be used only on pages where
+// it is the sole content (like login/register/404/authError)
+// If multiple pieces of content (with separate containers)
+// are required, then the normal Widget should be used.
+
 export const DarkWidgetWrapper = styled.section`
   height: calc(100vh - var(--nav-height) - 2rem - 8px);
   width: 100%;

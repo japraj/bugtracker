@@ -11,7 +11,7 @@ export interface User {
 // even if they somehow access a restricted section
 // of the site, the components should make a request
 // with their id & back-end will verify it, preventing
-// any trickery
+// any trickery. The same idea applies to any api requests
 
 interface AuthState {
   loaded: boolean;

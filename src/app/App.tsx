@@ -58,6 +58,12 @@ const App = () => {
       {authSlice.loaded ? (
         <div id="App">
           <Router history={history}>
+            {/*
+            Navigation is a persistent component, present in all pages, so it is kept
+            outside the ContentWrapper (which is just a styled main). Note that
+            Navigation must be within the Router component because it uses a
+            location hook
+          */}
             <Navigation authenticated={authSlice.user.authenticated} />
             <ContentWrapper {...{ sideNavWidth }}>
               <Switch>
@@ -86,6 +92,11 @@ const App = () => {
                     />
                   )}
                 />
+                {/* 
+                  This route is special in that if no
+                  other route is matched, the user is 
+                  automatically redirected here.
+                */}
                 <Route
                   render={() => (
                     <ErrorPage
@@ -110,6 +121,14 @@ const App = () => {
   );
 };
 
+// Note: the left margin becomes 0 for
+// screens below 1215px because the
+// collapsed sidenav disappears at
+// those screens (takes up too much
+// space)
+//
+// Padding-bottom is present on mobile
+// because of the special bottom nav
 const ContentWrapper = styled.main`
   padding: 2rem 40px 8px 40px;
   margin: var(--nav-height) 0 0

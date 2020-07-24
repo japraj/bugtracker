@@ -35,6 +35,10 @@ const statLen = "25px";
 const statRightMarg = "0.5rem";
 const statLeftMarg = "0.5rem";
 
+// This component is meant to display only the essential details
+// of a ticket (specifically, information that can be useful
+// for delegation); see Ticket.tsx for a detailed view.
+
 export default ({ ticket }: { ticket: CollapsedTicket }) => {
   return (
     <TicketWrapper>

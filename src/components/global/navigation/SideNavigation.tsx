@@ -28,11 +28,15 @@ export default ({
       key={navItem.text}
       to={"/" + navItem.path}
       onClick={() => {
+        // On mobile, we automatically close the nav
+        // when a user clicks on a link.
         if (window.innerWidth < 600) toggleCollapsed();
+        // Logout
         if (navItem === LogoutItem) logout();
       }}
     >
       <ButtonBase
+        // ButtonBase gives the ripple effect
         focusRipple
         style={{
           width: collapsed ? collapsedWidth : extendedWidth,
@@ -42,9 +46,11 @@ export default ({
       >
         <li
           className={`hoverfx3 ${
+            // The logout item can not be selected
             navItem === LogoutItem
               ? ""
-              : "/" + navItem.path === location
+              : // Nested ternary; the below line/expression is actually the condition
+              "/" + navItem.path === location
               ? "selected"
               : ""
           }`}
@@ -160,6 +166,10 @@ const SideNav = styled.nav`
   }
 `;
 
+// GlassDiv just serves to blur the background behind the
+// sideNav because for screens of width between ~600-1200,
+// the sidenav is only ~60vw
+// Note: also has an onclick to toggle collapse
 const GlassDiv = styled.div`
   @media (max-width: 1215px) and (min-width: 601px) {
     ${(props: { collapsed: boolean }) =>

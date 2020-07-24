@@ -10,7 +10,12 @@ export default (props: Props) => {
   return <StatusIndicator className={props.className} styles={props.styles} />;
 };
 
-// Note: all values' units must be specified; the status indicator is always a square
+// Note: all values' units must be specified.
+// The status indicator's width/height are both
+// set to the given length dimension to ensure
+// that it is a square. That way, we can apply
+// border-radius: 50% and get a perfect
+// circle!
 interface StyledProps {
   length: string;
   rightMargin: string;

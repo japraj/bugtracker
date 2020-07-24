@@ -48,6 +48,8 @@ export const LogoutItem: NavigationItem = {
 const defaultNavSet: NavigationItem[] = [HomeItem, LoginItem, RegisterItem];
 const authNavSet: NavigationItem[] = [HomeItem, DashboardItem, LogoutItem];
 
+// Container class for SideNav and TopNav, meant to handle the logic
+// for both components.
 export default ({ authenticated }: { authenticated: boolean }) => {
   const dispatch = useDispatch();
   const collapsed: boolean = useSelector(selectCollapsed);

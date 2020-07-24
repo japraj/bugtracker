@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+// A generic container, meant to  be used in sections
+// that have multiple widgets (like the homepage)
+
 export const WidgetWrapper = styled.section`
   backdrop-filter: blur(8px);
   background-color: rgba(255, 255, 255, 0.1);
