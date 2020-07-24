@@ -27,7 +27,7 @@ export default ({
   const location = useLocation().pathname;
   const NavLinkSet = navItemSet.map((navItem) =>
     // Do not display the logout item for mobile bottom nav
-    window.innerWidth < 600 && navItem === logoutItem ? (
+    window.innerWidth < 600 && navItem === logoutItem && collapsed ? (
       <React.Fragment key={navItem.text} />
     ) : (
       <NavLink
