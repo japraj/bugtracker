@@ -259,7 +259,6 @@ img {
 
 .hoverfx2:hover,
 .hoverfx2:focus {
-  transform: scaleY(1.1);
   border-right: 0.5rem solid var(--highlight);
 }
 

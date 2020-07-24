@@ -2,9 +2,9 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { NavigationItem } from "./NavigationWrapper";
 import { Link } from "react-router-dom";
+import Profile from "./Profile";
 import styled from "styled-components";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import { LogoutItem } from "./NavigationWrapper";
 import Icon from "@material-ui/core/Icon";
 
 export default ({
@@ -14,6 +14,7 @@ export default ({
   navItemSet,
   toggleCollapsed,
   logout,
+  logoutItem,
 }: {
   collapsed: boolean;
   collapsedWidth: number;
@@ -21,6 +22,7 @@ export default ({
   navItemSet: NavigationItem[];
   toggleCollapsed: () => void;
   logout: () => void;
+  logoutItem: NavigationItem;
 }) => {
   const location = useLocation().pathname;
   const NavLinkSet = navItemSet.map((navItem) => (
@@ -32,7 +34,7 @@ export default ({
         // when a user clicks on a link.
         if (window.innerWidth < 600) toggleCollapsed();
         // Logout
-        if (navItem === LogoutItem) logout();
+        if (navItem === logoutItem) logout();
       }}
     >
       <ButtonBase
@@ -45,9 +47,9 @@ export default ({
         }}
       >
         <li
-          className={`hoverfx3 ${
+          className={`${window.innerWidth > 600 ? "hoverfx3" : ""} ${
             // The logout item can not be selected
-            navItem === LogoutItem
+            navItem === logoutItem
               ? ""
               : // Nested ternary; the below line/expression is actually the condition
               "/" + navItem.path === location
@@ -68,6 +70,11 @@ export default ({
         collapsed={collapsed}
         sideNavWidth={collapsed ? collapsedWidth : extendedWidth}
       >
+        <Profile
+          collapsed={collapsed}
+          toggleCollapsed={toggleCollapsed}
+          className="profileWrapper"
+        />
         <ul>{NavLinkSet}</ul>
       </SideNav>
       <GlassDiv {...{ collapsed }} onClick={toggleCollapsed} />
@@ -122,10 +129,16 @@ const SideNav = styled.nav`
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(4px);
 
-    ul {
-      padding-top: 10vh;
+    .profileWrapper {
       ${(props: { collapsed: boolean; sideNavWidth: number }) =>
-        props.collapsed ? "display: none;" : "display: flex;"}
+        props.collapsed
+          ? "display: none;"
+          : "width: 172px; margin: 5rem auto 1rem;"}
+    }
+
+    ul {
+      ${(props: { collapsed: boolean; sideNavWidth: number }) =>
+        props.collapsed ? "display: none;padding-top: 10vh;" : "display: flex;"}
       flex-direction: column;
 
       li {

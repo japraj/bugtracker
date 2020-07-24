@@ -1,10 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
+export interface UserInfo {
+  profileImg: string;
+  tag: string;
+  rank: number;
+}
+
 export interface User {
   authenticated: boolean;
   id: number;
-  permissions: number;
+  notifications: String[];
+  info: UserInfo;
 }
 //  Note: the permissions integer stored in the front-end
 // is only meant to be used for soft-locking the user;
@@ -23,7 +30,12 @@ export const initialState: AuthState = {
   user: {
     authenticated: false,
     id: 0,
-    permissions: 0,
+    notifications: [],
+    info: {
+      profileImg: "",
+      tag: "",
+      rank: 0,
+    },
   },
 };
 
@@ -49,7 +61,9 @@ export const { finishedLoading, loadUser } = authSlice.actions;
 
 export const selectAuthSlice = (state: RootState) => state.authentication;
 
-export const selectUserPermissions = (state: RootState) =>
-  state.authentication.user.permissions;
+export const selectUser = (state: RootState) => state.authentication.user;
+
+export const selectUserRank = (state: RootState) =>
+  state.authentication.user.info.rank;
 
 export default authSlice.reducer;

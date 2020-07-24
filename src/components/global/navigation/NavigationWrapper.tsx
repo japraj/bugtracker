@@ -39,7 +39,7 @@ const DashboardItem: NavigationItem = {
   text: "Dashboard",
 };
 
-export const LogoutItem: NavigationItem = {
+const LogoutItem: NavigationItem = {
   path: "",
   iconName: "exit_to_app_sharp",
   text: "Logout",
@@ -72,6 +72,7 @@ export default ({ authenticated }: { authenticated: boolean }) => {
           // Logout logic
           console.log("Logout");
         }}
+        logoutItem={LogoutItem}
       />
     </React.Fragment>
   );

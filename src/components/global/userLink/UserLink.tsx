@@ -5,6 +5,7 @@ import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton/LinkButton";
+import { UserInfo } from "../../../app/flux/auth/authSlice";
 
 // Notes:
 //  - imgLength is in pixels; it denotes both width & height because img must be a square for border radius to make it a circle
@@ -20,11 +21,7 @@ interface Props {
     tagColor: string;
     tagSize: string;
   };
-  userInfo: {
-    profileImg: string;
-    userTag: string;
-    userRank: number;
-  };
+  userInfo: UserInfo;
 }
 
 enum UserRank {
@@ -73,7 +70,7 @@ export default (props: Props) => {
         fontSize={props.styleConfig.tagSize}
         color={props.styleConfig.tagColor}
       >
-        {props.userInfo.userTag}
+        {props.userInfo.tag}
       </ProfileTag>
       <Popper open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
@@ -86,19 +83,19 @@ export default (props: Props) => {
                   height: "50px",
                 }}
               />
-              <PopperTag>{props.userInfo.userTag}</PopperTag>
+              <PopperTag>{props.userInfo.tag}</PopperTag>
               <Chip
                 style={{
                   color: "white",
                   backgroundColor: `var(--theme-${
-                    UserRankColors[props.userInfo.userRank]
+                    UserRankColors[props.userInfo.rank]
                   })`,
                 }}
                 variant="outlined"
                 size="small"
-                label={UserRank[props.userInfo.userRank]}
+                label={UserRank[props.userInfo.rank]}
               />
-              <LinkButton to={`/user/${props.userInfo.userTag}`}>
+              <LinkButton to={`/user/${props.userInfo.tag}`}>
                 View Profile
               </LinkButton>
             </PopperContent>

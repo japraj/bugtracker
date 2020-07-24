@@ -3,12 +3,7 @@ import { WidgetSection } from "../../container/widget/Widget";
 import StatusIndicator from "./StatusIndicator";
 import styled from "styled-components";
 import UserLink from "../userLink/UserLink";
-
-export interface UserInfo {
-  profileImg: string;
-  userTag: string;
-  userRank: number;
-}
+import { UserInfo } from "../../../app/flux/auth/authSlice";
 
 export interface CollapsedTicket {
   userInfo: UserInfo;

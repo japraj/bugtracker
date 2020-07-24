@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setTabIndex, selectTabIndex } from "./tableSlice";
-import { selectUserPermissions } from "../../../app/flux/auth/authSlice";
+import { selectUserRank } from "../../../app/flux/auth/authSlice";
 import { WidgetHeader } from "../../../components/container/widget/Widget";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
@@ -13,17 +13,17 @@ export interface Tab {
 }
 
 export default ({ tabSet }: { tabSet: Tab[] }) => {
-  const userPerms = useSelector(selectUserPermissions);
+  const userRank = useSelector(selectUserRank);
   const selectedIndex = useSelector(selectTabIndex);
   const dispatch = useDispatch();
   const tabs = tabSet
-    .filter((tab) => userPerms >= tab.requiredRank)
+    .filter((tab) => userRank >= tab.requiredRank)
     .map((tab, index) => (
       <TableTab
         key={tab.title}
         className={index === selectedIndex ? "selected" : ""}
         onClick={() => dispatch(setTabIndex(index))}
-        userPerms={userPerms}
+        userRank={userRank}
       >
         <Icon className="inline-icon">{tab.iconName}</Icon>
         <h1>{tab.title}</h1>
@@ -91,8 +91,8 @@ const TableTab = styled.li`
   }
 
   @media (max-width: 870px) {
-    ${(props: { userPerms: number }) =>
-      props.userPerms > 0 ? `border: 1px solid rgba(0, 0, 0, 0.1);` : ``}
+    ${(props: { userRank: number }) =>
+      props.userRank > 0 ? `border: 1px solid rgba(0, 0, 0, 0.1);` : ``}
     border-top: none;
 
     .selected {
@@ -120,8 +120,8 @@ const TableTab = styled.li`
     }
   }
 
-  ${(props: { userPerms: number }) =>
-    props.userPerms !== 1
+  ${(props: { userRank: number }) =>
+    props.userRank !== 1
       ? `
         :nth-last-child(1),
         :nth-last-child(2),

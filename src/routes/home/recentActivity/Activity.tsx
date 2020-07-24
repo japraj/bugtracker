@@ -1,6 +1,6 @@
 import React from "react";
 import UserLink from "../../../components/global/userLink/UserLink";
-import { UserInfo } from "../../../components/global/collapsedTicket/CollapsedTicket";
+import { UserInfo } from "../../../app/flux/auth/authSlice";
 import styled from "styled-components";
 
 export interface Activity {
@@ -24,7 +24,7 @@ export default ({ activity }: { activity: Activity }) => {
         userInfo={activity.userInfo}
       />
       <CellText>
-        <strong>{activity.userInfo.userTag}</strong>
+        <strong>{activity.userInfo.tag}</strong>
         <h2>{activity.description}</h2>
       </CellText>
     </Cell>
@@ -60,9 +60,9 @@ const CellText = styled.div`
   h2 {
     font-size: 0.9rem;
     max-width: 95%;
-    overflow: hidden;
     color: var(--text-lightgrey);
     white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
     text-transform: lowercase;
 

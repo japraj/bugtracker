@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   User,
@@ -32,11 +32,17 @@ const Context = React.createContext(initialState);
 
 const App = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
+  React.useEffect(() => {
     let user: User = {
-      authenticated: false,
+      authenticated: true,
       id: 0,
-      permissions: 2,
+      notifications: [""],
+      info: {
+        profileImg:
+          "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia2.s-nbcnews.com%2Fi%2Fstreams%2F2014%2FOctober%2F141022%2F1D274907053597-141022_today-pets-dog-tease-ae.jpg&f=1&nofb=1",
+        tag: "Infamous",
+        rank: 3,
+      },
     };
     // User loading logic; make fetch request to serverURL
     // (must specify the endpoint though), store results

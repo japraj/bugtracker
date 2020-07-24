@@ -23,9 +23,9 @@ const activitySet: Activity[] = [];
 for (let i = 0; i < 10; i++) {
   activitySet.push({
     userInfo: {
-      userTag: Math.random().toString(36).substr(2, 22),
+      tag: Math.random().toString(36).substr(2, 22),
       profileImg: generateImage(),
-      userRank: Math.abs(Math.floor(Math.random() * 4 - 0.01)),
+      rank: Math.abs(Math.floor(Math.random() * 4 - 0.01)),
     },
     description:
       "commented on a ticket reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
@@ -38,9 +38,9 @@ export default class extends React.Component<{}, {}> {
     for (let i = 0; i < 20; i++) {
       ticketSet.push({
         userInfo: {
-          userTag: Math.random().toString(36).substr(2, 22),
+          tag: Math.random().toString(36).substr(2, 22),
           profileImg: generateImage(),
-          userRank: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
+          rank: Math.abs(Math.floor(Math.random() * 3 - 0.01)),
         },
         creationDate: Math.random().toString(36).substr(2, 15),
         title:

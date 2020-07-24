@@ -18,7 +18,7 @@ export default ({
     .filter((activity, index) => index < 5)
     .map((activity, index) => {
       return (
-        <WidgetSection key={activity.userInfo.userTag + index}>
+        <WidgetSection key={activity.userInfo.tag + index}>
           <ActivityCell {...{ activity }} />
         </WidgetSection>
       );
