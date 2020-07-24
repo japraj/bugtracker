@@ -1,11 +1,17 @@
 import React from "react";
-import UserLink from "../../../components/global/userLink/UserLink";
+import UserLink from "../userLink/UserLink";
 import { Notification } from "../../../app/flux/auth/authSlice";
 import styled from "styled-components";
 
-export default ({ activity }: { activity: Notification }) => {
+export default ({
+  notification,
+  className,
+}: {
+  notification: Notification;
+  className: string;
+}) => {
   return (
-    <Cell>
+    <Cell className={className}>
       <UserLink
         styleConfig={{
           className: "",
@@ -16,11 +22,22 @@ export default ({ activity }: { activity: Notification }) => {
           tagColor: "rgba(0, 0, 0, 0)",
           tagSize: "0",
         }}
-        userInfo={activity.author}
+        userInfo={notification.author}
       />
       <CellText>
-        <strong>{activity.author.tag}</strong>
-        <h2>{activity.message}</h2>
+        <UserLink
+          styleConfig={{
+            className: "author",
+            showImg: false,
+            imgLength: 0,
+            internalSpacing: "0",
+            showTag: true,
+            tagColor: "var(--text-color)",
+            tagSize: "1rem",
+          }}
+          userInfo={notification.author}
+        />
+        <h2>{notification.message}</h2>
       </CellText>
     </Cell>
   );
@@ -43,12 +60,19 @@ const CellText = styled.div`
   margin: 0 0.5rem 0 0.7rem;
   width: calc(100% - 50px);
 
-  strong {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+  .author {
+    max-width: 90%;
 
-    @media (max-width: 1100px) {
-      font-size: 0.9rem;
+    h3 {
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+
+      @media (max-width: 1100px) {
+        font-size: 0.9rem;
+      }
     }
   }
 

@@ -151,6 +151,8 @@ const ProfileTag = styled.h3`
 `;
 
 const PopperContent = styled.div`
+  max-width: 80vw;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;

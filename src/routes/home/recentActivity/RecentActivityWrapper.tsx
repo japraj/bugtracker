@@ -5,22 +5,22 @@ import {
   WidgetSection,
 } from "../../../components/container/widget/Widget";
 import { Notification } from "../../../app/flux/auth/authSlice";
-import ActivityCell from "./Activity";
+import NotificationCell from "../../../components/global/notification/Notification";
 import Icon from "@material-ui/core/Icon";
 
 export default ({
-  activitySet,
+  notificationSet,
   className,
 }: {
-  activitySet: Notification[];
+  notificationSet: Notification[];
   className: string;
 }) => {
-  const activityNodes = activitySet
-    .filter((activity, index) => index < 5)
-    .map((activity, index) => {
+  const notificationNodes = notificationSet
+    .filter((notification, index) => index < 5)
+    .map((notification, index) => {
       return (
-        <WidgetSection key={activity.author.tag + index}>
-          <ActivityCell {...{ activity }} />
+        <WidgetSection key={notification.author.tag + index}>
+          <NotificationCell className="" {...{ notification }} />
         </WidgetSection>
       );
     });
@@ -30,7 +30,7 @@ export default ({
         <Icon className="inline-icon">today</Icon>
         <h1>Recent Activity</h1>
       </WidgetHeader>
-      {activityNodes}
+      {notificationNodes}
     </WidgetWrapper>
   );
 };

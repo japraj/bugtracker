@@ -19,9 +19,9 @@ const generateImage = () => {
   return "";
 };
 
-const activitySet: Notification[] = [];
+const notificationSet: Notification[] = [];
 for (let i = 0; i < 10; i++) {
-  activitySet.push({
+  notificationSet.push({
     author: {
       tag: Math.random().toString(36).substr(2, 22),
       profileImg: generateImage(),
@@ -66,7 +66,7 @@ export default class extends React.Component<{}, {}> {
         <div className="asideContainer">
           <RecentActivity
             className="recentActivity"
-            activitySet={activitySet}
+            notificationSet={notificationSet}
           />
           <CreateLink />
         </div>
