@@ -82,7 +82,7 @@ export default (props: Props) => {
       </ProfileTag>
       <Popper className="popper" open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
+          <Fade {...TransitionProps} timeout={150}>
             <PopperContent>
               <Avatar
                 src={props.userInfo.profileImg}
