@@ -61,10 +61,23 @@ export const authSlice = createSlice({
         return { payload };
       },
     },
+    viewNotifications: (state) => {
+      state.user.notifications = state.user.notifications.map(
+        (notification) => {
+          return Object.assign(notification, {
+            new: false,
+          });
+        }
+      );
+    },
   },
 });
 
-export const { finishedLoading, loadUser } = authSlice.actions;
+export const {
+  finishedLoading,
+  loadUser,
+  viewNotifications,
+} = authSlice.actions;
 
 export const selectAuthSlice = (state: RootState) => state.authentication;
 

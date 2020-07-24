@@ -1,6 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../../../app/flux/auth/authSlice";
+import { viewNotifications } from "../../../../app/flux/auth/authSlice";
 import UserLink from "../../userLink/UserLink";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
@@ -19,8 +20,28 @@ interface Props {
 // and a button to access notifications
 export default (props: Props) => {
   const [open, setOpen] = React.useState(false);
-
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const notificationsAmount = user.notifications.filter(
+    (notification) => notification.new
+  ).length;
+
+  const clearNewNotifications = () => {
+    // if there were new notifications,
+    // send a request to server setting all new notifications to viewed
+    // and locally set all notifications to viewed too
+    if (notificationsAmount > 0) {
+      dispatch(viewNotifications());
+      // Send a request to the server here.
+    }
+  };
+
+  const close = () => {
+    setOpen(false);
+    clearNewNotifications();
+  };
+
   const length = props.collapsed ? "30px" : "80px";
   return user.authenticated ? (
     <Profile collapsed={props.collapsed} className={props.className}>
@@ -55,10 +76,7 @@ export default (props: Props) => {
               className="badge"
               // BadgeContent is the number of new notifications
               // if it is 0, then the badge is not visible
-              badgeContent={
-                user.notifications.filter((notification) => notification.new)
-                  .length
-              }
+              badgeContent={notificationsAmount}
               overlap="circle"
               max={9}
               color="error"
@@ -66,9 +84,9 @@ export default (props: Props) => {
                 vertical: "top",
                 horizontal: "right",
               }}
-              onClick={() => setOpen(!open)}
+              onClick={() => setOpen(true)}
             >
-              <Icon className="icon" onClick={() => setOpen(!open)}>
+              <Icon className="icon" onClick={() => setOpen(true)}>
                 notifications
               </Icon>
             </Badge>
@@ -76,12 +94,12 @@ export default (props: Props) => {
           <Modal
             style={{ zIndex: 12 }}
             open={open}
-            onClose={() => setOpen(false)}
+            onClose={close}
             aria-labelledby="Notifications"
             aria-describedby="A list of notifications for the user, each containing an author and a message."
           >
             <Notifications
-              onRedirect={() => setOpen(false)}
+              onRedirect={close}
               notifications={user.notifications}
             />
           </Modal>
