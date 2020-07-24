@@ -26,7 +26,7 @@ export default ({ notifications }: { notifications: Notification[] }) => {
         ))
       ) : (
         <EmptyNotificationsBanner>
-          You have no notifications :(
+          You have no notifications.
         </EmptyNotificationsBanner>
       )}
     </NotificationWrapper>
@@ -73,9 +73,10 @@ const EmptyNotificationsBanner = styled.h1`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto 0 50vh;
   height: 3rem;
   width: 100%;
-  background-color: var(--highlight);
+  font-style: italic;
 `;
 
 const NotificationElement = styled.div`
