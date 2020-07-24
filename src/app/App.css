@@ -25,7 +25,7 @@
   --shadow-5: rgba(0, 0, 0, 0.5);
 
   --darkest: rgba(0, 0, 0, 0);
-  --darker: rgba(0, 0, 0, 0.5);
+  --darker: rgba(0, 0, 0, 0.1);
   --dark: rgba(0, 0, 0, 0.7);
   --light: #3a3b3c;
   --lighter: #b0b3b8;
@@ -35,6 +35,7 @@
   --text-lightgrey: var(--lightest);
   --text-color: white;
   --highlight: #209e91;
+  --transparent-highlight: rgba(32, 158, 145, 0.5);
   --nav-bg: rgba(0, 0, 0, 0.85);
   --vert-nav-bg: rgba(0, 0, 0, 0.5);
   --nav-height: 6vh;

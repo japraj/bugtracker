@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import RecentActivity from "./recentActivity/RecentActivityWrapper";
-import { Activity } from "./recentActivity/Activity";
 import Table from "./table/TicketTable";
 import { CollapsedTicket } from "../../components/global/collapsedTicket/CollapsedTicket";
+import { Notification } from "../../app/flux/auth/authSlice";
 import CreateLink from "./createLink/CreateLink";
 
 const generateImage = () => {
@@ -19,16 +19,17 @@ const generateImage = () => {
   return "";
 };
 
-const activitySet: Activity[] = [];
+const activitySet: Notification[] = [];
 for (let i = 0; i < 10; i++) {
   activitySet.push({
-    userInfo: {
+    author: {
       tag: Math.random().toString(36).substr(2, 22),
       profileImg: generateImage(),
       rank: Math.abs(Math.floor(Math.random() * 4 - 0.01)),
     },
-    description:
+    message:
       "commented on a ticket reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    new: false,
   });
 }
 

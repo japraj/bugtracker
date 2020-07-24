@@ -7,10 +7,16 @@ export interface UserInfo {
   rank: number;
 }
 
+export interface Notification {
+  author: UserInfo;
+  message: string;
+  new: boolean;
+}
+
 export interface User {
   authenticated: boolean;
   id: number;
-  notifications: String[];
+  notifications: Notification[];
   info: UserInfo;
 }
 //  Note: the permissions integer stored in the front-end

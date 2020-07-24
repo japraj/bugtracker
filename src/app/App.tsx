@@ -36,7 +36,28 @@ const App = () => {
     let user: User = {
       authenticated: true,
       id: 0,
-      notifications: [""],
+      notifications: [
+        {
+          author: {
+            profileImg: "",
+            tag: "asfadsfasdfasdfadsfaaaaa",
+            rank: 0,
+          },
+          message:
+            "A notification message!!!!!!!reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          new: true,
+        },
+        {
+          author: {
+            profileImg: "",
+            tag: "asfadsfasdfasdfadsfaaaaa",
+            rank: 0,
+          },
+          message:
+            "A notification message!!!!!!!reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          new: false,
+        },
+      ],
       info: {
         profileImg:
           "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia2.s-nbcnews.com%2Fi%2Fstreams%2F2014%2FOctober%2F141022%2F1D274907053597-141022_today-pets-dog-tease-ae.jpg&f=1&nofb=1",

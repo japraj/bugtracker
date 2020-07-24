@@ -1,14 +1,9 @@
 import React from "react";
 import UserLink from "../../../components/global/userLink/UserLink";
-import { UserInfo } from "../../../app/flux/auth/authSlice";
+import { Notification } from "../../../app/flux/auth/authSlice";
 import styled from "styled-components";
 
-export interface Activity {
-  userInfo: UserInfo;
-  description: string;
-}
-
-export default ({ activity }: { activity: Activity }) => {
+export default ({ activity }: { activity: Notification }) => {
   return (
     <Cell>
       <UserLink
@@ -21,11 +16,11 @@ export default ({ activity }: { activity: Activity }) => {
           tagColor: "rgba(0, 0, 0, 0)",
           tagSize: "0",
         }}
-        userInfo={activity.userInfo}
+        userInfo={activity.author}
       />
       <CellText>
-        <strong>{activity.userInfo.tag}</strong>
-        <h2>{activity.description}</h2>
+        <strong>{activity.author.tag}</strong>
+        <h2>{activity.message}</h2>
       </CellText>
     </Cell>
   );

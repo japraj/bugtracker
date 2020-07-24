@@ -6,6 +6,8 @@ import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Notifications from "./Notifications";
+import Modal from "@material-ui/core/Modal";
 
 interface Props {
   collapsed: boolean;
@@ -13,8 +15,11 @@ interface Props {
   className: string;
 }
 
-// This component displays the user's profile
+// Displays the user's profileImg/tag, a link to the settings page,
+// and a button to access notifications
 export default (props: Props) => {
+  const [open, setOpen] = React.useState(false);
+
   const user = useSelector(selectUser);
   const length = props.collapsed ? "30px" : "80px";
   return user.authenticated ? (
@@ -42,7 +47,12 @@ export default (props: Props) => {
             </Link>
             <Badge
               className="badge"
-              badgeContent={user.notifications.length}
+              // BadgeContent is the number of new notifications
+              // if it is 0, then the badge is not visible
+              badgeContent={
+                user.notifications.filter((notification) => notification.new)
+                  .length
+              }
               overlap="circle"
               max={9}
               color="error"
@@ -50,10 +60,22 @@ export default (props: Props) => {
                 vertical: "top",
                 horizontal: "right",
               }}
+              onClick={() => setOpen(!open)}
             >
-              <Icon className="icon">notifications</Icon>
+              <Icon className="icon" onClick={() => setOpen(!open)}>
+                notifications
+              </Icon>
             </Badge>
           </ProfileWidgetWrapper>
+          <Modal
+            style={{ zIndex: 12 }}
+            open={open}
+            onClose={() => setOpen(false)}
+            aria-labelledby="Notifications"
+            aria-describedby="A list of notifications for the user, each containing an author and a message."
+          >
+            <Notifications notifications={user.notifications} />
+          </Modal>
         </React.Fragment>
       )}
     </Profile>

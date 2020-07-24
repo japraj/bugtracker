@@ -19,16 +19,18 @@ import "./Popper.css";
 //  - imgLength is in pixels; it denotes both width & height because img must be a square for border radius to make it a circle
 //  - for all string attributes in the below interface, units must be specified
 
+interface StyleConfig {
+  className: string;
+  showImg: boolean;
+  imgLength: number;
+  internalSpacing: string;
+  showTag: boolean;
+  tagColor: string;
+  tagSize: string;
+}
+
 interface Props {
-  styleConfig: {
-    className: string;
-    showImg: boolean;
-    imgLength: number;
-    internalSpacing: string;
-    showTag: boolean;
-    tagColor: string;
-    tagSize: string;
-  };
+  styleConfig: StyleConfig;
   userInfo: UserInfo;
 }
 
@@ -80,7 +82,13 @@ export default (props: Props) => {
       >
         {props.userInfo.tag}
       </ProfileTag>
-      <Popper className="popper" open={open} anchorEl={anchorEl} transition>
+      <Popper
+        style={{ zIndex: 13 }}
+        className="popper"
+        open={open}
+        anchorEl={anchorEl}
+        transition
+      >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={150}>
             <PopperContent>
