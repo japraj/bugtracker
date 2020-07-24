@@ -14,6 +14,7 @@ interface Props {
   collapsed: boolean;
   toggleCollapsed: () => void;
   className: string;
+  showNotificationsOnly: boolean;
 }
 
 // Displays the user's profileImg/tag, a link to the settings page,
@@ -43,6 +44,44 @@ export default (props: Props) => {
   };
 
   const length = props.collapsed ? "30px" : "80px";
+
+  const notificationsWidget = (
+    <React.Fragment>
+      <Badge
+        className="badge"
+        // BadgeContent is the number of new notifications
+        // if it is 0, then the badge is not visible
+        badgeContent={notificationsAmount}
+        overlap="circle"
+        max={9}
+        color="error"
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        onClick={() => setOpen(true)}
+      >
+        <Icon className="icon" onClick={() => setOpen(true)}>
+          notifications
+        </Icon>
+      </Badge>
+      <Modal
+        style={{ zIndex: 12 }}
+        open={open}
+        onClose={close}
+        aria-labelledby="Notifications"
+        aria-describedby="A list of notifications for the user, each containing an author and a message."
+      >
+        <Notifications onRedirect={close} notifications={user.notifications} />
+      </Modal>
+    </React.Fragment>
+  );
+
+  // Mobile
+  if (props.showNotificationsOnly) {
+    return notificationsWidget;
+  }
+
   return user.authenticated ? (
     <Profile collapsed={props.collapsed} className={props.className}>
       <UserLink
@@ -72,37 +111,8 @@ export default (props: Props) => {
             >
               <Icon className="settings icon">settings</Icon>
             </Link>
-            <Badge
-              className="badge"
-              // BadgeContent is the number of new notifications
-              // if it is 0, then the badge is not visible
-              badgeContent={notificationsAmount}
-              overlap="circle"
-              max={9}
-              color="error"
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              onClick={() => setOpen(true)}
-            >
-              <Icon className="icon" onClick={() => setOpen(true)}>
-                notifications
-              </Icon>
-            </Badge>
+            {notificationsWidget}
           </ProfileWidgetWrapper>
-          <Modal
-            style={{ zIndex: 12 }}
-            open={open}
-            onClose={close}
-            aria-labelledby="Notifications"
-            aria-describedby="A list of notifications for the user, each containing an author and a message."
-          >
-            <Notifications
-              onRedirect={close}
-              notifications={user.notifications}
-            />
-          </Modal>
         </React.Fragment>
       )}
     </Profile>
