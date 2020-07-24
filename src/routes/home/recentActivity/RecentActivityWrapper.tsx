@@ -20,7 +20,11 @@ export default ({
     .map((notification, index) => {
       return (
         <WidgetSection key={notification.author.tag + index}>
-          <NotificationCell className="" {...{ notification }} />
+          <NotificationCell
+            onRedirect={() => {}}
+            className=""
+            {...{ notification }}
+          />
         </WidgetSection>
       );
     });

@@ -1,14 +1,17 @@
 import React from "react";
 import UserLink from "../userLink/UserLink";
+import HyperLink from "../hyperLink/HyperLink";
 import { Notification } from "../../../app/flux/auth/authSlice";
 import styled from "styled-components";
 
 export default ({
   notification,
   className,
+  onRedirect,
 }: {
   notification: Notification;
   className: string;
+  onRedirect: () => void;
 }) => {
   return (
     <Cell className={className}>
@@ -37,7 +40,15 @@ export default ({
           }}
           userInfo={notification.author}
         />
-        <h2>{notification.message}</h2>
+        {/* 
+          OnRedirect is a function called when the user clicks the link
+          example usage: in the Navigation/Notifications component, we
+          want to close the notifications modal when the user is redirected
+          for a smooth ux.
+          */}
+        <HyperLink className="link" to={notification.to} onClick={onRedirect}>
+          {notification.message}
+        </HyperLink>
       </CellText>
     </Cell>
   );
@@ -76,7 +87,7 @@ const CellText = styled.div`
     }
   }
 
-  h2 {
+  .link {
     font-size: 0.9rem;
     max-width: 95%;
     color: var(--text-lightgrey);

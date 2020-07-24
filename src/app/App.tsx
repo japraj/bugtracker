@@ -38,30 +38,36 @@ const App = () => {
       id: 0,
       notifications: [
         {
+          to: "/issue/asdf",
           author: {
             profileImg: "",
             tag: "Author Name",
             rank: 0,
           },
-          message: "Quam error accusamus rem modi sunt molestiae iure sunt. ",
+          message:
+            "Asdf quam error accusamus rem modi sunt molestiae iure sunt. ",
           new: true,
         },
         {
+          to: "/issue/gfds",
           author: {
             profileImg: "",
             tag: "Author Name",
             rank: 0,
           },
-          message: "Quam error accusamus rem modi sunt molestiae iure sunt. ",
+          message:
+            "Gfds quam error accusamus rem modi sunt molestiae iure sunt. ",
           new: true,
         },
         {
+          to: "/issue/iuyt",
           author: {
             profileImg: "",
             tag: "Author Name",
             rank: 0,
           },
-          message: "Quam error accusamus rem modi sunt molestiae iure sunt. ",
+          message:
+            "Iuyt quam error accusamus rem modi sunt molestiae iure sunt. ",
           new: false,
         },
       ],

@@ -22,6 +22,7 @@ const generateImage = () => {
 const notificationSet: Notification[] = [];
 for (let i = 0; i < 10; i++) {
   notificationSet.push({
+    to: `/issues/${Math.random().toString(36).substr(2, 22)}`,
     author: {
       tag: Math.random().toString(36).substr(2, 22),
       profileImg: generateImage(),

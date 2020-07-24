@@ -80,7 +80,10 @@ export default (props: Props) => {
             aria-labelledby="Notifications"
             aria-describedby="A list of notifications for the user, each containing an author and a message."
           >
-            <Notifications notifications={user.notifications} />
+            <Notifications
+              onRedirect={() => setOpen(false)}
+              notifications={user.notifications}
+            />
           </Modal>
         </React.Fragment>
       )}
