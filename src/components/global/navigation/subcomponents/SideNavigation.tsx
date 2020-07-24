@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { NavigationItem } from "./NavigationWrapper";
+import { NavigationItem } from "../NavigationWrapper";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import styled from "styled-components";

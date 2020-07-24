@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../../app/flux/auth/authSlice";
-import UserLink from "../userLink/UserLink";
+import { selectUser } from "../../../../app/flux/auth/authSlice";
+import UserLink from "../../userLink/UserLink";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";

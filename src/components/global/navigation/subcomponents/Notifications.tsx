@@ -1,6 +1,6 @@
 import React from "react";
-import { Notification } from "../../../app/flux/auth/authSlice";
-import NotificationCell from "../notification/Notification";
+import { Notification } from "../../../../app/flux/auth/authSlice";
+import NotificationCell from "../../notification/Notification";
 import styled from "styled-components";
 
 export default ({ notifications }: { notifications: Notification[] }) => {
