@@ -32,12 +32,12 @@ const tabSet: Tab[] = [
   {
     iconName: "new_releases",
     title: "Latest",
-    requiredRank: 0,
+    requiredRank: -1,
   },
   {
     iconName: "assignment_turned_in",
     title: "Resolved",
-    requiredRank: 0,
+    requiredRank: -1,
   },
   {
     iconName: "cached",
