@@ -22,7 +22,7 @@ import "./Popper.css";
 interface StyleConfig {
   className: string;
   showImg: boolean;
-  imgLength: number;
+  imgLength: string;
   internalSpacing: string;
   showTag: boolean;
   tagColor: string;

@@ -68,7 +68,7 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
             styleConfig={{
               className: "author",
               showImg: true,
-              imgLength: 20,
+              imgLength: "20px",
               internalSpacing: "0.5rem",
               showTag: true,
               tagColor: "var(--text-color)",

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../app/flux/auth/authSlice";
-import Avatar from "@material-ui/core/Avatar";
+import UserLink from "../userLink/UserLink";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
@@ -24,13 +24,19 @@ export default (props: Props) => {
   const length = props.collapsed ? "30px" : "80px";
   return user.authenticated ? (
     <Profile collapsed={props.collapsed} className={props.className}>
-      <Avatar
-        src={user.info.profileImg}
-        style={{
-          width: length,
-          height: length,
+      <UserLink
+        styleConfig={{
+          className: "",
+          showImg: true,
+          imgLength: length,
+          internalSpacing: "0",
+          showTag: false,
+          tagColor: "rgba(0, 0, 0, 0)",
+          tagSize: "0",
         }}
+        userInfo={user.info}
       />
+
       {props.collapsed ? (
         <React.Fragment />
       ) : (

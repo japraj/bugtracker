@@ -16,7 +16,7 @@ export default ({
         styleConfig={{
           className: "",
           showImg: true,
-          imgLength: window.innerWidth > 1100 ? 50 : 40,
+          imgLength: `${window.innerWidth > 1100 ? 50 : 40}px`,
           internalSpacing: "0",
           showTag: false,
           tagColor: "rgba(0, 0, 0, 0)",
@@ -29,7 +29,7 @@ export default ({
           styleConfig={{
             className: "author",
             showImg: false,
-            imgLength: 0,
+            imgLength: "0",
             internalSpacing: "0",
             showTag: true,
             tagColor: "var(--text-color)",
