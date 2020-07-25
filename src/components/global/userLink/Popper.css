@@ -1,7 +1,7 @@
 .popper {
-  /* These styles are what we use for the Select
-     component's internal menu too; if changing
-     them, be sure to update MUIOverride.css too. */
+  /* We use these styles for the Select component's
+  internal menu too; if changing them, be sure to
+   update MUIOverride.css too. */
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(3px);
   border-radius: 4px;
