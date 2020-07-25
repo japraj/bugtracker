@@ -36,7 +36,7 @@ export default () => {
     let user: User = {
       authenticated: true,
       id: 0,
-      notifications: generateNotificationSet(),
+      notifications: generateNotificationSet(5),
       info: {
         profileImg:
           "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia2.s-nbcnews.com%2Fi%2Fstreams%2F2014%2FOctober%2F141022%2F1D274907053597-141022_today-pets-dog-tease-ae.jpg&f=1&nofb=1",
@@ -48,8 +48,8 @@ export default () => {
     // (must specify the endpoint though), store results
     // in user var. Don't forget to remove the setTimeout!
 
-    dispatch(setCollapsedTickets(generateTicketSet()));
-    dispatch(setRecentActivity(generateNotificationSet()));
+    dispatch(setCollapsedTickets(generateTicketSet(20)));
+    dispatch(setRecentActivity(generateNotificationSet(10)));
     dispatch(loadUser(user));
     setTimeout(() => dispatch(finishedLoading()), 2000);
   }, [dispatch]);
