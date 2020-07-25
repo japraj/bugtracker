@@ -23,7 +23,6 @@ import Register from "../routes/register/Register";
 
 import styled from "styled-components";
 
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 import "../components/misc/alert/Alert.css";
 
