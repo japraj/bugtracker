@@ -24,9 +24,10 @@ export const navigationSlice = createSlice({
 
 export const { toggleCollapse } = navigationSlice.actions;
 
-export const selectCollapsed = (state: RootState) => state.navigation.collapsed;
+export const selectCollapsed = (state: RootState): boolean =>
+  state.navigation.collapsed;
 
-export const selectSideNavWidth = (state: RootState) =>
+export const selectSideNavWidth = (state: RootState): number =>
   state.navigation.collapsed ? collapsedWidth : extendedWidth;
 
 export default navigationSlice.reducer;

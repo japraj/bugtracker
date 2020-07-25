@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AppEncapsulator from "./app/AppEncapsulator";
+import App from "./app";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppEncapsulator />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

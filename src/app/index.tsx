@@ -9,15 +9,16 @@ import { hot } from "react-hot-loader/root";
 // The logic was not placed in App.tsx because this is
 // not directly related to the routing or authentication
 // of the component.
-class Encapsulator extends React.Component<{}, {}> {
-  componentDidMount = () =>
-    window.addEventListener("resize", () => this.forceUpdate());
 
-  render = () => (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}
+export default hot(
+  class extends React.Component<{}, {}> {
+    componentDidMount = () =>
+      window.addEventListener("resize", () => this.forceUpdate());
 
-export default hot(Encapsulator);
+    render = () => (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+  }
+);

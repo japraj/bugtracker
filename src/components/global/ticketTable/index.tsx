@@ -1,10 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectNodesPerPage } from "../../../app/flux/slices/tableSlice";
+import {
+  selectNodesPerPage,
+  selectTickets,
+} from "../../../app/flux/slices/tableSlice";
 import { WidgetWrapper, WidgetHeader } from "../../container/widget";
 import TablePagination from "./pagination";
 import TableTabs, { Tab } from "./tabs";
-import TableTicket, { CollapsedTicket } from "../collapsedTicket";
+import TableTicket from "../collapsedTicket";
 import Search from "../../input/search";
 import Select, { SelectOption } from "../../input/select";
 import styled from "styled-components";
@@ -58,12 +61,11 @@ const tabSet: Tab[] = [
 
 type Props = {
   className: string;
-  buttonCallback: () => void;
-  ticketSet: CollapsedTicket[];
 };
 
 export default (props: Props) => {
   const nodesPerPage = useSelector(selectNodesPerPage);
+  const ticketSet = useSelector(selectTickets);
   return (
     <WidgetWrapper className={props.className}>
       <TableTabs tabSet={tabSet} />
@@ -82,7 +84,7 @@ export default (props: Props) => {
           options={sortSelectOptions}
         />
       </TableControls>
-      {props.ticketSet
+      {ticketSet
         .filter((ticket, index) => index < nodesPerPage)
         .map((ticket, index) => (
           <TableTicket key={index} ticket={ticket} />

@@ -2,6 +2,8 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import navigationReducer from "./slices/navigationSlice";
 import authReducer from "./slices/authSlice";
 import tableReducer from "./slices/tableSlice";
+import homeReducer from "./slices/homeSlice";
+import ticketReducer from "./slices/ticketSlice";
 
 // All reducers must be declared here!
 export const store = configureStore({
@@ -9,6 +11,8 @@ export const store = configureStore({
     navigation: navigationReducer,
     authentication: authReducer,
     table: tableReducer,
+    home: homeReducer,
+    ticket: ticketReducer,
   },
 });
 

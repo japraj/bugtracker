@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { CollapsedTicket } from "../../../components/global/collapsedTicket";
 
 interface TableState {
   tabIndex: number;
   pageIndex: number;
   nodesPerPage: number;
   totalPages: number;
+  collapsedTickets: CollapsedTicket[];
 }
 
 export const initialState: TableState = {
@@ -13,6 +15,7 @@ export const initialState: TableState = {
   pageIndex: 1,
   nodesPerPage: 5,
   totalPages: 10,
+  collapsedTickets: [],
 };
 
 export const tableSlice = createSlice({
@@ -56,6 +59,14 @@ export const tableSlice = createSlice({
         return { payload };
       },
     },
+    setCollapsedTickets: {
+      reducer(state, action: PayloadAction<CollapsedTicket[]>) {
+        state.collapsedTickets = action.payload;
+      },
+      prepare(payload: CollapsedTicket[]) {
+        return { payload };
+      },
+    },
   },
 });
 
@@ -64,15 +75,22 @@ export const {
   setPageIndex,
   setNodesPerPage,
   setTotalPages,
+  setCollapsedTickets,
 } = tableSlice.actions;
 
-export const selectTabIndex = (state: RootState) => state.table.tabIndex;
+export const selectTabIndex = (state: RootState): number =>
+  state.table.tabIndex;
 
-export const selectPageIndex = (state: RootState) => state.table.pageIndex;
+export const selectPageIndex = (state: RootState): number =>
+  state.table.pageIndex;
 
-export const selectNodesPerPage = (state: RootState) =>
+export const selectNodesPerPage = (state: RootState): number =>
   state.table.nodesPerPage;
 
-export const selectTotalPages = (state: RootState) => state.table.totalPages;
+export const selectTotalPages = (state: RootState): number =>
+  state.table.totalPages;
+
+export const selectTickets = (state: RootState): CollapsedTicket[] =>
+  state.table.collapsedTickets;
 
 export default tableSlice.reducer;
