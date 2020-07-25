@@ -49,7 +49,7 @@ enum UserRankColors {
 
 enum UserNameColors {
   "white",
-  "darkblue",
+  "brightblue",
   "darkred",
   "black",
 }
