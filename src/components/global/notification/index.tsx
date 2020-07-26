@@ -1,18 +1,20 @@
 import React from "react";
 import UserLink from "../userLink";
-import HyperLink from "../hyperLink";
+import { useDispatch } from "react-redux";
+import { loadTicketById } from "../../../app/flux/slices/ticketSlice";
 import { Notification } from "../../../app/flux/slices/authSlice";
 import { Cell, CellText } from "./styles";
 
 export default ({
   notification,
   className,
-  onRedirect,
+  onClick,
 }: {
   notification: Notification;
   className: string;
-  onRedirect: () => void;
+  onClick: () => void;
 }) => {
+  const dispatch = useDispatch();
   return (
     <Cell className={className}>
       <UserLink
@@ -41,12 +43,17 @@ export default ({
         {/* 
           OnRedirect is a function called when the user clicks the link
           example usage: in the Navigation/Notifications component, we
-          want to close the notifications modal when the user is redirected
+          want to close the notifications modal when the user clicks
           for a smooth ux.
           */}
-        <HyperLink className="link" to={notification.to} onClick={onRedirect}>
+        <h5
+          onClick={() => {
+            dispatch(loadTicketById(notification.ticketId));
+            onClick();
+          }}
+        >
           {notification.message}
-        </HyperLink>
+        </h5>
       </CellText>
     </Cell>
   );

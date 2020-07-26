@@ -28,6 +28,10 @@ export const TicketHeader = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1rem;
+
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 

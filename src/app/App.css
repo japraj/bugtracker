@@ -43,6 +43,7 @@
   --nav-height: 6vh;
   --scrollwidth: 8px;
   --mobile-nav-height: 8vh;
+  --ticket-border: 1px solid rgba(255, 255, 255, 0.1);
 
   --rs-alert-offset: 87.5px;
 }

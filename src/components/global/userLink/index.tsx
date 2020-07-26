@@ -101,8 +101,8 @@ export default (props: Props) => {
               <Avatar
                 src={props.userInfo.profileImg}
                 style={{
-                  width: "50px",
-                  height: "50px",
+                  width: "70px",
+                  height: "70px",
                 }}
               />
               <PopperTag>{props.userInfo.tag}</PopperTag>

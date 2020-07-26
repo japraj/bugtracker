@@ -10,7 +10,7 @@ export interface UserInfo {
 export interface Notification {
   author: UserInfo;
   message: string;
-  to: string;
+  ticketId: string;
   new: boolean;
 }
 

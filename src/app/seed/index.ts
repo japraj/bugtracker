@@ -1,4 +1,5 @@
-import { CollapsedTicket } from "../../components/global/collapsedTicket";
+import { CollapsedTicket } from "../flux/slices/tableSlice";
+import { Ticket } from "../flux/slices/ticketSlice";
 import { Notification } from "../flux/slices/authSlice";
 import {
   User,
@@ -11,7 +12,7 @@ import {
 
 const generateNotification = (): Notification => {
   return {
-    to: `/issues/${randomString()}`,
+    ticketId: randomString(),
     author: getRandom(User),
     message: getRandom(NotificationMessage),
     new: randomBool(),
@@ -25,13 +26,14 @@ export const generateNotificationSet = (howMany: number): Notification[] => {
   return notificationSet;
 };
 
-const generateTicket = (): CollapsedTicket => {
+const generateCollapsedTicket = (): CollapsedTicket => {
   return {
-    userInfo: getRandom(User),
-    creationDate: randomString(),
+    id: randomString(),
+    author: getRandom(User),
+    updateDate: randomNum(1000),
     title:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
-    severity: randomNum(3),
+    severity: randomNum(2),
     status: randomNum(2),
     comments: randomNum(99),
   };
@@ -39,6 +41,40 @@ const generateTicket = (): CollapsedTicket => {
 
 export const generateTicketSet = (howMany: number): CollapsedTicket[] => {
   let ticketSet: CollapsedTicket[] = [];
-  for (let i = 0; i < howMany; i++) ticketSet.push(generateTicket());
+  for (let i = 0; i < howMany; i++) ticketSet.push(generateCollapsedTicket());
   return ticketSet;
+};
+
+export const generateTicket = (): Ticket => {
+  return {
+    id: randomString(),
+    author: getRandom(User),
+    creationDate: randomNum(1000),
+    updateDate: randomNum(1000),
+    title:
+      "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
+    description:
+      "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
+    reproducibility: randomNum(2),
+    severity: randomNum(2),
+    status: randomNum(2),
+    assignees: [
+      getRandom(User),
+      getRandom(User),
+      getRandom(User),
+      getRandom(User),
+      getRandom(User),
+      getRandom(User),
+      getRandom(User),
+      getRandom(User),
+    ],
+    imageLinks: [
+      randomString(),
+      randomString(),
+      randomString(),
+      randomString(),
+      randomString(),
+    ],
+    comments: generateNotificationSet(10),
+  };
 };

@@ -33,17 +33,20 @@ export const CellText = styled.div`
     }
   }
 
-  .link {
+  h5 {
     font-size: 0.9rem;
     max-width: 95%;
     color: var(--text-lightgrey);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-transform: lowercase;
 
     @media (max-width: 1100px) {
       font-size: 0.8rem;
     }
+  }
+
+  h5:hover {
+    cursor: pointer;
   }
 `;

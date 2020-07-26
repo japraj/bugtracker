@@ -23,6 +23,13 @@ export const ModalContentWrapper = styled.div`
     background-color: rgba(255, 255, 255, 0.5);
   }
 
+  :focus,
+  :active,
+  :hover {
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 1);
+  }
+
   @media (max-width: 600px) {
     height: calc(100vh - 3vh - var(--nav-height) - var(--mobile-nav-height));
   }

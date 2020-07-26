@@ -21,7 +21,7 @@ export default ({
       return (
         <WidgetSection key={notification.author.tag + index}>
           <NotificationCell
-            onRedirect={() => {}}
+            onClick={() => {}}
             className=""
             {...{ notification }}
           />

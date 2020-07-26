@@ -5,17 +5,17 @@ import { NotificationWrapper, EmptyNotificationsBanner } from "./styles";
 
 export default ({
   notifications,
-  onRedirect,
+  onClick,
 }: {
   notifications: Notification[];
-  onRedirect: () => void;
+  onClick: () => void;
 }) => {
   return (
     <NotificationWrapper width={window.innerWidth < 600 ? "90vw" : "500px"}>
       {notifications.length > 0 ? (
         notifications.map((notification) => (
           <NotificationCell
-            onRedirect={onRedirect}
+            onClick={onClick}
             className={`notification ${notification.new ? "new" : ""}`}
             notification={notification}
           />

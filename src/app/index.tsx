@@ -2,7 +2,6 @@ import React from "react";
 import App from "./App";
 import { store } from "./flux/store";
 import { Provider } from "react-redux";
-import { hot } from "react-hot-loader/root";
 
 // A higher order class component; its sole purpose is to
 // force a re-render whenever the viewport is resized.
@@ -10,15 +9,13 @@ import { hot } from "react-hot-loader/root";
 // not directly related to the routing or authentication
 // of the component.
 
-export default hot(
-  class extends React.Component<{}, {}> {
-    componentDidMount = () =>
-      window.addEventListener("resize", () => this.forceUpdate());
+export default class extends React.Component<{}, {}> {
+  componentDidMount = () =>
+    window.addEventListener("resize", () => this.forceUpdate());
 
-    render = () => (
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-  }
-);
+  render = () => (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+}

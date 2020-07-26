@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { hot } from "react-hot-loader/root";
 
 import {
   initialState,
@@ -20,6 +21,8 @@ import ContentWrapper from "../components/container/contentWrapper";
 import Navigation from "../components/global/navigation";
 import { selectSideNavWidth } from "./flux/slices/navigationSlice";
 
+import TicketModal from "../components/global/ticket";
+
 import { Router } from "react-router-dom";
 import history from "../routes/history";
 import Routes from "../routes/Routes";
@@ -30,9 +33,9 @@ import "../components/global/alert/Alert.css";
 const Context = React.createContext(initialState);
 // const serverURL: string = "localhost:5000";
 
-export default () => {
+export default hot(() => {
   const dispatch = useDispatch();
-  React.useEffect(() => {
+  const initialLoad = () => {
     let user: User = {
       authenticated: true,
       id: 0,
@@ -51,9 +54,10 @@ export default () => {
     dispatch(setCollapsedTickets(generateTicketSet(20)));
     dispatch(setRecentActivity(generateNotificationSet(10)));
     dispatch(loadUser(user));
-    setTimeout(() => dispatch(finishedLoading()), 2000);
-  }, [dispatch]);
+    setTimeout(() => dispatch(finishedLoading()), 0);
+  };
 
+  React.useEffect(initialLoad, [dispatch]);
   const authSlice = useSelector(selectAuthSlice);
   const authenticated = authSlice.user.authenticated;
   const sideNavWidth = useSelector(selectSideNavWidth);
@@ -66,10 +70,11 @@ export default () => {
             outside the ContentWrapper. Note that Navigation must be within the Router
             component because it uses a location hook
           */}
-          <Navigation authenticated={authSlice.user.authenticated} />
+          <Navigation authenticated={authenticated} />
           <ContentWrapper {...{ sideNavWidth }}>
             <Routes authenticated={authenticated} />
           </ContentWrapper>
+          <TicketModal />
         </Router>
       ) : (
         <LoadWrapper>
@@ -78,4 +83,4 @@ export default () => {
       )}
     </Context.Provider>
   );
-};
+});

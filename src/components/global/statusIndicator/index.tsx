@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { Status } from "../../../app/flux/slices/tableSlice";
 
 interface Props {
-  className: string;
+  status: number;
   styles: StyledProps;
 }
 
 export default (props: Props) => {
-  return <StatusIndicator className={props.className} styles={props.styles} />;
+  return (
+    <StatusIndicator className={Status[props.status]} styles={props.styles} />
+  );
 };
 
 // Note: all values' units must be specified.

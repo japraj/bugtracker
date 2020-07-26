@@ -14,19 +14,19 @@ export const randomBool = (): boolean => Math.random() < 0.5;
 
 export const User: UserInfo[] = [
   {
-    tag: "Spongebob Squarepants",
+    tag: "Spongebob",
     profileImg:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fsmashbroslawlorigins%2Fimages%2F4%2F47%2FSpongebob.png%2Frevision%2Flatest%3Fcb%3D20181103164034&f=1&nofb=1",
     rank: 0,
   },
   {
-    tag: "Patrick Star",
+    tag: "Patrick",
     profileImg:
       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fen.spongepedia.org%2Fimages%2Fthumb%2Ff%2Ff3%2FPatrick_als_Kind.jpg%2F175px-Patrick_als_Kind.jpg&f=1&nofb=1",
     rank: 0,
   },
   {
-    tag: "Squidward Tentacles",
+    tag: "Squidward",
     profileImg:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fbadcreepypasta%2Fimages%2F9%2F99%2FSquidward1.png%2Frevision%2Flatest%2Fscale-to-width-down%2F180%3Fcb%3D20160204012416&f=1&nofb=1",
     rank: 1,
