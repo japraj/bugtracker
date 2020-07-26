@@ -28,11 +28,13 @@ export interface Ticket {
 
 interface TicketState {
   displayModal: boolean;
+  failedImages: number;
   currentTicket: Ticket;
 }
 
 const initialState: TicketState = {
   displayModal: false,
+  failedImages: 0,
   currentTicket: {
     id: "null",
     author: {
@@ -64,6 +66,7 @@ export const ticketSlice = createSlice({
       reducer(state, action: PayloadAction<string>) {
         state = Object.assign(state, {
           displayModal: true,
+          failedImages: 0,
           currentTicket: Object.assign(generateTicket(), {
             id: action.payload,
           }),
@@ -73,12 +76,21 @@ export const ticketSlice = createSlice({
         return { payload };
       },
     },
+    reportLoadingFailure: (state) => {
+      state.failedImages++;
+    },
   },
 });
 
-export const { toggleDisplay, loadTicketById } = ticketSlice.actions;
+export const {
+  toggleDisplay,
+  loadTicketById,
+  reportLoadingFailure,
+} = ticketSlice.actions;
 
 export const selectDisplayed = (state: RootState) => state.ticket.displayModal;
+
+export const selectFailures = (state: RootState) => state.ticket.failedImages;
 
 export const selectTicket = (state: RootState) => state.ticket.currentTicket;
 

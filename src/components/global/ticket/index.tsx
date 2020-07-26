@@ -4,6 +4,7 @@ import {
   Ticket,
   selectDisplayed,
   selectTicket,
+  selectFailures,
   toggleDisplay,
   Reproducibility,
 } from "../../../app/flux/slices/ticketSlice";
@@ -12,6 +13,7 @@ import StatusIndicator from "../statusIndicator";
 import Modal from "@material-ui/core/Modal";
 import UserLink from "../userLink";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import ImageGrid from "./imageGrid";
 import {
   statusIndicatorLength,
   TicketWrapper,
@@ -29,7 +31,9 @@ export default () => {
     dispatch(toggleDisplay());
   };
   const ticket: Ticket = useSelector(selectTicket);
+  const failures: number = useSelector(selectFailures);
   const mobileDisplay: boolean = window.innerWidth < 600;
+
   return (
     <Modal
       disableScrollLock={false}
@@ -116,7 +120,14 @@ export default () => {
           <h2>Description:</h2>
           <p>{ticket.description}</p>
         </Description>
-        {ticket.imageLinks.length > 0 ? <h1 /> : <React.Fragment />}
+        {ticket.imageLinks.length === 0 ||
+        failures === ticket.imageLinks.length ? (
+          <React.Fragment />
+        ) : (
+          <TicketSection>
+            <ImageGrid imageLinks={ticket.imageLinks} />
+          </TicketSection>
+        )}
       </TicketWrapper>
     </Modal>
   );
