@@ -1,6 +1,6 @@
 import { CollapsedTicket } from "../flux/slices/tableSlice";
 import { Ticket } from "../flux/slices/ticketSlice";
-import { Notification } from "../flux/slices/authSlice";
+import { Notification, UserInfo } from "../flux/slices/authSlice";
 import {
   User,
   NotificationMessage,
@@ -9,6 +9,12 @@ import {
   randomString,
   randomBool,
 } from "./predefined";
+
+export const generateUserSet = (howMany: number): UserInfo[] => {
+  let userSet: UserInfo[] = [];
+  for (let i = 0; i < howMany; i++) userSet.push(getRandom(User));
+  return userSet;
+};
 
 const generateNotification = (): Notification => {
   return {
@@ -58,26 +64,17 @@ export const generateTicket = (): Ticket => {
     reproducibility: randomNum(2),
     severity: randomNum(2),
     status: randomNum(2),
-    assignees: [
-      getRandom(User),
-      getRandom(User),
-      getRandom(User),
-      getRandom(User),
-      getRandom(User),
-      getRandom(User),
-      getRandom(User),
-      getRandom(User),
-    ],
+    assignees: [User[0], User[1], User[2], User[3], User[4]],
     imageLinks: [
       randomString(),
       randomString(),
       randomString(),
-      // "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
-      // "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
-      // "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
-      // "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
-      // "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
-      // "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
     ],
     comments: generateNotificationSet(10),
   };

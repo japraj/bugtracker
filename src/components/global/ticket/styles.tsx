@@ -65,10 +65,6 @@ export const TicketHeader = styled(TicketSection)`
 export const FieldGrid = styled.div`
   display: grid;
 
-  .stacked {
-    margin-left: -0.3rem;
-  }
-
   .author {
     margin-left: 0.3rem;
   }
@@ -76,12 +72,6 @@ export const FieldGrid = styled.div`
   .gridItem {
     padding: 0.5rem;
     min-height: 45px;
-  }
-
-  .MuiAvatarGroup-avatar {
-    border-color: rgba(0, 0, 0, 0.5);
-    background-color: var(--transparent-highlight);
-    color: var(--text-color);
   }
 
   @media (min-width: 1001px) {
@@ -134,12 +124,6 @@ export const FieldGrid = styled.div`
       padding: 1rem;
       height: 55px;
       border-bottom: var(--ticket-border);
-    }
-
-    .MuiAvatarGroup-avatar {
-      width: 32px;
-      height: 32px;
-      font-size: 0.9rem;
     }
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Modal from "@material-ui/core/Modal";
 
@@ -11,8 +11,10 @@ interface Props {
 }
 
 export default (props: Props) => {
+  const [errored, setErrored] = useState(false);
   const [display, setDisplay] = useState(true);
   const [zoomed, setZoomed] = useState(false);
+
   const ImageNode = (styledProps: StyledProps) => (
     <ImageWrapper
       style={{ display: display ? "block" : "none" }}
@@ -24,7 +26,10 @@ export default (props: Props) => {
         src={props.src}
         alt={`See ${props.src}`}
         onError={() => {
-          props.onError();
+          if (!errored) {
+            props.onError();
+            setErrored(true);
+          }
           if (props.hideOnError) setDisplay(false);
         }}
       />
@@ -42,7 +47,7 @@ export default (props: Props) => {
         aria-labelledby="Issue Display"
         aria-describedby="An issue and its details."
       >
-        <ZoomedImage>
+        <ZoomedImage onClick={() => setZoomed(false)}>
           <ImageNode width={"90vw"} height={"90vh"} />
         </ZoomedImage>
       </Modal>

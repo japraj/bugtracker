@@ -12,8 +12,9 @@ import { Severity } from "../../../app/flux/slices/tableSlice";
 import StatusIndicator from "../statusIndicator";
 import Modal from "@material-ui/core/Modal";
 import UserLink from "../userLink";
-import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import AssignmentModal from "../assignmentModal";
 import ImageGrid from "./imageGrid";
+
 import {
   statusIndicatorLength,
   TicketWrapper,
@@ -94,25 +95,11 @@ export default () => {
           <TicketField
             name="Assignees"
             content={
-              <AvatarGroup
-                style={{ marginLeft: "0.5rem" }}
-                max={mobileDisplay ? 4 : 5}
-              >
-                {ticket.assignees.map((assignee) => (
-                  <UserLink
-                    key={assignee.tag}
-                    userInfo={assignee}
-                    styleConfig={{
-                      className: "stacked",
-                      showImg: true,
-                      imgLength: mobileDisplay ? "25px" : "30px",
-                      internalSpacing: "0",
-                      showTag: false,
-                      tagSize: "0",
-                    }}
-                  />
-                ))}
-              </AvatarGroup>
+              <AssignmentModal
+                imgLength={mobileDisplay ? "25px" : "30px"}
+                modalImgLength={"40px"}
+                maxLinks={mobileDisplay ? 4 : 5}
+              />
             }
           />
         </FieldGrid>
