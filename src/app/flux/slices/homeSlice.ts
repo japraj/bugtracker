@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Notification } from "./authSlice";
+import { Notification } from "../../constants";
 
 interface HomeState {
   recentActivity: Notification[];

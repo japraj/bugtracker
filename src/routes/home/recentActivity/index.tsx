@@ -4,7 +4,7 @@ import {
   WidgetHeader,
   WidgetSection,
 } from "../../../components/container/widget";
-import { Notification } from "../../../app/flux/slices/authSlice";
+import { Notification } from "../../../app/constants";
 import NotificationCell from "../../../components/global/notification";
 import Icon from "@material-ui/core/Icon";
 

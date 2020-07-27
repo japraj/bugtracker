@@ -7,11 +7,11 @@ import {
   selectAuthSlice,
   finishedLoading,
   loadUser,
-  User,
 } from "./flux/slices/authSlice";
 import { setCollapsedTickets } from "./flux/slices/tableSlice";
 import { setRecentActivity } from "./flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "./seed";
+import { User } from "./constants";
 
 import FancyLoading, {
   LoadWrapper,

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { loadTicketById } from "../../../app/flux/slices/ticketSlice";
 import StatusIndicator from "../statusIndicator";
 import UserLink from "../userLink";
-import { CollapsedTicket, Severity } from "../../../app/flux/slices/tableSlice";
+import { CollapsedTicket, Severity } from "../../../app/constants";
 import {
   TicketWrapper,
   TicketHeader,

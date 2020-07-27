@@ -2,7 +2,7 @@ import React from "react";
 import { DarkWidgetWrapper } from "../../components/container/darkWidget";
 import clsx from "clsx";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../../components/input/InputTheme";
+import { theme } from "../../app/constants";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";

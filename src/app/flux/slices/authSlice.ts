@@ -1,31 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-
-export interface UserInfo {
-  profileImg: string;
-  tag: string;
-  rank: number;
-}
-
-export interface Notification {
-  author: UserInfo;
-  message: string;
-  ticketId: string;
-  new: boolean;
-}
-
-export interface User {
-  authenticated: boolean;
-  id: number;
-  notifications: Notification[];
-  info: UserInfo;
-}
-//  Note: the permissions integer stored in the front-end
-// is only meant to be used for soft-locking the user;
-// even if they somehow access a restricted section
-// of the site, the components should make a request
-// with their id & back-end will verify it, preventing
-// any trickery. The same idea applies to any api requests
+import { User } from "../../constants";
 
 interface AuthState {
   loaded: boolean;

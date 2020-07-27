@@ -1,4 +1,4 @@
-import { UserInfo } from "../flux/slices/authSlice";
+import { UserInfo } from "../constants";
 
 export function getRandom<T>(set: Array<T>): T {
   return set[Math.floor(Math.random() * set.length)];

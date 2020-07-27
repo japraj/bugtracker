@@ -7,7 +7,7 @@ import {
   selectPageIndex,
   selectTotalPages,
 } from "../../../../app/flux/slices/tableSlice";
-import theme from "../../../input/InputTheme";
+import { theme } from "../../../../app/constants";
 import TextField from "../../../input/textfield";
 import { ThemeProvider } from "@material-ui/core/styles";
 import {

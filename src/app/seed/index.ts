@@ -1,6 +1,4 @@
-import { CollapsedTicket } from "../flux/slices/tableSlice";
-import { Ticket } from "../flux/slices/ticketSlice";
-import { Notification, UserInfo } from "../flux/slices/authSlice";
+import { CollapsedTicket, Ticket, Notification, UserInfo } from "../constants";
 import {
   User,
   NotificationMessage,
@@ -66,9 +64,9 @@ export const generateTicket = (): Ticket => {
     status: randomNum(2),
     assignees: [User[0], User[1], User[2], User[3], User[4]],
     imageLinks: [
-      randomString(),
-      randomString(),
-      randomString(),
+      // randomString(),
+      // randomString(),
+      // randomString(),
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",

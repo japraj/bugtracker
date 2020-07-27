@@ -1,14 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  Ticket,
   selectDisplayed,
   selectTicket,
   selectFailures,
   toggleDisplay,
-  Reproducibility,
 } from "../../../app/flux/slices/ticketSlice";
-import { Severity } from "../../../app/flux/slices/tableSlice";
+import { Ticket, Severity, Reproducibility } from "../../../app/constants";
 import StatusIndicator from "../statusIndicator";
 import Modal from "@material-ui/core/Modal";
 import UserLink from "../userLink";

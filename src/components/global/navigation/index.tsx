@@ -5,9 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   toggleCollapse,
   selectCollapsed,
-  collapsedWidth,
-  extendedWidth,
 } from "../../../app/flux/slices/navigationSlice";
+import { collapsedWidth, extendedWidth } from "../../../app/constants";
 
 export type NavigationItem = {
   path: string;

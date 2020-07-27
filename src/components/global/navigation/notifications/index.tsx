@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../../../../app/flux/slices/authSlice";
+import { Notification } from "../../../../app/constants";
 import NotificationCell from "../../notification";
 import { NotificationWrapper, EmptyNotificationsBanner } from "./styles";
 

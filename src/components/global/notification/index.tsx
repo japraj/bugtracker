@@ -2,7 +2,7 @@ import React from "react";
 import UserLink from "../userLink";
 import { useDispatch } from "react-redux";
 import { loadTicketById } from "../../../app/flux/slices/ticketSlice";
-import { Notification } from "../../../app/flux/slices/authSlice";
+import { Notification } from "../../../app/constants";
 import { Cell, CellText } from "./styles";
 
 export default ({

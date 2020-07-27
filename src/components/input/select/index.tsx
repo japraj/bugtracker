@@ -1,15 +1,10 @@
 import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../InputTheme";
+import { theme, SelectOption } from "../../../app/constants";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import "./MUIOverride.css";
 import { FormWrapper, Form } from "./styles";
-
-export interface SelectOption {
-  value: string;
-  label: string;
-}
 
 type Props = {
   width: number;

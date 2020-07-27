@@ -1,5 +1,5 @@
 import React from "react";
-import theme from "../InputTheme";
+import { theme } from "../../../app/constants";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import Button from "../button";

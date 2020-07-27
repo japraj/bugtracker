@@ -1,28 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { UserInfo } from "./authSlice";
-
-export interface CollapsedTicket {
-  id: string;
-  author: UserInfo;
-  updateDate: number;
-  title: string;
-  severity: number;
-  status: number;
-  comments: number;
-}
-
-export enum Status {
-  "unresolved",
-  "work-in-progress",
-  "resolved",
-}
-
-export enum Severity {
-  "trivial",
-  "minor",
-  "major",
-}
+import { CollapsedTicket } from "../../constants";
 
 interface TableState {
   tabIndex: number;

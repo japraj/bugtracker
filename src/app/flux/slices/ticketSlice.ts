@@ -1,31 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { UserInfo, Notification } from "./authSlice";
+import { Ticket, UserInfo } from "../../constants";
 import { generateTicket } from "../../seed";
 import { User } from "../../seed/predefined";
-
-export enum Reproducibility {
-  "Always",
-  "Common",
-  "Uncommon",
-  "Rare",
-  "Never",
-}
-
-export interface Ticket {
-  id: string;
-  author: UserInfo;
-  creationDate: number;
-  updateDate: number;
-  title: string;
-  description: string;
-  reproducibility: number;
-  severity: number;
-  status: number;
-  assignees: UserInfo[];
-  imageLinks: string[];
-  comments: Notification[];
-}
 
 interface TicketState {
   displayModal: boolean;

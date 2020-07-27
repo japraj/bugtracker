@@ -1,5 +1,5 @@
 import React from "react";
-import { UserInfo } from "../../../app/flux/slices/authSlice";
+import { UserInfo } from "../../../app/constants";
 import UserLink from "../userLink";
 import styled from "styled-components";
 import Icon from "@material-ui/core/Icon";

@@ -6,25 +6,12 @@ import {
 } from "../../../app/flux/slices/tableSlice";
 import { WidgetWrapper, WidgetHeader } from "../../container/widget";
 import TablePagination from "./pagination";
-import TableTabs, { Tab } from "./tabs";
+import TableTabs from "./tabs";
 import TableTicket from "../collapsedTicket";
 import Search from "../../input/search";
-import Select, { SelectOption } from "../../input/select";
+import Select from "../../input/select";
+import { Tab, sortSelectOptions } from "../../../app/constants";
 import styled from "styled-components";
-
-enum Sort {
-  NEW = "NEW",
-  OLD = "OLD",
-  SEVERITY = "SEVERITY",
-  STATUS = "STATUS",
-}
-
-const sortSelectOptions: SelectOption[] = [
-  { value: Sort.NEW, label: "Sort by Newest" },
-  { value: Sort.OLD, label: "Sort by Oldest" },
-  { value: Sort.SEVERITY, label: "Sort by Severity" },
-  { value: Sort.STATUS, label: "Sort by Status" },
-];
 
 const tabSet: Tab[] = [
   {

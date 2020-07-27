@@ -6,13 +6,8 @@ import {
 } from "../../../../app/flux/slices/tableSlice";
 import { selectUserRank } from "../../../../app/flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
+import { Tab } from "../../../../app/constants";
 import { TabContainer, TabSet, TableTab } from "./styles";
-
-export interface Tab {
-  iconName: string;
-  title: string;
-  requiredRank: number;
-}
 
 export default ({ tabSet }: { tabSet: Tab[] }) => {
   const userRank = useSelector(selectUserRank);

@@ -4,7 +4,7 @@ import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton";
-import { UserInfo } from "../../../app/flux/slices/authSlice";
+import { UserInfo } from "../../../app/constants";
 // Use a css file because of Material UI's portal functionality.
 // in short, Material UI places the Popper and all its children
 // in a separate div (meaning it is no longer a child of profile

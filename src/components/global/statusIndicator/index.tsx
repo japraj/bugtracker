@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Status } from "../../../app/flux/slices/tableSlice";
+import { Status } from "../../../app/constants";
 
 interface Props {
   status: number;
