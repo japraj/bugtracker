@@ -8,8 +8,8 @@ import {
   wipePendingCommit,
   moveToNewSet,
 } from "../../../app/flux/slices/ticketSlice";
-import { selectUserRank, UserInfo } from "../../../app/flux/slices/authSlice";
-import StackedUserLinks, { Props } from "../stackedUserLinks";
+import { selectUserRank } from "../../../app/flux/slices/authSlice";
+import StackedUserLinks from "../stackedUserLinks";
 import Icon from "@material-ui/core/Icon";
 import Modal from "@material-ui/core/Modal";
 import { ModalContentWrapper } from "../../container/modalContent";
