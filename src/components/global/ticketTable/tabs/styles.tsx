@@ -4,6 +4,7 @@ import { WidgetHeader } from "../../../container/widget";
 export const TabContainer = styled(WidgetHeader)`
   padding: 0 !important;
   border-bottom: 1px solid transparent;
+  box-shadow: none;
   background-color: rgba(0, 0, 0, 0.15);
 
   .selected,
