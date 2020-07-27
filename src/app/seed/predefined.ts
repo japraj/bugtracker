@@ -1,8 +1,7 @@
 import { UserInfo } from "../constants";
 
-export function getRandom<T>(set: Array<T>): T {
-  return set[Math.floor(Math.random() * set.length)];
-}
+export const getRandom = <T>(set: Array<T>): T =>
+  set[Math.floor(Math.random() * set.length)];
 
 export const randomNum = (maxValue: number): number =>
   Math.floor(Math.random() * (maxValue + 1));

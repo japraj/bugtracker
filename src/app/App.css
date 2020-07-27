@@ -11,17 +11,20 @@
   --darkblue: #0f131a;
   --black-bg-green: rgb(65, 179, 0);
 
+  --theme-pink: rgb(255, 86, 114);
   --theme-navy: #005562;
   --theme-aqua: #0e8174;
   --theme-lightgreen: #b9f2a1;
-  --theme-green: rgba(144, 185, 0, 0.85);
+  --theme-green: rgba(200, 255, 0, 0.85);
+  --theme-brightgreen: rgb(202, 255, 10);
   --theme-red: rgba(232, 86, 86, 0.85);
   --theme-yellow: rgba(223, 184, 28, 0.85);
   --theme-blue: rgba(45, 172, 209, 0.85);
-  --theme-darkred: #a50101;
+  --theme-darkred: #b21f1f;
   --theme-black: rgba(0, 0, 0, 0.8);
   --theme-white: white;
   --theme-brightblue: rgb(0, 247, 255);
+  --theme-grey: rgb(97, 96, 96);
 
   --shadow-1: rgba(0, 0, 0, 0.1);
   --shadow-2: rgba(0, 0, 0, 0.2);
@@ -284,8 +287,7 @@ img {
   align-items: center;
 }
 
-/* Ticket Status/Severity Span Colors */
-
+/* Ticket Status Colors */
 .unresolved {
   background-color: var(--theme-red);
 }
@@ -298,6 +300,8 @@ img {
   background-color: var(--theme-green);
 }
 
+/* Ticket Severity Span Colors */
+
 .trivial {
   color: var(--text-grey);
 }
@@ -308,6 +312,17 @@ img {
 
 .major {
   color: var(--darkred);
+}
+
+/* Ticket Type Label colors */
+
+.bug {
+  background-color: var(--theme-pink) !important;
+}
+
+.suggestion,
+.feature_request {
+  background-color: var(--theme-yellow) !important;
 }
 
 /* Scrollbar */

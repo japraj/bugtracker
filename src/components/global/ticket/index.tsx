@@ -7,6 +7,7 @@ import {
   toggleDisplay,
 } from "../../../app/flux/slices/ticketSlice";
 import { Ticket, Severity, Reproducibility } from "../../../app/constants";
+import TicketTag from "../ticketTag";
 import StatusIndicator from "../statusIndicator";
 import Modal from "@material-ui/core/Modal";
 import UserLink from "../userLink";
@@ -53,7 +54,10 @@ export default () => {
                 rightMargin: "1rem",
               }}
             />
-            <h1>{`#${ticket.id}: ${ticket.title}`}</h1>
+            <h1>
+              <TicketTag label={ticket.typeLabel} />
+              {`#${ticket.id}: ${ticket.title}`}
+            </h1>
           </SectionContent>
         </TicketHeader>
         <FieldGrid>

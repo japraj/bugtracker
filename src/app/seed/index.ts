@@ -33,10 +33,11 @@ export const generateNotificationSet = (howMany: number): Notification[] => {
 const generateCollapsedTicket = (): CollapsedTicket => {
   return {
     id: randomString(),
-    author: getRandom(User),
-    updateDate: randomNum(1000),
+    typeLabel: randomNum(2),
     title:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
+    author: getRandom(User),
+    updateDate: randomNum(1000),
     severity: randomNum(2),
     status: randomNum(2),
     comments: randomNum(99),
@@ -52,11 +53,12 @@ export const generateTicketSet = (howMany: number): CollapsedTicket[] => {
 export const generateTicket = (): Ticket => {
   return {
     id: randomString(),
+    typeLabel: randomNum(2),
+    title:
+      "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
     author: getRandom(User),
     creationDate: randomNum(1000),
     updateDate: randomNum(1000),
-    title:
-      "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
     description:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
     reproducibility: randomNum(2),
@@ -74,6 +76,6 @@ export const generateTicket = (): Ticket => {
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
     ],
-    comments: generateNotificationSet(10),
+    activity: generateNotificationSet(10),
   };
 };

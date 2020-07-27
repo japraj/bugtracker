@@ -21,6 +21,13 @@ export interface User {
 }
 // Local User (the user that is using the client)
 
+export enum UserRank {
+  "User",
+  "Developer",
+  "Manager",
+  "Admin",
+}
+
 export interface Notification {
   author: UserInfo;
   message: string;
@@ -30,7 +37,7 @@ export interface Notification {
 // A notification is just a record of a change
 // that was applied to an issue
 
-export enum Tag {
+export enum TypeLabel {
   "Bug",
   "Feature Request",
   "Suggestion",
@@ -38,10 +45,10 @@ export enum Tag {
 
 export interface CollapsedTicket {
   id: string;
-  //   tag: string;
+  typeLabel: number;
+  title: string;
   author: UserInfo;
   updateDate: number;
-  title: string;
   severity: number;
   status: number;
   comments: number;
@@ -71,17 +78,18 @@ export enum Reproducibility {
 
 export interface Ticket {
   id: string;
+  typeLabel: number;
+  title: string;
   author: UserInfo;
   creationDate: number;
   updateDate: number;
-  title: string;
   description: string;
   reproducibility: number;
   severity: number;
   status: number;
   assignees: UserInfo[];
   imageLinks: string[];
-  comments: Notification[];
+  activity: Notification[];
 }
 
 export interface Tab {

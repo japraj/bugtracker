@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { loadTicketById } from "../../../app/flux/slices/ticketSlice";
 import StatusIndicator from "../statusIndicator";
 import UserLink from "../userLink";
+import TicketTag from "../ticketTag";
 import { CollapsedTicket, Severity } from "../../../app/constants";
 import {
   TicketWrapper,
@@ -32,6 +33,7 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
           }}
         />
         <h1 onClick={() => dispatch(loadTicketById(ticket.id))}>
+          <TicketTag label={ticket.typeLabel} />
           {ticket.title}
         </h1>
       </TicketHeader>
