@@ -7,15 +7,24 @@ export const Cell = styled.div`
   align-items: center;
   justify-content: flex-start;
   height: 70px;
+  ${(props: { commentVariant: boolean }) =>
+    props.commentVariant
+      ? `
+          height: auto;
+          align-items: flex-start;
+          
+        `
+      : ``}
 `;
 
 export const CellText = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   margin: 0 0.5rem 0 0.7rem;
-  width: calc(100% - 50px);
+  width: calc(100% - 40px - 1rem);
 
   .author {
     max-width: 90%;
@@ -37,9 +46,16 @@ export const CellText = styled.div`
     font-size: 0.9rem;
     max-width: 95%;
     color: var(--text-lightgrey);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    text-align: left;
+    ${(props: { commentVariant: boolean }) => {
+      if (!props.commentVariant)
+        return `white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;`;
+      return `
+        
+      `;
+    }}
 
     @media (max-width: 1100px) {
       font-size: 0.8rem;
@@ -48,5 +64,13 @@ export const CellText = styled.div`
 
   h5:hover {
     cursor: pointer;
+  }
+
+  h6 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.8rem;
+    color: var(--text-grey);
   }
 `;

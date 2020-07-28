@@ -10,15 +10,22 @@ interface Props {
   hideOnError: boolean;
 }
 
+// Note: if an image has an error in its loading
+// and the image recieved the "hideOnError" prop,
+// then it will automatically be hidden instead
+// of displaying an alt tag
+
 export default (props: Props) => {
   const [errored, setErrored] = useState(false);
-  const [display, setDisplay] = useState(true);
   const [zoomed, setZoomed] = useState(false);
 
   const ImageNode = (styledProps: StyledProps) => (
     <ImageWrapper
-      style={{ display: display ? "block" : "none" }}
-      onClick={() => setZoomed(!zoomed)}
+      style={{
+        display: props.hideOnError && errored ? "none" : "block",
+        padding: errored ? "10%" : "0",
+      }}
+      onClick={() => (errored ? {} : setZoomed(!zoomed))}
       width={styledProps.width}
       height={styledProps.height}
     >
@@ -30,7 +37,6 @@ export default (props: Props) => {
             props.onError();
             setErrored(true);
           }
-          if (props.hideOnError) setDisplay(false);
         }}
       />
     </ImageWrapper>
@@ -67,6 +73,8 @@ const Image = styled.img`
   color: var(--text-color);
   max-width: 100%;
   max-height: 100%;
+  white-space: normal;
+  word-break: break-all;
 `;
 
 const ImageWrapper = styled.div`

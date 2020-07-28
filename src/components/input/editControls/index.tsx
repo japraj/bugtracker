@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "../button";
 
 interface Props {
+  showCancel: boolean;
   cancelCallback: () => void;
   submitCallback: () => void;
   submitText: string;
@@ -11,7 +12,11 @@ interface Props {
 export default (props: Props) => {
   return (
     <ControlsWrapper>
-      <Cancel className="" onClick={props.cancelCallback}>
+      <Cancel
+        display={props.showCancel}
+        className=""
+        onClick={props.cancelCallback}
+      >
         Cancel
       </Cancel>
       <Submit className="" onClick={props.submitCallback}>
@@ -34,6 +39,8 @@ const ControlsWrapper = styled.div`
 `;
 
 const Cancel = styled(Button)`
+  ${(props: { display: boolean }) =>
+    props.display ? "" : "display: none !important;"}
   margin-right: 1rem;
 `;
 

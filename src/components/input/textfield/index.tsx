@@ -12,6 +12,7 @@ interface Props {
   placeholder: string;
   setDefaultValue: boolean;
   defaultValue: number | string;
+  multiline: boolean;
   type: string;
   onSubmit: (value: unknown) => void;
 }
@@ -33,6 +34,7 @@ export default (props: Props) => {
           <React.Fragment />
         )}
         <Input
+          multiline={props.multiline}
           style={{ width: "inputWidth" }}
           type={props.type}
           placeholder={props.placeholder}

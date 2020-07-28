@@ -44,12 +44,23 @@ export const SectionContent = styled.div`
 
 export const TicketHeader = styled(TicketSection)`
   h1 {
+    display: inline;
+    line-height: 1.5;
+    text-align: left;
     color: var(--text-color);
     font-size: 1rem;
     width: calc(100% - 1rem - ${statusIndicatorLength});
 
+    .MuiChip-root {
+      float: left;
+    }
+
     @media (min-width: 1001px) {
       font-size: 1.3rem;
+
+      .MuiChip-root {
+        margin-top: 0.3rem;
+      }
     }
   }
 
@@ -132,6 +143,11 @@ export const Description = styled(TicketSection)`
   margin-top: 0.8rem;
   flex-direction: column;
 
+  h2 {
+    padding-left: 0.5rem;
+    margin-right: auto;
+  }
+
   p {
     margin-top: 0.5rem;
     font-size: 0.8rem;
@@ -144,7 +160,19 @@ export const Description = styled(TicketSection)`
     }
   }
 
-  h2 {
-    margin-right: auto;
+  @media (min-width: 600px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+
+    h2 {
+      width: 90px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-left: 1rem;
+      width: calc(100% - 90px - 1rem);
+    }
   }
 `;

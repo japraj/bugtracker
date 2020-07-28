@@ -29,13 +29,14 @@ export enum UserRank {
 }
 
 export interface Notification {
+  date: string;
   author: UserInfo;
   message: string;
   ticketId: string;
   new: boolean;
 }
 // A notification is just a record of a change
-// that was applied to an issue
+// that was applied to an issue.
 
 export enum TypeLabel {
   "Bug",

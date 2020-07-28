@@ -27,7 +27,11 @@ interface StyledProps {
 
 const StatusIndicator = styled.div`
   width: ${(props: { styles: StyledProps }) => props.styles.length};
+  min-width: ${(props: { styles: StyledProps }) => props.styles.length};
+  max-width: ${(props: { styles: StyledProps }) => props.styles.length};
   height: ${(props: { styles: StyledProps }) => props.styles.length};
+  min0height: ${(props: { styles: StyledProps }) => props.styles.length};
+  max-height: ${(props: { styles: StyledProps }) => props.styles.length};
   border-radius: 50%;
   margin: 0 ${(props: { styles: StyledProps }) => props.styles.rightMargin} 0
     ${(props: { styles: StyledProps }) => props.styles.leftMargin};

@@ -82,6 +82,7 @@ export default (props: {
             onClick={moveUser}
           />
           <EditControls
+            showCancel={true}
             cancelCallback={close}
             submitCallback={() => {
               if (stagedAssignees !== assignees) dispatch(pushLocalChanges());

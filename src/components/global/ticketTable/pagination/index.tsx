@@ -35,6 +35,7 @@ export default (props: Props) => {
       setDefaultValue={true}
       defaultValue={initialState.nodesPerPage}
       type="number"
+      multiline={false}
       onSubmit={(newValue: any) => dispatch(setNodesPerPage(Number(newValue)))}
     />
   );
@@ -61,6 +62,7 @@ export default (props: Props) => {
       placeholder="num"
       setDefaultValue={true}
       defaultValue={page}
+      multiline={false}
       type="number"
       onSubmit={(newValue: any) => dispatch(setPageIndex(Number(newValue)))}
     />

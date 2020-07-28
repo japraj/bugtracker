@@ -15,6 +15,7 @@ export default ({
       {notifications.length > 0 ? (
         notifications.map((notification) => (
           <NotificationCell
+            commentVariant={false}
             onClick={onClick}
             className={`notification ${notification.new ? "new" : ""}`}
             notification={notification}

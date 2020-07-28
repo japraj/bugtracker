@@ -4,19 +4,27 @@ import { useDispatch } from "react-redux";
 import { loadTicketById } from "../../../app/flux/slices/ticketSlice";
 import { Notification } from "../../../app/constants";
 import { Cell, CellText } from "./styles";
+import Timestamp from "../timestamp";
 
+// Note: if comment variant is enabled, then two changes will be applied:
+// 1) the linking functionality will be disabled, meaning that clicking on
+//    a comment notification's description will not do anything
+// 2) text-overflow will not be hidden, meaning that long comments can be
+//    read without issue!
 export default ({
   notification,
   className,
   onClick,
+  commentVariant,
 }: {
   notification: Notification;
   className: string;
   onClick: () => void;
+  commentVariant: boolean;
 }) => {
   const dispatch = useDispatch();
   return (
-    <Cell className={className}>
+    <Cell className={className} commentVariant={commentVariant}>
       <UserLink
         styleConfig={{
           className: "",
@@ -28,7 +36,7 @@ export default ({
         }}
         userInfo={notification.author}
       />
-      <CellText>
+      <CellText commentVariant={commentVariant}>
         <UserLink
           styleConfig={{
             className: "author",
@@ -41,19 +49,22 @@ export default ({
           userInfo={notification.author}
         />
         {/* 
-          OnRedirect is a function called when the user clicks the link
+          OnClick is a function called when the user clicks the link
           example usage: in the Navigation/Notifications component, we
           want to close the notifications modal when the user clicks
           for a smooth ux.
           */}
         <h5
           onClick={() => {
-            dispatch(loadTicketById(notification.ticketId));
-            onClick();
+            if (!commentVariant) {
+              dispatch(loadTicketById(notification.ticketId));
+              onClick();
+            }
           }}
         >
           {notification.message}
         </h5>
+        <Timestamp date={notification.date} />
       </CellText>
     </Cell>
   );

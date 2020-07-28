@@ -21,6 +21,7 @@ export default ({
       return (
         <WidgetSection key={notification.author.tag + index}>
           <NotificationCell
+            commentVariant={false}
             onClick={() => {}}
             className=""
             {...{ notification }}

@@ -16,7 +16,8 @@ export const generateUserSet = (howMany: number): UserInfo[] => {
 
 const generateNotification = (): Notification => {
   return {
-    ticketId: randomString(),
+    ticketId: Math.random() < 0.25 ? "null" : randomString(),
+    date: "99/99/9999",
     author: getRandom(User),
     message: getRandom(NotificationMessage),
     new: randomBool(),
@@ -66,15 +67,16 @@ export const generateTicket = (): Ticket => {
     status: randomNum(2),
     assignees: [User[0], User[1], User[2], User[3], User[4]],
     imageLinks: [
-      // randomString(),
-      // randomString(),
-      // randomString(),
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hQNEo89LqUCnSl9TFCbHPgHaEK%26pid%3DApi&f=1",
+      randomString() +
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
+      randomString(),
+      randomString(),
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.lY_aBb-eS63mPvz0-Jk8xAHaFj%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.foHhqoYr9QQbQgVQQCWFFQHaEo%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.W4tnaUqnR-WzQOyc0dqvEgHaEK%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.eV1yBtQ0xPhr0n56ewhcxwHaFj%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Ht-rJ2jpxs6obcf4Q7YoHgHaEo%26pid%3DApi&f=1",
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.-O9sV29ek_6WabRw9G5WgQHaEK%26pid%3DApi&f=1",
     ],
     activity: generateNotificationSet(10),
   };

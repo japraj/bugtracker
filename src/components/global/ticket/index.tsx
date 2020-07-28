@@ -13,6 +13,7 @@ import Modal from "@material-ui/core/Modal";
 import UserLink from "../userLink";
 import AssignmentModal from "../assignmentModal";
 import ImageGrid from "./imageGrid";
+import Communications from "./communications";
 
 import {
   statusIndicatorLength,
@@ -54,6 +55,7 @@ export default () => {
                 rightMargin: "1rem",
               }}
             />
+
             <h1>
               <TicketTag label={ticket.typeLabel} />
               {`#${ticket.id}: ${ticket.title}`}
@@ -117,6 +119,7 @@ export default () => {
             <ImageGrid imageLinks={ticket.imageLinks} />
           </TicketSection>
         )}
+        <Communications activities={ticket.activity} />
       </TicketWrapper>
     </Modal>
   );
