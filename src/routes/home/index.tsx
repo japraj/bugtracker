@@ -4,20 +4,22 @@ import { selectRecentActivity } from "../../app/flux/slices/homeSlice";
 import RecentActivity from "./recentActivity";
 import Table from "../../components/global/ticketTable";
 import CreateLink from "./createLink";
-import { HomeWrapper } from "./styles";
+import { HomeWrapper, Aside, MiscContainer } from "./styles";
 
 export default () => {
   const notificationSet = useSelector(selectRecentActivity);
   return (
     <HomeWrapper>
       <Table className="tableContainer" />
-      <div className="asideContainer">
+      <Aside>
         <RecentActivity
           className="recentActivity"
           notificationSet={notificationSet}
         />
-        <CreateLink />
-      </div>
+        <MiscContainer>
+          <CreateLink />
+        </MiscContainer>
+      </Aside>
     </HomeWrapper>
   );
 };

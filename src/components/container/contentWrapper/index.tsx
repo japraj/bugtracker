@@ -13,18 +13,17 @@ export default styled.main`
   margin: var(--nav-height) 0 0
     ${(props: { sideNavWidth: number }) => props.sideNavWidth}px;
   height: 100%;
+  width: calc(
+    100vw - ${(props: { sideNavWidth: number }) => props.sideNavWidth}px
+  );
 
-  @media (max-width: 1215px) and (min-width: 1101px) {
+  @media (max-width: 1215px) {
     margin-left: 0;
     padding: 1rem;
-  }
-
-  @media (max-width: 1100px) {
-    margin-left: 0;
-    padding: 1rem 0;
+    width: 100%;
   }
 
   @media (max-width: 600px) {
-    padding-bottom: calc(var(--mobile-nav-height) + 1rem);
+    padding: 10px 0 calc(var(--mobile-nav-height) + 1rem);
   }
 `;

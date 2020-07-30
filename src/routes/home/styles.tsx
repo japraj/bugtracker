@@ -1,73 +1,88 @@
 import styled from "styled-components";
 
 export const HomeWrapper = styled.section`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  padding: 0 20vw;
   width: 100%;
   height: auto;
 
-  @media (min-width: 1101px) {
-    .asideContainer,
-    .recentActivity {
-      width: 400px;
-    }
-
-    .recentActivity {
-      margin-bottom: 1.5rem;
-    }
-  }
-
   .tableContainer {
+    margin-right: 3vw;
     min-width: 1000px;
     width: 45vw;
-    justify-self: center;
   }
 
-  .asideContainer {
-    margin-bottom: auto;
-    justify-self: center;
-  }
+  @media (max-width: 1670px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
-  @media (min-width: 1101px) and (max-width: 1670px) {
-    padding: 0 1rem;
-    grid-template-columns: 1fr;
-    grid-gap: 1.5rem;
-
-    .tableContainer,
-    .asideContainer {
-      width: 98%;
-    }
-
-    .asideContainer {
-      .recentActivity {
-        margin-right: 1.5rem;
-      }
-
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
+    .tableContainer {
+      width: 100%;
+      margin-right: 0;
     }
   }
 
   @media (max-width: 1100px) {
-    padding: 0 1rem;
-    grid-template-columns: 1fr;
-    grid-gap: 1.5rem;
-
-    .tableContainer,
-    .asideContainer {
+    .tableContainer {
       min-width: 0;
       width: 95vw;
       margin: 0 auto;
     }
+  }
+`;
+
+export const Aside = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 500px;
+
+  .recentActivity {
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 1770px) {
+    width: 400px;
+  }
+
+  @media (max-width: 1670px) {
+    margin-top: 2rem;
+    width: 100%;
+    flex-direction: row;
 
     .recentActivity {
-      margin-bottom: 1.5rem;
+      width: 50%;
+      margin: 0 2rem 0 0;
     }
+  }
+
+  @media (max-width: 1100px) {
+    width: 95vw;
+  }
+
+  @media (max-width: 840px) {
+    flex-direction: column;
+
+    .recentActivity {
+      width: 100%;
+      margin: 0 0 2rem;
+    }
+  }
+`;
+
+export const MiscContainer = styled.div`
+  width: 100%;
+  grid-gap: 2rem;
+
+  @media (max-width: 1670px) {
+    width: calc(50% - 2rem);
+  }
+
+  @media (max-width: 840px) {
+    width: 100%;
   }
 `;

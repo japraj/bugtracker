@@ -22,9 +22,9 @@ const mapEnumToSelectOption = (
   let output: SelectOption[] = [];
   Object.keys(givenEnum)
     .filter((key) => !isNaN(Number(givenEnum[key])))
-    .map((key) => {
-      output.push({ label: prefix + ": " + capitalize(key), value: key });
-    });
+    .map((key) =>
+      output.push({ label: prefix + ": " + capitalize(key), value: key })
+    );
   return output;
 };
 
