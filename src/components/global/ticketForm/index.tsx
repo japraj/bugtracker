@@ -29,13 +29,10 @@ const mapEnumToSelectOption = (
 };
 
 interface Props {
-  statusCondition: boolean;
+  displaySelects: boolean;
   onStatusChange: (newValue: string) => void;
-  severityCondition: boolean;
   onSeverityChange: (newValue: string) => void;
-  reproducibilityCondition: boolean;
   onReproducibilityChange: (newValue: string) => void;
-  tagCondition: boolean;
   onTagChange: (newValue: string) => void;
   defaultTitle: string;
   onTitleChange: (newValue: string) => void;
@@ -46,24 +43,20 @@ interface Props {
 export default (props: Props) => {
   return (
     <React.Fragment>
-      <SelectGrid>
+      <SelectGrid display={props.displaySelects}>
         <TicketFormSelect
-          display={props.statusCondition}
           onChange={props.onStatusChange}
           options={mapEnumToSelectOption("Status", Status)}
         />
         <TicketFormSelect
-          display={props.severityCondition}
           onChange={props.onSeverityChange}
           options={mapEnumToSelectOption("Severity", Severity)}
         />
         <TicketFormSelect
-          display={props.reproducibilityCondition}
           onChange={props.onReproducibilityChange}
           options={mapEnumToSelectOption("Reproducibility", Reproducibility)}
         />
         <TicketFormSelect
-          display={props.tagCondition}
           onChange={props.onTagChange}
           options={mapEnumToSelectOption("Tag", TypeLabel)}
         />
@@ -98,14 +91,12 @@ export default (props: Props) => {
 };
 
 const TicketFormSelect = (props: {
-  display: boolean;
   onChange: (newValue: string) => void;
   options: SelectOption[];
 }) => (
-  <SelectWrapper display={props.display}>
+  <SelectWrapper>
     <Select
-      onChange={props.onChange}
-      options={props.options}
+      {...props}
       width={250}
       mobileWidth={window.innerWidth < 350 ? 200 : 300}
     />
@@ -113,11 +104,11 @@ const TicketFormSelect = (props: {
 );
 
 const SelectWrapper = styled.div`
-  ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
   height: 43px;
 `;
 
 const SelectGrid = styled.div`
+  ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
   padding: 1rem 0 2rem;
   display: grid;
   grid-gap: 2rem 3rem;

@@ -62,13 +62,10 @@ export default (props: {
           rank={rank}
         >
           <TicketForm
-            statusCondition={rank > 0}
+            displaySelects={rank > 0}
             onStatusChange={(newValue: string) => {}}
-            severityCondition={rank > 0}
             onSeverityChange={(newValue: string) => {}}
-            reproducibilityCondition={rank > 0}
             onReproducibilityChange={(newValue: string) => {}}
-            tagCondition={rank > 0}
             onTagChange={(newValue: string) => {}}
             defaultTitle={props.title}
             onTitleChange={(newValue: string) => {}}

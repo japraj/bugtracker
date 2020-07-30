@@ -32,6 +32,7 @@ export const EditIcon = styled(Button)`
 
   :hover {
     cursor: pointer;
+    background-color: var(--transparent-highlight) !important;
     transform: scale(1.1);
   }
 `;
