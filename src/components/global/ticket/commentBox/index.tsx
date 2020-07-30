@@ -28,6 +28,7 @@ export default () => {
           submitText="Submit"
           submitCallback={() => {}}
           cancelCallback={() => {}}
+          className="editControls"
         />
       </CommentBox>
     </ThemeProvider>
@@ -48,5 +49,9 @@ const CommentBox = styled.form`
     textarea {
       color: var(--text-color);
     }
+  }
+
+  .editControls {
+    padding-right: 0;
   }
 `;

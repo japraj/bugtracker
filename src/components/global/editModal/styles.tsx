@@ -35,7 +35,7 @@ export const EditIcon = styled(Button)`
 
   :hover {
     cursor: pointer;
-    background-color: var(--transparent-highlight) !important;
+    background-color: var(--highlight) !important;
     transform: scale(1.1);
   }
 `;
@@ -49,11 +49,24 @@ export const EditView = styled(ModalContentWrapper)`
 
   .userLinkGrid {
     ${(props: { rank: number }) => (props.rank > 0 ? "" : "display: none;")}
-    padding: 1rem 2rem;
-    margin-bottom: 1rem;
+    padding: 0 0 1rem;
   }
 
   .userLinkGrid:first-child {
+    margin-bottom: 1rem;
     margin-top: auto;
   }
+
+  .editControls {
+    padding: 1rem 2rem;
+  }
+`;
+
+export const AssignmentContainer = styled.div`
+  margin: 1rem 0;
+  width: calc(100% - 4rem);
+  padding: 18.5px 14px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.23);
 `;

@@ -7,6 +7,7 @@ import "./MUIOverride.css";
 import { FormWrapper, Form } from "./styles";
 
 type Props = {
+  fixedWidth: boolean;
   width: number;
   mobileWidth: number;
   onChange: (newValue: string) => void;
@@ -23,7 +24,11 @@ export default (props: Props) => {
   return (
     <FormWrapper className="selectFormWrapper">
       <ThemeProvider theme={theme}>
-        <Form width={props.width} mobilewidth={props.mobileWidth}>
+        <Form
+          fixedWidth={props.fixedWidth}
+          width={props.width}
+          mobileWidth={props.mobileWidth}
+        >
           <Select
             labelId="select-label"
             id="select"

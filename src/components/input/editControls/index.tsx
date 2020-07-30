@@ -7,11 +7,12 @@ interface Props {
   cancelCallback: () => void;
   submitCallback: () => void;
   submitText: string;
+  className: string;
 }
 
 export default (props: Props) => {
   return (
-    <ControlsWrapper>
+    <ControlsWrapper className={props.className}>
       <Cancel
         display={props.showCancel}
         className=""

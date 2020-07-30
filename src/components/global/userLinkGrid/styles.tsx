@@ -12,7 +12,7 @@ export const UserLinkGrid = styled.div`
   h1 {
     user-select: none;
     text-align: left;
-    width: 110%;
+    width: 100%;
     padding-bottom: 0.5rem;
     border-bottom: var(--ticket-border);
     color: var(--text-color);
@@ -21,6 +21,7 @@ export const UserLinkGrid = styled.div`
 `;
 
 export const SetWrapper = styled.div`
+  padding-left: 0.5rem;
   width: 100%;
   max-width: 100%;
   display: grid;

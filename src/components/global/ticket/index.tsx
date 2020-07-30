@@ -129,6 +129,7 @@ export default () => {
           maxLinks={mobileDisplay ? 4 : 5}
           title={ticket.title}
           description={ticket.description}
+          imageLinks={ticket.imageLinks}
         />
       </TicketWrapper>
     </Modal>

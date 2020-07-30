@@ -15,7 +15,12 @@ import Modal from "@material-ui/core/Modal";
 import UserLinkGrid from "../userLinkGrid";
 import TicketForm from "../ticketForm";
 import EditControls from "../../input/editControls";
-import { ButtonWrapper, EditIcon, EditView } from "./styles";
+import {
+  ButtonWrapper,
+  EditIcon,
+  EditView,
+  AssignmentContainer,
+} from "./styles";
 
 export default (props: {
   maxLinks: number;
@@ -23,8 +28,10 @@ export default (props: {
   modalImgLength: string;
   title: string;
   description: string;
+  imageLinks: string[];
 }) => {
   const dispatch = useDispatch();
+  const [imageLinks, setImageLinks] = useState(props.imageLinks);
   const [open, setOpen] = useState(false);
   const rank = useSelector(selectUser).info.rank;
   const isAuthor =
@@ -71,25 +78,29 @@ export default (props: {
             onTitleChange={(newValue: string) => {}}
             defaultDesc={props.description}
             onDescChange={(newValue: string) => {}}
+            defaultLinks={imageLinks}
+            onLinksChange={setImageLinks}
           />
-          <UserLinkGrid
-            className="userLinkGrid"
-            users={stagedAssignees}
-            imgLength={props.modalImgLength}
-            label="Assigned:"
-            iconName="removeCircle"
-            iconBackgroundColor="var(--red)"
-            onClick={moveUser}
-          />
-          <UserLinkGrid
-            className="userLinkGrid"
-            users={available}
-            imgLength={props.modalImgLength}
-            label="Available:"
-            iconName="addCircle"
-            iconBackgroundColor="var(--black-bg-green)"
-            onClick={moveUser}
-          />
+          <AssignmentContainer>
+            <UserLinkGrid
+              className="userLinkGrid"
+              users={stagedAssignees}
+              imgLength={props.modalImgLength}
+              label="Assigned:"
+              iconName="removeCircle"
+              iconBackgroundColor="var(--red)"
+              onClick={moveUser}
+            />
+            <UserLinkGrid
+              className="userLinkGrid"
+              users={available}
+              imgLength={props.modalImgLength}
+              label="Available:"
+              iconName="addCircle"
+              iconBackgroundColor="var(--black-bg-green)"
+              onClick={moveUser}
+            />
+          </AssignmentContainer>
           <EditControls
             showCancel={true}
             cancelCallback={close}
@@ -98,6 +109,7 @@ export default (props: {
               setOpen(false);
             }}
             submitText="Save"
+            className="editControls"
           />
         </EditView>
       </Modal>

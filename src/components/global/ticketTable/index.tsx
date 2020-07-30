@@ -65,6 +65,7 @@ export default (props: Props) => {
           }}
         />
         <Select
+          fixedWidth={true}
           width={150}
           mobileWidth={115}
           onChange={(newValue: string) => console.log(newValue)}

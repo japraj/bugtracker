@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SelectOption,
   Status,
@@ -9,6 +9,7 @@ import {
 import Select from "../../input/select";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
+import ImageLinks from "../imageLinks";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "../../../app/constants";
 
@@ -38,6 +39,8 @@ interface Props {
   onTitleChange: (newValue: string) => void;
   defaultDesc: string;
   onDescChange: (newValue: string) => void;
+  defaultLinks: string[];
+  onLinksChange: (newArray: string[]) => void;
 }
 
 export default (props: Props) => {
@@ -84,6 +87,10 @@ export default (props: Props) => {
               props.onDescChange(event.target.value)
             }
           />
+          <ImageLinks
+            imageLinks={props.defaultLinks}
+            onChange={props.onLinksChange}
+          />
         </ThemeProvider>
       </TextWrapper>
     </React.Fragment>
@@ -96,6 +103,7 @@ const TicketFormSelect = (props: {
 }) => (
   <SelectWrapper>
     <Select
+      fixedWidth={false}
       {...props}
       width={250}
       mobileWidth={window.innerWidth < 350 ? 200 : 300}
@@ -109,12 +117,19 @@ const SelectWrapper = styled.div`
 
 const SelectGrid = styled.div`
   ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
-  padding: 1rem 0 2rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.23);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 18.5px 14px 2rem;
+  margin: 2rem auto;
   display: grid;
   grid-gap: 2rem 3rem;
+  width: calc(100% - 4rem);
+  justify-content: center;
+  grid-template-columns: repeat(2, calc(50% - 28px));
 
-  @media (min-width: 650px) {
-    grid-template-columns: 1fr 1fr;
+  @media (max-width: 650px) {
+    grid-template-columns: calc(100% - 14px);
   }
 `;
 
@@ -125,6 +140,6 @@ const TextWrapper = styled.div`
   .textSection {
     background-color: rgba(255, 255, 255, 0.1);
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 `;
