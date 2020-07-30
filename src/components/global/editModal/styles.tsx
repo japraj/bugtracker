@@ -41,7 +41,9 @@ export const EditIcon = styled(Button)`
 `;
 
 export const EditView = styled(ModalContentWrapper)`
-  padding: 1rem 1rem 3rem;
+  padding: 1rem;
+  height: auto !important;
+  max-height: calc(100vh - 3vh - var(--nav-height));
   display: flex;
   flex-direction: column;
   align-items: center;
