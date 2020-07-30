@@ -7,7 +7,7 @@ export const ButtonWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  height: auto;
+  height: 90px;
   position: sticky;
   right: 0;
   bottom: 0;
@@ -63,6 +63,7 @@ export const EditView = styled(ModalContentWrapper)`
 `;
 
 export const AssignmentContainer = styled.div`
+  ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
   margin: 1rem 0;
   width: calc(100% - 4rem);
   padding: 18.5px 14px;

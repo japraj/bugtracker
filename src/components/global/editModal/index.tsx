@@ -70,6 +70,7 @@ export default (props: {
         >
           <TicketForm
             displaySelects={rank > 0}
+            displayAuthor={isAuthor}
             onStatusChange={(newValue: string) => {}}
             onSeverityChange={(newValue: string) => {}}
             onReproducibilityChange={(newValue: string) => {}}
@@ -81,7 +82,7 @@ export default (props: {
             defaultLinks={imageLinks}
             onLinksChange={setImageLinks}
           />
-          <AssignmentContainer>
+          <AssignmentContainer display={rank > 1}>
             <UserLinkGrid
               className="userLinkGrid"
               users={stagedAssignees}

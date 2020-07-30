@@ -23,6 +23,7 @@ export const SelectGrid = styled.div`
 `;
 
 export const TextWrapper = styled.div`
+  ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
   width: 100%;
   padding: 0 2rem;
 

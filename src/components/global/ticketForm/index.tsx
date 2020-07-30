@@ -31,6 +31,7 @@ const mapEnumToSelectOption = (
 
 interface Props {
   displaySelects: boolean;
+  displayAuthor: boolean;
   onStatusChange: (newValue: string) => void;
   onSeverityChange: (newValue: string) => void;
   onReproducibilityChange: (newValue: string) => void;
@@ -64,7 +65,7 @@ export default (props: Props) => {
           options={mapEnumToSelectOption("Tag", TypeLabel)}
         />
       </SelectGrid>
-      <TextWrapper>
+      <TextWrapper display={props.displayAuthor}>
         <ThemeProvider theme={theme}>
           <TextField
             className="textSection"
