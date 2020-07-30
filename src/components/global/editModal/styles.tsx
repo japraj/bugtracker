@@ -1,4 +1,4 @@
-import { ModalContentWrapper } from "../../container/modalContent";
+import FormContentWrapper from "../../container/ticketFormWrapper";
 import Button from "../../input/button";
 import styled from "styled-components";
 
@@ -40,15 +40,7 @@ export const EditIcon = styled(Button)`
   }
 `;
 
-export const EditView = styled(ModalContentWrapper)`
-  padding: 1rem;
-  height: auto !important;
-  max-height: calc(100vh - 3vh - var(--nav-height));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
+export const ContentWrapper = styled(FormContentWrapper)`
   .userLinkGrid {
     ${(props: { rank: number }) => (props.rank > 0 ? "" : "display: none;")}
     padding: 0 0 1rem;
@@ -57,10 +49,6 @@ export const EditView = styled(ModalContentWrapper)`
   .userLinkGrid:first-child {
     margin-bottom: 1rem;
     margin-top: auto;
-  }
-
-  .editControls {
-    padding: 1rem 2rem;
   }
 `;
 

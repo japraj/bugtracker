@@ -15,8 +15,7 @@ import {
 import Modal from "@material-ui/core/Modal";
 import TicketForm from "../ticketForm";
 import EditControls from "../../input/editControls";
-import { ModalContentWrapper } from "../../container/modalContent";
-import styled from "styled-components";
+import ContentWrapper from "../../container/ticketFormWrapper";
 
 const keyToIndex = (givenKey: string, givenEnum: any): number => {
   for (let i = 0; i < Object.keys(givenEnum).length; i++)
@@ -90,17 +89,3 @@ export default () => {
     </Modal>
   );
 };
-
-const ContentWrapper = styled(ModalContentWrapper)`
-  padding: 1rem;
-  height: auto !important;
-  max-height: calc(100vh - 3vh - var(--nav-height));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
-  .editControls {
-    padding: 1rem 2rem;
-  }
-`;

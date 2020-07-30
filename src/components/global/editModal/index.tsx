@@ -18,7 +18,7 @@ import EditControls from "../../input/editControls";
 import {
   ButtonWrapper,
   EditIcon,
-  EditView,
+  ContentWrapper,
   AssignmentContainer,
 } from "./styles";
 
@@ -64,7 +64,7 @@ export default (props: {
         aria-labelledby="Edit View"
         aria-describedby="A menu through which an issue's values/characteristics can be updated."
       >
-        <EditView
+        <ContentWrapper
           width={window.innerWidth < 800 ? "95vw" : "700px"}
           rank={rank}
         >
@@ -112,7 +112,7 @@ export default (props: {
             submitText="Save"
             className="editControls"
           />
-        </EditView>
+        </ContentWrapper>
       </Modal>
     </React.Fragment>
   );
