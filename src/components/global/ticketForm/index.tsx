@@ -123,6 +123,7 @@ const TextWrapper = styled.div`
   padding: 0 2rem;
 
   .textSection {
+    background-color: rgba(255, 255, 255, 0.1);
     width: 100%;
     margin-bottom: 1rem;
   }

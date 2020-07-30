@@ -19,7 +19,7 @@ export default (props: Props) => {
       >
         Cancel
       </Cancel>
-      <Submit className="" onClick={props.submitCallback}>
+      <Submit className="hoverfx" onClick={props.submitCallback}>
         {props.submitText}
       </Submit>
     </ControlsWrapper>
@@ -45,10 +45,9 @@ const Cancel = styled(Button)`
 `;
 
 const Submit = styled(Button)`
-  background-color: var(--highlight) !important;
-  transition: transform 0.25s ease-out;
+  border: 2px solid rgba(255, 255, 255, 0.4) !important;
 
   :hover {
-    transform: scale(1.1);
+    border: 2px solid rgba(0, 0, 0, 0) !important;
   }
 `;

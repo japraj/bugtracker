@@ -41,6 +41,7 @@ const CommentBox = styled.form`
   margin: 1rem 0;
 
   .commentBox {
+    background-color: rgba(255, 255, 255, 0.1);
     width: 100%;
     margin-bottom: 1rem;
 

@@ -13,7 +13,9 @@ export default ({ activities }: { activities: Notification[] }) => {
           commentVariant={true}
           // The highlight variant is only applied to actions, not comments.
           // Comments all have their ticketId set to null by default.
-          className={activity.ticketId === "null" ? "" : "highlight"}
+          className={`node ${
+            activity.ticketId === "null" ? "normal" : "highlight"
+          }`}
           notification={activity}
         />
       ))}
@@ -42,9 +44,16 @@ const ActivityWrapper = styled.div`
     }
   }
 
-  .highlight {
-    background-color: var(--transparent-highlight);
+  .node {
     padding: 0.5rem;
     border-radius: 10px;
+  }
+
+  .normal {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .highlight {
+    background-color: var(--transparent-highlight);
   }
 `;

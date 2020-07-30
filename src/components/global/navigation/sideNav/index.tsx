@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { NavigationItem } from "..";
-import Profile from "../profile";
+import Profile from "../../profile";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Icon from "@material-ui/core/Icon";
 import { SideNav, GlassPane, NavLink } from "./styles";

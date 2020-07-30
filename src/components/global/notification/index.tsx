@@ -23,13 +23,14 @@ export default ({
   commentVariant: boolean;
 }) => {
   const dispatch = useDispatch();
+  const imgLength: string = `${window.innerWidth > 1100 ? 50 : 40}px`;
   return (
     <Cell className={className} commentVariant={commentVariant}>
       <UserLink
         styleConfig={{
           className: "",
           showImg: true,
-          imgLength: `${window.innerWidth > 1100 ? 50 : 40}px`,
+          imgLength: imgLength,
           internalSpacing: "0",
           showTag: false,
           tagSize: "0",

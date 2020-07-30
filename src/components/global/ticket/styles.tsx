@@ -149,6 +149,7 @@ export const Description = styled(TicketSection)`
   }
 
   p {
+    line-height: 2;
     margin-top: 0.5rem;
     font-size: 0.8rem;
     color: var(--text-color);

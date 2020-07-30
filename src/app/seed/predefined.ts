@@ -13,7 +13,7 @@ export const randomBool = (): boolean => Math.random() < 0.5;
 
 export const User: UserInfo[] = [
   {
-    tag: "Spongebob Squarepants",
+    tag: "Spongebob",
     profileImg:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fsmashbroslawlorigins%2Fimages%2F4%2F47%2FSpongebob.png%2Frevision%2Flatest%3Fcb%3D20181103164034&f=1&nofb=1",
     rank: 0,

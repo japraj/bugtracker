@@ -24,12 +24,13 @@ export const CellText = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin: 0 0.5rem 0 0.7rem;
-  width: calc(100% - 40px - 1rem);
+  width: calc(100% - ${window.innerWidth > 1100 ? 50 : 40}px - 1rem);
 
   .author {
     max-width: 90%;
 
     h3 {
+      line-height: 1.15;
       margin-bottom: 0.5rem;
       white-space: nowrap;
       overflow: hidden;

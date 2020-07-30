@@ -7,7 +7,7 @@ export const ModalContentWrapper = styled.div`
   width: ${(props: { width: string }) => props.width};
   left: calc(50% - calc(${(props: { width: string }) => props.width} / 2));
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(3px);
   border-radius: 4px;

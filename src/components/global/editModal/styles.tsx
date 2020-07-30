@@ -11,14 +11,17 @@ export const ButtonWrapper = styled.div`
   position: sticky;
   right: 0;
   bottom: 0;
+  pointer-events: none;
 `;
 
 export const EditIcon = styled(Button)`
+  pointer-events: all;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
   backdrop-filter: blur(8px) !important;
   padding: 0.8rem !important;
   border-radius: 50% !important;
+  margin-bottom: 5px !important;
   transition: transform 0.25s ease-out;
 
   span {
