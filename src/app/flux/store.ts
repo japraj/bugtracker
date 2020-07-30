@@ -4,6 +4,7 @@ import authReducer from "./slices/authSlice";
 import tableReducer from "./slices/tableSlice";
 import homeReducer from "./slices/homeSlice";
 import ticketReducer from "./slices/ticketSlice";
+import creationReducer from "./slices/creationSlice";
 
 // All reducers must be declared here!
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     table: tableReducer,
     home: homeReducer,
     ticket: ticketReducer,
+    creation: creationReducer,
   },
 });
 

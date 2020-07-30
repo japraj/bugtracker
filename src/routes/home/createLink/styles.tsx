@@ -1,10 +1,9 @@
 import { WidgetWrapper } from "../../../components/container/widget";
-import { Link } from "react-router-dom";
+import ButtonBase from "@material-ui/core/ButtonBase";
 import styled from "styled-components";
 
-export const LinkWrapper = styled(Link)`
-  text-decoration: none;
-  min-width: 400px;
+export const LinkWrapper = styled(ButtonBase)`
+  width: 100%;
 `;
 
 export const LinkWidget = styled(WidgetWrapper)`

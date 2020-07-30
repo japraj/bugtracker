@@ -30,7 +30,7 @@ export default ({ authenticated }: { authenticated: boolean }) => {
           <ErrorPage
             width="660px"
             header="Auth Error"
-            bodyText="Sorry, you must be logged in to view that page. "
+            bodyText="Sorry, you must be logged in to access that resource. "
             linkText="Go to Login Page."
             linkHref="/login"
           />
