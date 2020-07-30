@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  selectAssignees,
   selectDisplayed,
   selectTicket,
   selectFailures,
@@ -11,7 +12,8 @@ import TicketTag from "../ticketTag";
 import StatusIndicator from "../statusIndicator";
 import Modal from "@material-ui/core/Modal";
 import UserLink from "../userLink";
-import AssignmentModal from "../assignmentModal";
+import StackedUserLinks from "../stackedUserLinks";
+import EditModal from "../editModal";
 import ImageGrid from "./imageGrid";
 import Communications from "./communications";
 
@@ -27,6 +29,7 @@ import {
 
 export default () => {
   const dispatch = useDispatch();
+  const assignees = useSelector(selectAssignees);
   const open: boolean = useSelector(selectDisplayed);
   const close = (): void => {
     dispatch(toggleDisplay());
@@ -99,10 +102,10 @@ export default () => {
           <TicketField
             name="Assignees"
             content={
-              <AssignmentModal
+              <StackedUserLinks
                 imgLength={mobileDisplay ? "25px" : "30px"}
-                modalImgLength={"40px"}
                 maxLinks={mobileDisplay ? 4 : 5}
+                users={assignees}
               />
             }
           />
@@ -120,6 +123,13 @@ export default () => {
           </TicketSection>
         )}
         <Communications activities={ticket.activity} />
+        <EditModal
+          imgLength={mobileDisplay ? "25px" : "30px"}
+          modalImgLength={"40px"}
+          maxLinks={mobileDisplay ? 4 : 5}
+          title={ticket.title}
+          description={ticket.description}
+        />
       </TicketWrapper>
     </Modal>
   );

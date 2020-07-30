@@ -52,9 +52,7 @@ export const CellText = styled.div`
         return `white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;`;
-      return `
-        
-      `;
+      return ``;
     }}
 
     @media (max-width: 1100px) {

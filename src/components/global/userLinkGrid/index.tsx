@@ -39,6 +39,7 @@ export default (props: Props) => {
             </Clickable>
           </UserLinkWrapper>
         ))}
+        <div style={{ height: props.imgLength }} />
       </SetWrapper>
     </UserLinkGrid>
   );

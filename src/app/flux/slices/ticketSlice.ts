@@ -131,6 +131,7 @@ export const ticketSlice = createSlice({
       },
     },
     pushLocalChanges: (state) => {
+      // This is a temporary solution to be used in local testing only
       state = Object.assign(state, {
         currentTicket: Object.assign(state.currentTicket, {
           assignees: state.stagedAssignees,

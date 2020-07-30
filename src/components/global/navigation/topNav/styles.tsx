@@ -14,7 +14,10 @@ export const TopNav = styled.nav`
   z-index: 8;
   color: var(--text-color);
   border-bottom: 1px solid var(--dark);
-  border-right: var(--scrollwidth) solid rgba(0, 0, 0, 0.8);
+
+  @media (min-width: 600px) {
+    border-right: var(--scrollwidth) solid rgba(0, 0, 0, 0.8);
+  }
 `;
 
 export const Label = styled.h1`
