@@ -51,7 +51,7 @@ export default () => {
       displayButtonSibling={true}
       buttonSibling={
         <LinkWrapper>
-          <HyperLink to="/resetPassword">Forgot Password?</HyperLink>
+          <HyperLink to="/forgotPassword">Forgot Password?</HyperLink>
         </LinkWrapper>
       }
       onSubmit={verifyValues}

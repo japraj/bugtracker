@@ -347,9 +347,9 @@ img {
 
 /* Alert Dynamic Offset! */
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1215px) {
   :root {
-    --rs-alert-offset: 0px;
+    --rs-alert-offset: 0px !important;
   }
 }
 

@@ -104,13 +104,15 @@
 }
 
 .rs-alert-item-content {
+  line-height: 1.4;
   text-align: left;
   padding: 20px;
   border-radius: 6px;
   -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12),
     0 0 10px rgba(0, 0, 0, 0.06);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12), 0 0 10px rgba(0, 0, 0, 0.06);
-  max-width: 400px;
+  width: auto;
+  max-width: 90vw;
   padding-left: 42px;
   padding-right: 46px;
   position: relative;
@@ -199,16 +201,6 @@
 
 .rs-alert .rs-alert-warning .rs-alert-item-content {
   color: #0f131a;
-}
-
-@font-face {
-  font-family: "rsuite-icon-font";
-  src: url("https://cdn.jsdelivr.net/npm/rsuite/dist/styles/fonts/rsuite-icon-font.ttf")
-      format("truetype"),
-    url("https://cdn.jsdelivr.net/npm/rsuite/dist/styles/fonts/rsuite-icon-font.woff")
-      format("woff");
-  font-weight: normal;
-  font-style: normal;
 }
 
 .rs-icon {

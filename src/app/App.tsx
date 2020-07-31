@@ -59,7 +59,6 @@ export default hot(() => {
 
   React.useEffect(initialLoad, [dispatch]);
   const authSlice = useSelector(selectAuthSlice);
-  const authenticated = authSlice.user.authenticated;
   const sideNavWidth = useSelector(selectSideNavWidth);
   return (
     <Context.Provider value={authSlice}>
@@ -70,9 +69,9 @@ export default hot(() => {
             outside the ContentWrapper. Note that Navigation must be within the Router
             component because it uses a location hook
           */}
-          <Navigation authenticated={authenticated} />
+          <Navigation />
           <ContentWrapper {...{ sideNavWidth }}>
-            <Routes authenticated={authenticated} />
+            <Routes />
           </ContentWrapper>
           <TicketModal />
         </Router>

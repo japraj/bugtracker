@@ -45,6 +45,10 @@ export const authSlice = createSlice({
         }
       );
     },
+    logout: (state) => {
+      // send a post request invalidating the user's session token
+      state = Object.assign(state, initialState, { loaded: true });
+    },
   },
 });
 
@@ -52,6 +56,7 @@ export const {
   finishedLoading,
   loadUser,
   viewNotifications,
+  logout,
 } = authSlice.actions;
 
 export const selectAuthSlice = (state: RootState): AuthState =>
@@ -61,5 +66,8 @@ export const selectUser = (state: RootState): User => state.authentication.user;
 
 export const selectUserRank = (state: RootState): number =>
   state.authentication.user.info.rank;
+
+export const selectAuthenticated = (state: RootState): boolean =>
+  state.authentication.user.authenticated;
 
 export default authSlice.reducer;

@@ -8,23 +8,36 @@ import ErrorPage from "./errorPage";
 import Login from "./login";
 import Register from "./register";
 import DemoLogin from "./demoLogin";
+import ForgotPassword from "./forgotPassword";
+import ResetPassword from "./resetPassword";
 
-export default ({ authenticated }: { authenticated: boolean }) => {
+export default () => {
   return (
     <Switch>
-      <Route path="/" exact={true} render={() => <Home />} />
-      <Route path="/login" render={() => <Login />} />
-      <Route path="/register" render={() => <Register />} />
+      <Route path="/" exact={true} component={Home} />
       <ProtectedRoute
-        authenticated={authenticated}
+        requireAuth={false}
+        path="/demo"
+        component={<DemoLogin />}
+      />
+      <ProtectedRoute
+        requireAuth={false}
+        path="/register"
+        component={<Register />}
+      />
+      <ProtectedRoute requireAuth={false} path="/login" component={<Login />} />
+      <ProtectedRoute
+        requireAuth={false}
+        path="/forgotPassword"
+        component={<ForgotPassword />}
+      />
+      <Route path="/resetPassword/:token" component={ResetPassword} />
+      <ProtectedRoute
+        requireAuth={true}
         path="/dashboard"
         component={<Unimplemented name="Dashboard" />}
       />
-      <ProtectedRoute
-        authenticated={authenticated}
-        path="/create"
-        component={<Unimplemented name="Create" />}
-      />
+      {/* Error Pages */}
       <Route
         path="/loginRequired"
         render={() => (
@@ -37,7 +50,18 @@ export default ({ authenticated }: { authenticated: boolean }) => {
           />
         )}
       />
-      <Route path="/demo" render={() => <DemoLogin />} />
+      <Route
+        path="/invalidToken"
+        render={() => (
+          <ErrorPage
+            width="660px"
+            header="Invalid Token"
+            bodyText="Sorry, your token has expired. "
+            linkText="Go to Forgot Password Page."
+            linkHref="/forgotPassword"
+          />
+        )}
+      />
       {
         // The route below is special in that if
         // no other route is matched, the user

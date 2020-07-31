@@ -3,6 +3,10 @@ import TopNavigation from "./topNav";
 import SideNavigation from "./sideNav";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  selectAuthenticated,
+  logout,
+} from "../../../app/flux/slices/authSlice";
+import {
   toggleCollapse,
   selectCollapsed,
 } from "../../../app/flux/slices/navigationSlice";
@@ -49,8 +53,9 @@ const authNavSet: NavigationItem[] = [HomeItem, DashboardItem, LogoutItem];
 
 // Container class for SideNav and TopNav, meant to handle the logic
 // for both components.
-export default ({ authenticated }: { authenticated: boolean }) => {
+export default () => {
   const dispatch = useDispatch();
+  const authenticated: boolean = useSelector(selectAuthenticated);
   const collapsed: boolean = useSelector(selectCollapsed);
   const toggle = () => {
     document.documentElement.style.setProperty(
@@ -67,10 +72,7 @@ export default ({ authenticated }: { authenticated: boolean }) => {
         {...{ collapsedWidth, extendedWidth }}
         navItemSet={authenticated ? authNavSet : defaultNavSet}
         toggleCollapsed={collapsed ? () => {} : toggle}
-        logout={() => {
-          // Logout logic
-          console.log("Logout");
-        }}
+        logout={() => dispatch(logout())}
         logoutItem={LogoutItem}
       />
     </React.Fragment>
