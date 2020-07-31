@@ -1,24 +1,25 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 18.5px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 4px;
 
   .textfieldButton {
-    margin: 1rem auto;
+    margin-top: 1rem;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
   }
 `;
 
 export const ImageLinkSet = styled.div`
   padding: 9.25px 7px 9.25px 14px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.23);
-  border-radius: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;

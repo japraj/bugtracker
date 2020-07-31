@@ -41,12 +41,12 @@ export const EditIcon = styled(Button)`
 
 export const AssignmentContainer = styled.div`
   ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
+  position: relative;
   margin: 1rem 0;
   width: calc(100% - 4rem);
   padding: 18.5px 14px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.23);
 
   .userLinkGrid {
     padding: 0 0 1rem;

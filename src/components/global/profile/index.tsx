@@ -72,7 +72,9 @@ export default (props: Props) => {
         aria-labelledby="Notifications"
         aria-describedby="A list of notifications for the user, each containing an author and a message."
       >
-        <NotificationSet onClick={close} notifications={user.notifications} />
+        <div>
+          <NotificationSet onClick={close} notifications={user.notifications} />
+        </div>
       </Modal>
     </React.Fragment>
   );

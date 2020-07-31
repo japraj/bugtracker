@@ -9,6 +9,7 @@ export default ({ activities }: { activities: Notification[] }) => {
     <ActivityWrapper>
       {activities.map((activity) => (
         <NotificationNode
+          key={activity.message + activity.ticketId + activity.date}
           onClick={() => {}}
           commentVariant={true}
           // The highlight variant is only applied to actions, not comments.

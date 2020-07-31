@@ -13,7 +13,7 @@ export const UserLinkGrid = styled.div`
     user-select: none;
     text-align: left;
     width: 100%;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.8rem;
     border-bottom: var(--ticket-border);
     color: var(--text-color);
     margin-bottom: 1rem;

@@ -13,6 +13,7 @@ import { selectUser } from "../../../app/flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
 import UserLinkGrid from "../userLinkGrid";
 import FormModal from "../formModal";
+import ContainerLabel from "../containerLabel";
 import { ButtonWrapper, EditIcon, AssignmentContainer } from "./styles";
 
 const getUsersFromTags = (users: UserInfo[], tags: string[]): UserInfo[] =>
@@ -35,8 +36,7 @@ export default (props: {
   const ticketSlice: TicketState = useSelector(selectTicketSlice);
   const available: UserInfo[] = useSelector(selectAvailable);
   const editedTicket: EditedTicket = ticketSlice.editedTicket;
-  // const isAuthor: boolean = currentTicket.author.tag === user.tag;
-  const isAuthor = true;
+  const isAuthor: boolean = ticketSlice.currentTicket.author.tag === user.tag;
 
   const update = (change: object): void => {
     dispatch(updateEdit(change));
@@ -91,6 +91,7 @@ export default (props: {
         defaultLinks={editedTicket.imageLinks}
         injectedNode={
           <AssignmentContainer display={rank > 1}>
+            <ContainerLabel label="Assignees" />
             <UserLinkGrid
               className="userLinkGrid"
               users={editedTicket.assignees}

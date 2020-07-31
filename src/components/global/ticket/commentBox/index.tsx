@@ -20,7 +20,6 @@ export default () => {
           label="Add a comment"
           multiline
           rows={4}
-          defaultValue=""
           value={value}
           variant="outlined"
           onChange={handleChange}

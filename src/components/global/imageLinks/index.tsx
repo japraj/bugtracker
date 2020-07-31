@@ -2,6 +2,7 @@ import React from "react";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import TextfieldButton from "../../input/textfieldButton";
+import ContainerLabel from "../containerLabel";
 import { Container, ImageLinkSet, ImageLink, EmptyMessage } from "./styles";
 
 // This enum is only used internally within this component
@@ -32,6 +33,7 @@ export default (props: {
 
   return (
     <Container>
+      <ContainerLabel label="Images" />
       <ImageLinkSet>
         {props.imageLinks.length > 0 ? (
           props.imageLinks.map((imageLink) => (
@@ -53,14 +55,14 @@ export default (props: {
         ) : (
           <EmptyMessage>
             No images linked. You can upload any relevant images to a website
-            such as Google Photos, Imgur, or Dropbox and attach the link using
+            such as Google Photos, Imgur, or Dropbox and attach the url using
             the textfield below.
           </EmptyMessage>
         )}
       </ImageLinkSet>
       <TextfieldButton
-        label="Add a new link"
-        labelWidth={105}
+        label="Add a new image url"
+        labelWidth={148}
         defaultValue=""
         clearInputOnSubmit={true}
         editable={true}

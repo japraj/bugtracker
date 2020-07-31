@@ -15,7 +15,6 @@ import StackedUserLinks from "../stackedUserLinks";
 import EditModal from "../editModal";
 import ImageGrid from "./imageGrid";
 import Communications from "./communications";
-
 import {
   statusIndicatorLength,
   TicketWrapper,

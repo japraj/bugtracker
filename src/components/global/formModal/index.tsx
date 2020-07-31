@@ -13,6 +13,7 @@ import Modal from "@material-ui/core/Modal";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "../../../app/constants";
 import EditControls from "../../input/editControls";
+import ContainerLabel from "../containerLabel";
 import {
   ContentWrapper,
   SelectWrapper,
@@ -70,6 +71,7 @@ export default (props: Props) => {
     >
       <ContentWrapper width={window.innerWidth < 800 ? "95vw" : "700px"}>
         <SelectGrid display={props.displaySelects}>
+          <ContainerLabel label="Properties" />
           <TicketFormSelect
             onChange={(newValue: string) =>
               props.update({ status: keyToIndex(newValue, Status) })

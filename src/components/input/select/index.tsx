@@ -25,9 +25,9 @@ export default (props: Props) => {
     <FormWrapper className="selectFormWrapper">
       <ThemeProvider theme={theme}>
         <Form
-          fixedWidth={props.fixedWidth}
+          fixedwidth={props.fixedWidth}
           width={props.width}
-          mobileWidth={props.mobileWidth}
+          mobilewidth={props.mobileWidth}
         >
           <Select
             labelId="select-label"

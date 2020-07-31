@@ -10,14 +10,14 @@ export const FormWrapper = styled.div`
 `;
 
 interface FormProps {
-  fixedWidth: boolean;
+  fixedwidth: boolean;
   width: number;
-  mobileWidth: number;
+  mobilewidth: number;
 }
 
 export const Form = styled(FormControl)`
   width: ${(props: FormProps) =>
-    props.fixedWidth ? `${props.width}px` : "100%"};
+    props.fixedwidth ? `${props.width}px` : "100%"};
 
   #select-label,
   #select {
@@ -36,7 +36,7 @@ export const Form = styled(FormControl)`
 
   @media (max-width: 600px) {
     width: ${(props: FormProps) =>
-      props.fixedWidth ? `${props.mobileWidth}px` : "100%"};
+      props.fixedwidth ? `${props.mobilewidth}px` : "100%"};
 
     div {
       font-size: 12px !important;

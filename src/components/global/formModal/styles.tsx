@@ -20,6 +20,7 @@ export const SelectWrapper = styled.div`
 `;
 
 export const SelectGrid = styled.div`
+  position: relative;
   ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.23);
