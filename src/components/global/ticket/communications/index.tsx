@@ -52,6 +52,10 @@ const ActivityWrapper = styled.div`
 
   .normal {
     background-color: rgba(255, 255, 255, 0.1);
+
+    h5:hover {
+      cursor: text;
+    }
   }
 
   .highlight {
