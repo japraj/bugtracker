@@ -38,7 +38,7 @@ const RegisterItem: NavigationItem = {
 
 const DashboardItem: NavigationItem = {
   path: "dashboard",
-  iconName: "person",
+  iconName: "equalizer",
   text: "Dashboard",
 };
 

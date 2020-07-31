@@ -18,7 +18,10 @@ interface Props {
 }
 
 // Displays the user's profileImg/tag, a link to the settings page,
-// and a button to access notifications
+// and a button to access notifications. Note: this component is not
+// related to the Profile route!! This has to do solely with
+// authenticated users' avatar/name/notifications/etc that are found
+// in the nav bar
 export default (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const user = useSelector(selectUser);
@@ -105,12 +108,12 @@ export default (props: Props) => {
           <h1>{user.info.tag}</h1>
           <ProfileWidgetWrapper>
             <Link
-              to="/settings"
+              to="/profile"
               onClick={
                 window.innerWidth < 600 ? props.toggleCollapsed : () => {}
               }
             >
-              <Icon className="settings icon">settings</Icon>
+              <Icon className="settings icon">person</Icon>
             </Link>
             {notificationsWidget}
           </ProfileWidgetWrapper>
