@@ -7,6 +7,7 @@ import Home from "./home";
 import ErrorPage from "./errorPage";
 import Login from "./login";
 import Register from "./register";
+import DemoLogin from "./demoLogin";
 
 export default ({ authenticated }: { authenticated: boolean }) => {
   return (
@@ -36,10 +37,11 @@ export default ({ authenticated }: { authenticated: boolean }) => {
           />
         )}
       />
+      <Route path="/demo" render={() => <DemoLogin />} />
       {
-        // This route is special in that if no
-        // other route is matched, the user is
-        // automatically redirected here.
+        // The route below is special in that if
+        // no other route is matched, the user
+        // is automatically redirected there.
       }
       <Route
         render={() => (
