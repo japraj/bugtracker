@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectAssignees,
   selectDisplayed,
   selectTicket,
   selectFailures,
@@ -29,7 +28,6 @@ import {
 
 export default () => {
   const dispatch = useDispatch();
-  const assignees = useSelector(selectAssignees);
   const open: boolean = useSelector(selectDisplayed);
   const close = (): void => {
     dispatch(toggleDisplay());
@@ -105,7 +103,7 @@ export default () => {
               <StackedUserLinks
                 imgLength={mobileDisplay ? "25px" : "30px"}
                 maxLinks={mobileDisplay ? 4 : 5}
-                users={assignees}
+                users={ticket.assignees}
               />
             }
           />

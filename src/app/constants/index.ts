@@ -93,6 +93,17 @@ export interface Ticket {
   activity: Notification[];
 }
 
+export interface EditedTicket {
+  title: string;
+  description: string;
+  status: number;
+  severity: number;
+  reproducibility: number;
+  typeLabel: number;
+  imageLinks: string[];
+  assignees: UserInfo[];
+}
+
 export interface NewTicket {
   title: string;
   description: string;

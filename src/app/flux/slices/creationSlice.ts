@@ -27,7 +27,7 @@ export const creationSlice = createSlice({
     toggleDisplay: (state) => {
       state.displayModal = !state.displayModal;
     },
-    updateState: {
+    updateNewTicket: {
       reducer(state, action: PayloadAction<object>) {
         state.newTicket = Object.assign(state.newTicket, action.payload);
       },
@@ -43,7 +43,7 @@ export const creationSlice = createSlice({
 
 export const {
   toggleDisplay,
-  updateState,
+  updateNewTicket,
   wipeLocalChanges,
 } = creationSlice.actions;
 

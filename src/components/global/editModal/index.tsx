@@ -1,26 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { UserInfo, EditedTicket } from "../../../app/constants";
 import {
-  selectTicket,
-  selectAssignees,
-  selectStagedAssignees,
+  updateEdit,
+  wipeLocalChanges,
+  toggleEditDisplay,
+  TicketState,
+  selectTicketSlice,
   selectAvailable,
-  pushLocalChanges,
-  wipePendingCommit,
-  moveToNewSet,
 } from "../../../app/flux/slices/ticketSlice";
 import { selectUser } from "../../../app/flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
-import Modal from "@material-ui/core/Modal";
 import UserLinkGrid from "../userLinkGrid";
-import TicketForm from "../ticketForm";
-import EditControls from "../../input/editControls";
-import {
-  ButtonWrapper,
-  EditIcon,
-  ContentWrapper,
-  AssignmentContainer,
-} from "./styles";
+import FormModal from "../formModal";
+import { ButtonWrapper, EditIcon, AssignmentContainer } from "./styles";
+
+const getUsersFromTags = (users: UserInfo[], tags: string[]): UserInfo[] =>
+  users.filter((user) => tags.includes(user.tag));
+
+const getTagsFromUsers = (users: UserInfo[]): string[] =>
+  users.map((user) => user.tag);
 
 export default (props: {
   maxLinks: number;
@@ -31,61 +30,70 @@ export default (props: {
   imageLinks: string[];
 }) => {
   const dispatch = useDispatch();
-  const [imageLinks, setImageLinks] = useState(props.imageLinks);
-  const [open, setOpen] = useState(false);
-  const rank = useSelector(selectUser).info.rank;
-  const isAuthor =
-    useSelector(selectTicket).author.tag === useSelector(selectUser).info.tag;
-  const assignees = useSelector(selectAssignees);
-  const stagedAssignees = useSelector(selectStagedAssignees);
-  const available = useSelector(selectAvailable);
+  const user: UserInfo = useSelector(selectUser).info;
+  const rank: number = user.rank;
+  const ticketSlice: TicketState = useSelector(selectTicketSlice);
+  const available: UserInfo[] = useSelector(selectAvailable);
+  const editedTicket: EditedTicket = ticketSlice.editedTicket;
+  // const isAuthor: boolean = currentTicket.author.tag === user.tag;
+  const isAuthor = true;
 
-  const close = () => {
-    dispatch(wipePendingCommit());
-    setOpen(false);
+  const update = (change: object): void => {
+    dispatch(updateEdit(change));
   };
 
   const moveUser = (userTag: string) => () => {
-    dispatch(moveToNewSet(userTag));
+    let newSet: string[] = Object.assign(
+      [],
+      getTagsFromUsers(editedTicket.assignees)
+    );
+    // If the user is currently available, then we
+    // want to assign them. Else, we want to unassign
+    getTagsFromUsers(available).includes(userTag)
+      ? newSet.push(userTag)
+      : newSet.splice(newSet.indexOf(userTag), 1);
+    update({ assignees: getUsersFromTags(ticketSlice.developers, newSet) });
+  };
+
+  const toggle = (): void => {
+    dispatch(toggleEditDisplay());
+  };
+
+  const close = (): void => {
+    toggle();
+    dispatch(wipeLocalChanges());
+  };
+
+  const submit = (): void => {
+    // make post request
+    close();
   };
 
   return (
     <React.Fragment>
       <ButtonWrapper show={rank > 0 || isAuthor}>
-        <EditIcon className="" onClick={() => setOpen(true)}>
+        <EditIcon className="" onClick={toggle}>
           <Icon>create</Icon>
         </EditIcon>
       </ButtonWrapper>
-      <Modal
-        disableScrollLock={false}
-        style={{ zIndex: 13 }}
-        open={open}
-        onClose={close}
-        aria-labelledby="Edit View"
-        aria-describedby="A menu through which an issue's values/characteristics can be updated."
-      >
-        <ContentWrapper
-          width={window.innerWidth < 800 ? "95vw" : "700px"}
-          rank={rank}
-        >
-          <TicketForm
-            displaySelects={rank > 0}
-            displayAuthor={isAuthor}
-            onStatusChange={(newValue: string) => {}}
-            onSeverityChange={(newValue: string) => {}}
-            onReproducibilityChange={(newValue: string) => {}}
-            onTagChange={(newValue: string) => {}}
-            defaultTitle={props.title}
-            onTitleChange={(newValue: string) => {}}
-            defaultDesc={props.description}
-            onDescChange={(newValue: string) => {}}
-            defaultLinks={imageLinks}
-            onLinksChange={setImageLinks}
-          />
+      <FormModal
+        ariaLabel="Edit View"
+        ariaDesc="A menu through which an issue's values/characteristics can be updated."
+        open={ticketSlice.displayEditModal}
+        close={close}
+        update={update}
+        submit={submit}
+        submitButtonText="Save"
+        displaySelects={rank > 0}
+        displayAuthor={isAuthor}
+        defaultTitle={props.title}
+        defaultDesc={props.description}
+        defaultLinks={editedTicket.imageLinks}
+        injectedNode={
           <AssignmentContainer display={rank > 1}>
             <UserLinkGrid
               className="userLinkGrid"
-              users={stagedAssignees}
+              users={editedTicket.assignees}
               imgLength={props.modalImgLength}
               label="Assigned:"
               iconName="removeCircle"
@@ -102,18 +110,8 @@ export default (props: {
               onClick={moveUser}
             />
           </AssignmentContainer>
-          <EditControls
-            showCancel={true}
-            cancelCallback={close}
-            submitCallback={() => {
-              dispatch(pushLocalChanges());
-              setOpen(false);
-            }}
-            submitText="Save"
-            className="editControls"
-          />
-        </ContentWrapper>
-      </Modal>
+        }
+      />
     </React.Fragment>
   );
 };

@@ -6,11 +6,12 @@ import EditControls from "../../../input/editControls";
 import styled from "styled-components";
 
 export default () => {
-  const [value, setValue] = React.useState("Controlled");
+  const [value, setValue] = React.useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
+
   return (
     <ThemeProvider theme={theme}>
       <CommentBox>
@@ -20,6 +21,7 @@ export default () => {
           multiline
           rows={4}
           defaultValue=""
+          value={value}
           variant="outlined"
           onChange={handleChange}
         />
