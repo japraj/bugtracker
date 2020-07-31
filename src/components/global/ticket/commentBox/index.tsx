@@ -1,4 +1,8 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleDisplay } from "../../../../app/flux/slices/ticketSlice";
+import { selectAuthenticated } from "../../../../app/flux/slices/authSlice";
+import history from "../../../../routes/history";
 import TextField from "@material-ui/core/TextField";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "../../../../app/constants";
@@ -6,8 +10,9 @@ import EditControls from "../../../input/editControls";
 import styled from "styled-components";
 
 export default () => {
+  const dispatch = useDispatch();
+  const authenticated = useSelector(selectAuthenticated);
   const [value, setValue] = React.useState("");
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
@@ -25,11 +30,21 @@ export default () => {
           onChange={handleChange}
         />
         <EditControls
-          showCancel={false}
-          submitText="Submit"
-          submitCallback={() => {}}
-          cancelCallback={() => {}}
           className="editControls"
+          submitText="Submit"
+          submitCallback={() => {
+            if (!authenticated) {
+              dispatch(toggleDisplay());
+              history.push("/loginRequired");
+              return;
+            }
+            // make a post request
+          }}
+          showCancel={false}
+          cancelCallback={() => {
+            // do nothing! this function will never be called
+            // because the cancel button is not visible.
+          }}
         />
       </CommentBox>
     </ThemeProvider>

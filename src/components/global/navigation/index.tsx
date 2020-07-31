@@ -68,8 +68,7 @@ export default () => {
     <React.Fragment>
       <TopNavigation expandSideNav={toggle} />
       <SideNavigation
-        collapsed={collapsed}
-        {...{ collapsedWidth, extendedWidth }}
+        {...{ authenticated, collapsed, collapsedWidth, extendedWidth }}
         navItemSet={authenticated ? authNavSet : defaultNavSet}
         toggleCollapsed={collapsed ? () => {} : toggle}
         logout={() => dispatch(logout())}

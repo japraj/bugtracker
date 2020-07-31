@@ -7,6 +7,7 @@ import Icon from "@material-ui/core/Icon";
 import { SideNav, GlassPane, NavLink } from "./styles";
 
 export default ({
+  authenticated,
   collapsed,
   collapsedWidth,
   extendedWidth,
@@ -15,6 +16,7 @@ export default ({
   logout,
   logoutItem,
 }: {
+  authenticated: boolean;
   collapsed: boolean;
   collapsedWidth: number;
   extendedWidth: number;
@@ -54,8 +56,7 @@ export default ({
               // The logout item can not be selected
               navItem === logoutItem
                 ? ""
-                : // Nested ternary; the below line/expression is actually the condition
-                "/" + navItem.path === location
+                : "/" + navItem.path === location
                 ? "selected"
                 : ""
             }`}
@@ -83,14 +84,18 @@ export default ({
         {window.innerWidth < 600 && collapsed ? (
           <div className="mobileNavigationWidget">
             <ul>{NavLinkSet}</ul>
-            <div className="mobileProfileWrapper">
-              <Profile
-                showNotificationsOnly={true}
-                collapsed={collapsed}
-                toggleCollapsed={toggleCollapsed}
-                className=""
-              />
-            </div>
+            {authenticated ? (
+              <div className="mobileProfileWrapper">
+                <Profile
+                  showNotificationsOnly={true}
+                  collapsed={collapsed}
+                  toggleCollapsed={toggleCollapsed}
+                  className=""
+                />
+              </div>
+            ) : (
+              <React.Fragment />
+            )}
           </div>
         ) : (
           <ul>{NavLinkSet}</ul>
