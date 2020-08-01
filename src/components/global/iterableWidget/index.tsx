@@ -9,6 +9,7 @@ import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import Icon from "@material-ui/core/Icon";
 import TablePagination from "@material-ui/core/TablePagination";
 import styled from "styled-components";
+import { Fab } from "@material-ui/core";
 
 // This is a super generic container component!
 
@@ -24,6 +25,10 @@ import styled from "styled-components";
 // If any value is given to "wrap in section," then each node which corresponds to an object
 // of the set array will be wrapped in a WidgetSection; otherwise, each node will just be
 // a wrapperElement.
+
+// Node classname can only be applied if wrapInSection is not undefined. If nodeClassNames are
+// needed but wrapInSection is not, then passing default props would be a better way of handling
+// it.
 export default (props: {
   className: string;
   iconName: string;
@@ -34,30 +39,45 @@ export default (props: {
   defaultProps: object;
   elementPropName: string;
   wrapInSection?: any;
+  nodeClassName?: string;
+  emptySetFallback: React.ReactNode | string;
 }) => {
   const [page, setPage] = React.useState(0);
+  const className =
+    props.nodeClassName === undefined ? "" : props.nodeClassName;
 
-  const nodes = props.set
-    .filter(
-      (element, index) =>
-        index >= page * props.elementsPerPage &&
-        index <= (page + 1) * props.elementsPerPage - 1
-    )
-    .map((element, index) => {
-      // if a value is passed for 'wrapInSection,' then the
-      // wrapperElement will be wrapped with a WidgetSection.
-      const wrap: boolean = props.wrapInSection !== undefined;
-      let elementProp: any = {};
-      elementProp[props.elementPropName] = element;
-      const node: React.ReactNode = props.wrapperElement(
-        Object.assign(
-          wrap ? {} : { key: index },
-          props.defaultProps,
-          elementProp
+  const nodes =
+    props.set.length > 0 ? (
+      props.set
+        .filter(
+          (element, index) =>
+            index >= page * props.elementsPerPage &&
+            index <= (page + 1) * props.elementsPerPage - 1
         )
-      );
-      return wrap ? <WidgetSection key={index} children={node} /> : node;
-    });
+        .map((element, index) => {
+          // if a value is passed for 'wrapInSection,' then the
+          // wrapperElement will be wrapped with a WidgetSection.
+          const wrap: boolean = props.wrapInSection !== undefined;
+          let elementProp: any = {};
+          elementProp[props.elementPropName] = element;
+          const node: React.ReactNode = props.wrapperElement(
+            Object.assign(
+              wrap ? {} : { key: index },
+              props.defaultProps,
+              elementProp
+            )
+          );
+          return wrap ? (
+            <WidgetSection className={className} key={index} children={node} />
+          ) : (
+            node
+          );
+        })
+    ) : typeof props.emptySetFallback === "string" ? (
+      <Fallback children={<h1 children={props.emptySetFallback} />} />
+    ) : (
+      props.emptySetFallback
+    );
 
   return (
     <WidgetWrapper className={props.className}>
@@ -133,5 +153,23 @@ const PaginationContainer = styled.div`
     width: 35px;
     height: 35px;
     padding: 0;
+  }
+`;
+
+const Fallback = styled(WidgetSection)`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    line-height: 1.3;
+    margin-left: 0 !important;
+    padding: 10% 1rem 15%;
+    font-style: italic;
+
+    @media (min-width: 800px) {
+      padding-top: 0;
+    }
   }
 `;

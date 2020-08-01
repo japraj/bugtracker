@@ -2,13 +2,16 @@ import React from "react";
 import { Notification } from "../../../app/constants";
 import NotificationCell from "../notification";
 import IterableWidget from "../iterableWidget";
+import styled from "styled-components";
 
 export default ({
   notificationSet,
   className,
+  nodeClassName,
 }: {
   notificationSet: Notification[];
   className: string;
+  nodeClassName?: string;
 }) => {
   return (
     <IterableWidget
@@ -24,7 +27,9 @@ export default ({
         className: "",
       }}
       elementPropName="notification"
-      wrapInSection={false}
+      wrapInSection={true}
+      nodeClassName={nodeClassName}
+      emptySetFallback="No recent activity"
     />
   );
 };

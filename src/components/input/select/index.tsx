@@ -12,14 +12,22 @@ type Props = {
   mobileWidth: number;
   onChange: (newValue: string) => void;
   options: SelectOption[];
+  value?: number | string;
 };
 
 export default (props: Props) => {
-  const [age, setAge] = React.useState(props.options[0].value);
+  const [internalVal, setInternalVal] = React.useState(props.options[0].value);
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
+    setInternalVal(event.target.value as string);
     props.onChange(event.target.value as string);
   };
+  const value =
+    props.value === undefined
+      ? internalVal
+      : typeof props.value === "string"
+      ? props.value
+      : props.options[props.value].value;
+
   // Note: options[0] is used as defaultValue
   return (
     <FormWrapper className="selectFormWrapper">
@@ -32,7 +40,7 @@ export default (props: Props) => {
           <Select
             labelId="select-label"
             id="select"
-            value={age}
+            value={value}
             onChange={handleChange}
           >
             {props.options.map((option) => (

@@ -42,8 +42,8 @@ export const userSlice = createSlice({
         state = Object.assign(state, {
           info: user,
           stagedUrl: user.profileImg,
-          recentActivity: generateNotificationSet(20),
-          tickets: generateTicketSet(20),
+          recentActivity: generateNotificationSet(0),
+          tickets: generateTicketSet(0),
         });
       },
       prepare(payload: string) {

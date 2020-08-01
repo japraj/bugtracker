@@ -7,69 +7,46 @@ import {
 } from "../../../app/flux/slices/userSlice";
 import history from "../../history";
 import ProfileCard from "../profileCard";
+import Rank from "../rank";
 import Update from "../update";
 import IterableWidget from "../../../components/global/iterableWidget";
 import CollapsedTicket from "../../../components/global/collapsedTicket";
 import RecentActivity from "../../../components/global/recentActivity";
-import styled from "styled-components";
+import { Container, WidgetColumn, WidgetRow } from "./styles";
 
 export default () => {
   const user = useSelector(selectUserInfo);
   const recentActivity = useSelector(selectActivity);
   const tickets = useSelector(selectTickets);
+  // Note: /404 isn't actually a route! All unmatched routes automatically
+  // redirect to the 404 Error page & /404 is one of those.
   if (!user.tag) history.push("/404");
 
   return (
     <Container>
-      <StackedWidgets>
-        <ProfileCard />
+      <WidgetColumn>
+        <WidgetRow>
+          <ProfileCard />
+          <Rank />
+        </WidgetRow>
         <Update />
-      </StackedWidgets>
-      <RecentActivity
-        notificationSet={recentActivity}
-        className="recentActivity"
-      />
+      </WidgetColumn>
       <IterableWidget
-        className={"ticketSet"}
+        className="ticketSet"
         iconName="confirmation_number"
         title="Issues"
-        elementsPerPage={5}
+        elementsPerPage={window.innerWidth < 800 ? 5 : 4}
         set={tickets}
         wrapperElement={CollapsedTicket}
         defaultProps={{}}
         elementPropName="ticket"
+        emptySetFallback="This user has not yet submitted any issues"
+      />
+      <RecentActivity
+        notificationSet={recentActivity}
+        className="recentActivity"
+        nodeClassName="activityNode"
       />
     </Container>
   );
 };
-
-const Container = styled.div`
-  margin: 0 auto;
-  max-width: 95vw;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: 1fr;
-  grid-gap: 2rem;
-
-  @media (min-width: 800px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  h1 {
-    margin-left: 0.5rem;
-  }
-
-  .recentActivity,
-  .ticketSet {
-    margin: 0 auto;
-    width: 95%;
-  }
-`;
-
-const StackedWidgets = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;

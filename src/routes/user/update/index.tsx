@@ -1,6 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectStaged, setStaged } from "../../../app/flux/slices/userSlice";
+import {
+  selectStaged,
+  setStaged,
+  selectUserInfo,
+} from "../../../app/flux/slices/userSlice";
+import { selectUser } from "../../../app/flux/slices/authSlice";
 import {
   WidgetWrapper,
   WidgetHeader,
@@ -9,14 +14,17 @@ import {
 import Icon from "@material-ui/core/Icon";
 import Avatar from "@material-ui/core/Avatar";
 import TextfieldButton from "../../../components/input/textfieldButton";
+import { Alert } from "rsuite";
 import styled from "styled-components";
 
 export default () => {
+  const isAuthor: boolean =
+    useSelector(selectUser).info.tag === useSelector(selectUserInfo).tag;
   const dispatch = useDispatch();
   const stagedUrl = useSelector(selectStaged);
 
   return (
-    <Container>
+    <Container className="update">
       <WidgetHeader>
         <Icon className="inline-icon">publish</Icon>
         <h1>Upload Avatar Image</h1>
@@ -37,8 +45,15 @@ export default () => {
           editable={true}
           buttonIconName="update"
           onSubmit={(value: string | undefined) => {
-            // make a post request to the backend updating the user's profile image
-            // use local state
+            if (isAuthor) {
+              // make a post request to the backend updating the user's profile image
+              // use local state
+            } else {
+              Alert.error(
+                "You do not have sufficient permissions to perform this operation.",
+                2000
+              );
+            }
           }}
           className="textfieldButton"
           onChange={(newValue: string) => dispatch(setStaged(newValue))}

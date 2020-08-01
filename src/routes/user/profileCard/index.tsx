@@ -39,12 +39,13 @@ export default () => {
 
 const Container = styled(WidgetWrapper)`
   max-width: 95vw;
-  margin-bottom: 2rem;
-  padding: 1rem 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1.5rem;
 `;
 
 const ProfileCard = styled.div`
-  display: flex;
+  display: column;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -59,7 +60,7 @@ const CardBody = styled.div`
   justify-content: flex-start;
 
   h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0 0.5rem;
+    font-size: 1.3rem;
   }
 `;
