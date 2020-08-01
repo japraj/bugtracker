@@ -14,7 +14,7 @@
   --theme-pink: rgb(255, 86, 114);
   --theme-navy: #005562;
   --theme-aqua: #0e8174;
-  --theme-lightgreen: #b9f2a1;
+  --theme-lightgreen: #78c258;
   --theme-green: rgba(200, 255, 0, 0.85);
   --theme-brightgreen: rgb(202, 255, 10);
   --theme-red: rgba(232, 86, 86, 0.85);
@@ -23,6 +23,7 @@
   --theme-darkred: #b21f1f;
   --theme-black: rgba(0, 0, 0, 0.8);
   --theme-white: white;
+  --theme-lightblue: rgb(0, 169, 211);
   --theme-brightblue: rgb(0, 247, 255);
   --theme-grey: rgb(97, 96, 96);
 

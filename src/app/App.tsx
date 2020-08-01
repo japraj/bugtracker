@@ -52,7 +52,7 @@ export default hot(() => {
     // in user var. Don't forget to remove the setTimeout!
 
     dispatch(setCollapsedTickets(generateTicketSet(20)));
-    dispatch(setRecentActivity(generateNotificationSet(10)));
+    dispatch(setRecentActivity(generateNotificationSet(5)));
     dispatch(loadUser(user));
     setTimeout(() => dispatch(finishedLoading()), 0);
   };

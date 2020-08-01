@@ -25,7 +25,7 @@ import {
 
 const checkTokenValidity = (token: string): boolean => {
   let valid: boolean = true;
-  // send token to backend for validation
+  // send token to backend for validation (fetch req)
   return valid;
 };
 

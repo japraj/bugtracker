@@ -4,13 +4,16 @@ import {
   setTabIndex,
   selectTabIndex,
 } from "../../../../app/flux/slices/tableSlice";
-import { selectUserRank } from "../../../../app/flux/slices/authSlice";
+import { selectAuthSlice } from "../../../../app/flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
 import { Tab } from "../../../../app/constants";
 import { TabContainer, TabSet, TableTab } from "./styles";
 
 export default ({ tabSet }: { tabSet: Tab[] }) => {
-  const userRank = useSelector(selectUserRank);
+  const authSlice = useSelector(selectAuthSlice);
+  const userRank: number = authSlice.user.authenticated
+    ? authSlice.user.info.rank
+    : -1;
   const selectedIndex = useSelector(selectTabIndex);
   const dispatch = useDispatch();
   const tabs = tabSet

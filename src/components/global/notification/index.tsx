@@ -48,6 +48,7 @@ export default ({
             tagSize: "1rem",
           }}
           userInfo={notification.author}
+          onRedirect={() => onClick()}
         />
         {/* 
           OnClick is a function called when the user clicks the link

@@ -31,7 +31,7 @@ export const CellText = styled.div`
 
     h3 {
       line-height: 1.15;
-      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

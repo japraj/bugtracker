@@ -27,13 +27,38 @@ export default (props: {
   editable: boolean;
   buttonIconName: string;
   clearInputOnSubmit: boolean;
-  onSubmit: (arg0: string) => void;
+  onSubmit: (value?: string) => void;
   className: string;
+  // the below props must both be present if they are being used.
+  // if they are used, then default value/internal state will not
+  // be used. Furthermore, onSubmit will be called without output.
+  inputValue?: string;
+  onChange?: (newValue: string) => void;
 }) => {
-  const [inputValue, setInputValue] = useState(props.defaultValue);
+  let inputValue: any = null;
+  let setInputValue: any = null;
+  if (props.inputValue === undefined && props.onChange === undefined) {
+    [inputValue, setInputValue] = useState(props.defaultValue);
+  }
+
+  const onChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const newValue = event.target.value;
+    if (props.inputValue === undefined && props.onChange === undefined) {
+      setInputValue(newValue);
+    } else {
+      props.onChange!(newValue);
+    }
+  };
+
   const submit = () => {
-    props.onSubmit(inputValue);
-    if (props.clearInputOnSubmit) setInputValue("");
+    if (props.inputValue === undefined && props.onChange === undefined) {
+      props.onSubmit(inputValue);
+      if (props.clearInputOnSubmit) setInputValue("");
+    } else {
+      props.onSubmit();
+    }
   };
   return (
     <ThemeProvider theme={theme}>
@@ -42,9 +67,7 @@ export default (props: {
           <InputLabel>{props.label}</InputLabel>
           <OutlinedInput
             type="text"
-            onChange={(
-              event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-            ) => setInputValue(event.target.value)}
+            onChange={onChange}
             onKeyDown={(event: React.KeyboardEvent): void => {
               if (!props.editable) consumeEvent(event);
               if (event.keyCode === 13) {
@@ -52,7 +75,9 @@ export default (props: {
                 submit();
               }
             }}
-            value={inputValue}
+            value={
+              props.inputValue === undefined ? inputValue : props.inputValue
+            }
             endAdornment={
               <InputAdornment position="end">
                 <IconButton

@@ -4,13 +4,19 @@ import NotificationNode from "../../notification";
 import CommentBox from "../commentBox";
 import styled from "styled-components";
 
-export default ({ activities }: { activities: Notification[] }) => {
+export default ({
+  activities,
+  close,
+}: {
+  activities: Notification[];
+  close: () => void;
+}) => {
   return (
     <ActivityWrapper>
       {activities.map((activity) => (
         <NotificationNode
           key={activity.message + activity.ticketId + activity.date}
-          onClick={() => {}}
+          onClick={close}
           commentVariant={true}
           // The highlight variant is only applied to actions, not comments.
           // Comments all have their ticketId set to null by default.
@@ -48,14 +54,14 @@ const ActivityWrapper = styled.div`
   .node {
     padding: 0.5rem;
     border-radius: 10px;
-  }
-
-  .normal {
-    background-color: rgba(255, 255, 255, 0.1);
 
     h5:hover {
       cursor: text;
     }
+  }
+
+  .normal {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .highlight {

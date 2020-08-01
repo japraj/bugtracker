@@ -10,6 +10,7 @@ import Register from "./register";
 import DemoLogin from "./demoLogin";
 import ForgotPassword from "./forgotPassword";
 import ResetPassword from "./resetPassword";
+import User from "./user";
 
 export default () => {
   return (
@@ -32,6 +33,7 @@ export default () => {
         component={<ForgotPassword />}
       />
       <Route path="/resetPassword/:token" component={ResetPassword} />
+      <Route path="/user/:tag" component={User} />
       <ProtectedRoute
         requireAuth={true}
         path="/dashboard"

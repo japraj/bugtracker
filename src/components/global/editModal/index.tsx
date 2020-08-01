@@ -1,6 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UserInfo, EditedTicket } from "../../../app/constants";
+import {
+  UserInfo,
+  EditedTicket,
+  getUsersFromTags,
+  getTagsFromUsers,
+} from "../../../app/constants";
 import {
   updateEdit,
   wipeLocalChanges,
@@ -15,12 +20,6 @@ import UserLinkGrid from "../userLinkGrid";
 import FormModal from "../formModal";
 import ContainerLabel from "../containerLabel";
 import { ButtonWrapper, EditIcon, AssignmentContainer } from "./styles";
-
-const getUsersFromTags = (users: UserInfo[], tags: string[]): UserInfo[] =>
-  users.filter((user) => tags.includes(user.tag));
-
-const getTagsFromUsers = (users: UserInfo[]): string[] =>
-  users.map((user) => user.tag);
 
 export default (props: {
   maxLinks: number;

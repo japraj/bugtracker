@@ -28,6 +28,22 @@ export enum UserRank {
   "Admin",
 }
 
+export enum UserRankColors {
+  "grey",
+  "lightblue",
+  "lightgreen",
+  "darkred",
+}
+// Above is the background-color of the badge that appears in the popper
+
+export enum UserNameColors {
+  "white",
+  "brightblue",
+  "brightgreen",
+  "darkred",
+}
+// This is the color of the username.
+
 export interface Notification {
   date: string;
   author: UserInfo;
@@ -150,3 +166,11 @@ export const theme = createMuiTheme({
     },
   },
 });
+
+export const getUsersFromTags = (
+  users: UserInfo[],
+  tags: string[]
+): UserInfo[] => users.filter((user) => tags.includes(user.tag));
+
+export const getTagsFromUsers = (users: UserInfo[]): string[] =>
+  users.map((user) => user.tag);

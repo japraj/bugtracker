@@ -10,6 +10,7 @@ export const WidgetWrapper = styled.section`
   padding-bottom: 0.5rem;
   height: auto;
   width: 100%;
+  max-width: 100vw;
   border-radius: 8px;
   display: flex;
   flex-direction: column;

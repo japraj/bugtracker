@@ -4,7 +4,12 @@ import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton";
-import { UserInfo, UserRank } from "../../../app/constants";
+import {
+  UserInfo,
+  UserNameColors,
+  UserRank,
+  UserRankColors,
+} from "../../../app/constants";
 // Use a css file because of Material UI's portal functionality.
 // in short, Material UI places the Popper and all its children
 // in a separate div (meaning it is no longer a child of profile
@@ -31,24 +36,8 @@ interface StyleConfig {
 interface Props {
   styleConfig: StyleConfig;
   userInfo: UserInfo;
+  onRedirect?: () => void;
 }
-
-// These enums are only used in this component so they have been left out of the constants file.
-enum UserRankColors {
-  "grey",
-  "lightblue",
-  "green",
-  "darkred",
-}
-// Above is the background-color of the badge that appears in the popper
-
-enum UserNameColors {
-  "white",
-  "brightblue",
-  "brightgreen",
-  "darkred",
-}
-// This is the color of the username.
 
 export default (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -113,7 +102,12 @@ export default (props: Props) => {
                 size="small"
                 label={UserRank[props.userInfo.rank]}
               />
-              <LinkButton to={`/user/${props.userInfo.tag}`}>
+              <LinkButton
+                to={`/user/${props.userInfo.tag}`}
+                onClick={() =>
+                  props.onRedirect !== undefined ? props.onRedirect() : {}
+                }
+              >
                 View Profile
               </LinkButton>
             </PopperContent>

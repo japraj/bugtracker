@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectRecentActivity } from "../../app/flux/slices/homeSlice";
-import RecentActivity from "./recentActivity";
+import RecentActivity from "../../components/global/recentActivity";
 import Table from "../../components/global/ticketTable";
 import CreateLink from "./createLink";
 import { HomeWrapper, Aside, MiscContainer } from "./styles";

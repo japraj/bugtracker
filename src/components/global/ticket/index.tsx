@@ -93,6 +93,7 @@ export default () => {
                   showTag: true,
                   tagSize: "1.5rem",
                 }}
+                onRedirect={close}
               />
             }
           />
@@ -103,6 +104,7 @@ export default () => {
                 imgLength={mobileDisplay ? "25px" : "30px"}
                 maxLinks={mobileDisplay ? 4 : 5}
                 users={ticket.assignees}
+                onClick={close}
               />
             }
           />
@@ -119,7 +121,7 @@ export default () => {
             <ImageGrid imageLinks={ticket.imageLinks} />
           </TicketSection>
         )}
-        <Communications activities={ticket.activity} />
+        <Communications activities={ticket.activity} close={close} />
         <EditModal
           imgLength={mobileDisplay ? "25px" : "30px"}
           modalImgLength={"40px"}

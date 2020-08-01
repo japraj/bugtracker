@@ -8,6 +8,7 @@ export interface Props {
   users: UserInfo[];
   maxLinks: number;
   imgLength: string;
+  onClick?: () => void;
 }
 
 export default (props: Props) => (
@@ -25,6 +26,7 @@ export default (props: Props) => (
             showTag: false,
             tagSize: "0",
           }}
+          onRedirect={props.onClick}
         />
       ))}
     </Assignees>

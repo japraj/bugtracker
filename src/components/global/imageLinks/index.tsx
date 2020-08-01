@@ -67,7 +67,7 @@ export default (props: {
         clearInputOnSubmit={true}
         editable={true}
         buttonIconName="add"
-        onSubmit={(newLink: string) => change(Action.ADD, newLink)}
+        onSubmit={(newLink: string | undefined) => change(Action.ADD, newLink!)}
         className="textfieldButton"
       />
     </Container>

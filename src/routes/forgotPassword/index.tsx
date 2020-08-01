@@ -22,7 +22,7 @@ export default () => {
             clearInputOnSubmit={true}
             editable={true}
             buttonIconName="send"
-            onSubmit={(value: string) => {
+            onSubmit={(value: string | undefined) => {
               if (value) {
                 // make a post request to the backend
                 Alert.success(
