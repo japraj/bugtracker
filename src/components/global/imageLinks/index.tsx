@@ -60,16 +60,22 @@ export default (props: {
           </EmptyMessage>
         )}
       </ImageLinkSet>
-      <TextfieldButton
-        label="Add a new image url"
-        labelWidth={148}
-        defaultValue=""
-        clearInputOnSubmit={true}
-        editable={true}
-        buttonIconName="add"
-        onSubmit={(newLink: string | undefined) => change(Action.ADD, newLink!)}
-        className="textfieldButton"
-      />
+      {props.imageLinks.length < 10 ? (
+        <TextfieldButton
+          label="Add a new image url"
+          labelWidth={148}
+          defaultValue=""
+          clearInputOnSubmit={true}
+          editable={true}
+          buttonIconName="add"
+          onSubmit={(newLink: string | undefined) =>
+            change(Action.ADD, newLink!)
+          }
+          className="textfieldButton"
+        />
+      ) : (
+        <React.Fragment />
+      )}
     </Container>
   );
 };
