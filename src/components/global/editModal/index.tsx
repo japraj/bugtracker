@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  NumericRank,
   UserInfo,
   EditedTicket,
   getUsersFromTags,
@@ -70,7 +71,7 @@ export default (props: {
 
   return (
     <React.Fragment>
-      <ButtonWrapper show={rank > 0 || isAuthor}>
+      <ButtonWrapper show={rank > NumericRank.User || isAuthor}>
         <EditIcon className="" onClick={toggle}>
           <Icon>create</Icon>
         </EditIcon>
@@ -83,13 +84,14 @@ export default (props: {
         update={update}
         submit={submit}
         submitButtonText="Save"
-        displaySelects={rank > 0}
+        displaySelects={rank > NumericRank.User || isAuthor}
+        displayDevSelects={rank > NumericRank.User}
         displayAuthor={isAuthor}
         defaultTitle={props.title}
         defaultDesc={props.description}
         defaultLinks={editedTicket.imageLinks}
         injectedNode={
-          <AssignmentContainer display={rank > 1}>
+          <AssignmentContainer display={rank > NumericRank.Developer}>
             <ContainerLabel label="Assignees" />
             <UserLinkGrid
               className="userLinkGrid"

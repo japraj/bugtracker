@@ -21,7 +21,16 @@ export interface User {
 }
 // Local User (the user that is using the client)
 
+export enum NumericRank {
+  Blacklisted,
+  User,
+  Developer,
+  Manager,
+  Admin,
+}
+
 export enum UserRank {
+  "Blacklisted",
   "User",
   "Developer",
   "Manager",
@@ -29,6 +38,7 @@ export enum UserRank {
 }
 
 export enum UserRankColors {
+  "null",
   "grey",
   "lightblue",
   "lightgreen",
@@ -37,6 +47,7 @@ export enum UserRankColors {
 // Above is the background-color of the badge that appears in the popper
 
 export enum UserNameColors {
+  "lightgrey",
   "white",
   "brightblue",
   "brightgreen",

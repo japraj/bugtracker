@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NumericRank } from "../../../../app/constants";
 import { WidgetHeader } from "../../../container/widget";
 
 export const TabContainer = styled(WidgetHeader)`
@@ -58,7 +59,9 @@ export const TableTab = styled.li`
 
   @media (max-width: 870px) {
     ${(props: { userRank: number }) =>
-      props.userRank > 0 ? `border: 1px solid rgba(0, 0, 0, 0.1);` : ``}
+      props.userRank > NumericRank.User
+        ? `border: 1px solid rgba(0, 0, 0, 0.1);`
+        : ``}
     border-top: none;
 
     .selected {
@@ -87,7 +90,7 @@ export const TableTab = styled.li`
   }
 
   ${(props: { userRank: number }) =>
-    props.userRank !== 1
+    props.userRank !== NumericRank.Developer
       ? `
         :nth-last-child(1),
         :nth-last-child(2),

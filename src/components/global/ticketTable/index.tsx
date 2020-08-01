@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { NumericRank } from "../../../app/constants";
 import {
   selectNodesPerPage,
   selectTickets,
@@ -27,22 +28,22 @@ const tabSet: Tab[] = [
   {
     iconName: "cached",
     title: "Unassigned",
-    requiredRank: 1,
+    requiredRank: NumericRank.Developer,
   },
   {
     iconName: "confirmation_number",
     title: "My Issues",
-    requiredRank: 0,
+    requiredRank: NumericRank.User,
   },
   {
     iconName: "assignment",
     title: "Assigned",
-    requiredRank: 1,
+    requiredRank: NumericRank.Developer,
   },
   {
     iconName: "work",
     title: "Delegated",
-    requiredRank: 2,
+    requiredRank: NumericRank.Manager,
   },
 ];
 

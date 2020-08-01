@@ -23,8 +23,9 @@ export default () => {
   const [rank, setRank] = React.useState(user.rank);
 
   const updateRank = () => {
-    if (clientRank > rank) {
+    if (clientRank >= rank && clientRank > user.rank) {
       // make a post request updating the user's rank.
+      Alert.success("Successfully updated user's rank.", 2000);
     } else {
       Alert.error(
         "You do not have sufficient permissions to perform this operation.",

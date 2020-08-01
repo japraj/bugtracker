@@ -48,6 +48,7 @@ export default () => {
             if (isAuthor) {
               // make a post request to the backend updating the user's profile image
               // use local state
+              Alert.success("Successfully updated avatar.", 2000);
             } else {
               Alert.error(
                 "You do not have sufficient permissions to perform this operation.",

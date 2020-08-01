@@ -32,6 +32,7 @@ interface Props {
   submit: () => void;
   submitButtonText: string;
   displaySelects: boolean;
+  displayDevSelects: boolean;
   displayAuthor: boolean;
   defaultTitle: string;
   defaultDesc: string;
@@ -52,18 +53,24 @@ export default (props: Props) => {
       <ContentWrapper width={window.innerWidth < 800 ? "95vw" : "700px"}>
         <SelectGrid display={props.displaySelects}>
           <ContainerLabel label="Properties" />
-          <TicketFormSelect
-            onChange={(newValue: string) =>
-              props.update({ status: keyToIndex(newValue, Status) })
-            }
-            options={mapEnumToSelectOption("Status", Status)}
-          />
-          <TicketFormSelect
-            onChange={(newValue: string) =>
-              props.update({ severity: keyToIndex(newValue, Severity) })
-            }
-            options={mapEnumToSelectOption("Severity", Severity)}
-          />
+          {props.displayDevSelects ? (
+            <React.Fragment>
+              <TicketFormSelect
+                onChange={(newValue: string) =>
+                  props.update({ status: keyToIndex(newValue, Status) })
+                }
+                options={mapEnumToSelectOption("Status", Status)}
+              />
+              <TicketFormSelect
+                onChange={(newValue: string) =>
+                  props.update({ severity: keyToIndex(newValue, Severity) })
+                }
+                options={mapEnumToSelectOption("Severity", Severity)}
+              />
+            </React.Fragment>
+          ) : (
+            <React.Fragment />
+          )}
           <TicketFormSelect
             onChange={(newValue: string) =>
               props.update({
