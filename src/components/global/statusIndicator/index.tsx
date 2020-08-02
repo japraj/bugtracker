@@ -8,9 +8,7 @@ interface Props {
 }
 
 export default (props: Props) => {
-  return (
-    <StatusIndicator className={Status[props.status]} styles={props.styles} />
-  );
+  return <StatusIndicator className={Status[props.status]} {...props.styles} />;
 };
 
 // Note: all values' units must be specified.
@@ -25,14 +23,16 @@ interface StyledProps {
   leftMargin: string;
 }
 
+const length = (props: StyledProps): string => props.length;
+
 const StatusIndicator = styled.div`
-  width: ${(props: { styles: StyledProps }) => props.styles.length};
-  min-width: ${(props: { styles: StyledProps }) => props.styles.length};
-  max-width: ${(props: { styles: StyledProps }) => props.styles.length};
-  height: ${(props: { styles: StyledProps }) => props.styles.length};
-  min0height: ${(props: { styles: StyledProps }) => props.styles.length};
-  max-height: ${(props: { styles: StyledProps }) => props.styles.length};
+  width: ${length};
+  min-width: ${length};
+  max-width: ${length};
+  height: ${length};
+  min-height: ${length};
+  max-height: ${length};
   border-radius: 50%;
-  margin: 0 ${(props: { styles: StyledProps }) => props.styles.rightMargin} 0
-    ${(props: { styles: StyledProps }) => props.styles.leftMargin};
+  margin: 0 ${(props: StyledProps) => props.rightMargin} 0
+    ${(props: StyledProps) => props.leftMargin};
 `;
