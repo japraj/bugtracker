@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 // Routes
 import Unimplemented from "./unimplemented";
 import Home from "./home";
+import Dashboard from "./dashboard";
 import ErrorPage from "./errorPage";
 import Login from "./login";
 import Register from "./register";
@@ -16,6 +17,11 @@ export default () => {
   return (
     <Switch>
       <Route path="/" exact={true} component={Home} />
+      <ProtectedRoute
+        requireAuth={true}
+        path="/dashboard"
+        component={<Dashboard />}
+      />
       <ProtectedRoute
         requireAuth={false}
         path="/demo"

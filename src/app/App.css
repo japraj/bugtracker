@@ -11,6 +11,10 @@
   --darkblue: #0f131a;
   --black-bg-green: rgb(65, 179, 0);
 
+  /* Note: if updating these colors: must update chart colors too;
+    they are hardcoded because the configuration does not accept css
+    variables
+  */
   --theme-pink: rgb(255, 86, 114);
   --theme-navy: #005562;
   --theme-aqua: #0e8174;
@@ -288,6 +292,11 @@ img {
   justify-content: center;
   align-items: center;
 }
+
+/* Note: if updating the below colors: must update chart colors too;
+    they are hardcoded because the configuration does not accept css
+    variables
+  */
 
 /* Ticket Status Colors */
 .unresolved {
