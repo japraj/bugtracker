@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-interface DashboardState {
+export interface DashboardState {
   loaded: boolean;
   infoData: string[];
   statusData: number[];
