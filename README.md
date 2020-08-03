@@ -1,1 +1,21 @@
-An Issue management Webapp. The front-end src code is found within the root directory while the back-end (not yet added) is in the server directory. The front-end is built with React/Redux, Typescript, and Styled Components while the back-end utilizes C#/ASP.NET Core and Postgresql.
+An Issue management CRUD app with authentication, authorization, and more!
+
+Front-end/Clientside Technologies:
+
+- React
+
+- Redux
+
+- Typescript
+
+- Styled Components
+
+The front-end primarily consists of functional components with hooks and makes heavy use of Material-UI, an open-source React component library.
+
+Back-end/Serverside Technologies:
+
+- ASP.NET Core
+
+- C#
+
+- Postgresql
