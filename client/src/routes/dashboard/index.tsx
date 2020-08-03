@@ -8,9 +8,7 @@ import Page from "./page";
 
 export default connect(selectDashboardSlice)(
   class extends React.Component<DashboardState, {}> {
-    shouldComponentUpdate = () => {
-      return !this.props.loaded;
-    };
+    shouldComponentUpdate = () => !this.props.loaded;
 
     render = () => <Page />;
   }
