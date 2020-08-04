@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using server.Data;
 
 namespace server
 {
@@ -18,6 +19,7 @@ namespace server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IUserRepo, MockRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
