@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿#nullable enable
+
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using server.Data;
 using server.Models.User;
 
@@ -9,16 +12,23 @@ namespace server.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepo _repository;
+        // The mapper flattens our internal representations
+        // into their external versions
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserRepo repository)
-        {   
+        public UsersController(IUserRepo repository, IMapper mapper)
+        {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet("{tag}")]
-        public ActionResult <UserDTO> GetUserByTag(string tag)
+        public ActionResult<UserDTO> GetUserByTag(string tag)
         {
-            return Ok(_repository.GetUserByTag(tag));
+            User? user = _repository.GetUserByTag(tag);
+            if (user == null)
+                return NotFound();
+            return Ok(_mapper.Map<UserDTO>(user));
         }
     }
 }

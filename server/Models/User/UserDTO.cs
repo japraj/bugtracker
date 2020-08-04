@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace server.Models.User
 {
@@ -11,7 +8,7 @@ namespace server.Models.User
         public string Tag { get; set; }
         public string Avatar { get; set; }
         public int Rank { get; set; }
-        public string[] Tickets { get; set; }
-        public string[] Activity { get; set; }
+        public List<string> Tickets { get; set; }
+        public List<string> Activity { get; set; }
     }
 }

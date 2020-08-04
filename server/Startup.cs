@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using server.Data;
+using AutoMapper;
+using System;
 
 namespace server
 {
@@ -18,8 +21,14 @@ namespace server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Context>(options =>
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("Postgre")
+                )
+            );
             services.AddControllers();
-            services.AddScoped<IUserRepo, MockRepo>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IUserRepo, UserRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -19,3 +19,4 @@
 /server/obj
 /server/server.sln
 /server/appsettings.json
+/server/migrations
