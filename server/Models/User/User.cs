@@ -8,7 +8,7 @@ namespace server.Models.User
     public class User
     {
         // Public Info, accessible by anyone
-        [Key, StringLength(15, MinimumLength = 5, ErrorMessage = "Usernames must be at least 5 characters and cannot exceed 15 characters in length.")]
+        [Key, Required, StringLength(15, MinimumLength = 5, ErrorMessage = "Usernames must be at least 5 characters and cannot exceed 15 characters in length.")]
         public string Tag { get; set; }
 
         [Required, DataType(DataType.ImageUrl)]

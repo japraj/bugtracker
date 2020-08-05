@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 using server.Data;
 using AutoMapper;
 using System;
@@ -26,7 +27,11 @@ namespace server
                     Configuration.GetConnectionString("Postgre")
                 )
             );
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(
+                settings =>
+                settings.SerializerSettings.ContractResolver
+                = new CamelCasePropertyNamesContractResolver()
+            );
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IUserRepo, UserRepo>();
         }

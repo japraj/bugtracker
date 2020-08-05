@@ -1,4 +1,5 @@
 ﻿using server.Models.User;
+using System;
 using System.Linq;
 
 namespace server.Data
@@ -12,8 +13,23 @@ namespace server.Data
             _context = context;
         }
 
-        public User GetUserByTag(string tag) => 
+        public bool SaveChanges() =>
+            _context.SaveChanges() >= 0;
+
+
+        public User GetUserByTag(string tag) =>
             _context.Users.FirstOrDefault(u => u.Tag == tag);
 
+        public void CreateUser(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            _context.Users.Add(user);
+        }
+
+        public void UpdateUser(User user)
+        {
+
+        }
     }
 }

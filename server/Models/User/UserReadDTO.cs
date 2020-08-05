@@ -3,7 +3,7 @@
 namespace server.Models.User
 {
     // External Representation of User
-    public class UserDTO
+    public class UserReadDTO
     {
         public string Tag { get; set; }
         public string Avatar { get; set; }
