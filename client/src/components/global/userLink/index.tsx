@@ -1,4 +1,5 @@
 import React from "react";
+import Routes from "../../../app/constants/routes";
 import Popper from "@material-ui/core/Popper";
 import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
@@ -103,7 +104,7 @@ export default (props: Props) => {
                 label={UserRank[props.userInfo.rank]}
               />
               <LinkButton
-                to={`/user/${props.userInfo.tag}`}
+                to={`${Routes.USER}/${props.userInfo.tag}`}
                 onClick={() =>
                   props.onRedirect !== undefined ? props.onRedirect() : {}
                 }

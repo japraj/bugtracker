@@ -33,7 +33,7 @@ export default ({
     ) : (
       <NavLink
         key={navItem.text}
-        to={"/" + navItem.path}
+        to={navItem.path}
         onClick={() => {
           // On mobile, we automatically close the nav
           // when a user clicks on a link.

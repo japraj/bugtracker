@@ -11,6 +11,7 @@ import {
   selectCollapsed,
 } from "../../../app/flux/slices/navigationSlice";
 import { collapsedWidth, extendedWidth } from "../../../app/constants";
+import Routes from "../../../app/constants/routes";
 
 export type NavigationItem = {
   path: string;
@@ -19,31 +20,31 @@ export type NavigationItem = {
 };
 
 const HomeItem: NavigationItem = {
-  path: "",
+  path: Routes.HOME,
   iconName: "home",
   text: "Home",
 };
 
 const LoginItem: NavigationItem = {
-  path: "login",
+  path: Routes.LOGIN,
   iconName: "vpn_key",
   text: "Login",
 };
 
 const RegisterItem: NavigationItem = {
-  path: "register",
+  path: Routes.REGISTER,
   iconName: "person_add",
   text: "Register",
 };
 
 const DashboardItem: NavigationItem = {
-  path: "dashboard",
+  path: Routes.DASHBOARD,
   iconName: "equalizer",
   text: "Dashboard",
 };
 
 const LogoutItem: NavigationItem = {
-  path: "",
+  path: Routes.HOME,
   iconName: "exit_to_app_sharp",
   text: "Logout",
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import Routes from "../../app/constants/routes";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuthenticated, logout } from "../../app/flux/slices/authSlice";
 import { theme } from "../../app/constants";
@@ -37,7 +38,8 @@ export default ({ match }: { match: any }) => {
   const [fields, setFields] = React.useState(["", ""]);
   const [error, setError] = React.useState(false);
 
-  if (!checkTokenValidity(match.params.token)) history.push("/invalidToken");
+  if (!checkTokenValidity(match.params.token))
+    history.push(Routes.INVALID_TOKEN);
   if (authenticated) dispatch(logout());
 
   const handleFieldChange = (index: number) => (

@@ -1,8 +1,10 @@
 import React from "react";
 import ProtectedRoute from "./protectedRoute";
 import { Route, Switch } from "react-router-dom";
+
+import Routes from "../app/constants/routes";
+
 // Routes
-import Unimplemented from "./unimplemented";
 import Home from "./home";
 import Dashboard from "./dashboard";
 import ErrorPage from "./errorPage";
@@ -16,57 +18,56 @@ import User from "./user";
 export default () => {
   return (
     <Switch>
-      <Route path="/" exact={true} component={Home} />
+      <Route path={Routes.HOME} exact={true} component={Home} />
       <ProtectedRoute
         requireAuth={true}
-        path="/dashboard"
+        path={Routes.DASHBOARD}
         component={<Dashboard />}
       />
       <ProtectedRoute
         requireAuth={false}
-        path="/demo"
+        path={Routes.DEMO}
         component={<DemoLogin />}
       />
       <ProtectedRoute
         requireAuth={false}
-        path="/register"
+        path={Routes.REGISTER}
         component={<Register />}
       />
-      <ProtectedRoute requireAuth={false} path="/login" component={<Login />} />
       <ProtectedRoute
         requireAuth={false}
-        path="/forgotPassword"
+        path={Routes.LOGIN}
+        component={<Login />}
+      />
+      <ProtectedRoute
+        requireAuth={false}
+        path={Routes.FORGOT_PASS}
         component={<ForgotPassword />}
       />
-      <Route path="/resetPassword/:token" component={ResetPassword} />
-      <Route path="/user/:tag" component={User} />
-      <ProtectedRoute
-        requireAuth={true}
-        path="/dashboard"
-        component={<Unimplemented name="Dashboard" />}
-      />
+      <Route path={`${Routes.RESET_PASS}/:token`} component={ResetPassword} />
+      <Route path={`${Routes.USER}/:tag`} component={User} />
       {/* Error Pages */}
       <Route
-        path="/loginRequired"
+        path={Routes.LOGIN_REQUIRED}
         render={() => (
           <ErrorPage
             width="660px"
             header="Auth Error"
             bodyText="Sorry, you must be logged in to access that resource. "
             linkText="Go to Login Page."
-            linkHref="/login"
+            linkHref={Routes.LOGIN}
           />
         )}
       />
       <Route
-        path="/invalidToken"
+        path={Routes.INVALID_TOKEN}
         render={() => (
           <ErrorPage
             width="660px"
             header="Invalid Token"
             bodyText="Sorry, your token has expired. "
             linkText="Go to Forgot Password Page."
-            linkHref="/forgotPassword"
+            linkHref={Routes.FORGOT_PASS}
           />
         )}
       />
@@ -82,7 +83,7 @@ export default () => {
             header="404 Error"
             bodyText="Sorry, that page doesn't exist. "
             linkText="Go to Home Page."
-            linkHref="/"
+            linkHref={Routes.HOME}
           />
         )}
       />

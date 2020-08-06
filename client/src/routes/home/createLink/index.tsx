@@ -1,4 +1,5 @@
 import React from "react";
+import Routes from "../../../app/constants/routes";
 import { toggleDisplay } from "../../../app/flux/slices/creationSlice";
 import { selectUser } from "../../../app/flux/slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +18,7 @@ export default () => {
         onClick={() =>
           authenticated
             ? dispatch(toggleDisplay())
-            : history.push("/loginRequired")
+            : history.push(Routes.LOGIN_REQUIRED)
         }
       >
         <LinkWidget>

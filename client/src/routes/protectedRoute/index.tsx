@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectAuthenticated } from "../../app/flux/slices/authSlice";
 import { Route, Redirect } from "react-router-dom";
+import Routes from "../../app/constants/routes";
 
 // A protected route is one which can only be accessed by user who are authenticated
 // or unauthenticated; if a user who is unauthenticated tries to access a route that
@@ -29,7 +30,9 @@ export default ({
         return authenticated === requireAuth ? (
           component
         ) : (
-          <Redirect to={{ pathname: requireAuth ? "/loginRequired" : "/" }} />
+          <Redirect
+            to={{ pathname: requireAuth ? Routes.LOGIN_REQUIRED : Routes.HOME }}
+          />
         );
       }}
     />

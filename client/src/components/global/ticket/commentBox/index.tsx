@@ -1,4 +1,5 @@
 import React from "react";
+import Routes from "../../../../app/constants/routes";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleDisplay } from "../../../../app/flux/slices/ticketSlice";
 import { selectAuthenticated } from "../../../../app/flux/slices/authSlice";
@@ -35,7 +36,7 @@ export default () => {
           submitCallback={() => {
             if (!authenticated) {
               dispatch(toggleDisplay());
-              history.push("/loginRequired");
+              history.push(Routes.LOGIN_REQUIRED);
               return;
             }
             // make a post request

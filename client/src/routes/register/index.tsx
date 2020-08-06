@@ -1,5 +1,6 @@
 import React from "react";
 import FormPage from "../formPage";
+import Routes from "../../app/constants/routes";
 import history from "../history";
 import { Alert } from "rsuite";
 
@@ -34,7 +35,8 @@ export default () => {
       passwordError: passwordError,
     });
 
-    if (!emailError && !usernameError && !passwordError) history.push("/login");
+    if (!emailError && !usernameError && !passwordError)
+      history.push(Routes.LOGIN);
   };
 
   return (

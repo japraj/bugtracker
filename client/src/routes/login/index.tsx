@@ -2,6 +2,7 @@ import React from "react";
 import FormPage from "../formPage";
 import HyperLink from "../../components/global/hyperLink";
 import history from "../history";
+import Routes from "../../app/constants/routes";
 import styled from "styled-components";
 
 interface State {
@@ -26,7 +27,7 @@ export default () => {
       passwordError: passwordError,
     });
 
-    if (!usernameError && !passwordError) history.push("/");
+    if (!usernameError && !passwordError) history.push(Routes.HOME);
   };
 
   return (
@@ -51,7 +52,7 @@ export default () => {
       displayButtonSibling={true}
       buttonSibling={
         <LinkWrapper>
-          <HyperLink to="/forgotPassword">Forgot Password?</HyperLink>
+          <HyperLink to={Routes.FORGOT_PASS}>Forgot Password?</HyperLink>
         </LinkWrapper>
       }
       onSubmit={verifyValues}

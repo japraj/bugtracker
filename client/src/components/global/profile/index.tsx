@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../../app/flux/slices/authSlice";
 import { viewNotifications } from "../../../app/flux/slices/authSlice";
+import Routes from "../../../app/constants/routes";
 import UserLink from "../userLink";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
@@ -108,7 +109,7 @@ export default (props: Props) => {
           <h1>{user.info.tag}</h1>
           <ProfileWidgetWrapper>
             <Link
-              to={`/user/${user.info.tag}`}
+              to={`${Routes.USER}/${user.info.tag}`}
               onClick={
                 window.innerWidth < 600 ? props.toggleCollapsed : () => {}
               }
