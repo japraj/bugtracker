@@ -12,6 +12,8 @@ using server.Models.User;
 using server.Models.Session;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.CookiePolicy;
 
 namespace server
 {
@@ -43,15 +45,6 @@ namespace server
 
             services.AddDistributedMemoryCache();
 
-            services.AddSession(options =>
-            {
-                options.Cookie.Name = Session.KEY;
-                options.Cookie.Path = "/";
-                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-
             services.AddControllers().AddNewtonsoftJson(
                 settings =>
                 settings.SerializerSettings.ContractResolver
@@ -75,8 +68,6 @@ namespace server
             app.UseRouting();
 
             app.UseAuthentication();
-
-            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

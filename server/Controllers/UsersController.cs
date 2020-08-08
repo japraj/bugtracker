@@ -21,6 +21,20 @@ namespace server.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly CookieOptions cookieOptions = new CookieOptions
+        {
+            Path = "/",
+            // Secure determines whether the cookie is transmittable
+            // over SSL/https only; irrelevant because we do not store any
+            // sensitive info in the cookie but still worth configuring.
+            // use false for localhost & true for build
+            Secure = false,
+            // unlike secure, HttpOnly just determines whether the client
+            // can access the cookie (true prohibits clientside access)
+            HttpOnly = true,
+            IsEssential = true,
+            SameSite = SameSiteMode.Lax,
+        };
 
 
         public UsersController(IUserRepo repository, IMapper mapper,
@@ -66,28 +80,34 @@ namespace server.Controllers
             var user = await _userManager.FindByNameAsync(loginRequest.Tag);
             if (user == null)
                 return BadRequest();
-            Microsoft.AspNetCore.Identity.SignInResult result = 
+            Microsoft.AspNetCore.Identity.SignInResult result =
                 await _signInManager.CheckPasswordSignInAsync(
                     user, loginRequest.Password, false);
             if (!result.Succeeded)
                 return BadRequest();
 
-            wipeSession();
+            clearClientCookie();
 
             // Create a new session
-            string newToken;
+            Session newSession = new Session
+            {
+
+                Token = "",
+                Tag = user.Tag,
+            };
+
             do
             {
-                newToken = Guid.NewGuid().ToString();
-            } while (_repository.SessionExists(newToken));
+                newSession.Token = Guid.NewGuid().ToString();
+            } while (_repository.TokenInUse(newSession.Token));
 
-            _repository.AddSession(new Session
-            {
-                Token = newToken,
-                Tag = user.Tag,
-            });
+            if (_repository.UserHasSession(user.Tag))
+                _repository.UpdateSession(newSession);
+            else
+                _repository.AddSession(newSession);
             _repository.SaveChanges();
-            HttpContext.Session.SetString(Session.KEY, newToken);
+
+            Response.Cookies.Append(Session.KEY, newSession.Token, cookieOptions);
 
             return NoContent();
         }
@@ -95,7 +115,17 @@ namespace server.Controllers
         [HttpPost]
         public IActionResult Logout()
         {
-            wipeSession();
+            try
+            {
+                _repository.UpdateSession(new Session
+                {
+                    Tag = _repository.GetSessionByToken(Request.Cookies[Session.KEY]).Tag,
+                    Token = null,
+                });
+                _repository.SaveChanges();
+            }
+            catch { }
+            clearClientCookie();
             return NoContent();
         }
 
@@ -110,12 +140,9 @@ namespace server.Controllers
             return NoContent();
         }
 
-        public void wipeSession()
+        public void clearClientCookie()
         {
-            string? oldToken = HttpContext.Session.GetString(Session.KEY);
-            HttpContext.Session.Remove(Session.KEY);
-            if (oldToken != null && _repository.SessionExists(oldToken))
-                _repository.ClearSession(oldToken);
+            Response.Cookies.Delete(Session.KEY);
         }
 
         // PATCH is not used (use PUT for simpler auth flow) but left for reference

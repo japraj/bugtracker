@@ -1,5 +1,6 @@
 ﻿using server.Models.Session;
 using server.Models.User;
+using System.Collections;
 using System.Linq;
 
 namespace server.Data
@@ -30,29 +31,23 @@ namespace server.Data
             return _context.SessionSet.FirstOrDefault(s => s.Token == token);
         }
 
+        public Session GetSessionByTag(string Tag) => _context.SessionSet.Find(Tag);
+
         public User GetUserBySession(string token) =>
             GetUserByTag(GetSessionByToken(token).Tag);
-        
-        public bool SessionExists(string token)
+
+        public void UpdateSession(Session newSession)
         {
-            //try
-            //{
-            return _context.SessionSet.FirstOrDefault(session => session.Token == token) != null;
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
+            Session session = _context.SessionSet.FirstOrDefault(s => s.Tag == newSession.Tag);
+            if (session != null)
+                session.Token = newSession.Token;
+            _context.SessionSet.Update(session);
         }
 
-        public void ClearSession(string token)
-        {
-            //try
-            //{
-            _context.SessionSet.Remove(_context.SessionSet.FirstOrDefault(session => session.Token == token));
-            //}
-            //catch { }
-        }
+        public bool TokenInUse(string token) =>
+            _context.SessionSet.FirstOrDefault(session => session.Token == token) != null;
+
+        public bool UserHasSession(string Tag) => _context.SessionSet.Find(Tag) != null;
 
     }
 }

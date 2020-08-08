@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using server.Models.Session;
 using server.Models.User;
 using System.Collections.Generic;
 
@@ -22,6 +23,6 @@ namespace server.Data.Users
                 .ForMember(user => user.UserName, option => option.MapFrom(src => src.Tag));
             CreateMap<UserCreateDTO, UserReadDTO>();
             CreateMap<UserUpdateDTO, User>().ReverseMap();
-        } 
+        }
     }
 }
