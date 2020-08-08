@@ -1,21 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using server.Models.User;
+using server.Models.Session;
 
 namespace server.Data
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> UserSet { get; set; }
+        public DbSet<Session> SessionSet { get; set; }
 
         public Context(DbContextOptions<Context> options)
             : base(options)
         { }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-
-        //    modelBuilder.Entity<User>()
-        //        .HasKey(u => u.Tag);
-        //}
     }
 }

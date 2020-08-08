@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -10,9 +11,10 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200807204314_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,19 +150,6 @@ namespace server.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("server.Models.Session.Session", b =>
-                {
-                    b.Property<string>("Tag")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("text");
-
-                    b.HasKey("Tag");
-
-                    b.ToTable("SessionSet");
                 });
 
             modelBuilder.Entity("server.Models.User.User", b =>

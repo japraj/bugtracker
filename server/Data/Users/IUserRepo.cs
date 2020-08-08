@@ -1,4 +1,5 @@
-﻿using server.Models.User;
+﻿using server.Models.Session;
+using server.Models.User;
 
 namespace server.Data
 {
@@ -6,9 +7,10 @@ namespace server.Data
     {
         bool SaveChanges();
 
-        // Define API Contract between Repo and Controller
+        // Define Contract between Repo and Controller
         User GetUserByTag(string tag);
-        void CreateUser(User user);
-        void UpdateUser(User user);
+        void AddSession(Session session);
+        bool SessionExists(string token);
+        void ClearSession(string token);
     }
 }

@@ -8,6 +8,10 @@ using Newtonsoft.Json.Serialization;
 using server.Data;
 using AutoMapper;
 using System;
+using server.Models.User;
+using server.Models.Session;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace server
 {
@@ -27,12 +31,35 @@ namespace server
                     Configuration.GetConnectionString("Postgre")
                 )
             );
+
+            // commented code registers only the barebones of .Net Core Identity
+            //services.AddIdentityCore<User>(options => { });
+            //new IdentityBuilder(typeof(User), typeof(IdentityRole), services)
+            //    .AddRoleManager<RoleManager<IdentityRole>>()
+            //    .AddSignInManager<SignInManager<User>>()
+            //    .AddEntityFrameworkStores<Context>();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<Context>();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = Session.KEY;
+                options.Cookie.Path = "/";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddControllers().AddNewtonsoftJson(
                 settings =>
                 settings.SerializerSettings.ContractResolver
                 = new CamelCasePropertyNamesContractResolver()
             );
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IUserRepo, UserRepo>();
         }
 
@@ -47,7 +74,9 @@ namespace server
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

@@ -12,15 +12,16 @@ namespace server.Data.Users
             CreateMap<User, UserReadDTO>();
             CreateMap<UserCreateDTO, User>()
                 .ForMember(user => user.Avatar,
-                            option => option.MapFrom(o => ""))
+                            option => option.MapFrom(src => ""))
                 .ForMember(user => user.Tickets,
-                            option => option.MapFrom(o => new List<string>{ }))
+                            option => option.MapFrom(src => new List<string> { }))
                 .ForMember(user => user.Activity,
-                            option => option.MapFrom(o => new List<string> { }))
+                            option => option.MapFrom(src => new List<string> { }))
                 .ForMember(user => user.Notifications,
-                            option => option.MapFrom(o => new List<string> { }));
-            CreateMap<UserUpdateDTO, User>();
-            CreateMap<User, UserUpdateDTO>();
+                            option => option.MapFrom(src => new List<string> { }))
+                .ForMember(user => user.UserName, option => option.MapFrom(src => src.Tag));
+            CreateMap<UserCreateDTO, UserReadDTO>();
+            CreateMap<UserUpdateDTO, User>().ReverseMap();
         } 
     }
 }
