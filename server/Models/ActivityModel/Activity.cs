@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace server.Models.Activity
+namespace server.Models.ActivityModel
 {
     public class Activity
     {
@@ -53,12 +53,5 @@ namespace server.Models.Activity
         // Nullable; only present on User activity objs (all of which are generic)
         public bool Read { get; set; }
 
-    }
-
-    public enum ActivityType
-    {
-        Generic,
-        Comment,
-        User
     }
 }

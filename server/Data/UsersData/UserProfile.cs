@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using server.Models.Session;
-using server.Models.User;
+using server.Models.SessionModel;
+using server.Models.UserModel;
 using System.Collections.Generic;
 
-namespace server.Data.Users
+namespace server.Data.UsersData
 {
     public class UserProfile : Profile
     {

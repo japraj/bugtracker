@@ -1,4 +1,4 @@
-﻿namespace server.Models.User
+﻿namespace server.Data.Authorization
 {
     public enum Rank
     {

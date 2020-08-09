@@ -1,9 +1,8 @@
-﻿using server.Models.Session;
-using server.Models.User;
-using System.Collections;
+﻿using server.Models.SessionModel;
+using server.Models.UserModel;
 using System.Linq;
 
-namespace server.Data
+namespace server.Data.UsersData
 {
     public class UserRepo : IUserRepo
     {
@@ -26,10 +25,8 @@ namespace server.Data
             _context.SessionSet.Add(session);
         }
 
-        public Session GetSessionByToken(string token)
-        {
-            return _context.SessionSet.FirstOrDefault(s => s.Token == token);
-        }
+        public Session GetSessionByToken(string token) =>
+            _context.SessionSet.FirstOrDefault(s => s.Token == token);
 
         public Session GetSessionByTag(string Tag) => _context.SessionSet.Find(Tag);
 
@@ -38,10 +35,12 @@ namespace server.Data
 
         public void UpdateSession(Session newSession)
         {
-            Session session = _context.SessionSet.FirstOrDefault(s => s.Tag == newSession.Tag);
+            Session session = GetSessionByTag(newSession.Tag);
             if (session != null)
+            {
                 session.Token = newSession.Token;
-            _context.SessionSet.Update(session);
+                _context.SessionSet.Update(session);
+            }
         }
 
         public bool TokenInUse(string token) =>

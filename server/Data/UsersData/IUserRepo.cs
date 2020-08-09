@@ -1,8 +1,7 @@
-﻿using server.Models.Session;
-using server.Models.User;
-using System;
+﻿using server.Models.SessionModel;
+using server.Models.UserModel;
 
-namespace server.Data
+namespace server.Data.UsersData
 {
     public interface IUserRepo : IRepo
     {

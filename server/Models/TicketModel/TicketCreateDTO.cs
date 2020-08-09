@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace server.Models.Ticket
+namespace server.Models.TicketModel
 {
-    public class TicketEditDTO
+    public class TicketCreateDTO
     {
+
+        public string Author { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -13,10 +16,6 @@ namespace server.Models.Ticket
         public short Reproducibility { get; set; }
 
         public short Severity { get; set; }
-
-        public short Status { get; set; }
-
-        public List<string> Assignees { get; set; }
 
         public List<string> ImageLinks { get; set; }
     }

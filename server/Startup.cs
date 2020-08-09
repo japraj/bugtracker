@@ -8,12 +8,11 @@ using Newtonsoft.Json.Serialization;
 using server.Data;
 using AutoMapper;
 using System;
-using server.Models.User;
-using server.Models.Session;
+using server.Models.UserModel;
+using server.Data.UsersData;
+using server.Data.ActivityData;
+using server.Data.TicketsData;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.CookiePolicy;
 
 namespace server
 {
@@ -54,6 +53,8 @@ namespace server
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<ITicketRepo, TicketRepo>();
+            services.AddScoped<IActivityRepo, ActivityRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

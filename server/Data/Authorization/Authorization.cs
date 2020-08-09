@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using server.Models.Session;
-using server.Models.User;
+using server.Models.SessionModel;
+using server.Data.UsersData;
 
 namespace server.Data.Authorization
 {

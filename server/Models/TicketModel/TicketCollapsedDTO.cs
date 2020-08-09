@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace server.Models.Ticket
+namespace server.Models.TicketModel
 {
     public class TicketCollapsedDTO
     {

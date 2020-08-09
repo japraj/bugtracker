@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace server.Models.User
+namespace server.Models.UserModel
 {
     // External Representation of User
     public class UserReadDTO

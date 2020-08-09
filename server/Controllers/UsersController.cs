@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using server.Data;
-using server.Models.User;
+using server.Data.UsersData;
+using server.Models.UserModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using server.Models.Session;
+using server.Models.SessionModel;
 using System;
 
 #nullable enable

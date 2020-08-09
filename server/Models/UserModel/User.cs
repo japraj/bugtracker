@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace server.Models.User
+namespace server.Models.UserModel
 {
     // Internal representation of a User.
     public class User : IdentityUser
