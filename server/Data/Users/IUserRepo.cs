@@ -4,10 +4,8 @@ using System;
 
 namespace server.Data
 {
-    public interface IUserRepo
+    public interface IUserRepo : IRepo
     {
-        bool SaveChanges();
-
         // Define Contract between Repo and Controller
         User GetUserByTag(string tag);
         void AddSession(Session session);
