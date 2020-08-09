@@ -86,7 +86,7 @@ namespace server.Controllers
             if (!result.Succeeded)
                 return BadRequest();
 
-            clearClientCookie();
+            ClearClientCookie();
 
             // Create a new session
             Session newSession = new Session
@@ -125,7 +125,7 @@ namespace server.Controllers
                 _repository.SaveChanges();
             }
             catch { }
-            clearClientCookie();
+            ClearClientCookie();
             return NoContent();
         }
 
@@ -140,7 +140,7 @@ namespace server.Controllers
             return NoContent();
         }
 
-        public void clearClientCookie()
+        public void ClearClientCookie()
         {
             Response.Cookies.Delete(Session.KEY);
         }
