@@ -22,9 +22,9 @@ namespace server.Models.User
         public List<string> Tickets { get; set; }
         // Tickets is a list with references to tickets
 
-
         [Required]
-        public List<string> Activity { get; set; }
+        public List<int> Activity { get; set; }
+        // List of activity Ids
 
         // Accessible by Client only
         [Required]
