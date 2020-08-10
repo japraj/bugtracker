@@ -19,7 +19,7 @@ namespace server.Models.UserModel
         public int Rank { get; set; }
 
         [Required]
-        public List<string> Tickets { get; set; }
+        public List<int> Tickets { get; set; }
         // Tickets is a list with references to tickets
 
         [Required]

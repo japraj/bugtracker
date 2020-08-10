@@ -8,13 +8,13 @@ namespace server.Models.TicketModel
 
         public string Description { get; set; }
 
-        public short TypeLabel { get; set; }
+        public byte TypeLabel { get; set; }
 
-        public short Reproducibility { get; set; }
+        public byte Reproducibility { get; set; }
 
-        public short Severity { get; set; }
+        public byte Severity { get; set; }
 
-        public short Status { get; set; }
+        public byte Status { get; set; }
 
         public List<string> Assignees { get; set; }
 

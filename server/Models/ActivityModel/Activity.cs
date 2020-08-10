@@ -41,7 +41,7 @@ namespace server.Models.ActivityModel
         // Nullable; only generics have this value. The
         // message is computed before being sent to the client based
         // on an internal enum
-        public short GenericValue { get; set; }
+        public byte GenericValue { get; set; }
 
         // Nullable; only comment activity objs have a message.
         // Comments have no ticketID

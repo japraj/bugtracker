@@ -12,12 +12,12 @@ namespace server.Models.TicketModel
 
         public DateTime UpdateDate { get; set; }
 
-        public short TypeLabel { get; set; }
+        public byte TypeLabel { get; set; }
 
-        public short Severity { get; set; }
+        public byte Severity { get; set; }
 
-        public short Status { get; set; }
+        public byte Status { get; set; }
 
-        public short Comments { get; set; }
+        public byte Comments { get; set; }
     }
 }

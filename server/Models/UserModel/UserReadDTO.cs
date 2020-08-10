@@ -8,7 +8,7 @@ namespace server.Models.UserModel
         public string Tag { get; set; }
         public string Avatar { get; set; }
         public int Rank { get; set; }
-        public List<string> Tickets { get; set; }
-        public List<string> Activity { get; set; }
+        public List<int> Tickets { get; set; }
+        public List<int> Activity { get; set; }
     }
 }

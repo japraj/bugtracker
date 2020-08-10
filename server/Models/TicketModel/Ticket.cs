@@ -27,16 +27,16 @@ namespace server.Models.TicketModel
         public DateTime UpdateDate { get; set; }
 
         [Required]
-        public short TypeLabel { get; set; }
+        public byte TypeLabel { get; set; }
 
         [Required]
-        public short Reproducibility { get; set; }
+        public byte Reproducibility { get; set; }
 
         [Required]
-        public short Severity { get; set; }
+        public byte Severity { get; set; }
 
         [Required]
-        public short Status { get; set; }
+        public byte Status { get; set; }
 
         // List of Tags
         [Required]
@@ -50,6 +50,6 @@ namespace server.Models.TicketModel
         public List<int> Activity { get; set; }
 
         [Required]
-        public short Comments { get; set; }
+        public byte Comments { get; set; }
     }
 }
