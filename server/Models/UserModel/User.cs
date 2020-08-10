@@ -28,7 +28,8 @@ namespace server.Models.UserModel
 
         // Accessible by Client only
         [Required]
-        public List<string> Notifications { get; set; }
+        public List<int> Notifications { get; set; }
+        // List of activity Ids
 
         // A session key is a 30char string;
         // the first 5-15 characters are equal to

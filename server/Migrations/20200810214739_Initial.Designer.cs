@@ -11,8 +11,8 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20200808000045_Sessions")]
-    partial class Sessions
+    [Migration("20200810214739_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,7 +152,41 @@ namespace server.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("server.Models.Session.Session", b =>
+            modelBuilder.Entity("server.Models.ActivityModel.Activity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<byte?>("GenericValue")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("Read")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("TicketID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivitySet");
+                });
+
+            modelBuilder.Entity("server.Models.SessionModel.Session", b =>
                 {
                     b.Property<string>("Tag")
                         .HasColumnType("text");
@@ -165,7 +199,64 @@ namespace server.Migrations
                     b.ToTable("SessionSet");
                 });
 
-            modelBuilder.Entity("server.Models.User.User", b =>
+            modelBuilder.Entity("server.Models.TicketModel.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<List<int>>("Activity")
+                        .IsRequired()
+                        .HasColumnType("integer[]");
+
+                    b.Property<List<string>>("Assignees")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<byte>("Comments")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<List<string>>("ImageLinks")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<byte>("Reproducibility")
+                        .HasColumnType("smallint");
+
+                    b.Property<byte>("Severity")
+                        .HasColumnType("smallint");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<byte>("TypeLabel")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketSet");
+                });
+
+            modelBuilder.Entity("server.Models.UserModel.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -173,9 +264,9 @@ namespace server.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<List<string>>("Activity")
+                    b.Property<List<int>>("Activity")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("integer[]");
 
                     b.Property<string>("Avatar")
                         .IsRequired()
@@ -209,9 +300,9 @@ namespace server.Migrations
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
-                    b.Property<List<string>>("Notifications")
+                    b.Property<List<int>>("Notifications")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("integer[]");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -235,9 +326,9 @@ namespace server.Migrations
                         .HasColumnType("character varying(15)")
                         .HasMaxLength(15);
 
-                    b.Property<List<string>>("Tickets")
+                    b.Property<List<int>>("Tickets")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("integer[]");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
@@ -269,7 +360,7 @@ namespace server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("server.Models.User.User", null)
+                    b.HasOne("server.Models.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -278,7 +369,7 @@ namespace server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("server.Models.User.User", null)
+                    b.HasOne("server.Models.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -293,7 +384,7 @@ namespace server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("server.Models.User.User", null)
+                    b.HasOne("server.Models.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -302,7 +393,7 @@ namespace server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("server.Models.User.User", null)
+                    b.HasOne("server.Models.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

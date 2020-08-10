@@ -36,22 +36,22 @@ namespace server.Models.ActivityModel
         public DateTime CreationDate { get; set; }
 
         [Required]
-        public ActivityType Generic { get; set; }
+        public ActivityType Type { get; set; }
 
         // Nullable; only generics have this value. The
         // message is computed before being sent to the client based
         // on an internal enum
-        public byte GenericValue { get; set; }
+        public byte? GenericValue { get; set; }
 
         // Nullable; only comment activity objs have a message.
         // Comments have no ticketID
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         // Nullable; only present on generics, used to link to a ticket
-        public int TicketID { get; set; }
+        public int? TicketID { get; set; }
 
         // Nullable; only present on User activity objs (all of which are generic)
-        public bool Read { get; set; }
+        public bool? Read { get; set; }
 
     }
 }

@@ -5,10 +5,29 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace server.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ActivitySet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Author = table.Column<string>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    GenericValue = table.Column<byte>(nullable: true),
+                    Message = table.Column<string>(nullable: true),
+                    TicketID = table.Column<int>(nullable: true),
+                    Read = table.Column<bool>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivitySet", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -45,15 +64,52 @@ namespace server.Migrations
                     Tag = table.Column<string>(maxLength: 15, nullable: true),
                     Avatar = table.Column<string>(nullable: false),
                     Rank = table.Column<int>(nullable: false),
-                    Tickets = table.Column<List<string>>(nullable: false),
-                    Activity = table.Column<List<string>>(nullable: false),
-                    Notifications = table.Column<List<string>>(nullable: false),
+                    Tickets = table.Column<List<int>>(nullable: false),
+                    Activity = table.Column<List<int>>(nullable: false),
+                    Notifications = table.Column<List<int>>(nullable: false),
                     SessionKey = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SessionSet",
+                columns: table => new
+                {
+                    Tag = table.Column<string>(nullable: false),
+                    Token = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SessionSet", x => x.Tag);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TicketSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Author = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    TypeLabel = table.Column<byte>(nullable: false),
+                    Reproducibility = table.Column<byte>(nullable: false),
+                    Severity = table.Column<byte>(nullable: false),
+                    Status = table.Column<byte>(nullable: false),
+                    Assignees = table.Column<List<string>>(nullable: false),
+                    ImageLinks = table.Column<List<string>>(nullable: false),
+                    Activity = table.Column<List<int>>(nullable: false),
+                    Comments = table.Column<byte>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TicketSet", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,6 +259,9 @@ namespace server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ActivitySet");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -216,6 +275,12 @@ namespace server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "SessionSet");
+
+            migrationBuilder.DropTable(
+                name: "TicketSet");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
