@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using server.Data.UsersData;
@@ -6,7 +7,9 @@ using server.Models.UserModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using server.Models.SessionModel;
-using System;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
+using server.Data.Authorization;
 
 #nullable enable
 
@@ -91,7 +94,6 @@ namespace server.Controllers
             // Create a new session
             Session newSession = new Session
             {
-
                 Token = "",
                 Tag = user.Tag,
             };
@@ -129,24 +131,6 @@ namespace server.Controllers
             return NoContent();
         }
 
-        [HttpPut("{tag}")]
-        public ActionResult UpdateUser(string tag, UserUpdateDTO user)
-        {
-            var persistentModel = _repository.GetUserByTag(tag);
-            if (persistentModel == null)
-                return NotFound();
-            _mapper.Map(user, persistentModel);
-            _repository.SaveChanges();
-            return NoContent();
-        }
-
-        public void ClearClientCookie()
-        {
-            Response.Cookies.Delete(Session.KEY);
-        }
-
-        // PATCH is not used (use PUT for simpler auth flow) but left for reference
-
         /* The below api endpoint is used as follows:
              - Requires the Patch verb
              - Takes the tag of the user to be updated
@@ -158,19 +142,65 @@ namespace server.Controllers
             session keys; it features no authorization.
          */
 
-        //[HttpPatch("{tag}")]
-        //public ActionResult PatchUser(string tag, JsonPatchDocument<UserUpdateDTO> patchDoc)
+        [HttpPatch("{tag}")]
+        public ActionResult PatchUser(string tag, JsonPatchDocument<UserUpdateDTO> patchDoc)
+        {
+            // The persistent model is one that is stored in the database
+            User? persistentModel = _repository.GetUserByTag(tag);
+            User? requester = Authorization.GetUserFromCookie(_repository, Request);
+            if (persistentModel == null || requester == null)
+                return NotFound();
+            // only accept a single patch at a time because the client cannot
+            // make multiple patches simultaneously, meaning that the request 
+            // is not sent by a legit client
+            if (patchDoc.Operations.Count > 0)
+                return BadRequest();
+
+            Operation<UserUpdateDTO>? update = patchDoc.Operations.Find(patch => patch.OperationType == OperationType.Replace);
+
+            if (update == null)
+                return Forbid();
+
+            // Validate that the user is allowed to make the update
+            switch (update.path)
+            {
+                case "/Avatar":
+                    if (tag != requester.Tag)
+                        return Forbid();
+                    break;
+                case "/Rank":
+                    Rank requiredRank = requester.Rank > (int)Rank.Developer
+                        ? Rank.Admin
+                        : Rank.Manager;
+                    if (requester.Rank == (int)Rank.Admin || !Authorization.HasRank(requiredRank, requester))
+                        return Forbid();
+                    break;
+                default:
+                    return BadRequest();
+            }
+
+            // If we make it this far, we have both sufficient permissions and
+            // the model, the requester, and the update request are all non-null
+            var updateModel = _mapper.Map<UserUpdateDTO>(persistentModel);
+            patchDoc.ApplyTo(updateModel, ModelState);
+            if (!TryValidateModel(updateModel))
+                return ValidationProblem(ModelState);
+            _mapper.Map(updateModel, persistentModel);
+            _repository.SaveChanges();
+            return NoContent();
+        }
+
+        public void ClearClientCookie() => Response.Cookies.Delete(Session.KEY);
+
+        // PUT is not used (use PATCH instead) but left for reference
+
+        //[HttpPut("{tag}")]
+        //public ActionResult UpdateUser(string tag, UserUpdateDTO user)
         //{
         //    var persistentModel = _repository.GetUserByTag(tag);
         //    if (persistentModel == null)
         //        return NotFound();
-        //    var updateModel = _mapper.Map<UserUpdateDTO>(persistentModel);
-        //    patchDoc.ApplyTo(updateModel, ModelState);
-        //    if (!TryValidateModel(updateModel))
-        //    {
-        //        return ValidationProblem(ModelState);
-        //    }
-        //    _mapper.Map(updateModel, persistentModel);
+        //    _mapper.Map(user, persistentModel);
         //    _repository.SaveChanges();
         //    return NoContent();
         //}
