@@ -1,21 +1,25 @@
-An Issue management CRUD app with authentication, authorization, and more!
+#**An Issue management CRUD app with authentication, authorization, and more!**
 
-Front-end/Clientside Technologies:
+---
 
-- React
+##**Front-end/Clientside Technologies:**
 
-- Redux
+- ###React
 
-- Typescript
+- ###Redux
 
-- Styled Components
+- ###Typescript
 
-The front-end primarily consists of functional components with hooks and makes heavy use of Material-UI, an open-source React component library.
+- ###Styled Components
 
-Back-end/Serverside Technologies:
+###**The front-end primarily consists of functional components with hooks and makes heavy use of Material-UI, an open-source React component library.**
 
-- ASP.NET Core
+---
 
-- C#
+##Back-end/Serverside Technologies:
 
-- Postgresql
+- ###C# and ASP.NET Core
+
+- ###Entity Framework / AutoMapper
+
+- ###Postgresql
