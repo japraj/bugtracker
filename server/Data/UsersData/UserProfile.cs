@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using server.Models.SessionModel;
 using server.Models.UserModel;
 using System.Collections.Generic;
 
@@ -15,11 +14,11 @@ namespace server.Data.UsersData
                 .ForMember(user => user.Avatar,
                             option => option.MapFrom(src => ""))
                 .ForMember(user => user.Tickets,
-                            option => option.MapFrom(src => new List<string> { }))
+                            option => option.MapFrom(src => new List<int> { }))
                 .ForMember(user => user.Activity,
-                            option => option.MapFrom(src => new List<string> { }))
+                            option => option.MapFrom(src => new List<int> { }))
                 .ForMember(user => user.Notifications,
-                            option => option.MapFrom(src => new List<string> { }))
+                            option => option.MapFrom(src => new List<int> { }))
                 .ForMember(user => user.UserName, option => option.MapFrom(src => src.Tag));
             CreateMap<UserCreateDTO, UserReadDTO>();
             CreateMap<UserUpdateDTO, User>().ReverseMap();
