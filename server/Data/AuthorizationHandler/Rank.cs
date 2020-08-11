@@ -1,4 +1,4 @@
-﻿namespace server.Data.Authorization
+﻿namespace server.Data.AuthorizationHandler
 {
     public enum Rank
     {
