@@ -2,6 +2,8 @@
 using server.Models.UserModel;
 using System.Linq;
 
+#nullable enable
+
 namespace server.Data.UsersData
 {
     public class UserRepo : IUserRepo
@@ -43,8 +45,12 @@ namespace server.Data.UsersData
             }
         }
 
-        public bool TokenInUse(string token) =>
-            _context.SessionSet.FirstOrDefault(session => session.Token == token) != null;
+        public bool TokenInUse(string? token)
+        {
+            if (token == null)
+                return false;
+            return _context.SessionSet.FirstOrDefault(session => session.Token == token) != null;
+        }
 
         public bool UserHasSession(string Tag) => _context.SessionSet.Find(Tag) != null;
 

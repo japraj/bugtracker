@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using server.Models.SessionModel;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
-using server.Data.Authorization;
+using server.Data.AuthorizationHandler;
 
 #nullable enable
 
@@ -24,6 +24,7 @@ namespace server.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly Authorization auth;
         private readonly CookieOptions cookieOptions = new CookieOptions
         {
             Path = "/",
@@ -47,6 +48,7 @@ namespace server.Controllers
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            auth = new Authorization(repository);
         }
 
         [HttpGet("{tag}", Name = "GetUserByTag")]
@@ -61,14 +63,13 @@ namespace server.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserCreateDTO user)
         {
-            // guard clause
             if (user == null)
                 return BadRequest();
 
             // try creating a user; if success, then return a URI
             IdentityResult result = await _userManager.CreateAsync(_mapper.Map<User>(user), user.Password);
             if (result.Succeeded)
-                return CreatedAtRoute(nameof(GetUserByTag), new { Tag = user.Tag }, _mapper.Map<UserReadDTO>(user));
+                return CreatedAtRoute(nameof(GetUserByTag), new { user.Tag }, _mapper.Map<UserReadDTO>(user));
             foreach (var error in result.Errors)
             {
                 ModelState.TryAddModelError(error.Code, error.Description);
@@ -134,32 +135,33 @@ namespace server.Controllers
         /* The below api endpoint is used as follows:
              - Requires the Patch verb
              - Takes the tag of the user to be updated
+             - Has a body of the form (only arrays of length 1 are valid):
                 [{ "op": "replace", // operation type
                    "path": "/Avatar", // property that is being patched
                    "value": "newURL" // new val to be assigned to specified property
-                 }, ...] 
-            Note: this endpoint was configured prior to the implementation of
-            session keys; it features no authorization.
+                 }, ...]
+            
+            For a full implementation (one which accepts more than 1 operation per
+            request), see TicketsController
          */
 
         [HttpPatch("{tag}")]
         public ActionResult PatchUser(string tag, JsonPatchDocument<UserUpdateDTO> patchDoc)
         {
+            if (!auth.IsAuthenticated(Request))
+                return Unauthorized();
             // The persistent model is one that is stored in the database
             User? persistentModel = _repository.GetUserByTag(tag);
-            User? requester = Authorization.GetUserFromCookie(_repository, Request);
+            User? requester = auth.GetUserFromCookie(Request);
             if (persistentModel == null || requester == null)
                 return NotFound();
+
+            Operation<UserUpdateDTO>? update = patchDoc.Operations.Find(patch => patch.OperationType == OperationType.Replace);
             // only accept a single patch at a time because the client cannot
             // make multiple patches simultaneously, meaning that the request 
             // is not sent by a legit client
-            if (patchDoc.Operations.Count > 0)
+            if (patchDoc.Operations.Count > 0 || update == null)
                 return BadRequest();
-
-            Operation<UserUpdateDTO>? update = patchDoc.Operations.Find(patch => patch.OperationType == OperationType.Replace);
-
-            if (update == null)
-                return Forbid();
 
             // Validate that the user is allowed to make the update
             switch (update.path)
@@ -172,7 +174,9 @@ namespace server.Controllers
                     Rank requiredRank = requester.Rank > (int)Rank.Developer
                         ? Rank.Admin
                         : Rank.Manager;
-                    if (requester.Rank == (int)Rank.Admin || !Authorization.HasRank(requiredRank, requester))
+                    if (requester.Rank == (int)Rank.User
+                        || persistentModel.Rank == (int)Rank.Admin
+                        || !auth.HasRank(requiredRank, requester))
                         return Forbid();
                     break;
                 default:
