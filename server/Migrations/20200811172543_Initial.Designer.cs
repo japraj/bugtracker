@@ -11,7 +11,7 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20200810214739_Initial")]
+    [Migration("20200811172543_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -313,8 +313,8 @@ namespace server.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Rank")
-                        .HasColumnType("integer");
+                    b.Property<byte>("Rank")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");

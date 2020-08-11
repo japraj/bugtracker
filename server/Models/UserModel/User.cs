@@ -16,7 +16,7 @@ namespace server.Models.UserModel
         public string Avatar { get; set; }
 
         [Required]
-        public int Rank { get; set; }
+        public byte Rank { get; set; }
 
         [Required]
         public List<int> Tickets { get; set; }

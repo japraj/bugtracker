@@ -63,7 +63,7 @@ namespace server.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Tag = table.Column<string>(maxLength: 15, nullable: true),
                     Avatar = table.Column<string>(nullable: false),
-                    Rank = table.Column<int>(nullable: false),
+                    Rank = table.Column<byte>(nullable: false),
                     Tickets = table.Column<List<int>>(nullable: false),
                     Activity = table.Column<List<int>>(nullable: false),
                     Notifications = table.Column<List<int>>(nullable: false),

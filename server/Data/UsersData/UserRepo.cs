@@ -1,5 +1,6 @@
 ﻿using server.Models.SessionModel;
 using server.Models.UserModel;
+using System;
 using System.Linq;
 
 #nullable enable
@@ -18,9 +19,9 @@ namespace server.Data.UsersData
         public bool SaveChanges() =>
             _context.SaveChanges() >= 0;
 
-
+        // Case insensitive search
         public User GetUserByTag(string tag) =>
-            _context.UserSet.FirstOrDefault(u => u.Tag == tag);
+            _context.UserSet.FirstOrDefault(u => u.Tag.ToLower() == tag.ToLower());
 
         public void AddSession(Session session)
         {

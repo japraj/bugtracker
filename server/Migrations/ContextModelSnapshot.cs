@@ -311,8 +311,8 @@ namespace server.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Rank")
-                        .HasColumnType("integer");
+                    b.Property<byte>("Rank")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");

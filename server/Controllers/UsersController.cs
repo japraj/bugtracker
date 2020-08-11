@@ -10,6 +10,7 @@ using server.Models.SessionModel;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using server.Data.AuthorizationHandler;
+using Newtonsoft.Json;
 
 #nullable enable
 
@@ -67,9 +68,12 @@ namespace server.Controllers
                 return BadRequest();
 
             // try creating a user; if success, then return a URI
-            IdentityResult result = await _userManager.CreateAsync(_mapper.Map<User>(user), user.Password);
+            User mappedUser = _mapper.Map<User>(user);
+            IdentityResult result = await _userManager.CreateAsync(mappedUser, user.Password);
             if (result.Succeeded)
-                return CreatedAtRoute(nameof(GetUserByTag), new { user.Tag }, _mapper.Map<UserReadDTO>(user));
+                return CreatedAtRoute(nameof(GetUserByTag),
+                                      new { user.Tag },
+                                      _mapper.Map<UserReadDTO>(mappedUser));
             foreach (var error in result.Errors)
             {
                 ModelState.TryAddModelError(error.Code, error.Description);
@@ -160,24 +164,40 @@ namespace server.Controllers
             // only accept a single patch at a time because the client cannot
             // make multiple patches simultaneously, meaning that the request 
             // is not sent by a legit client
-            if (patchDoc.Operations.Count > 0 || update == null)
+            if (patchDoc.Operations.Count > 1 || update == null)
                 return BadRequest();
 
-            // Validate that the user is allowed to make the update
+            // Check that the user is allowed to make the update and that it is valid
             switch (update.path)
             {
                 case "/Avatar":
-                    if (tag != requester.Tag)
+                    if (!String.Equals(tag, requester.Tag,
+                        StringComparison.OrdinalIgnoreCase))
                         return Forbid();
+                    if (JsonConvert.SerializeObject(update.value).Length == 0)
+                        return BadRequest();
                     break;
                 case "/Rank":
-                    Rank requiredRank = requester.Rank > (int)Rank.Developer
+                    try
+                    {
+                        string value = JsonConvert.SerializeObject(update.value).ToString();
+                        Rank newRank = (Rank)short.Parse(value);
+                        if (newRank < 0 || (int)newRank > Enum.GetNames(typeof(Rank)).Length - 1)
+                            return BadRequest();
+                        Rank requiredRank = persistentModel.Rank > (int)Rank.Developer
                         ? Rank.Admin
                         : Rank.Manager;
-                    if (requester.Rank == (int)Rank.User
-                        || persistentModel.Rank == (int)Rank.Admin
-                        || !auth.HasRank(requiredRank, requester))
-                        return Forbid();
+                        // Forbid if the requester does not have sufficient permissions
+                        if (requester.Rank == (int)Rank.User
+                             || persistentModel.Rank == (int)Rank.Admin
+                             || !auth.HasRank(requiredRank, requester)
+                             || !auth.HasRank(newRank, requester))
+                            return Forbid();
+                    }
+                    catch
+                    {
+                        return BadRequest();
+                    }
                     break;
                 default:
                     return BadRequest();
@@ -187,8 +207,6 @@ namespace server.Controllers
             // the model, the requester, and the update request are all non-null
             var updateModel = _mapper.Map<UserUpdateDTO>(persistentModel);
             patchDoc.ApplyTo(updateModel, ModelState);
-            if (!TryValidateModel(updateModel))
-                return ValidationProblem(ModelState);
             _mapper.Map(updateModel, persistentModel);
             _repository.SaveChanges();
             return NoContent();

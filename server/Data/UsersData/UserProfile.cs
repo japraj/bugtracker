@@ -19,9 +19,11 @@ namespace server.Data.UsersData
                             option => option.MapFrom(src => new List<int> { }))
                 .ForMember(user => user.Notifications,
                             option => option.MapFrom(src => new List<int> { }))
-                .ForMember(user => user.UserName, option => option.MapFrom(src => src.Tag));
+                .ForMember(user => user.UserName, option => option.MapFrom(src => src.Tag))
+                .ForMember(user => user.Rank, option => option.MapFrom(src => 1));
             CreateMap<UserCreateDTO, UserReadDTO>();
-            CreateMap<UserUpdateDTO, User>().ReverseMap();
+            CreateMap<UserUpdateDTO, User>();
+            CreateMap<User, UserUpdateDTO>();
         }
     }
 }
