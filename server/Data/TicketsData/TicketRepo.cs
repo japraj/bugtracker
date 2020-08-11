@@ -1,4 +1,6 @@
 ﻿using server.Models.TicketModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace server.Data.TicketsData
 {
@@ -31,6 +33,10 @@ namespace server.Data.TicketsData
                 _context.TicketSet.Update(ticket);
             }
         }
+
+        public IEnumerable<Ticket> GetAllTickets() => _context.TicketSet.ToList();
+
+        public void DeleteTicket(Ticket ticket) => _context.TicketSet.Remove(ticket);
 
     }
 }

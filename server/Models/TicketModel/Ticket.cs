@@ -49,6 +49,7 @@ namespace server.Models.TicketModel
         [Required]
         public List<int> Activity { get; set; }
 
+        // Number of comments
         [Required]
         public byte Comments { get; set; }
     }

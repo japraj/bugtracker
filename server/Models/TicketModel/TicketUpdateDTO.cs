@@ -2,7 +2,7 @@
 
 namespace server.Models.TicketModel
 {
-    public class TicketEditDTO
+    public class TicketUpdateDTO
     {
         public string Title { get; set; }
 

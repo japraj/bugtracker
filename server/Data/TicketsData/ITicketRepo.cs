@@ -9,6 +9,10 @@ namespace server.Data.TicketsData
 
         void AddTicket(Ticket ticket);
 
+        IEnumerable<Ticket> GetAllTickets();
+
         void UpdateTicket(Ticket newTicket);
+
+        void DeleteTicket(Ticket ticket);
     }
 }
