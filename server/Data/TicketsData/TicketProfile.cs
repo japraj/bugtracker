@@ -13,6 +13,8 @@ namespace server.Data.TicketsData
             // Source -> Target
             CreateMap<Ticket, TicketCollapsedDTO>();
             CreateMap<TicketCreateDTO, Ticket>()
+                .ForMember(ticket => ticket.Author,
+                            option => option.MapFrom<CreationResolver>())
                 .ForMember(ticket => ticket.CreationDate,
                             option => option.MapFrom(src => DateTime.Now))
                 .ForMember(ticket => ticket.UpdateDate,

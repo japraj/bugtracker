@@ -7,7 +7,7 @@ namespace server.Models.UserModel
         [Required, DataType(DataType.ImageUrl)]
         public string Avatar { get; set; }
 
-        [Required ]
+        [Required]
         public byte Rank { get; set; }
     }
 }

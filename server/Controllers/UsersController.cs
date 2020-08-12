@@ -171,7 +171,7 @@ namespace server.Controllers
             switch (update.path)
             {
                 case "/Avatar":
-                    if (!String.Equals(tag, requester.Tag,
+                    if (!string.Equals(tag, requester.Tag,
                         StringComparison.OrdinalIgnoreCase))
                         return Forbid();
                     if (JsonConvert.SerializeObject(update.value).Length == 0)

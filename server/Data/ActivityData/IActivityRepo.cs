@@ -1,4 +1,5 @@
 ﻿using server.Models.ActivityModel;
+using System.Collections.Generic;
 
 namespace server.Data.ActivityData
 {
@@ -8,6 +9,8 @@ namespace server.Data.ActivityData
         Activity GetActivityById(int id);
 
         void AddActivity(Activity activity);
+
+        IEnumerable<Activity> GetAllActivities();
 
         void UpdateActivity(Activity activity);
     }

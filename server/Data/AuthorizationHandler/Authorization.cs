@@ -57,7 +57,6 @@ namespace server.Data.AuthorizationHandler
             user == null
                 ? false
                 : IsAuthor(ticket, user.Tag);
-        
 
         public bool IsAuthor(int claimId, HttpRequest Request)
         {

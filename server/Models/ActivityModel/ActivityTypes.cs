@@ -2,8 +2,16 @@
 {
     public enum ActivityType
     {
-        Generic,
-        Comment,
-        User
+        CREATE,
+        DELETE,
+        COMMENT,
+        TITLE,
+        DESCRIPTION,
+        STATUS,
+        SEVERITY,
+        REPRODUCIBILITY,
+        TYPELABEL,
+        ASSIGNEES,
+        LINKS
     }
 }

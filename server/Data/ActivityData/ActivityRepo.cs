@@ -1,4 +1,6 @@
 ﻿using server.Models.ActivityModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace server.Data.ActivityData
 {
@@ -32,5 +34,7 @@ namespace server.Data.ActivityData
                 _context.ActivitySet.Update(activity);
             }
         }
+
+        public IEnumerable<Activity> GetAllActivities() => _context.ActivitySet.ToList();
     }
 }
