@@ -39,9 +39,19 @@ export default (props: Props) => {
           type={props.type}
           placeholder={props.placeholder}
           value={newVal}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setNewVal(event.target.value)
-          }
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setNewVal(event.target.value);
+            try {
+              if (
+                event.target.value.length !== 0 &&
+                event.target.value !== null &&
+                (props.type === "number"
+                  ? Number(event.target.value) !== 0
+                  : true)
+              )
+                props.onSubmit(event.target.value);
+            } catch {}
+          }}
           onKeyDown={(event: React.KeyboardEvent): void => {
             if (event.keyCode === 13) {
               event.preventDefault();
