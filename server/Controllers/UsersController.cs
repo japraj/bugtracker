@@ -57,8 +57,8 @@ namespace server.Controllers
             activityHandler = new ActivityHandler(userRepo, activityRepo, mapper);
         }
 
-        [HttpGet("{tag}", Name = "GetUserByTag")]
-        public async Task<IActionResult> GetUserByTag(string tag)
+        [HttpGet("{tag}", Name = "ByTag")]
+        public async Task<IActionResult> ByTag(string tag)
         {
             User? user = await _userManager.FindByNameAsync(tag);
             if (user == null)
@@ -76,7 +76,7 @@ namespace server.Controllers
             User mappedUser = _mapper.Map<User>(user);
             IdentityResult result = await _userManager.CreateAsync(mappedUser, user.Password);
             if (result.Succeeded)
-                return CreatedAtRoute(nameof(GetUserByTag),
+                return CreatedAtRoute(nameof(ByTag),
                                       new { user.Tag },
                                       _mapper.Map<UserReadDTO>(mappedUser));
             foreach (var error in result.Errors)
@@ -155,7 +155,7 @@ namespace server.Controllers
          */
 
         [HttpPatch("{tag}")]
-        public ActionResult PatchUser(string tag, JsonPatchDocument<UserUpdateDTO> patchDoc)
+        public ActionResult Patch(string tag, JsonPatchDocument<UserUpdateDTO> patchDoc)
         {
             if (!auth.IsAuthenticated(Request))
                 return Unauthorized();

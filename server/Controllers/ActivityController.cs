@@ -29,8 +29,8 @@ namespace server.Controllers
             auth = new Authorization(userRepo);
         }
 
-        [HttpGet("{id}", Name = "GetActivityById")]
-        public ActionResult<Activity> GetActivityById(int id)
+        [HttpGet("{id}", Name = "ById")]
+        public ActionResult<Activity> ById(int id)
         {
             Activity? activity = _repository.GetActivityById(id);
             if (activity == null)
