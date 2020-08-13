@@ -13,6 +13,7 @@ type Props = {
   onChange: (newValue: string) => void;
   options: SelectOption[];
   value?: number | string;
+  disabled?: boolean;
 };
 
 export default (props: Props) => {
@@ -36,6 +37,7 @@ export default (props: Props) => {
           fixedwidth={props.fixedWidth}
           width={props.width}
           mobilewidth={props.mobileWidth}
+          disabled={props.disabled == null ? false : props.disabled}
         >
           <Select
             labelId="select-label"

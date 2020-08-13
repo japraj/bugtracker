@@ -32,6 +32,7 @@ interface Props {
   submit: () => void;
   submitButtonText: string;
   displaySelects: boolean;
+  disableStatus?: boolean;
   displayDevSelects: boolean;
   displayAuthor: boolean;
   defaultTitle: string;
@@ -60,6 +61,7 @@ export default (props: Props) => {
                   props.update({ status: keyToIndex(newValue, Status) })
                 }
                 options={mapEnumToSelectOption("Status", Status)}
+                disabled={props.disableStatus}
               />
               <TicketFormSelect
                 onChange={(newValue: string) =>
@@ -133,6 +135,7 @@ export default (props: Props) => {
 const TicketFormSelect = (props: {
   onChange: (newValue: string) => void;
   options: SelectOption[];
+  disabled?: boolean;
 }) => (
   <SelectWrapper>
     <Select
@@ -140,6 +143,7 @@ const TicketFormSelect = (props: {
       {...props}
       width={250}
       mobileWidth={window.innerWidth < 350 ? 200 : 300}
+      disabled={props.disabled}
     />
   </SelectWrapper>
 );

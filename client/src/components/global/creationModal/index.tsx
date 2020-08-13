@@ -37,6 +37,7 @@ export default () => {
       submitButtonText="Submit"
       displaySelects={true}
       displayDevSelects={true}
+      disableStatus={true}
       displayAuthor={true}
       defaultTitle={ticket.title}
       defaultDesc={ticket.description}

@@ -13,6 +13,7 @@ interface FormProps {
   fixedwidth: boolean;
   width: number;
   mobilewidth: number;
+  disabled?: boolean;
 }
 
 export const Form = styled(FormControl)`
@@ -21,7 +22,10 @@ export const Form = styled(FormControl)`
 
   #select-label,
   #select {
-    color: var(--text-color);
+    color: ${(props: FormProps) =>
+      props.disabled == null || !props.disabled
+        ? "var(--text-color)"
+        : "rgba(255, 255, 255, 0.3)"};
   }
 
   #select {

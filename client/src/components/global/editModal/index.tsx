@@ -86,6 +86,7 @@ export default (props: {
         submitButtonText="Save"
         displaySelects={rank > NumericRank.User || isAuthor}
         displayDevSelects={rank > NumericRank.User}
+        // Do not need to disable status because it will only show up for devs
         displayAuthor={isAuthor}
         defaultTitle={props.title}
         defaultDesc={props.description}
