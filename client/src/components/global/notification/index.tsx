@@ -24,6 +24,12 @@ export default ({
 }) => {
   const dispatch = useDispatch();
   const imgLength: string = `${window.innerWidth > 1100 ? 50 : 40}px`;
+
+  var isValidId: boolean = true;
+  try {
+    isValidId = Number(notification.ticketId) !== -1;
+  } catch {}
+
   return (
     <Cell className={className} commentVariant={commentVariant}>
       <UserLink
@@ -57,8 +63,9 @@ export default ({
           for a smooth ux.
           */}
         <h5
+          className={!isValidId ? "disableHoverFx" : ""}
           onClick={() => {
-            if (!commentVariant) {
+            if (!commentVariant && isValidId) {
               dispatch(loadTicketById(notification.ticketId));
               onClick();
             }

@@ -65,6 +65,10 @@ export const CellText = styled.div`
     cursor: pointer;
   }
 
+  .disableHoverFx:hover {
+    cursor: auto;
+  }
+
   h6 {
     position: absolute;
     top: 0;
