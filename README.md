@@ -24,4 +24,4 @@ The front-end primarily consists of functional components with hooks and makes h
 
 - Postgresql
 
-The back-end uses cookies to manage authorization and .Net Core Identity for authentication.
+The back-end uses cookie based sessions for authorization and .Net Core Identity for authentication.
