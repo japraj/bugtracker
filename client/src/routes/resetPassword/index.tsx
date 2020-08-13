@@ -2,7 +2,7 @@ import React from "react";
 import Routes from "../../app/constants/routes";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuthenticated, logout } from "../../app/flux/slices/authSlice";
-import { theme } from "../../app/constants";
+import { theme, useStyles } from "../../app/constants";
 import { DarkWidgetWrapper } from "../../components/container/darkWidget";
 import clsx from "clsx";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -21,7 +21,6 @@ import {
   FormWidget,
   FormHeader,
   FormSection,
-  useStyles,
 } from "../formPage/styles";
 
 const checkTokenValidity = (token: string): boolean => {

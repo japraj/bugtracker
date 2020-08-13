@@ -106,6 +106,10 @@ export const ticketSlice = createSlice({
     wipeLocalChanges: (state) => {
       state.editedTicket = state.currentTicket;
     },
+    forceCloseDisplays: (state) => {
+      state.displayModal = false;
+      state.displayEditModal = false;
+    },
   },
 });
 
@@ -116,6 +120,7 @@ export const {
   toggleEditDisplay,
   updateEdit,
   wipeLocalChanges,
+  forceCloseDisplays,
 } = ticketSlice.actions;
 
 export const selectDisplayed = (state: RootState) => state.ticket.displayModal;

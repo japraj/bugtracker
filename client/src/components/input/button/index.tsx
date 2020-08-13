@@ -3,13 +3,16 @@ import styled from "styled-components";
 import ButtonBase from "@material-ui/core/ButtonBase";
 
 export default (props: {
-  className: string;
+  className?: string;
   onClick: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   return (
-    <Button className={props.className} onClick={props.onClick}>
-      {props.children}
+    <Button
+      className={props.className === null ? "" : props.className}
+      onClick={props.onClick}
+    >
+      {props.children === null ? <React.Fragment /> : props.children}
     </Button>
   );
 };

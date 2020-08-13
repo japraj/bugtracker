@@ -39,6 +39,7 @@ interface Props {
   defaultDesc: string;
   defaultLinks: string[];
   injectedNode: React.ReactNode;
+  controlsInjectable?: React.ReactNode;
 }
 
 export default (props: Props) => {
@@ -125,6 +126,7 @@ export default (props: Props) => {
           cancelCallback={props.close}
           submitCallback={props.submit}
           submitText={props.submitButtonText}
+          injectable={props.controlsInjectable}
           className="editControls"
         />
       </ContentWrapper>

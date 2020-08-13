@@ -4,6 +4,7 @@ import Button from "../button";
 
 interface Props {
   showCancel: boolean;
+  injectable?: React.ReactNode;
   cancelCallback: () => void;
   submitCallback: () => void;
   submitText: string;
@@ -13,6 +14,7 @@ interface Props {
 export default (props: Props) => {
   return (
     <ControlsWrapper className={props.className}>
+      {props.injectable === null ? <React.Fragment /> : props.injectable}
       <Cancel
         display={props.showCancel}
         className=""

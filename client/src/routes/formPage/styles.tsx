@@ -4,25 +4,6 @@ import {
   DarkWidgetSection,
 } from "../../components/container/darkWidget";
 import styled from "styled-components";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      flexWrap: "wrap",
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    withoutLabel: {
-      marginTop: theme.spacing(3),
-    },
-    textField: {
-      width: "25ch",
-    },
-  })
-);
 
 export const FormWidget = styled(DarkWidget)`
   width: 350px;
