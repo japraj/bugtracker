@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using server.Models.UserModel;
+using System;
 using System.Collections.Generic;
 
 namespace server.Data.UsersData
@@ -20,7 +21,8 @@ namespace server.Data.UsersData
                 .ForMember(user => user.Notifications,
                             option => option.MapFrom(src => new List<int> { }))
                 .ForMember(user => user.UserName, option => option.MapFrom(src => src.Tag))
-                .ForMember(user => user.Rank, option => option.MapFrom(src => 1));
+                .ForMember(user => user.Rank, option => option.MapFrom(src => 1))
+                .ForMember(user => user.CreationDate, option => option.MapFrom(src => DateTime.UtcNow));
             CreateMap<UserCreateDTO, UserReadDTO>();
             CreateMap<UserUpdateDTO, User>();
             CreateMap<User, UserUpdateDTO>();

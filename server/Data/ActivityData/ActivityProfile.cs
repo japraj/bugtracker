@@ -11,7 +11,7 @@ namespace server.Data.TicketsData
             // Source -> Target
             CreateMap<ActivityCreateDTO, Activity>()
                 .ForMember(Activity => Activity.CreationDate,
-                            option => option.MapFrom(src => DateTime.Now))
+                            option => option.MapFrom(src => DateTime.UtcNow))
                 .ForMember(Activity => Activity.Read,
                             options => options.MapFrom(src => false));
             CreateMap<Activity, ActivityReadDTO>();

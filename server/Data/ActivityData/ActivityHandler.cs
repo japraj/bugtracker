@@ -79,7 +79,7 @@ namespace server.Data.ActivityData
             {
                 if (activityCreate.Type == (int)ActivityType.COMMENT)
                     ticket.Comments++;
-                ticket.UpdateDate = DateTime.Now;
+                ticket.UpdateDate = DateTime.UtcNow;
                 ticket.Activity.Add(activity.Id);
             }
 

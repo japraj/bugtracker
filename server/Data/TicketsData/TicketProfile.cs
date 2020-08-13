@@ -16,9 +16,9 @@ namespace server.Data.TicketsData
                 .ForMember(ticket => ticket.Author,
                             option => option.MapFrom<CreationResolver>())
                 .ForMember(ticket => ticket.CreationDate,
-                            option => option.MapFrom(src => DateTime.Now))
+                            option => option.MapFrom(src => DateTime.UtcNow))
                 .ForMember(ticket => ticket.UpdateDate,
-                            option => option.MapFrom(src => DateTime.Now))
+                            option => option.MapFrom(src => DateTime.UtcNow))
                 .ForMember(ticket => ticket.Status,
                             option => option.MapFrom(src => 0))
                 .ForMember(ticket => ticket.Assignees,
