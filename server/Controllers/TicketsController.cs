@@ -29,17 +29,17 @@ namespace server.Controllers
 
         private readonly ITicketRepo _ticketRepo;
         private readonly IUserRepo _userRepo;
-        private readonly IActivityRepo _activityRepo;
         private readonly IMapper _mapper;
         private readonly Authorization auth;
+        private readonly ActivityHandler activityHandler;
 
-        public TicketsController(ITicketRepo ticketRepo, IActivityRepo activityRepo, IMapper mapper, IUserRepo userRepo)
+        public TicketsController(ITicketRepo ticketRepo, IUserRepo userRepo, IActivityRepo activityRepo, IMapper mapper)
         {
             _ticketRepo = ticketRepo;
             _userRepo = userRepo;
-            _activityRepo = activityRepo;
             _mapper = mapper;
             auth = new Authorization(userRepo, ticketRepo);
+            activityHandler = new ActivityHandler(ticketRepo,  userRepo, activityRepo, mapper);
         }
 
         [HttpGet("{id}", Name = "ById")]
@@ -83,7 +83,7 @@ namespace server.Controllers
             _ticketRepo.AddTicket(ticket);
             if (_ticketRepo.SaveChanges())
             {
-                AddActivity(author.Tag, ActivityType.CREATE, "", "", ticket, author, false);
+                activityHandler.AddActivity(ActivityType.CREATE, "", "", author, ticket, author, false, true);
                 return CreatedAtRoute(
                     nameof(ById),
                     new { ticket.Id },
@@ -117,32 +117,25 @@ namespace server.Controllers
 
             Rank rank = (Rank)requester.Rank;
             bool isAuthor = auth.IsAuthor(persistentModel, requester.Tag);
-            ActionResult? returnValue = null;
+            ActionResult? result = null;
 
             // Loop through each of the patches in the patchDoc, validating them and
-            // ensuring that the user is authorized to carry them out. Within the
-            // anonymous delegate, the statement 'return patch' is equivalent to using
-            // 'continue' and assigning a value to returnValue is equivalent to breaking
-            // from the validation loop (because all subsequent delegate calls will
-            // return immediately).
-            patchDoc.Operations.Select(delegate (Operation<TicketUpdateDTO> patch)
+            // ensuring that the user is authorized to carry them out.
+            foreach (Operation<TicketUpdateDTO> patch in patchDoc.Operations)
             {
-                if (returnValue != null)
-                    return patch;
                 if (patch.OperationType != OperationType.Replace)
-                {
-                    returnValue = BadRequest();
-                    return patch;
-                }
+                    return BadRequest();
 
                 // Local Function is used to minimize repetition between cases;
-                // ued for /Status, /Severity, /Reproducibility, /TypeLabel
-                void EvaluateSelectorProp(byte maxValue, bool requireAuthor)
+                // used for /Status, /Severity, /Reproducibility, /TypeLabel
+                ActionResult? EvaluateSelectorProp(byte maxValue, bool requireDev)
                 {
-                    if (rank < Rank.Developer || (requireAuthor && !isAuthor))
-                        returnValue = Forbid();
-                    else if ((byte)patch.value < 0 || (byte)patch.value > maxValue)
-                        returnValue = BadRequest();
+                    if (rank < Rank.Developer || (requireDev && !auth.HasRank(Rank.Developer, requester)))
+                        return Forbid();
+                    else if ((long)patch.value < 0 || (long)patch.value > maxValue)
+                        return BadRequest();
+                    else
+                        return null;
                 }
 
                 switch (patch.path)
@@ -150,63 +143,56 @@ namespace server.Controllers
                     case "/Title":
                     case "/Description":
                         if (!isAuthor)
-                            returnValue = Forbid();
+                            return Forbid();
                         else if (JsonConvert.SerializeObject(patch.value).Length == 0)
-                            returnValue = BadRequest();
+                            return BadRequest();
                         break;
                     case "/Status":
-                        EvaluateSelectorProp(MAX_STATUS_INDEX, false);
+                        result = EvaluateSelectorProp(MAX_STATUS_INDEX, true);
                         break;
                     case "/Severity":
-                        EvaluateSelectorProp(MAX_SEVERITY_INDEX, false);
+                        result = EvaluateSelectorProp(MAX_SEVERITY_INDEX, true);
                         break;
                     case "/Reproducibility":
-                        EvaluateSelectorProp(MAX_REPRODUCIBILITY_INDEX, true);
+                        result = EvaluateSelectorProp(MAX_REPRODUCIBILITY_INDEX, false);
                         break;
                     case "/TypeLabel":
-                        EvaluateSelectorProp(MAX_TYPELABEL_INDEX, true);
+                        result = EvaluateSelectorProp(MAX_TYPELABEL_INDEX, false);
                         break;
                     case "/Assignees":
                         if (rank < Rank.Manager)
-                            returnValue = Forbid();
+                            return Forbid();
                         break;
                     case "/ImageLinks":
                         if (!isAuthor)
-                            returnValue = Forbid();
+                            return Forbid();
                         break;
                     default:
-                        returnValue = BadRequest();
-                        break;
+                        return BadRequest();
                 }
-                return patch;
-            });
-
-            if (returnValue != null)
-                return returnValue;
+                if (result != null)
+                    return result;
+            }
 
             TicketUpdateDTO updateModel = _mapper.Map<TicketUpdateDTO>(persistentModel);
             patchDoc.ApplyTo(updateModel, ModelState);
             if (!TryValidateModel(updateModel))
                 return ValidationProblem(ModelState);
-            _mapper.Map(updateModel, persistentModel);
-            _ticketRepo.SaveChanges();
 
             // Generate activities for each update of the patchdoc. No validation required
             // because everything has gone smoothly up til this point
             byte index = 0;
-            patchDoc.Operations.Select(delegate (Operation<TicketUpdateDTO> patch)
+            foreach (Operation<TicketUpdateDTO> patch in patchDoc.Operations)
             {
-                index++;
                 // local Wrapper func for AddActivity which passes all static values
                 void AddActivity(ActivityType activity) =>
-                    this.AddActivity(requester.Tag, activity,
-                        persistentModel
-                            .GetType()
-                            .GetProperty(patch.path.Substring(1))
-                            .GetValue(persistentModel, null)
-                            .ToString(),
-                        JsonConvert.SerializeObject(patch.value),
-                        persistentModel, author, index == (byte)0);
+                    activityHandler.AddActivity(activity,
+                        ActivityHandler.Stringify(persistentModel
+                                    .GetType()
+                                    .GetProperty(patch.path.Substring(1))
+                                    .GetValue(persistentModel, null)),
+                        ActivityHandler.Stringify(patch.value), requester,
+                        persistentModel, author, index == 0, false);
 
                 switch (patch.path)
                 {
@@ -235,8 +221,13 @@ namespace server.Controllers
                         AddActivity(ActivityType.LINKS);
                         break;
                 }
-                return patch;
-            });
+
+                index++;
+            }
+
+            _mapper.Map(updateModel, persistentModel);
+            _ticketRepo.SaveChanges();  
+
             return NoContent();
         }
 
@@ -246,13 +237,15 @@ namespace server.Controllers
             if (!auth.IsAuthenticated(Request))
                 return Unauthorized();
 
+            if (comment.Message.Length == 0)
+                return BadRequest();
+
             User? requester = auth.GetUserFromCookie(Request);
             if (requester == null)
                 return NotFound();
 
-            ActionResult? result = GenerateActivity(requester, ActivityType.COMMENT, "", comment.Message, (byte)comment.TicketID, true);
-            if (result != null)
-                return result;
+            if (!activityHandler.GenerateActivity(ActivityType.COMMENT, "", comment.Message, requester, (byte)comment.TicketID, true))
+                return NotFound();
             else
                 return NoContent();
         }
@@ -264,85 +257,20 @@ namespace server.Controllers
                 return Unauthorized();
 
             Ticket? ticket = _ticketRepo.GetTicketById(id);
-            if (ticket == null)
+            User? requester = auth.GetUserFromCookie(Request);
+            if (ticket == null || requester == null)
                 return NotFound();
-
-            User requester = auth.GetUserFromCookie(Request);
 
             if (!auth.IsAuthor(ticket, requester) && !auth.HasRank(Rank.Developer, requester))
                 return Forbid();
 
-            ActionResult? result = GenerateActivity(requester, ActivityType.DELETE, "", "", ticket, true);
-            if (result != null)
-                return result;
+            if (!activityHandler.GenerateActivity(ActivityType.DELETE, "", "", requester, ticket, true))
+                return NotFound();
 
             _ticketRepo.DeleteTicket(ticket);
             _ticketRepo.SaveChanges();
 
             return NoContent();
-        }
-
-        // The below methods do NOT handle validation of their parameters
-
-        // Handle creation of an ActivityCreateDTO given all the necessary information and pass it to the below function.
-        [NonAction]
-        private void AddActivity(string RequesterTag, ActivityType Type, string Old, string New, Ticket ticket, User author, bool notifyAuthor) =>
-            AddActivity(new ActivityCreateDTO
-            {
-                Author = RequesterTag,
-                Type = (byte)Type,
-                Old = Old,
-                New = New,
-                TicketID = ticket.Id
-            }, ticket, author, notifyAuthor);
-
-        // Add an activity object to the activity set and update the attached ticket's activity list and optionally
-        // notify the author of the ticket
-        [NonAction]
-        private void AddActivity(ActivityCreateDTO activityCreate, Ticket ticket, User author, bool notifyAuthor)
-        {
-            Activity activity = _mapper.Map<Activity>(activityCreate);
-            _activityRepo.AddActivity(activity);
-            _activityRepo.SaveChanges();
-
-            if (activityCreate.Type != (int)ActivityType.CREATE)
-            {
-                if (activityCreate.Type == (int)ActivityType.COMMENT)
-                    ticket.Comments++;
-                ticket.Activity.Add(activity.Id);
-                _ticketRepo.SaveChanges();
-            }
-
-            if (notifyAuthor)
-            {
-                author.Activity.Add(activity.Id);
-                _userRepo.SaveChanges();
-            }
-        }
-
-        // The below methods are wrappers around AddActivity which handle parameter validation/resource loading for us
-        [NonAction]
-        private ActionResult? GenerateActivity(User Requester, ActivityType Type, string Old, string New, byte TicketID, bool notifyAuthor)
-        {
-            Ticket? ticket = _ticketRepo.GetTicketById(TicketID);
-            if (ticket == null)
-                return NotFound();
-
-            return GenerateActivity(Requester, Type, Old, New, ticket, notifyAuthor);
-        }
-
-        [NonAction]
-        private ActionResult? GenerateActivity(User Requester, ActivityType Type, string Old, string New, Ticket ticket, bool notifyAuthor)
-        {
-            User? author = _userRepo.GetUserByTag(ticket.Author);
-
-            if (author == null || Requester == null)
-                return NotFound();
-            if (New.Length == 0)
-                return BadRequest();
-
-            AddActivity(Requester.Tag, Type, Old, New, ticket, author, notifyAuthor);
-            return null;
         }
     }
 }

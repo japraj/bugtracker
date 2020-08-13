@@ -27,7 +27,7 @@ namespace server.Data.TicketsData
                             option => option.MapFrom(src => new List<int> { }))
                 .ForMember(ticket => ticket.Comments,
                             option => option.MapFrom(src => 0));
-            CreateMap<TicketUpdateDTO, Ticket>();
+            CreateMap<TicketUpdateDTO, Ticket>().ReverseMap();
         }
     }
 }

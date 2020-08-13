@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using server.Data.ActivityData;
+using server.Data.AuthorizationHandler;
+using server.Data.UsersData;
 using server.Models.ActivityModel;
+using server.Models.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 #nullable enable
 
@@ -14,12 +19,14 @@ namespace server.Controllers
     public class ActivityController : ControllerBase
     {
         private readonly IActivityRepo _repository;
+        private readonly Authorization auth;
         private readonly IMapper _mapper;
 
-        public ActivityController(IActivityRepo repository, IMapper mapper)
+        public ActivityController(IActivityRepo repository, IMapper mapper, IUserRepo userRepo)
         {
             _repository = repository;
             _mapper = mapper;
+            auth = new Authorization(userRepo);
         }
 
         [HttpGet("{id}", Name = "GetActivityById")]
@@ -32,7 +39,7 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ActivityReadDTO>> GetAll ()
+        public ActionResult<IEnumerable<ActivityReadDTO>> GetAll()
         {
             try
             {
@@ -46,7 +53,33 @@ namespace server.Controllers
             {
                 return NotFound();
             }
-         }
+        }
+
+        [HttpPatch]
+        public ActionResult ReadAll()
+        {
+            if (!auth.IsAuthenticated(Request))
+                return Unauthorized();
+            try
+            {
+                foreach (int activityID in auth.GetUserFromCookie(Request)?.Activity)
+                {
+                    Activity activity = _repository.GetActivityById(activityID);
+                    if (activity == null)
+                        return NotFound();
+                    else
+                        activity.Read = true;
+                }
+                if (!_repository.SaveChanges())
+                    throw new Exception();
+                else
+                    return NoContent();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
 
     }
 }

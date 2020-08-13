@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using server.Data.AuthorizationHandler;
 using Newtonsoft.Json;
+using server.Data.ActivityData;
+using server.Data.TicketsData;
+using server.Models.ActivityModel;
 
 #nullable enable
 
@@ -26,6 +29,7 @@ namespace server.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly Authorization auth;
+        private readonly ActivityHandler activityHandler;
         private readonly CookieOptions cookieOptions = new CookieOptions
         {
             Path = "/",
@@ -42,14 +46,15 @@ namespace server.Controllers
         };
 
 
-        public UsersController(IUserRepo repository, IMapper mapper,
-            UserManager<User> userManager, SignInManager<User> signInManager)
+        public UsersController(IUserRepo userRepo, IActivityRepo activityRepo,
+            IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _repository = repository;
+            _repository = userRepo;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
-            auth = new Authorization(repository);
+            auth = new Authorization(userRepo);
+            activityHandler = new ActivityHandler(userRepo, activityRepo, mapper);
         }
 
         [HttpGet("{tag}", Name = "GetUserByTag")]
@@ -167,15 +172,28 @@ namespace server.Controllers
             if (patchDoc.Operations.Count > 1 || update == null)
                 return BadRequest();
 
+            bool isOwner = string.Equals(tag, requester.Tag,
+                        StringComparison.OrdinalIgnoreCase);
+
+            // local Wrapper func for AddActivity which passes all static values
+            void AddActivity(ActivityType activity, bool notify) =>
+                activityHandler.AddUserActivity(activity,
+                    ActivityHandler.Stringify(persistentModel
+                                .GetType()
+                                .GetProperty(update.path.Substring(1))
+                                .GetValue(persistentModel, null)),
+                    ActivityHandler.Stringify(update.value),
+                    requester, persistentModel, notify);
+
             // Check that the user is allowed to make the update and that it is valid
             switch (update.path)
             {
                 case "/Avatar":
-                    if (!string.Equals(tag, requester.Tag,
-                        StringComparison.OrdinalIgnoreCase))
+                    if (!isOwner && !auth.HasRank(Rank.Admin, requester))
                         return Forbid();
                     if (JsonConvert.SerializeObject(update.value).Length == 0)
                         return BadRequest();
+                    AddActivity(ActivityType.AVATAR, !isOwner);
                     break;
                 case "/Rank":
                     try
@@ -198,6 +216,7 @@ namespace server.Controllers
                     {
                         return BadRequest();
                     }
+                    AddActivity(ActivityType.RANK, true);
                     break;
                 default:
                     return BadRequest();

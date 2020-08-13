@@ -12,6 +12,8 @@
         REPRODUCIBILITY,
         TYPELABEL,
         ASSIGNEES,
-        LINKS
+        LINKS,
+        RANK,
+        AVATAR
     }
 }

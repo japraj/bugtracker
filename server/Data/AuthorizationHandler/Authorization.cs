@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using server.Models.UserModel;
+using System;
 using server.Models.SessionModel;
+using server.Models.TicketModel;
+using server.Models.UserModel;
 using server.Data.UsersData;
 using server.Data.TicketsData;
-using System;
-using server.Models.TicketModel;
 
 #nullable enable
 
