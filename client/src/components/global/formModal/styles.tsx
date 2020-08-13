@@ -23,7 +23,6 @@ export const SelectGrid = styled.div`
   position: relative;
   ${(props: { display: boolean }) => (props.display ? "" : "display: none;")}
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.23);
   background-color: rgba(255, 255, 255, 0.1);
   padding: 18.5px 14px 2rem;
   margin: 2rem auto;
