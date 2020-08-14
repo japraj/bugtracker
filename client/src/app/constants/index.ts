@@ -22,40 +22,6 @@ export interface User {
 }
 // Local User (the user that is using the client)
 
-export enum NumericRank {
-  Blacklisted,
-  User,
-  Developer,
-  Manager,
-  Admin,
-}
-
-export enum UserRank {
-  "Blacklisted",
-  "User",
-  "Developer",
-  "Manager",
-  "Admin",
-}
-
-export enum UserRankColors {
-  "null",
-  "grey",
-  "lightblue",
-  "lightgreen",
-  "darkred",
-}
-// Above is the background-color of the badge that appears in the popper
-
-export enum UserNameColors {
-  "lightgrey",
-  "white",
-  "brightblue",
-  "brightgreen",
-  "darkred",
-}
-// This is the color of the username.
-
 export interface Notification {
   date: string;
   author: UserInfo;

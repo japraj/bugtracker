@@ -5,12 +5,8 @@ import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton";
-import {
-  UserInfo,
-  UserNameColors,
-  UserRank,
-  UserRankColors,
-} from "../../../app/constants";
+import { UserInfo } from "../../../app/constants";
+import { RankObject, getRankObj } from "../../../app/constants/rank";
 // Use a css file because of Material UI's portal functionality.
 // in short, Material UI places the Popper and all its children
 // in a separate div (meaning it is no longer a child of profile
@@ -42,8 +38,8 @@ interface Props {
 
 export default (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
   const open = Boolean(anchorEl);
+  const rank: RankObject = getRankObj(props.userInfo.rank);
 
   return (
     <ProfileWrapper
@@ -70,7 +66,7 @@ export default (props: Props) => {
         showTag={props.styleConfig.showTag}
         marginLeft={props.styleConfig.internalSpacing}
         fontSize={props.styleConfig.tagSize}
-        color={`var(--theme-${UserNameColors[props.userInfo.rank]})`}
+        color={`var(--theme-${rank.nameColor})`}
       >
         {props.userInfo.tag}
       </ProfileTag>
@@ -95,13 +91,11 @@ export default (props: Props) => {
               <Chip
                 style={{
                   color: "white",
-                  backgroundColor: `var(--theme-${
-                    UserRankColors[props.userInfo.rank]
-                  })`,
+                  backgroundColor: `var(--theme-${rank.badgeColor})`,
                 }}
                 variant="outlined"
                 size="small"
-                label={UserRank[props.userInfo.rank]}
+                label={rank.name}
               />
               <LinkButton
                 to={`${Routes.USER}/${props.userInfo.tag}`}

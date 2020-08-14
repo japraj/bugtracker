@@ -2,11 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../../app/flux/slices/userSlice";
 import { selectUserRank } from "../../../app/flux/slices/authSlice";
-import {
-  keyToIndex,
-  mapEnumToSelectOption,
-  UserRank,
-} from "../../../app/constants";
+import { keyToIndex, mapEnumToSelectOption } from "../../../app/constants";
+import { Rank } from "../../../app/constants/rank";
 import {
   WidgetWrapper,
   WidgetHeader,
@@ -45,10 +42,8 @@ export default () => {
             fixedWidth={false}
             width={150}
             mobileWidth={115}
-            onChange={(newValue: string) =>
-              setRank(keyToIndex(newValue, UserRank))
-            }
-            options={mapEnumToSelectOption("Rank", UserRank)}
+            onChange={(newValue: string) => setRank(keyToIndex(newValue, Rank))}
+            options={mapEnumToSelectOption("Rank", Rank)}
             value={rank}
           />
         }

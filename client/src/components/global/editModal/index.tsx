@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  NumericRank,
   UserInfo,
   EditedTicket,
   getUsersFromTags,
   getTagsFromUsers,
 } from "../../../app/constants";
+import { Rank } from "../../../app/constants/rank";
 import {
   updateEdit,
   wipeLocalChanges,
@@ -72,7 +72,7 @@ export default (props: {
 
   return (
     <React.Fragment>
-      <ButtonWrapper show={rank > NumericRank.User || isAuthor}>
+      <ButtonWrapper show={rank > Rank.User || isAuthor}>
         <EditIcon className="" onClick={toggle}>
           <Icon>create</Icon>
         </EditIcon>
@@ -85,15 +85,15 @@ export default (props: {
         update={update}
         submit={submit}
         submitButtonText="Save"
-        displaySelects={rank > NumericRank.User || isAuthor}
-        displayDevSelects={rank > NumericRank.User}
+        displaySelects={rank > Rank.User || isAuthor}
+        displayDevSelects={rank > Rank.User}
         // Do not need to disable status because it will only show up for devs
         displayAuthor={isAuthor}
         defaultTitle={props.title}
         defaultDesc={props.description}
         defaultLinks={editedTicket.imageLinks}
         injectedNode={
-          <AssignmentContainer display={rank > NumericRank.Developer}>
+          <AssignmentContainer display={rank > Rank.Developer}>
             <ContainerLabel label="Assignees" />
             <UserLinkGrid
               className="userLinkGrid"
@@ -116,7 +116,7 @@ export default (props: {
           </AssignmentContainer>
         }
         controlsInjectable={
-          <DeletionModal display={isAuthor || rank > NumericRank.Developer} />
+          <DeletionModal display={isAuthor || rank > Rank.Developer} />
         }
       />
     </React.Fragment>

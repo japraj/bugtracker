@@ -12,7 +12,7 @@ import { setCollapsedTickets } from "./flux/slices/tableSlice";
 import { setRecentActivity } from "./flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "./seed";
 import Endpoints from "./constants/api";
-import { NumericRank, User } from "./constants";
+import { User } from "./constants";
 
 import FancyLoading, {
   LoadWrapper,
@@ -44,7 +44,7 @@ export default hot(() => {
     //     profileImg:
     //       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia2.s-nbcnews.com%2Fi%2Fstreams%2F2014%2FOctober%2F141022%2F1D274907053597-141022_today-pets-dog-tease-ae.jpg&f=1&nofb=1",
     //     tag: "Spongebob",
-    //     rank: NumericRank.Admin,
+    //     rank: Rank.Admin,
     //   },
     // };
 

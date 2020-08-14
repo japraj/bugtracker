@@ -4,11 +4,12 @@ import { selectUserInfo } from "../../../app/flux/slices/userSlice";
 import { WidgetWrapper } from "../../../components/container/widget";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
-import { UserRank, UserRankColors } from "../../../app/constants";
+import { RankObject, getRankObj } from "../../../app/constants/rank";
 import styled from "styled-components";
 
 export default () => {
   const user = useSelector(selectUserInfo);
+  const rank: RankObject = getRankObj(user.rank);
 
   return (
     <Container>
@@ -25,11 +26,11 @@ export default () => {
           <Chip
             style={{
               color: "white",
-              backgroundColor: `var(--theme-${UserRankColors[user.rank]})`,
+              backgroundColor: `var(--theme-${rank.badgeColor})`,
             }}
             variant="outlined"
             size="medium"
-            label={UserRank[user.rank]}
+            label={rank.name}
           />
         </CardBody>
       </ProfileCard>
