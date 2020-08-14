@@ -5,7 +5,7 @@ import {
   DarkWidgetHeader,
   DarkWidgetSection,
 } from "../../components/container/darkWidget";
-import { Alert } from "rsuite";
+import { toast } from "react-toastify";
 import TextFieldButton from "../../components/input/textfieldButton";
 import styled from "styled-components";
 
@@ -25,9 +25,9 @@ export default () => {
             onSubmit={(value: string | undefined) => {
               if (value) {
                 // make a post request to the backend
-                Alert.success(
+                toast.success(
                   "You will recieve a url to reset your password soon. This url will expire after 30 minutes. If you do not recieve an e-mail within 5 minutes, please check your junk folder before trying again.",
-                  30000
+                  { autoClose: false }
                 );
               }
             }}

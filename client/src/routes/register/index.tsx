@@ -2,7 +2,7 @@ import React from "react";
 import FormPage from "../formPage";
 import Routes from "../../app/constants/routes";
 import history from "../history";
-import { Alert } from "rsuite";
+import { toast } from "react-toastify";
 
 interface State {
   emailError: boolean;
@@ -23,7 +23,7 @@ export default () => {
     const duplicateEmail: boolean = true;
 
     if (duplicateEmail)
-      Alert.error("An account with this e-mail already exists.", 3000);
+      toast.error("An account with this e-mail already exists.");
 
     const emailError: boolean = true;
     const usernameError: boolean = true;

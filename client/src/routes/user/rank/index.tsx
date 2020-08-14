@@ -14,7 +14,7 @@ import {
 import Icon from "@material-ui/core/Icon";
 import Select from "../../../components/input/select";
 import EditControls from "../../../components/input/editControls";
-import { Alert } from "rsuite";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 export default () => {
@@ -25,11 +25,10 @@ export default () => {
   const updateRank = () => {
     if (clientRank >= rank && clientRank > user.rank) {
       // make a post request updating the user's rank.
-      Alert.success("Successfully updated user's rank.", 2000);
+      toast.success("Successfully updated user's rank.");
     } else {
-      Alert.error(
-        "You do not have sufficient permissions to perform this operation.",
-        2000
+      toast.error(
+        "You do not have sufficient permissions to perform this operation."
       );
     }
   };

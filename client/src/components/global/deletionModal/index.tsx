@@ -4,7 +4,7 @@ import {
   forceCloseDisplays,
   selectTicket,
 } from "../../../app/flux/slices/ticketSlice";
-import { Alert } from "rsuite";
+import { toast } from "react-toastify";
 import Modal from "@material-ui/core/Modal";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -47,7 +47,7 @@ export default (props: { display: boolean }) => {
       dispatch(forceCloseDisplays());
       // Make fetch request deleting stuff,
       // remove from store.
-      Alert.success(`Successfully deleted issue #${ticket.id}`, 3000);
+      toast.success(`Successfully deleted issue #${ticket.id}`);
     }
   };
 

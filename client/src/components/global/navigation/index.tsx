@@ -59,10 +59,6 @@ export default () => {
   const authenticated: boolean = useSelector(selectAuthenticated);
   const collapsed: boolean = useSelector(selectCollapsed);
   const toggle = () => {
-    document.documentElement.style.setProperty(
-      "--rs-alert-offset",
-      !collapsed ? "26.5px" : "87.5px"
-    );
     dispatch(toggleCollapse());
   };
   return (

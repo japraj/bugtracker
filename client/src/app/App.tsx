@@ -18,6 +18,7 @@ import FancyLoading, {
   LoadWrapper,
 } from "../components/global/loadingRing/FancyLoading";
 import ContentWrapper from "../components/container/contentWrapper";
+import ToastContainer from "../components/global/toastContainer";
 
 import Navigation from "../components/global/navigation";
 import { selectSideNavWidth } from "./flux/slices/navigationSlice";
@@ -29,7 +30,6 @@ import history from "../routes/history";
 import Routes from "../routes/Routes";
 
 import "./App.css";
-import "../components/global/alert/Alert.css";
 
 const Context = React.createContext(initialState);
 
@@ -114,6 +114,7 @@ export default hot(() => {
             <Routes />
           </ContentWrapper>
           <TicketModal />
+          <ToastContainer />
         </Router>
       ) : (
         <LoadWrapper>

@@ -14,7 +14,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "../../components/input/button";
-import { Alert } from "rsuite";
+import { toast } from "react-toastify";
 import history from "../history";
 import {
   FormWrapper,
@@ -52,7 +52,7 @@ export default ({ match }: { match: any }) => {
   const submit = () => {
     if (fields[0] !== fields[1]) {
       setError(true);
-      Alert.error("Passwords do not match.");
+      toast.error("Passwords do not match.");
       return;
     }
     // make a post request resetting password

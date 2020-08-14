@@ -14,7 +14,7 @@ import {
 import Icon from "@material-ui/core/Icon";
 import Avatar from "@material-ui/core/Avatar";
 import TextfieldButton from "../../../components/input/textfieldButton";
-import { Alert } from "rsuite";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 export default () => {
@@ -48,11 +48,10 @@ export default () => {
             if (isAuthor) {
               // make a post request to the backend updating the user's profile image
               // use local state
-              Alert.success("Successfully updated avatar.", 2000);
+              toast.success("Successfully updated avatar.");
             } else {
-              Alert.error(
-                "You do not have sufficient permissions to perform this operation.",
-                2000
+              toast.error(
+                "You do not have sufficient permissions to perform this operation."
               );
             }
           }}
