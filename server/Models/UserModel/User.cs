@@ -31,15 +31,6 @@ namespace server.Models.UserModel
         public List<int> Notifications { get; set; }
         // List of activity Ids
 
-        // A session key is a 30char string;
-        // the first 5-15 characters are equal to
-        // the user's tag while the remaining are
-        // randomly generated. An skey is always
-        // regenerated upon login and used in all
-        // protected requests. Skeys are wiped on
-        // logout.
-        public string SessionKey { get; set; }
-
         [Required, DataType(DataType.DateTime)]
         public DateTime CreationDate { get; set; }
     }
