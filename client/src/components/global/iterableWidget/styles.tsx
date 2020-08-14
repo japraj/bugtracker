@@ -57,9 +57,5 @@ export const Fallback = styled(WidgetSection)`
     margin-left: 0 !important;
     padding: 10% 1rem 15%;
     font-style: italic;
-
-    @media (min-width: 800px) {
-      padding-top: 0;
-    }
   }
 `;
