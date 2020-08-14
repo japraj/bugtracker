@@ -31,7 +31,6 @@ import "./App.css";
 import "../components/global/alert/Alert.css";
 
 const Context = React.createContext(initialState);
-// const serverURL: string = "localhost:5000";
 
 export default hot(() => {
   const dispatch = useDispatch();
