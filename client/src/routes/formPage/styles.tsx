@@ -8,6 +8,10 @@ import styled from "styled-components";
 export const FormWidget = styled(DarkWidget)`
   width: 350px;
 
+  .MuiFormControl-root {
+    margin: 8px;
+  }
+
   @media (max-width: 380px) {
     width: 90vw;
   }
