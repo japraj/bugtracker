@@ -11,6 +11,7 @@ import {
 import { setCollapsedTickets } from "./flux/slices/tableSlice";
 import { setRecentActivity } from "./flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "./seed";
+import Endpoints from "./constants/api";
 import { NumericRank, User } from "./constants";
 
 import FancyLoading, {
@@ -35,25 +36,65 @@ const Context = React.createContext(initialState);
 export default hot(() => {
   const dispatch = useDispatch();
   const initialLoad = () => {
-    let user: User = {
-      authenticated: true,
-      id: 0,
-      notifications: generateNotificationSet(5),
-      info: {
-        profileImg:
-          "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia2.s-nbcnews.com%2Fi%2Fstreams%2F2014%2FOctober%2F141022%2F1D274907053597-141022_today-pets-dog-tease-ae.jpg&f=1&nofb=1",
-        tag: "Spongebob",
-        rank: NumericRank.Admin,
-      },
-    };
-    // User loading logic; make fetch request to serverURL
-    // (must specify the endpoint though), store results
-    // in user var. Don't forget to remove the setTimeout!
+    // let user: User = {
+    //   authenticated: true,
+    //   id: 0,
+    //   notifications: generateNotificationSet(5),
+    //   info: {
+    //     profileImg:
+    //       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia2.s-nbcnews.com%2Fi%2Fstreams%2F2014%2FOctober%2F141022%2F1D274907053597-141022_today-pets-dog-tease-ae.jpg&f=1&nofb=1",
+    //     tag: "Spongebob",
+    //     rank: NumericRank.Admin,
+    //   },
+    // };
 
-    dispatch(setCollapsedTickets(generateTicketSet(20)));
-    dispatch(setRecentActivity(generateNotificationSet(5)));
-    dispatch(loadUser(user));
-    setTimeout(() => dispatch(finishedLoading()), 0);
+    fetch(Endpoints.LOAD_SESSION, { method: "GET" })
+      .then((res) => res.json())
+      .then((res: any) => {
+        console.log(res);
+        try {
+          if (res.status < 300 && res.status >= 200)
+            dispatch(loadUser(Object.assign({}, res)));
+        } catch {}
+      })
+      .catch(() => {});
+
+    fetch(Endpoints.GET_COLLAPSED, { method: "GET" })
+      .then((res) => res.json())
+      .then((res: any) =>
+        dispatch(
+          setCollapsedTickets(res.map((dto: any) => Object.assign({}, dto)))
+        )
+      )
+      .catch((err) => console.log(err));
+
+    fetch(Endpoints.GET_ALL_ACTIVITY, { method: "GET" })
+      .then((res) => res.json())
+      .then((res) =>
+        dispatch(
+          setRecentActivity(
+            res.map((dto: any) =>
+              Object.assign(
+                {},
+                {
+                  author: dto.author,
+                  date: dto.creationDate,
+                  message: dto.type,
+                  ticketId: dto.ticketID,
+                  new: dto.read,
+                }
+              )
+            )
+          )
+        )
+      )
+      .catch((err) => console.log(err))
+      .finally(() => dispatch(finishedLoading()));
+
+    // dispatch(loadUser(user));
+    // dispatch(setCollapsedTickets(generateTicketSet(20)));
+    // dispatch(setRecentActivity(generateNotificationSet(5)));
+    // setTimeout(() => dispatch(finishedLoading()), 0);
   };
 
   React.useEffect(initialLoad, [dispatch]);

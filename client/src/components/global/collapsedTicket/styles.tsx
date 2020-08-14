@@ -23,6 +23,7 @@ export const TicketHeader = styled.div`
   margin-bottom: 0.4rem;
 
   h1 {
+    display: flex;
     width: calc(92% - ${statLen});
     white-space: nowrap;
     overflow: hidden;
