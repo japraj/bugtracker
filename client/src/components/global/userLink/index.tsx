@@ -7,6 +7,8 @@ import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton";
 import { UserInfo } from "../../../app/constants";
 import { RankObject, getRankObj } from "../../../app/constants/rank";
+import { selectElementByKey } from "../../../app/flux/slices/contextSlice";
+import { useSelector } from "react-redux";
 // Use a css file because of Material UI's portal functionality.
 // in short, Material UI places the Popper and all its children
 // in a separate div (meaning it is no longer a child of profile
@@ -32,14 +34,17 @@ interface StyleConfig {
 
 interface Props {
   styleConfig: StyleConfig;
-  userInfo: UserInfo;
+  userTag: string;
   onRedirect?: () => void;
 }
 
 export default (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
-  const rank: RankObject = getRankObj(props.userInfo.rank);
+  const user: UserInfo = useSelector(selectElementByKey("users"))(
+    props.userTag
+  );
+  const rank: RankObject = getRankObj(user.rank);
 
   return (
     <ProfileWrapper
@@ -53,7 +58,7 @@ export default (props: Props) => {
     >
       {props.styleConfig.showImg ? (
         <Avatar
-          src={props.userInfo.profileImg}
+          src={user.profileImg}
           style={{
             width: props.styleConfig.imgLength,
             height: props.styleConfig.imgLength,
@@ -68,7 +73,7 @@ export default (props: Props) => {
         fontSize={props.styleConfig.tagSize}
         color={`var(--theme-${rank.nameColor})`}
       >
-        {props.userInfo.tag}
+        {user.tag}
       </ProfileTag>
       <Popper
         style={{ zIndex: 13 }}
@@ -81,13 +86,13 @@ export default (props: Props) => {
           <Fade {...TransitionProps} timeout={150}>
             <PopperContent>
               <Avatar
-                src={props.userInfo.profileImg}
+                src={user.profileImg}
                 style={{
                   width: "70px",
                   height: "70px",
                 }}
               />
-              <PopperTag>{props.userInfo.tag}</PopperTag>
+              <PopperTag>{user.tag}</PopperTag>
               <Chip
                 style={{
                   color: "white",
@@ -98,7 +103,7 @@ export default (props: Props) => {
                 label={rank.name}
               />
               <LinkButton
-                to={`${Routes.USER}/${props.userInfo.tag}`}
+                to={`${Routes.USER}/${user.tag}`}
                 onClick={() =>
                   props.onRedirect !== undefined ? props.onRedirect() : {}
                 }

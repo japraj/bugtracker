@@ -5,7 +5,7 @@ import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import styled from "styled-components";
 
 export interface Props {
-  users: UserInfo[];
+  users: string[];
   maxLinks: number;
   imgLength: string;
   onClick?: () => void;
@@ -14,10 +14,10 @@ export interface Props {
 export default (props: Props) => (
   <AssigneesWrapper>
     <Assignees max={props.maxLinks}>
-      {props.users.map((user) => (
+      {props.users.map((userTag) => (
         <UserLink
-          key={user.tag}
-          userInfo={user}
+          key={userTag}
+          userTag={userTag}
           styleConfig={{
             className: "stacked",
             showImg: true,

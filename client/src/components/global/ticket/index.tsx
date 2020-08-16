@@ -84,7 +84,7 @@ export default () => {
             name="Author"
             content={
               <UserLink
-                userInfo={ticket.author}
+                userTag={ticket.author}
                 styleConfig={{
                   className: "author",
                   showImg: true,

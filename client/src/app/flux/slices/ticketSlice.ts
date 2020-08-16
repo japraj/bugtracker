@@ -8,24 +8,22 @@ export interface TicketState {
   displayModal: boolean;
   failedImages: number;
   currentTicket: Ticket;
-  // A set of all developers, used in edit modal's assignment section
   displayEditModal: boolean;
-  developers: UserInfo[];
+  // A set of all developers, used in edit modal's assignment section
+  developers: string[];
   editedTicket: EditedTicket;
 }
 
-const generateComplement = (
-  universe: UserInfo[],
-  subset: UserInfo[]
-): UserInfo[] =>
-  universe.filter((user) => {
-    for (let subsetUser of subset)
-      if (user.tag === subsetUser.tag) return false;
-    return true;
-  });
+const generateComplement = (universe: string[], subset: string[]): string[] =>
+  universe.filter(
+    (user) => subset.indexOf(user) !== -1
+    // for (let subsetUser of subset)
+    //   if (user === subsetUser) return false;
+    // return true;}
+  );
 
-const fetchDevs = (): UserInfo[] => {
-  return User;
+const fetchDevs = (): string[] => {
+  return User.map((user) => user.tag);
 };
 
 const initialState: TicketState = {
@@ -33,11 +31,7 @@ const initialState: TicketState = {
   failedImages: 0,
   currentTicket: {
     id: "null",
-    author: {
-      tag: "",
-      profileImg: "",
-      rank: -1,
-    },
+    author: "",
     typeLabel: 0,
     creationDate: 0,
     updateDate: 0,

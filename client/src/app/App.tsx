@@ -8,7 +8,7 @@ import {
   finishedLoading,
   loadUser,
 } from "./flux/slices/authSlice";
-import { setCollapsedTickets } from "./flux/slices/tableSlice";
+import { setCollapsedTickets, setUsers } from "./flux/slices/contextSlice";
 import { setRecentActivity } from "./flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "./seed";
 import Endpoints from "./constants/api";
@@ -53,8 +53,9 @@ export default hot(() => {
       .then((res: any) => {
         console.log(res);
         try {
-          if (res.status < 300 && res.status >= 200)
-            dispatch(loadUser(Object.assign({}, res)));
+          if (res.Tag === undefined && res.status !== undefined)
+            throw new Error();
+          dispatch(loadUser(Object.assign(res)));
         } catch {}
       })
       .catch(() => {});
@@ -62,8 +63,23 @@ export default hot(() => {
     fetch(Endpoints.GET_COLLAPSED, { method: "GET" })
       .then((res) => res.json())
       .then((res: any) =>
+        dispatch(setCollapsedTickets(res.map((dto: any) => Object.assign(dto))))
+      )
+      .catch((err) => console.log(err));
+
+    fetch(Endpoints.GET_ALL_USERS, { method: "GET" })
+      .then((res) => res.json())
+      .then((res: any) =>
         dispatch(
-          setCollapsedTickets(res.map((dto: any) => Object.assign({}, dto)))
+          setUsers(
+            res.map((dto: any) =>
+              Object.assign({
+                tag: dto.tag,
+                profileImg: dto.avatar,
+                rank: dto.rank,
+              })
+            )
+          )
         )
       )
       .catch((err) => console.log(err));
@@ -74,16 +90,13 @@ export default hot(() => {
         dispatch(
           setRecentActivity(
             res.map((dto: any) =>
-              Object.assign(
-                {},
-                {
-                  author: dto.author,
-                  date: dto.creationDate,
-                  message: dto.type,
-                  ticketId: dto.ticketID,
-                  new: dto.read,
-                }
-              )
+              Object.assign({
+                author: dto.author,
+                date: dto.creationDate,
+                message: dto.type,
+                ticketId: dto.ticketID,
+                new: dto.read,
+              })
             )
           )
         )

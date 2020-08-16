@@ -16,9 +16,10 @@ export const generateUserSet = (howMany: number): UserInfo[] => {
 
 const generateNotification = (): Notification => {
   return {
+    id: randomNum(1000),
     ticketId: Math.random() < 0.25 ? "null" : randomString(),
     date: "99/99/9999",
-    author: getRandom(User),
+    author: getRandom(User).tag,
     message: getRandom(NotificationMessage),
     new: randomBool(),
   };
@@ -37,7 +38,7 @@ const generateCollapsedTicket = (): CollapsedTicket => {
     typeLabel: randomNum(2),
     title:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
-    author: getRandom(User),
+    author: getRandom(User).tag,
     updateDate: randomNum(1000),
     severity: randomNum(2),
     status: randomNum(2),
@@ -57,7 +58,7 @@ export const generateTicket = (): Ticket => {
     typeLabel: randomNum(2),
     title:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
-    author: getRandom(User),
+    author: getRandom(User).tag,
     creationDate: randomNum(1000),
     updateDate: randomNum(1000),
     description:
@@ -65,7 +66,13 @@ export const generateTicket = (): Ticket => {
     reproducibility: randomNum(2),
     severity: randomNum(2),
     status: randomNum(2),
-    assignees: [User[0], User[1], User[2], User[3], User[4]],
+    assignees: [
+      User[0].tag,
+      User[1].tag,
+      User[2].tag,
+      User[3].tag,
+      User[4].tag,
+    ],
     imageLinks: [
       randomString() +
         "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",

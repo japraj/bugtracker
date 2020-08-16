@@ -11,7 +11,6 @@ export const initialState: AuthState = {
   loaded: false,
   user: {
     authenticated: false,
-    id: 0,
     notifications: [],
     info: {
       profileImg: "",

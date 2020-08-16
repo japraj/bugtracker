@@ -41,7 +41,7 @@ export default ({
           showTag: false,
           tagSize: "0",
         }}
-        userInfo={notification.author}
+        userTag={notification.author}
       />
       <CellText commentVariant={commentVariant}>
         <UserLink
@@ -53,7 +53,7 @@ export default ({
             showTag: true,
             tagSize: "1rem",
           }}
-          userInfo={notification.author}
+          userTag={notification.author}
           onRedirect={() => onClick()}
         />
         {/* 

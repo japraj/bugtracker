@@ -4,7 +4,7 @@ import UserLink from "../userLink";
 import { UserLinkGrid, SetWrapper, UserLinkWrapper, Clickable } from "./styles";
 
 interface Props {
-  users: UserInfo[];
+  users: string[];
   className: string;
   imgLength: string;
   label: string;
@@ -18,10 +18,10 @@ export default (props: Props) => {
     <UserLinkGrid className={props.className}>
       <h1>{props.label}</h1>
       <SetWrapper>
-        {props.users.map((user) => (
-          <UserLinkWrapper key={user.tag}>
+        {props.users.map((userTag) => (
+          <UserLinkWrapper key={userTag}>
             <UserLink
-              userInfo={user}
+              userTag={userTag}
               styleConfig={{
                 className: "stacked",
                 showImg: true,
@@ -33,7 +33,7 @@ export default (props: Props) => {
             />
             <Clickable
               style={{ backgroundColor: props.iconBackgroundColor }}
-              onClick={props.onClick(user.tag)}
+              onClick={props.onClick(userTag)}
             >
               {props.iconName}
             </Clickable>

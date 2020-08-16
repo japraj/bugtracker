@@ -1,10 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Rank } from "../../../app/constants/rank";
-import {
-  selectNodesPerPage,
-  selectTickets,
-} from "../../../app/flux/slices/tableSlice";
+import { selectNodesPerPage } from "../../../app/flux/slices/tableSlice";
+import { selectAllElements } from "../../../app/flux/slices/contextSlice";
 import { WidgetWrapper, WidgetHeader } from "../../container/widget";
 import TablePagination from "./pagination";
 import TableTabs from "./tabs";
@@ -53,7 +51,7 @@ type Props = {
 
 export default (props: Props) => {
   const nodesPerPage = useSelector(selectNodesPerPage);
-  const ticketSet = useSelector(selectTickets);
+  const ticketSet = useSelector(selectAllElements("collapsedTickets"));
   return (
     <WidgetWrapper className={props.className}>
       <TableTabs tabSet={tabSet} />

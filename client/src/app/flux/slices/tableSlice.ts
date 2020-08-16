@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { CollapsedTicket } from "../../constants";
 
 interface TableState {
   tabIndex: number;
   pageIndex: number;
   nodesPerPage: number;
   totalPages: number;
-  collapsedTickets: CollapsedTicket[];
 }
 
 export const initialState: TableState = {
@@ -15,7 +13,6 @@ export const initialState: TableState = {
   pageIndex: 1,
   nodesPerPage: 5,
   totalPages: 10,
-  collapsedTickets: [],
 };
 
 export const tableSlice = createSlice({
@@ -59,14 +56,6 @@ export const tableSlice = createSlice({
         return { payload };
       },
     },
-    setCollapsedTickets: {
-      reducer(state, action: PayloadAction<CollapsedTicket[]>) {
-        state.collapsedTickets = action.payload;
-      },
-      prepare(payload: CollapsedTicket[]) {
-        return { payload };
-      },
-    },
   },
 });
 
@@ -75,7 +64,6 @@ export const {
   setPageIndex,
   setNodesPerPage,
   setTotalPages,
-  setCollapsedTickets,
 } = tableSlice.actions;
 
 export const selectTabIndex = (state: RootState): number =>
@@ -89,8 +77,5 @@ export const selectNodesPerPage = (state: RootState): number =>
 
 export const selectTotalPages = (state: RootState): number =>
   state.table.totalPages;
-
-export const selectTickets = (state: RootState): CollapsedTicket[] =>
-  state.table.collapsedTickets;
 
 export default tableSlice.reducer;

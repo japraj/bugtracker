@@ -35,9 +35,9 @@ export default (props: {
   const user: UserInfo = useSelector(selectUser).info;
   const rank: number = user.rank;
   const ticketSlice: TicketState = useSelector(selectTicketSlice);
-  const available: UserInfo[] = useSelector(selectAvailable);
+  const available: string[] = useSelector(selectAvailable);
   const editedTicket: EditedTicket = ticketSlice.editedTicket;
-  const isAuthor: boolean = ticketSlice.currentTicket.author.tag === user.tag;
+  const isAuthor: boolean = ticketSlice.currentTicket.author === user.tag;
 
   const update = (change: object): void => {
     dispatch(updateEdit(change));
@@ -46,14 +46,17 @@ export default (props: {
   const moveUser = (userTag: string) => () => {
     let newSet: string[] = Object.assign(
       [],
-      getTagsFromUsers(editedTicket.assignees)
+      //getTagsFromUsers(editedTicket.assignees)
+      editedTicket.assignees
     );
     // If the user is currently available, then we
     // want to assign them. Else, we want to unassign
-    getTagsFromUsers(available).includes(userTag)
+    //getTagsFromUsers(available).includes(userTag)
+    available.includes(userTag)
       ? newSet.push(userTag)
       : newSet.splice(newSet.indexOf(userTag), 1);
-    update({ assignees: getUsersFromTags(ticketSlice.developers, newSet) });
+    // update({ assignees: getUsersFromTags(ticketSlice.developers, newSet) });
+    update({ assignees: newSet });
   };
 
   const toggle = (): void => {

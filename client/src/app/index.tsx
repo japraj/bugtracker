@@ -10,8 +10,12 @@ import { Provider } from "react-redux";
 // of the component.
 
 export default class extends React.Component<{}, {}> {
-  componentDidMount = () =>
-    window.addEventListener("resize", () => this.forceUpdate());
+  listener = () => this.forceUpdate();
+
+  componentDidMount = () => window.addEventListener("resize", this.listener);
+
+  componentWillUnmount = () =>
+    window.removeEventListener("resize", this.listener);
 
   render = () => (
     <Provider store={store}>

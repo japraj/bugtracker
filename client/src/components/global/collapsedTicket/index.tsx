@@ -62,7 +62,7 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
               showTag: true,
               tagSize: "1.25rem",
             }}
-            userInfo={ticket.author}
+            userTag={ticket.author}
           />
         </TicketBodyCell>
       </TicketBody>

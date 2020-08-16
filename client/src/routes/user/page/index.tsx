@@ -19,9 +19,10 @@ export default () => {
   const user = useSelector(selectUserInfo);
   const recentActivity = useSelector(selectActivity);
   const tickets = useSelector(selectTickets);
-  // Note: /404 isn't actually a route! All unmatched routes automatically
-  // redirect to the 404 Error page & /404 is one of those.
-  if (!user.tag) history.push(Routes.DNE404);
+  if (!user.tag) {
+    history.push(Routes.DNE404);
+    return <React.Fragment />;
+  }
 
   return (
     <Container>

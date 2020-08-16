@@ -1,6 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectElementsByKeys } from "../../app/flux/slices/contextSlice";
 import { loadUser } from "../../app/flux/slices/userSlice";
+import Endpoints from "../../app/constants/api";
 import Page from "./page";
 
 // This is a wrapper for the page component, meant to separate the
@@ -13,6 +15,28 @@ import Page from "./page";
 
 export default ({ match }: { match: any }) => {
   const dispatch = useDispatch();
-  dispatch(loadUser(match.params.tag));
+  const selectActivity: (keys: string[]) => any[] = useSelector(
+    selectElementsByKeys("activity")
+  );
+  const selectTickets: (keys: string[]) => any[] = useSelector(
+    selectElementsByKeys("collapsedTickets")
+  );
+
+  // load the user via fetch
+  // note: the load user payload requires tickets to be in the form of collapsed
+  // tickets while the backend simply returns a list of strings; we must manually
+  // get the collapsedTicket objects from the table slice.
+  fetch(`${Endpoints.USER_BY_TAG}/${match.params.tag}`, { method: "GET" })
+    .then((res) => res.json())
+    .then((res: any) =>
+      dispatch(
+        loadUser({
+          info: { tag: res.tag, rank: res.rank, profileImg: res.avatar },
+          recentActivity: selectActivity(res.activity),
+          tickets: selectTickets(res.tickets),
+        })
+      )
+    )
+    .catch(() => dispatch(loadUser(undefined)));
   return <Page />;
 };

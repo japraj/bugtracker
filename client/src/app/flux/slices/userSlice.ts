@@ -29,24 +29,29 @@ export const initialState: UserState = {
   tickets: [],
 };
 
+interface LoadUserPayload {
+  info: UserInfo;
+  recentActivity: Notification[];
+  tickets: CollapsedTicket[];
+}
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     loadUser: {
-      reducer(state, action: PayloadAction<string>) {
-        const tag = action.payload;
-        // try to load user by tag
-        const index = getTagsFromUsers(User).indexOf(tag);
-        const user = index === -1 ? initialState.info : User[index];
-        state = Object.assign(state, {
-          info: user,
-          stagedUrl: user.profileImg,
-          recentActivity: generateNotificationSet(0),
-          tickets: generateTicketSet(0),
-        });
+      reducer(state, action: PayloadAction<LoadUserPayload | undefined>) {
+        //  const tag = action.payload;
+        // // try to load user by tag
+        //     const index = getTagsFromUsers(User).indexOf(tag);
+        //    const user = index === -1 ? initialState.info : User[index];
+        if (action.payload !== undefined) {
+          state = Object.assign(state, action.payload, {
+            stagedUrl: action.payload.info.profileImg,
+          });
+        }
       },
-      prepare(payload: string) {
+      prepare(payload: LoadUserPayload | undefined) {
         return { payload };
       },
     },

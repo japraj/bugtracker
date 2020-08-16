@@ -99,7 +99,7 @@ export default (props: Props) => {
           showTag: false,
           tagSize: "0",
         }}
-        userInfo={user.info}
+        userTag={user.info.tag}
       />
 
       {props.collapsed ? (
