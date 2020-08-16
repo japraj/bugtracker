@@ -1,5 +1,6 @@
 ﻿using server.Models.SessionModel;
 using server.Models.UserModel;
+using System.Collections.Generic;
 
 namespace server.Data.UsersData
 {
@@ -7,6 +8,7 @@ namespace server.Data.UsersData
     {
         // Define Contract between Repo and Controller
         User GetUserByTag(string tag);
+        IEnumerable<User> GetAllUsers();
         void AddSession(Session session);
         void UpdateSession(Session session);
         Session GetSessionByTag(string tag);

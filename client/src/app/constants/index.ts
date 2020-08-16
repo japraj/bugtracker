@@ -16,15 +16,15 @@ export interface UserInfo {
 
 export interface User {
   authenticated: boolean;
-  id: number;
   notifications: Notification[];
   info: UserInfo;
 }
 // Local User (the user that is using the client)
 
 export interface Notification {
+  id: number;
   date: string;
-  author: UserInfo;
+  author: string;
   message: string;
   ticketId: string;
   new: boolean;
@@ -42,7 +42,7 @@ export interface CollapsedTicket {
   id: string;
   typeLabel: number;
   title: string;
-  author: UserInfo;
+  author: string;
   updateDate: number;
   severity: number;
   status: number;
@@ -75,14 +75,14 @@ export interface Ticket {
   id: string;
   typeLabel: number;
   title: string;
-  author: UserInfo;
+  author: string;
   creationDate: number;
   updateDate: number;
   description: string;
   reproducibility: number;
   severity: number;
   status: number;
-  assignees: UserInfo[];
+  assignees: string[];
   imageLinks: string[];
   activity: Notification[];
 }
@@ -95,7 +95,7 @@ export interface EditedTicket {
   reproducibility: number;
   typeLabel: number;
   imageLinks: string[];
-  assignees: UserInfo[];
+  assignees: string[];
 }
 
 export interface NewTicket {

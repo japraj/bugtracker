@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using server.Data.ActivityData;
 using server.Data.TicketsData;
 using server.Models.ActivityModel;
+using System.Linq;
 
 #nullable enable
 
@@ -55,6 +56,18 @@ namespace server.Controllers
             _signInManager = signInManager;
             auth = new Authorization(userRepo);
             activityHandler = new ActivityHandler(userRepo, activityRepo, mapper);
+        }
+
+        [HttpGet]
+        public ActionResult GetAllUsers()
+        {
+            try
+            {
+                return Ok(_repository.GetAllUsers().Select(u => _mapper.Map<UserReadDTO>(u)));
+            } catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("{tag}", Name = "ByTag")]

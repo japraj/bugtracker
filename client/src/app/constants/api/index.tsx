@@ -6,6 +6,7 @@ export const activityRoute: string = `${serverURL}activity/`;
 
 const Endpoints: {
   USER_BY_TAG: string;
+  GET_ALL_USERS: string;
   REGISTER: string;
   LOGIN: string;
   LOAD_SESSION: string;
@@ -23,6 +24,7 @@ const Endpoints: {
   READ_ALL_NOTIFICATIONS: string;
 } = {
   USER_BY_TAG: `${userRoute}byTag`,
+  GET_ALL_USERS: `${userRoute}getAllUsers`,
   REGISTER: `${userRoute}register`,
   LOGIN: `${userRoute}login`,
   LOAD_SESSION: `${userRoute}loadSession`,

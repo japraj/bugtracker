@@ -1,6 +1,8 @@
 ﻿using server.Models.SessionModel;
 using server.Models.UserModel;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 #nullable enable
@@ -22,6 +24,8 @@ namespace server.Data.UsersData
         // Case insensitive search
         public User GetUserByTag(string tag) =>
             _context.UserSet.FirstOrDefault(u => u.Tag.ToLower() == tag.ToLower());
+
+        public IEnumerable<User> GetAllUsers() => _context.UserSet.ToList();
 
         public void AddSession(Session session)
         {
