@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../../../app/constants";
+import { Notification } from "../../../constants/user";
 import NotificationCell from "../notification";
 import IterableWidget from "../iterableWidget";
 

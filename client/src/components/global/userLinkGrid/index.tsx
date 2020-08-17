@@ -1,5 +1,4 @@
 import React from "react";
-import { UserInfo } from "../../../app/constants";
 import UserLink from "../userLink";
 import { UserLinkGrid, SetWrapper, UserLinkWrapper, Clickable } from "./styles";
 

@@ -1,13 +1,13 @@
 import React from "react";
-import Routes from "../../../app/constants/routes";
+import Routes from "../../../constants/routes";
 import Popper from "@material-ui/core/Popper";
 import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton";
-import { UserInfo } from "../../../app/constants";
-import { RankObject, getRankObj } from "../../../app/constants/rank";
-import { selectElementByKey } from "../../../app/flux/slices/contextSlice";
+import { UserInfo } from "../../../constants/user";
+import { RankObject, getRankObj } from "../../../constants/user";
+import { selectElementByKey } from "../../../flux/slices/contextSlice";
 import { useSelector } from "react-redux";
 // Use a css file because of Material UI's portal functionality.
 // in short, Material UI places the Popper and all its children

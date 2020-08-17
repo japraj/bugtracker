@@ -2,7 +2,7 @@ import React from "react";
 import FormPage from "../formPage";
 import HyperLink from "../../components/global/hyperLink";
 import history from "../history";
-import Routes from "../../app/constants/routes";
+import Routes from "../../constants/routes";
 import styled from "styled-components";
 
 interface State {

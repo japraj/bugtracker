@@ -1,11 +1,11 @@
 import React from "react";
-import Routes from "../../../app/constants/routes";
+import Routes from "../../../constants/routes";
 import { useSelector } from "react-redux";
 import {
   selectUserInfo,
   selectActivity,
   selectTickets,
-} from "../../../app/flux/slices/userSlice";
+} from "../../../flux/slices/userSlice";
 import history from "../../history";
 import ProfileCard from "../profileCard";
 import Rank from "../rank";

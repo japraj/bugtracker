@@ -2,7 +2,7 @@ import React from "react";
 import ProtectedRoute from "./protectedRoute";
 import { Route, Switch } from "react-router-dom";
 
-import Routes from "../app/constants/routes";
+import Routes from "../constants/routes";
 
 // Routes
 import Home from "./home";

@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectUserInfo } from "../../../app/flux/slices/userSlice";
+import { selectUserInfo } from "../../../flux/slices/userSlice";
 import { WidgetWrapper } from "../../../components/container/widget";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
-import { RankObject, getRankObj } from "../../../app/constants/rank";
+import { RankObject, getRankObj } from "../../../constants/user";
 import styled from "styled-components";
 
 export default () => {

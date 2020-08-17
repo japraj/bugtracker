@@ -1,12 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  UserInfo,
-  EditedTicket,
-  getUsersFromTags,
-  getTagsFromUsers,
-} from "../../../app/constants";
-import { Rank } from "../../../app/constants/rank";
+import { EditedTicket } from "../../../constants/ticket";
+import { UserInfo, Rank } from "../../../constants/user";
+import { getUsersFromTags, getTagsFromUsers } from "../../../constants/global";
 import {
   updateEdit,
   wipeLocalChanges,
@@ -14,8 +10,8 @@ import {
   TicketState,
   selectTicketSlice,
   selectAvailable,
-} from "../../../app/flux/slices/ticketSlice";
-import { selectUser } from "../../../app/flux/slices/authSlice";
+} from "../../../flux/slices/ticketSlice";
+import { selectUser } from "../../../flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
 import UserLinkGrid from "../userLinkGrid";
 import FormModal from "../formModal";

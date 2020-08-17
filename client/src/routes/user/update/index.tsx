@@ -4,8 +4,8 @@ import {
   selectStaged,
   setStaged,
   selectUserInfo,
-} from "../../../app/flux/slices/userSlice";
-import { selectUser } from "../../../app/flux/slices/authSlice";
+} from "../../../flux/slices/userSlice";
+import { selectUser } from "../../../flux/slices/authSlice";
 import {
   WidgetWrapper,
   WidgetHeader,

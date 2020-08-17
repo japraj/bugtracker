@@ -7,12 +7,12 @@ import {
   selectAuthSlice,
   finishedLoading,
   loadUser,
-} from "./flux/slices/authSlice";
-import { setCollapsedTickets, setUsers } from "./flux/slices/contextSlice";
-import { setRecentActivity } from "./flux/slices/homeSlice";
-import { generateNotificationSet, generateTicketSet } from "./seed";
-import Endpoints from "./constants/api";
-import { User } from "./constants";
+} from "../flux/slices/authSlice";
+import { setCollapsedTickets, setUsers } from "../flux/slices/contextSlice";
+import { setRecentActivity } from "../flux/slices/homeSlice";
+import { generateNotificationSet, generateTicketSet } from "../seed";
+import Endpoints from "../constants/api";
+import { User } from "../constants/user";
 
 import FancyLoading, {
   LoadWrapper,
@@ -21,7 +21,7 @@ import ContentWrapper from "../components/container/contentWrapper";
 import ToastContainer from "../components/global/toastContainer";
 
 import Navigation from "../components/global/navigation";
-import { selectSideNavWidth } from "./flux/slices/navigationSlice";
+import { selectSideNavWidth } from "../flux/slices/navigationSlice";
 
 import TicketModal from "../components/global/ticket";
 

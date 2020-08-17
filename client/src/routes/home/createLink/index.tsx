@@ -1,7 +1,7 @@
 import React from "react";
-import Routes from "../../../app/constants/routes";
-import { toggleDisplay } from "../../../app/flux/slices/creationSlice";
-import { selectUser } from "../../../app/flux/slices/authSlice";
+import Routes from "../../../constants/routes";
+import { toggleDisplay } from "../../../flux/slices/creationSlice";
+import { selectUser } from "../../../flux/slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../history";
 import Icon from "@material-ui/core/Icon";

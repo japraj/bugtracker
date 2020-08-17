@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Status } from "../../../app/constants";
+import { Status } from "../../../constants/ticket";
 
 interface Props {
   status: number;

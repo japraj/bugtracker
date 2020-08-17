@@ -1,5 +1,4 @@
 import React from "react";
-import { UserInfo } from "../../../app/constants";
 import UserLink from "../userLink";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import styled from "styled-components";

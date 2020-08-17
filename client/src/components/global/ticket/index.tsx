@@ -5,8 +5,8 @@ import {
   selectTicket,
   selectFailures,
   toggleDisplay,
-} from "../../../app/flux/slices/ticketSlice";
-import { Ticket, Severity, Reproducibility } from "../../../app/constants";
+} from "../../../flux/slices/ticketSlice";
+import { Ticket, Severity, Reproducibility } from "../../../constants/ticket";
 import TicketTag from "../ticketTag";
 import StatusIndicator from "../statusIndicator";
 import Modal from "@material-ui/core/Modal";

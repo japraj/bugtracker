@@ -2,7 +2,7 @@ import React from "react";
 import {
   DashboardState,
   selectDashboardSlice,
-} from "../../app/flux/slices/dashboardSlice";
+} from "../../flux/slices/dashboardSlice";
 import { connect } from "react-redux";
 import Page from "./page";
 

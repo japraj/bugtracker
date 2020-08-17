@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   loadData,
   selectDashboardSlice,
-} from "../../../app/flux/slices/dashboardSlice";
+} from "../../../flux/slices/dashboardSlice";
 import InfoWidget from "../infoWidget";
 import PieChart from "../pieChart";
 import LineChart from "../lineChart";

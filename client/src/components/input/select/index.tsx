@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { theme, SelectOption } from "../../../app/constants";
+import { SelectOption } from "../../../constants/global";
+import { theme } from "../../../constants/materialui";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import "./MUIOverride.css";

@@ -5,7 +5,7 @@ import {
   selectDisplayed,
   selectNewTicket,
   wipeLocalChanges,
-} from "../../../app/flux/slices/creationSlice";
+} from "../../../flux/slices/creationSlice";
 import FormModal from "../formModal";
 
 export default () => {

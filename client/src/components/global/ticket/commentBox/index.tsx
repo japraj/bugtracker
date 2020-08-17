@@ -1,12 +1,12 @@
 import React from "react";
-import Routes from "../../../../app/constants/routes";
+import Routes from "../../../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleDisplay } from "../../../../app/flux/slices/ticketSlice";
-import { selectAuthenticated } from "../../../../app/flux/slices/authSlice";
+import { toggleDisplay } from "../../../../flux/slices/ticketSlice";
+import { selectAuthenticated } from "../../../../flux/slices/authSlice";
 import history from "../../../../routes/history";
 import TextField from "@material-ui/core/TextField";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { theme } from "../../../../app/constants";
+import { theme } from "../../../../constants/materialui";
 import EditControls from "../../../input/editControls";
 import styled from "styled-components";
 

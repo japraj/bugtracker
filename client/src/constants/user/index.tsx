@@ -1,3 +1,29 @@
+export interface Notification {
+  id: number;
+  date: string;
+  author: string;
+  message: string;
+  ticketId: string;
+  new: boolean;
+}
+// A notification is just a record of a change
+// that was applied to an issue.
+
+export interface UserInfo {
+  profileImg: string;
+  tag: string;
+  rank: number;
+}
+// Global User Object, used for UserLinks/author of an issue.
+//  Note: tags are unique!
+
+export interface User {
+  authenticated: boolean;
+  notifications: Notification[];
+  info: UserInfo;
+}
+// Local User (the user that is using the client)
+
 export interface RankObject {
   // numeric representation
   numeric: number;

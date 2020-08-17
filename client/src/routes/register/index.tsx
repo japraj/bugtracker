@@ -1,6 +1,6 @@
 import React from "react";
 import FormPage from "../formPage";
-import Routes from "../../app/constants/routes";
+import Routes from "../../constants/routes";
 import history from "../history";
 import { toast } from "react-toastify";
 

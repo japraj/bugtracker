@@ -1,7 +1,7 @@
 import { RootState } from "../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CollapsedTicket, UserInfo, Notification } from "../../constants";
-import collapsedTicket from "../../../components/global/collapsedTicket";
+import { CollapsedTicket } from "../../constants/ticket";
+import { UserInfo, Notification } from "../../constants/user";
 
 interface Normalized<T> {
   byKey: {

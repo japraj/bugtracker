@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { theme } from "../../../app/constants";
+import { theme } from "../../../constants/materialui";
 import { ThemeProvider } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import Icon from "@material-ui/core/Icon";

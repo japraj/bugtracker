@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   forceCloseDisplays,
   selectTicket,
-} from "../../../app/flux/slices/ticketSlice";
+} from "../../../flux/slices/ticketSlice";
 import { toast } from "react-toastify";
 import Modal from "@material-ui/core/Modal";
 import IconButton from "@material-ui/core/IconButton";
@@ -13,7 +13,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { Ticket, theme, useStyles } from "../../../app/constants";
+import { Ticket } from "../../../constants/ticket";
+import { theme, useStyles } from "../../../constants/materialui";
 import clsx from "clsx";
 import Button from "../../input/button";
 import { ModalContentWrapper } from "../../container/modalContent";

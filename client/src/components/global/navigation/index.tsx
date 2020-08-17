@@ -2,16 +2,13 @@ import React from "react";
 import TopNavigation from "./topNav";
 import SideNavigation from "./sideNav";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectAuthenticated,
-  logout,
-} from "../../../app/flux/slices/authSlice";
+import { selectAuthenticated, logout } from "../../../flux/slices/authSlice";
 import {
   toggleCollapse,
   selectCollapsed,
-} from "../../../app/flux/slices/navigationSlice";
-import { collapsedWidth, extendedWidth } from "../../../app/constants";
-import Routes from "../../../app/constants/routes";
+} from "../../../flux/slices/navigationSlice";
+import { collapsedWidth, extendedWidth } from "../../../constants/navigation";
+import Routes from "../../../constants/routes";
 
 export type NavigationItem = {
   path: string;

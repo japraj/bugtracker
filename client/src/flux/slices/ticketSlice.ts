@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Ticket, EditedTicket, UserInfo } from "../../constants";
+import { Ticket, EditedTicket } from "../../constants/ticket";
 import { generateTicket } from "../../seed";
 import { User } from "../../seed/predefined";
 

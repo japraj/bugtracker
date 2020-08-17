@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectElementsByKeys } from "../../app/flux/slices/contextSlice";
-import { loadUser } from "../../app/flux/slices/userSlice";
-import Endpoints from "../../app/constants/api";
+import { selectElementsByKeys } from "../../flux/slices/contextSlice";
+import { loadUser } from "../../flux/slices/userSlice";
+import Endpoints from "../../constants/api";
 import Page from "./page";
 
 // This is a wrapper for the page component, meant to separate the

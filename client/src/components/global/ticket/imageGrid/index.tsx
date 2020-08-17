@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { reportLoadingFailure } from "../../../../app/flux/slices/ticketSlice";
+import { reportLoadingFailure } from "../../../../flux/slices/ticketSlice";
 import styled from "styled-components";
 import Image from "../../image";
 

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NewTicket } from "../../constants";
+import { NewTicket } from "../../constants/ticket";
 import { RootState } from "../store";
 
 interface CreationState {

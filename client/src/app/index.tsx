@@ -1,6 +1,6 @@
 import React from "react";
 import App from "./App";
-import { store } from "./flux/store";
+import { store } from "../flux/store";
 import { Provider } from "react-redux";
 
 // A higher order class component; its sole purpose is to

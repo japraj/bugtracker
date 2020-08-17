@@ -1,4 +1,5 @@
-import { CollapsedTicket, Ticket, Notification, UserInfo } from "../constants";
+import { CollapsedTicket, Ticket } from "../constants/ticket";
+import { UserInfo, Notification } from "../constants/user";
 import {
   User,
   NotificationMessage,

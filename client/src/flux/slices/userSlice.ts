@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import {
-  UserInfo,
-  Notification,
-  CollapsedTicket,
-  getTagsFromUsers,
-} from "../../constants";
+import { CollapsedTicket } from "../../constants/ticket";
+import { UserInfo, Notification } from "../../constants/user";
+import { getTagsFromUsers } from "../../constants/global";
 import { User } from "../../seed/predefined";
 import { generateNotificationSet, generateTicketSet } from "../../seed";
 

@@ -1,15 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Rank } from "../../../app/constants/rank";
-import { selectNodesPerPage } from "../../../app/flux/slices/tableSlice";
-import { selectAllElements } from "../../../app/flux/slices/contextSlice";
+import { Rank } from "../../../constants/user";
+import { selectNodesPerPage } from "../../../flux/slices/tableSlice";
+import { selectAllElements } from "../../../flux/slices/contextSlice";
 import { WidgetWrapper, WidgetHeader } from "../../container/widget";
 import TablePagination from "./pagination";
 import TableTabs from "./tabs";
 import TableTicket from "../collapsedTicket";
 import Search from "../../input/search";
 import Select from "../../input/select";
-import { Tab, sortSelectOptions } from "../../../app/constants";
+import { Tab, sortSelectOptions } from "../../../constants/table";
 import styled from "styled-components";
 
 const tabSet: Tab[] = [

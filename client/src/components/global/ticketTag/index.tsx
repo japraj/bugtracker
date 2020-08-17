@@ -1,5 +1,5 @@
 import React from "react";
-import { TypeLabel } from "../../../app/constants";
+import { TypeLabel } from "../../../constants/ticket";
 import Chip from "@material-ui/core/Chip";
 import styled from "styled-components";
 

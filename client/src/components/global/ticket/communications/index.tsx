@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../../../../app/constants";
+import { Notification } from "../../../../constants/user";
 import NotificationNode from "../../notification";
 import CommentBox from "../commentBox";
 import styled from "styled-components";

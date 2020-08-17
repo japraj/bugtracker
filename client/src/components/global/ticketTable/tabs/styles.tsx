@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Rank } from "../../../../app/constants/rank";
+import { Rank } from "../../../../constants/user";
 import { WidgetHeader } from "../../../container/widget";
 
 export const TabContainer = styled(WidgetHeader)`

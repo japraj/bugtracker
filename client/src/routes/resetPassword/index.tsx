@@ -1,8 +1,8 @@
 import React from "react";
-import Routes from "../../app/constants/routes";
+import Routes from "../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
-import { selectAuthenticated, logout } from "../../app/flux/slices/authSlice";
-import { theme, useStyles } from "../../app/constants";
+import { selectAuthenticated, logout } from "../../flux/slices/authSlice";
+import { theme, useStyles } from "../../constants/materialui";
 import { DarkWidgetWrapper } from "../../components/container/darkWidget";
 import clsx from "clsx";
 import { ThemeProvider } from "@material-ui/core/styles";

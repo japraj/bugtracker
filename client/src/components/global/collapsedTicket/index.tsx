@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { loadTicketById } from "../../../app/flux/slices/ticketSlice";
+import { loadTicketById } from "../../../flux/slices/ticketSlice";
 import StatusIndicator from "../statusIndicator";
 import UserLink from "../userLink";
 import TicketTag from "../ticketTag";
-import { CollapsedTicket, Severity } from "../../../app/constants";
+import { CollapsedTicket, Severity } from "../../../constants/ticket";
 import {
   TicketWrapper,
   TicketHeader,

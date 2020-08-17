@@ -1,5 +1,4 @@
-import { UserInfo } from "../constants";
-import { Rank } from "../constants/rank";
+import { UserInfo, Rank } from "../constants/user";
 
 export const getRandom = <T>(set: Array<T>): T =>
   set[Math.floor(Math.random() * set.length)];

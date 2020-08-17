@@ -1,6 +1,6 @@
 import React from "react";
 import { WidgetWrapper, WidgetSection } from "../../container/widget";
-import { theme } from "../../../app/constants";
+import { theme } from "../../../constants/materialui";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import Icon from "@material-ui/core/Icon";
 import TablePagination from "@material-ui/core/TablePagination";

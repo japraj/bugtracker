@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from "../../../app/flux/slices/authSlice";
-import { viewNotifications } from "../../../app/flux/slices/authSlice";
-import Routes from "../../../app/constants/routes";
+import { selectUser } from "../../../flux/slices/authSlice";
+import { viewNotifications } from "../../../flux/slices/authSlice";
+import Routes from "../../../constants/routes";
+import { Notification } from "../../../constants/user";
 import UserLink from "../userLink";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
@@ -29,7 +30,7 @@ export default (props: Props) => {
   const dispatch = useDispatch();
 
   const notificationsAmount = user.notifications.filter(
-    (notification) => notification.new
+    (notification: Notification) => notification.new
   ).length;
 
   const clearNewNotifications = () => {

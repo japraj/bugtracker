@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { collapsedWidth, extendedWidth } from "../../constants";
+import { collapsedWidth, extendedWidth } from "../../constants/navigation";
 
 interface NavigationState {
   collapsed: boolean;

@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setTabIndex,
   selectTabIndex,
-} from "../../../../app/flux/slices/tableSlice";
-import { selectAuthSlice } from "../../../../app/flux/slices/authSlice";
+} from "../../../../flux/slices/tableSlice";
+import { selectAuthSlice } from "../../../../flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
-import { Tab } from "../../../../app/constants";
+import { Tab } from "../../../../constants/table";
 import { TabContainer, TabSet, TableTab } from "./styles";
 
 export default ({ tabSet }: { tabSet: Tab[] }) => {

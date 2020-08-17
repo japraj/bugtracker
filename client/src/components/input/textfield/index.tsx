@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { theme } from "../../../app/constants";
+import { theme } from "../../../constants/materialui";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import { InputWrapper } from "./styles";

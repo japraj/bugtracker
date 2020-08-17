@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectUserInfo } from "../../../app/flux/slices/userSlice";
-import { selectUserRank } from "../../../app/flux/slices/authSlice";
-import { keyToIndex, mapEnumToSelectOption } from "../../../app/constants";
-import { Rank } from "../../../app/constants/rank";
+import { selectUserInfo } from "../../../flux/slices/userSlice";
+import { selectUserRank } from "../../../flux/slices/authSlice";
+import { keyToIndex, mapEnumToSelectOption } from "../../../constants/global";
+import { Rank } from "../../../constants/user";
 import {
   WidgetWrapper,
   WidgetHeader,
