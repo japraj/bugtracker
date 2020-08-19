@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../../flux/slices/authSlice";
 import { viewNotifications } from "../../../flux/slices/authSlice";
 import Routes from "../../../constants/routes";
-import { Notification } from "../../../constants/user";
+import { Notification } from "../../../constants/notification";
 import UserLink from "../userLink";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";

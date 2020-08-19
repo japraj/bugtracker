@@ -2,6 +2,7 @@ import React from "react";
 import FormPage from "../formPage";
 import Routes from "../../constants/routes";
 import history from "../history";
+import Endpoints from "../../constants/api";
 import { toast } from "react-toastify";
 
 interface State {
@@ -17,26 +18,54 @@ export default () => {
     passwordError: false,
   });
 
+  const evaluateError = (err: any): void => {
+    try {
+      const keys = Object.keys(err.errors);
+
+      // Generate toasts
+      keys.forEach((key) =>
+        err.errors[key].map((msg: string) => toast.error(msg))
+      );
+
+      // Check if the error messages are of a specific type (for instance, are there
+      // any errors related to passwords?)
+      const getBlame = (match: string): boolean => {
+        for (var key of keys) if (key.includes(match)) return true;
+        return false;
+      };
+
+      setValues({
+        emailError: getBlame("email"),
+        usernameError: getBlame("name"),
+        passwordError: getBlame("password"),
+      });
+    } catch {}
+  };
+
   const verifyValues = (fields: string[]) => () => {
-    // verify inputs
-
-    const duplicateEmail: boolean = true;
-
-    if (duplicateEmail)
-      toast.error("An account with this e-mail already exists.");
-
-    const emailError: boolean = true;
-    const usernameError: boolean = true;
-    const passwordError: boolean = true;
-
-    setValues({
-      emailError: emailError,
-      usernameError: usernameError,
-      passwordError: passwordError,
-    });
-
-    if (!emailError && !usernameError && !passwordError)
-      history.push(Routes.LOGIN);
+    fetch(Endpoints.REGISTER, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: fields[0],
+        tag: fields[1],
+        password: fields[2],
+      }),
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        console.log(res);
+        if (res.Tag === undefined && res.status !== undefined)
+          evaluateError(res);
+        else {
+          toast.success("Successfully registered an account!");
+          history.push(Routes.LOGIN);
+        }
+      })
+      .catch((err) => evaluateError(err));
   };
 
   return (

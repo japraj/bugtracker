@@ -2,7 +2,7 @@ import React from "react";
 import UserLink from "../userLink";
 import { useDispatch } from "react-redux";
 import { loadTicketById } from "../../../flux/slices/ticketSlice";
-import { Notification } from "../../../constants/user";
+import { Notification } from "../../../constants/notification";
 import { Cell, CellText } from "./styles";
 import Timestamp from "../timestamp";
 

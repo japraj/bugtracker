@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../../../constants/user";
+import { Notification } from "../../../constants/notification";
 import NotificationCell from "../notification";
 import { NotificationWrapper, EmptyNotificationsBanner } from "./styles";
 

@@ -1,8 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { loadUser } from "../../flux/slices/authSlice";
 import FormPage from "../formPage";
 import HyperLink from "../../components/global/hyperLink";
+import { toast } from "react-toastify";
 import history from "../history";
 import Routes from "../../constants/routes";
+import { generateLocalUserFromDTO } from "../../constants/user";
+import Endpoints from "../../constants/api";
 import styled from "styled-components";
 
 interface State {
@@ -11,6 +16,7 @@ interface State {
 }
 
 export default () => {
+  const dispatch = useDispatch();
   const [values, setValues] = React.useState<State>({
     usernameError: false,
     passwordError: false,
@@ -18,16 +24,43 @@ export default () => {
 
   const verifyValues = (fields: string[]) => () => {
     // verify inputs
-
-    const usernameError: boolean = true;
-    const passwordError: boolean = true;
-
-    setValues({
-      usernameError: usernameError,
-      passwordError: passwordError,
-    });
-
-    if (!usernameError && !passwordError) history.push(Routes.HOME);
+    fetch(Endpoints.LOGIN, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tag: fields[0],
+        password: fields[1],
+      }),
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        console.log(res);
+        if (res.Tag === undefined && res.status !== undefined)
+          throw new Error();
+        fetch(Endpoints.LOAD_SESSION, { method: "GET" })
+          .then((res) => res.json())
+          .then((res: any) => {
+            console.log(res);
+            if (res.Tag === undefined && res.status !== undefined)
+              throw new Error();
+            dispatch(loadUser(generateLocalUserFromDTO(res)));
+            toast.success("Successfully logged in!");
+            history.push(Routes.HOME);
+          })
+          .catch(() => {
+            toast.error("Error, please try again.");
+            throw new Error();
+          });
+      })
+      .catch(() => {
+        setValues({
+          usernameError: true,
+          passwordError: true,
+        });
+      });
   };
 
   return (

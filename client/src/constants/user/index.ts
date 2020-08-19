@@ -1,13 +1,4 @@
-export interface Notification {
-  id: number;
-  date: string;
-  author: string;
-  message: string;
-  ticketId: string;
-  new: boolean;
-}
-// A notification is just a record of a change
-// that was applied to an issue.
+import { Notification } from "../notification";
 
 export interface UserInfo {
   profileImg: string;
@@ -23,6 +14,27 @@ export interface User {
   info: UserInfo;
 }
 // Local User (the user that is using the client)
+
+export const getUserFromDTO = (dto: any) =>
+  Object.assign({
+    tag: dto.tag,
+    profileImg: dto.avatar,
+    rank: dto.rank,
+  });
+
+export const generateLocalUserFromDTO = (
+  dto: any,
+  getNotificationById: (ids: number[]) => Notification[]
+) =>
+  Object.assign({
+    authenticated: true,
+    notifications: getNotificationById(dto.notifications),
+    info: {
+      tag: dto.tag,
+      rank: dto.rank,
+      profileImg: dto.avatar,
+    },
+  });
 
 export interface RankObject {
   // numeric representation

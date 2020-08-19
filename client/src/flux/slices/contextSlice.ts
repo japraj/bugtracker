@@ -1,7 +1,8 @@
 import { RootState } from "../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CollapsedTicket } from "../../constants/ticket";
-import { UserInfo, Notification } from "../../constants/user";
+import { UserInfo } from "../../constants/user";
+import { Notification } from "../../constants/notification";
 
 interface Normalized<T> {
   byKey: {
@@ -39,10 +40,11 @@ const newReducer = <T extends CollapsedTicket | UserInfo | Notification>(
       // elements from an array of type T under the property byKey
       let normalized: Normalized<any> = {
         byKey: {},
-        allKeys: action.payload.map((element: any) => element[keyProp]),
+        allKeys: [],
       };
       action.payload.forEach((element: any) => {
         normalized.byKey[element[keyProp]] = element;
+        normalized.allKeys.push(element[keyProp]);
       });
 
       state[origin] = Object.assign(state[origin], normalized);

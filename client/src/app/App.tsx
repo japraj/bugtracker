@@ -12,7 +12,15 @@ import { setCollapsedTickets, setUsers } from "../flux/slices/contextSlice";
 import { setRecentActivity } from "../flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "../seed";
 import Endpoints from "../constants/api";
-import { User } from "../constants/user";
+import {
+  User,
+  generateLocalUserFromDTO,
+  getUserFromDTO,
+} from "../constants/user";
+import {
+  Notification,
+  getNotificationFromDTO,
+} from "../constants/notification";
 
 import FancyLoading, {
   LoadWrapper,
@@ -48,18 +56,6 @@ export default hot(() => {
     //   },
     // };
 
-    fetch(Endpoints.LOAD_SESSION, { method: "GET" })
-      .then((res) => res.json())
-      .then((res: any) => {
-        console.log(res);
-        try {
-          if (res.Tag === undefined && res.status !== undefined)
-            throw new Error();
-          dispatch(loadUser(Object.assign(res)));
-        } catch {}
-      })
-      .catch(() => {});
-
     fetch(Endpoints.GET_COLLAPSED, { method: "GET" })
       .then((res) => res.json())
       .then((res: any) =>
@@ -69,39 +65,36 @@ export default hot(() => {
 
     fetch(Endpoints.GET_ALL_USERS, { method: "GET" })
       .then((res) => res.json())
-      .then((res: any) =>
-        dispatch(
-          setUsers(
-            res.map((dto: any) =>
-              Object.assign({
-                tag: dto.tag,
-                profileImg: dto.avatar,
-                rank: dto.rank,
-              })
-            )
-          )
-        )
-      )
+      .then((res: any) => dispatch(setUsers(res.map(getUserFromDTO))))
       .catch((err) => console.log(err));
+
+    var notifications: Notification[] = [];
 
     fetch(Endpoints.GET_ALL_ACTIVITY, { method: "GET" })
       .then((res) => res.json())
-      .then((res) =>
+      .then((res) => {
+        notifications = res.map(getNotificationFromDTO);
+        dispatch(setRecentActivity(notifications));
+      })
+      .catch((err) => console.log(err));
+
+    fetch(Endpoints.LOAD_SESSION, { method: "GET" })
+      .then((res) => res.json())
+      .then((res: any) => {
+        console.log(res);
+        if (res.Tag === undefined && res.status !== undefined)
+          throw new Error();
         dispatch(
-          setRecentActivity(
-            res.map((dto: any) =>
-              Object.assign({
-                author: dto.author,
-                date: dto.creationDate,
-                message: dto.type,
-                ticketId: dto.ticketID,
-                new: dto.read,
-              })
+          loadUser(
+            generateLocalUserFromDTO(res, (ids: number[]) =>
+              notifications.filter(
+                (notification) => ids.indexOf(notification.id) !== -1
+              )
             )
           )
-        )
-      )
-      .catch((err) => console.log(err))
+        );
+      })
+      .catch(() => {})
       .finally(() => dispatch(finishedLoading()));
 
     // dispatch(loadUser(user));
