@@ -1,6 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../flux/slices/authSlice";
+import { selectElementsByKeys } from "../../flux/slices/contextSlice";
 import FormPage from "../formPage";
 import HyperLink from "../../components/global/hyperLink";
 import { toast } from "react-toastify";
@@ -17,6 +18,7 @@ interface State {
 
 export default () => {
   const dispatch = useDispatch();
+  const getNotificationByIds = useSelector(selectElementsByKeys("activity"));
   const [values, setValues] = React.useState<State>({
     usernameError: false,
     passwordError: false,
@@ -46,7 +48,13 @@ export default () => {
             console.log(res);
             if (res.Tag === undefined && res.status !== undefined)
               throw new Error();
-            dispatch(loadUser(generateLocalUserFromDTO(res)));
+            dispatch(
+              loadUser(
+                generateLocalUserFromDTO(res, (ids: number[]) =>
+                  getNotificationByIds(ids.map((id) => id.toString()))
+                )
+              )
+            );
             toast.success("Successfully logged in!");
             history.push(Routes.HOME);
           })
