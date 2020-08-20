@@ -27,6 +27,8 @@ namespace server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddDbContext<Context>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("Postgre")
@@ -63,6 +65,8 @@ namespace server
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
