@@ -11,18 +11,10 @@ import { generateLocalUserFromDTO } from "../../constants/user";
 import Endpoints from "../../constants/api";
 import styled from "styled-components";
 
-interface State {
-  usernameError: boolean;
-  passwordError: boolean;
-}
-
 export default () => {
   const dispatch = useDispatch();
   const getNotificationByIds = useSelector(selectElementsByKeys("activity"));
-  const [values, setValues] = React.useState<State>({
-    usernameError: false,
-    passwordError: false,
-  });
+  const [error, setError] = React.useState(false);
 
   const verifyValues = (fields: string[]) => () => {
     // verify inputs
@@ -37,11 +29,7 @@ export default () => {
         password: fields[1],
       }),
     })
-      .then((res) => res.json())
-      .then((res: any) => {
-        console.log(res);
-        if (res.Tag === undefined && res.status !== undefined)
-          throw new Error();
+      .then(() => {
         fetch(Endpoints.LOAD_SESSION, { method: "GET" })
           .then((res) => res.json())
           .then((res: any) => {
@@ -55,7 +43,6 @@ export default () => {
                 )
               )
             );
-            toast.success("Successfully logged in!");
             history.push(Routes.HOME);
           })
           .catch(() => {
@@ -64,10 +51,7 @@ export default () => {
           });
       })
       .catch(() => {
-        setValues({
-          usernameError: true,
-          passwordError: true,
-        });
+        setError(true);
       });
   };
 
@@ -88,7 +72,7 @@ export default () => {
           required: true,
         },
       ]}
-      fieldErrors={[values.usernameError, values.passwordError]}
+      fieldErrors={[error, error]}
       buttonText="Login"
       displayButtonSibling={true}
       buttonSibling={

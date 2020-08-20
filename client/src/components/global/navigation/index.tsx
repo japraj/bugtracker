@@ -8,7 +8,10 @@ import {
   selectCollapsed,
 } from "../../../flux/slices/navigationSlice";
 import { collapsedWidth, extendedWidth } from "../../../constants/navigation";
+import history from "../../../routes/history";
+import Endpoints from "../../../constants/api";
 import Routes from "../../../constants/routes";
+import { toast } from "react-toastify";
 
 export type NavigationItem = {
   path: string;
@@ -55,9 +58,7 @@ export default () => {
   const dispatch = useDispatch();
   const authenticated: boolean = useSelector(selectAuthenticated);
   const collapsed: boolean = useSelector(selectCollapsed);
-  const toggle = () => {
-    dispatch(toggleCollapse());
-  };
+  const toggle = () => dispatch(toggleCollapse());
   return (
     <React.Fragment>
       <TopNavigation expandSideNav={toggle} />
@@ -65,7 +66,16 @@ export default () => {
         {...{ authenticated, collapsed, collapsedWidth, extendedWidth }}
         navItemSet={authenticated ? authNavSet : defaultNavSet}
         toggleCollapsed={collapsed ? () => {} : toggle}
-        logout={() => dispatch(logout())}
+        logout={() => {
+          fetch(Endpoints.LOGOUT, { method: "POST" })
+            .then(() => {
+              dispatch(logout());
+              history.push(Routes.HOME);
+            })
+            .catch(() =>
+              toast.error("Oops, something went wrong! Please try again.")
+            );
+        }}
         logoutItem={LogoutItem}
       />
     </React.Fragment>

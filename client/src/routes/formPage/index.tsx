@@ -85,6 +85,13 @@ export default (props: Props) => {
           type={values.showPassword ? "text" : "password"}
           error={props.fieldErrors[index]}
           onChange={handleFieldChange(index)}
+          onKeyDown={(event: React.KeyboardEvent): void => {
+            if (event.keyCode === 13) {
+              event.preventDefault();
+              event.stopPropagation();
+              props.onSubmit(values.fields)();
+            }
+          }}
           endAdornment={
             <InputAdornment position="end">
               <IconButton

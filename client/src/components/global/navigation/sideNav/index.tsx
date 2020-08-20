@@ -37,7 +37,7 @@ export default ({
         onClick={() => {
           // On mobile, we automatically close the nav
           // when a user clicks on a link.
-          if (window.innerWidth < 600) toggleCollapsed();
+          if (window.innerWidth < 1215) toggleCollapsed();
           // Logout
           if (navItem === logoutItem) logout();
         }}

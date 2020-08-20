@@ -45,7 +45,6 @@ export const authSlice = createSlice({
       );
     },
     logout: (state) => {
-      // send a post request invalidating the user's session token
       state = Object.assign(state, initialState, { loaded: true });
     },
   },

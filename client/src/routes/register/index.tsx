@@ -36,7 +36,7 @@ export default () => {
 
       setValues({
         emailError: getBlame("email"),
-        usernameError: getBlame("name"),
+        usernameError: getBlame("name") ? true : getBlame("tag"),
         passwordError: getBlame("password"),
       });
     } catch {}
@@ -91,7 +91,11 @@ export default () => {
           required: true,
         },
       ]}
-      fieldErrors={[values.usernameError, values.passwordError]}
+      fieldErrors={[
+        values.emailError,
+        values.usernameError,
+        values.passwordError,
+      ]}
       buttonText="Register"
       displayButtonSibling={false}
       buttonSibling={<React.Fragment />}

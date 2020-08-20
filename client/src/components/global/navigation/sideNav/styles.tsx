@@ -52,10 +52,11 @@ export const SideNav = styled.nav`
       ${(props: { collapsed: boolean; sideNavWidth: number }) =>
         props.collapsed
           ? "display: none;"
-          : "width: 172px; margin: 5rem auto 1rem;"}
+          : "width: 172px; margin: 5rem auto 0;"}
     }
 
     ul {
+      margin-top: 1rem;
       ${(props: { collapsed: boolean; sideNavWidth: number }) =>
         props.collapsed ? "display: none;padding-top: 10vh;" : "display: flex;"}
       flex-direction: column;
