@@ -30,6 +30,11 @@ export const PaginationContainer = styled.div`
   height: auto;
   border: none !important;
 
+  * {
+    min-height: 0 !important;
+    max-height: 32px !important;
+  }
+
   .MuiTablePagination-spacer + p,
   .MuiTablePagination-selectRoot {
     display: none;
