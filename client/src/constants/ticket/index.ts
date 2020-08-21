@@ -6,8 +6,8 @@ export interface Ticket {
   typeLabel: number;
   title: string;
   author: string;
-  creationDate: number;
-  updateDate: number;
+  creationDate: string;
+  updateDate: string;
   description: string;
   reproducibility: number;
   severity: number;
@@ -43,7 +43,7 @@ export interface CollapsedTicket {
   typeLabel: number;
   title: string;
   author: string;
-  updateDate: number;
+  updateDate: string;
   severity: number;
   status: number;
   comments: number;

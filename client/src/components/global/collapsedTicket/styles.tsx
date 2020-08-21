@@ -59,10 +59,19 @@ export const TicketBodyCell = styled.div`
   height: 30px;
 
   h3 {
+    display: inline-flex;
     font-size: 0.8rem;
 
     span {
       margin-left: 0.5rem;
+    }
+
+    .timestamp {
+      margin-left: 0.5rem;
+
+      h6 {
+        font-size: 0.8rem;
+      }
     }
   }
 

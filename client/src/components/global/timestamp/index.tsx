@@ -5,21 +5,24 @@ import { PopperContent } from "../userLink/styles";
 import "../userLink/Popper.css";
 import styled from "styled-components";
 
-const shortenDate = (date: string): string => {
-  let shortenedDate = date.substring(2, 5) + "11267";
-  // do stuff!
+const formattedDate = (date: string): string => new Date(date).toLocaleString();
+
+const shortenDate = (dateStr: string): string => {
   // if the date is within the past 24 hrs, then we want to return a time like xx:yy p.m. (in the user's local time)
   // else, we want to return something of the form "dd/mm/yyyy"
-  return shortenedDate;
+  const date: Date = new Date(dateStr);
+  return new Date().getTime() - date.getTime() < 24 * 60 * 60 * 1000
+    ? date.toLocaleTimeString()
+    : date.toLocaleDateString();
 };
 
-export default ({ date }: { date: string }) => {
+// Dates come in the form '2020-08-11T12:50:59.501876' (ISO 8601 format) in the UTC timezone
+export default ({ date, className }: { date: string; className?: string }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
   const open = Boolean(anchorEl);
 
   return (
-    <React.Fragment>
+    <div className={className === undefined ? "" : className}>
       <ShortDate
         onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) =>
           setAnchorEl(anchorEl === null ? event.currentTarget : null)
@@ -38,12 +41,12 @@ export default ({ date }: { date: string }) => {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={50}>
             <PopperContent>
-              <FullDate>{date + "4525234524"}</FullDate>
+              <FullDate>{formattedDate(date)}</FullDate>
             </PopperContent>
           </Fade>
         )}
       </Popper>
-    </React.Fragment>
+    </div>
   );
 };
 

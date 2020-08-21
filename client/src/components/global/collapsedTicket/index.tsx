@@ -5,6 +5,7 @@ import StatusIndicator from "../statusIndicator";
 import UserLink from "../userLink";
 import TicketTag from "../ticketTag";
 import { CollapsedTicket, Severity } from "../../../constants/ticket";
+import Timestamp from "../timestamp";
 import {
   TicketWrapper,
   TicketHeader,
@@ -47,7 +48,10 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
           </h3>
         </TicketBodyCell>
         <TicketBodyCell>
-          <h3>{"Latest Update: " + ticket.updateDate}</h3>
+          <h3>
+            Latest Update:
+            <Timestamp date={ticket.updateDate} className="timestamp" />
+          </h3>
         </TicketBodyCell>
         <TicketBodyCell>
           <h3>{"Comments: " + ticket.comments}</h3>
