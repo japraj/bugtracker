@@ -80,6 +80,7 @@ export const SideNav = styled.nav`
           height: var(--mobile-nav-height);
 
           ul {
+            margin-top: 0;
             padding-top: 0;
             height: 100%;
             width: fit-content;
