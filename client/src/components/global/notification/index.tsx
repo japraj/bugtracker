@@ -2,7 +2,12 @@ import React from "react";
 import UserLink from "../userLink";
 import { useDispatch } from "react-redux";
 import { loadTicketById } from "../../../flux/slices/ticketSlice";
-import { Notification } from "../../../constants/notification";
+import {
+  Notification,
+  Variant,
+  generateGlobalMessage,
+  generateModalMessage,
+} from "../../../constants/notification";
 import { Cell, CellText } from "./styles";
 import Timestamp from "../timestamp";
 
@@ -15,20 +20,31 @@ export default ({
   notification,
   className,
   onClick,
-  commentVariant,
+  variant,
 }: {
   notification: Notification;
   className: string;
   onClick: () => void;
-  commentVariant: boolean;
+  variant: Variant;
 }) => {
   const dispatch = useDispatch();
   const imgLength: string = `${window.innerWidth > 1100 ? 50 : 40}px`;
+  const commentVariant: boolean = variant === Variant.MODAL;
 
   var isValidId: boolean = true;
   try {
     isValidId = Number(notification.ticketId) !== -1;
   } catch {}
+
+  const generateMessage = (): string => {
+    switch (variant) {
+      case Variant.MODAL:
+        return generateModalMessage(notification);
+      case Variant.GLOBAL:
+      default:
+        return generateGlobalMessage(notification);
+    }
+  };
 
   return (
     <Cell className={className} commentVariant={commentVariant}>
@@ -71,7 +87,7 @@ export default ({
             }
           }}
         >
-          {notification.message}
+          {generateMessage()}
         </h5>
         <Timestamp date={notification.date} />
       </CellText>

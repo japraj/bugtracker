@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../../flux/slices/authSlice";
 import { viewNotifications } from "../../../flux/slices/authSlice";
 import Routes from "../../../constants/routes";
-import { Notification } from "../../../constants/notification";
+import { Notification, Variant } from "../../../constants/notification";
 import UserLink from "../userLink";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
@@ -78,7 +78,11 @@ export default (props: Props) => {
         aria-describedby="A list of notifications for the user, each containing an author and a message."
       >
         <div>
-          <NotificationSet onClick={close} notifications={user.notifications} />
+          <NotificationSet
+            onClick={close}
+            notifications={user.notifications}
+            variant={Variant.GLOBAL}
+          />
         </div>
       </Modal>
     </React.Fragment>

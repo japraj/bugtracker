@@ -1,13 +1,15 @@
 import React from "react";
-import { Notification } from "../../../constants/notification";
+import { Notification, Variant } from "../../../constants/notification";
 import NotificationCell from "../notification";
 import { NotificationWrapper, EmptyNotificationsBanner } from "./styles";
 
 export default ({
   notifications,
+  variant,
   onClick,
 }: {
   notifications: Notification[];
+  variant: Variant;
   onClick: () => void;
 }) => {
   return (
@@ -15,7 +17,7 @@ export default ({
       {notifications.length > 0 ? (
         notifications.map((notification) => (
           <NotificationCell
-            commentVariant={false}
+            variant={variant}
             onClick={onClick}
             className={`notification ${notification.new ? "new" : ""}`}
             notification={notification}

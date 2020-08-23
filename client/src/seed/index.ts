@@ -22,7 +22,8 @@ const generateNotification = (): Notification => {
     ticketId: Math.random() < 0.25 ? "null" : randomString(),
     date: "99/99/9999",
     author: getRandom(User).tag,
-    message: getRandom(NotificationMessage),
+    message: randomNum(12),
+    value: randomString(),
     new: randomBool(),
   };
 };

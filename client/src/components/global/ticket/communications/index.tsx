@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../../../../constants/notification";
+import { Notification, Variant } from "../../../../constants/notification";
 import NotificationNode from "../../notification";
 import CommentBox from "../commentBox";
 import styled from "styled-components";
@@ -17,7 +17,7 @@ export default ({
         <NotificationNode
           key={activity.message + activity.ticketId + activity.date}
           onClick={close}
-          commentVariant={true}
+          variant={Variant.MODAL}
           // The highlight variant is only applied to actions, not comments.
           // Comments all have their ticketId set to null by default.
           className={`node ${

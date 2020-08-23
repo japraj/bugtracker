@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../../../constants/notification";
+import { Notification, Variant } from "../../../constants/notification";
 import NotificationCell from "../notification";
 import IterableWidget from "../iterableWidget";
 
@@ -21,7 +21,7 @@ export default ({
       set={notificationSet}
       wrapperElement={NotificationCell}
       defaultProps={{
-        commentVariant: false,
+        variant: Variant.GLOBAL,
         onClick: () => {},
         className: "",
       }}
