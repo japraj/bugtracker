@@ -1,30 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
-import { Ticket, EditedTicket } from "../../constants/ticket";
-import { generateTicket } from "../../seed";
-import { User } from "../../seed/predefined";
+import { RootState, AppThunk } from "../store";
+import { Ticket, EditedTicket, getTicketFromDTO } from "../../constants/ticket";
+import Endpoints from "../../constants/api";
+import { UserInfo, Rank } from "../../constants/user";
 
 export interface TicketState {
   displayModal: boolean;
   failedImages: number;
   currentTicket: Ticket;
   displayEditModal: boolean;
-  // A set of all developers, used in edit modal's assignment section
-  developers: string[];
   editedTicket: EditedTicket;
 }
 
 const generateComplement = (universe: string[], subset: string[]): string[] =>
-  universe.filter(
-    (user) => subset.indexOf(user) !== -1
-    // for (let subsetUser of subset)
-    //   if (user === subsetUser) return false;
-    // return true;}
-  );
-
-const fetchDevs = (): string[] => {
-  return User.map((user) => user.tag);
-};
+  universe.filter((user) => subset.indexOf(user) !== -1);
 
 const initialState: TicketState = {
   displayModal: false,
@@ -44,7 +33,6 @@ const initialState: TicketState = {
     imageLinks: [],
     activity: [],
   },
-  developers: fetchDevs(),
   displayEditModal: false,
   editedTicket: {
     title: "",
@@ -65,23 +53,15 @@ export const ticketSlice = createSlice({
     toggleDisplay: (state) => {
       state.displayModal = !state.displayModal;
     },
-    loadTicketById: {
-      reducer(state, action: PayloadAction<string>) {
-        const ticket = generateTicket();
-        state = Object.assign(state, {
-          displayModal: true,
-          failedImages: 0,
-          currentTicket: Object.assign(ticket, {
-            id: action.payload,
-          }),
-          editedTicket: {
-            ...ticket,
-          },
-        });
-      },
-      prepare(payload: string) {
-        return { payload };
-      },
+    loadTicket: (state, action: PayloadAction<Ticket>) => {
+      state = Object.assign(state, {
+        displayModal: true,
+        failedImages: 0,
+        currentTicket: Object.assign(action.payload),
+        editedTicket: {
+          ...action.payload,
+        },
+      });
     },
     reportLoadingFailure: (state) => {
       state.failedImages++;
@@ -89,13 +69,8 @@ export const ticketSlice = createSlice({
     toggleEditDisplay: (state) => {
       state.displayEditModal = !state.displayEditModal;
     },
-    updateEdit: {
-      reducer(state, action: PayloadAction<object>) {
-        state.editedTicket = Object.assign(state.editedTicket, action.payload);
-      },
-      prepare(payload: object) {
-        return { payload };
-      },
+    updateEdit: (state, action: PayloadAction<object>) => {
+      state.editedTicket = Object.assign(state.editedTicket, action.payload);
     },
     wipeLocalChanges: (state) => {
       state.editedTicket = state.currentTicket;
@@ -109,7 +84,7 @@ export const ticketSlice = createSlice({
 
 export const {
   toggleDisplay,
-  loadTicketById,
+  loadTicket,
   reportLoadingFailure,
   toggleEditDisplay,
   updateEdit,
@@ -127,8 +102,22 @@ export const selectTicketSlice = (state: RootState) => state.ticket;
 
 export const selectAvailable = (state: RootState) =>
   generateComplement(
-    state.ticket.developers,
+    state.context.users.allKeys
+      .map((key) => state.context.users.byKey[key])
+      .filter((u: UserInfo) => u.rank > Rank.User)
+      .map((u) => u.tag),
     state.ticket.editedTicket.assignees
   );
+
+export const loadTicketById = (id: string): AppThunk => (dispatch) => {
+  fetch(`${Endpoints.TICKET_BY_ID}/${id}`, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((res: any) => {
+      dispatch(loadTicket(getTicketFromDTO(res)));
+    })
+    .catch();
+};
 
 export default ticketSlice.reducer;

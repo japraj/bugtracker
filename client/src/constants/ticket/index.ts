@@ -76,3 +76,5 @@ export enum TypeLabel {
   "Feature Request",
   "Suggestion",
 }
+
+export const getTicketFromDTO = (dto: any): Ticket => Object.assign({}, dto);

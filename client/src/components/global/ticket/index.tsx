@@ -65,9 +65,12 @@ export default () => {
         <FieldGrid>
           <TicketField
             name="Creation Date"
-            content={`${ticket.creationDate}`}
+            content={`${new Date(ticket.creationDate).toLocaleString()}`}
           />
-          <TicketField name="Last Update" content={`${ticket.updateDate}`} />
+          <TicketField
+            name="Last Update"
+            content={`${new Date(ticket.updateDate).toLocaleString()}`}
+          />
           <TicketField
             name="Severity"
             content={
