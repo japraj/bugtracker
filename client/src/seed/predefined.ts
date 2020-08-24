@@ -63,11 +63,3 @@ export const User: UserInfo[] = [
 ];
 
 export const Status: string[] = ["resolved", "work-in-progress", "new"];
-
-export const NotificationMessage: string[] = [
-  "commented on an issue",
-  "created a new issue",
-  "updated an issue's status to " + getRandom(Status),
-  "assigned an issue to " + getRandom(User).tag,
-  "commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue commented on an issue",
-];

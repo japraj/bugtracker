@@ -3,7 +3,6 @@ import { UserInfo } from "../constants/user";
 import { Notification } from "../constants/notification";
 import {
   User,
-  NotificationMessage,
   getRandom,
   randomNum,
   randomString,
