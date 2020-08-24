@@ -28,6 +28,7 @@ interface Props {
   displayButtonSibling: boolean;
   buttonSibling: React.ReactNode;
   onSubmit: (fields: string[]) => () => void;
+  suggest?: boolean;
 }
 
 interface State {
@@ -105,6 +106,7 @@ export default (props: Props) => {
             </InputAdornment>
           }
           labelWidth={70}
+          autoComplete={props.suggest ? "on" : "off"}
         />
       )}
     </FormControl>

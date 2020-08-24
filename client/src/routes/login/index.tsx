@@ -46,11 +46,11 @@ export default () => {
             history.push(Routes.HOME);
           })
           .catch(() => {
-            toast.error("Error, please try again.");
-            throw new Error();
+            setError(true);
           });
       })
       .catch(() => {
+        toast.error("Error, please try again.");
         setError(true);
       });
   };
@@ -81,6 +81,7 @@ export default () => {
         </LinkWrapper>
       }
       onSubmit={verifyValues}
+      suggest={true}
     />
   );
 };
