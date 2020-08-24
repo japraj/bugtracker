@@ -44,6 +44,7 @@ export default (props: Props) => {
   const user: UserInfo = useSelector(selectElementByKey("users"))(
     props.userTag
   );
+  if (!user) return <h1>{"undefined: " + props.userTag}</h1>;
   const rank: RankObject = getRankObj(user.rank);
 
   return (
