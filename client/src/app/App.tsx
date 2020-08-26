@@ -44,6 +44,32 @@ const Context = React.createContext(initialState);
 export default hot(() => {
   const dispatch = useDispatch();
   const initialLoad = () => {
+    fetch(Endpoints.INITIAL_LOAD, { method: "GET" })
+      .then((res) => res.json())
+      .then((res: any) => {
+        dispatch(
+          setCollapsedTickets(res.tickets.map((dto: any) => Object.assign(dto)))
+        );
+        dispatch(setUsers(res.users.map(getUserFromDTO)));
+
+        var notifications: Notification[] = res.activity.map(
+          getNotificationFromDTO
+        );
+
+        dispatch(setRecentActivity(notifications));
+        dispatch(
+          loadUser(
+            generateLocalUserFromDTO(res.session, (ids: number[]) =>
+              notifications.filter(
+                (notification) => ids.indexOf(notification.id) !== -1
+              )
+            )
+          )
+        );
+      })
+      .catch((err) => console.log(err))
+      .finally(() => dispatch(finishedLoading()));
+
     // let user: User = {
     //   authenticated: true,
     //   id: 0,
@@ -55,47 +81,6 @@ export default hot(() => {
     //     rank: Rank.Admin,
     //   },
     // };
-
-    fetch(Endpoints.GET_COLLAPSED, { method: "GET" })
-      .then((res) => res.json())
-      .then((res: any) =>
-        dispatch(setCollapsedTickets(res.map((dto: any) => Object.assign(dto))))
-      )
-      .catch((err) => console.log(err));
-
-    fetch(Endpoints.GET_ALL_USERS, { method: "GET" })
-      .then((res) => res.json())
-      .then((res: any) => dispatch(setUsers(res.map(getUserFromDTO))))
-      .catch((err) => console.log(err));
-
-    var notifications: Notification[] = [];
-
-    fetch(Endpoints.GET_ALL_ACTIVITY, { method: "GET" })
-      .then((res) => res.json())
-      .then((res) => {
-        notifications = res.map(getNotificationFromDTO);
-        dispatch(setRecentActivity(notifications));
-      })
-      .catch((err) => console.log(err));
-
-    fetch(Endpoints.LOAD_SESSION, { method: "GET" })
-      .then((res) => res.json())
-      .then((res: any) => {
-        console.log(res);
-        if (res.Tag === undefined && res.status !== undefined)
-          throw new Error();
-        dispatch(
-          loadUser(
-            generateLocalUserFromDTO(res, (ids: number[]) =>
-              notifications.filter(
-                (notification) => ids.indexOf(notification.id) !== -1
-              )
-            )
-          )
-        );
-      })
-      .catch(() => {})
-      .finally(() => dispatch(finishedLoading()));
 
     // dispatch(loadUser(user));
     // dispatch(setCollapsedTickets(generateTicketSet(20)));
