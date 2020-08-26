@@ -14,7 +14,7 @@ export interface Ticket {
   status: number;
   assignees: string[];
   imageLinks: string[];
-  activity: Notification[];
+  activity: number[];
 }
 
 export interface EditedTicket {

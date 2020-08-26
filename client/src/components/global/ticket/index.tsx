@@ -6,7 +6,9 @@ import {
   selectFailures,
   toggleDisplay,
 } from "../../../flux/slices/ticketSlice";
+import { selectElementsByKeys } from "../../../flux/slices/contextSlice";
 import { Ticket, Severity, Reproducibility } from "../../../constants/ticket";
+import { Notification } from "../../../constants/notification";
 import TicketTag from "../ticketTag";
 import StatusIndicator from "../statusIndicator";
 import Modal from "@material-ui/core/Modal";
@@ -34,6 +36,9 @@ export default () => {
   const ticket: Ticket = useSelector(selectTicket);
   const failures: number = useSelector(selectFailures);
   const mobileDisplay: boolean = window.innerWidth < 600;
+  const activity: Notification[] = useSelector(
+    selectElementsByKeys("activity")
+  )(ticket.activity.map((id) => id.toString()));
 
   return (
     <Modal
@@ -124,7 +129,7 @@ export default () => {
             <ImageGrid imageLinks={ticket.imageLinks} />
           </TicketSection>
         )}
-        <Communications activities={ticket.activity} close={close} />
+        <Communications activities={activity} close={close} />
         <EditModal
           imgLength={mobileDisplay ? "25px" : "30px"}
           modalImgLength={"40px"}

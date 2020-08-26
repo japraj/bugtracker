@@ -12,6 +12,7 @@ using server.Data.UsersData;
 using server.Models.ActivityModel;
 using server.Models.TicketModel;
 using server.Models.UserModel;
+using System;
 
 #nullable enable
 
@@ -29,6 +30,7 @@ namespace server.Controllers
 
         private readonly ITicketRepo _ticketRepo;
         private readonly IUserRepo _userRepo;
+        private readonly IActivityRepo _activityRepo;
         private readonly IMapper _mapper;
         private readonly Authorization auth;
         private readonly ActivityHandler activityHandler;
@@ -37,9 +39,10 @@ namespace server.Controllers
         {
             _ticketRepo = ticketRepo;
             _userRepo = userRepo;
+            _activityRepo = activityRepo;
             _mapper = mapper;
             auth = new Authorization(userRepo, ticketRepo);
-            activityHandler = new ActivityHandler(ticketRepo,  userRepo, activityRepo, mapper);
+            activityHandler = new ActivityHandler(ticketRepo, userRepo, activityRepo, mapper);
         }
 
         [HttpGet("{id}", Name = "ById")]
@@ -226,13 +229,13 @@ namespace server.Controllers
             }
 
             _mapper.Map(updateModel, persistentModel);
-            _ticketRepo.SaveChanges();  
+            _ticketRepo.SaveChanges();
 
             return NoContent();
         }
 
-        [HttpPatch]
-        public ActionResult<Activity> AddComment(TicketCommentDTO comment)
+        [HttpPost]
+        public ActionResult<Activity> Comment(TicketCommentDTO comment)
         {
             if (!auth.IsAuthenticated(Request))
                 return Unauthorized();
@@ -241,13 +244,43 @@ namespace server.Controllers
                 return BadRequest();
 
             User? requester = auth.GetUserFromCookie(Request);
-            if (requester == null)
+            Ticket? ticket = _ticketRepo.GetTicketById(comment.TicketID);
+            if (requester == null || ticket == null)
                 return NotFound();
 
-            if (!activityHandler.GenerateActivity(ActivityType.COMMENT, "", comment.Message, requester, (byte)comment.TicketID, true))
+            User? author = requester.Tag.Equals(ticket.Author) ? requester : _userRepo.GetUserByTag(ticket.Author);
+            if (author == null)
                 return NotFound();
-            else
-                return NoContent();
+
+            bool success = true;
+            Activity activity = _mapper.Map<Activity>(new ActivityCreateDTO
+            {
+                Author = requester.Tag,
+                Type = (byte)ActivityType.COMMENT,
+                Old = "",
+                New = comment.Message,
+                TicketID = (byte)comment.TicketID
+            });
+            _activityRepo.AddActivity(activity);
+            success = _activityRepo.SaveChanges();
+            if (!success)
+                return NotFound();
+
+            ticket.Comments++;
+            ticket.UpdateDate = DateTime.UtcNow;
+            ticket.Activity.Add(activity.Id);
+            success = _ticketRepo.SaveChanges();
+            if (!success)
+                return NotFound();
+
+            requester.Activity.Add(activity.Id);
+            if (author.Tag != requester.Tag)
+                author.Notifications.Add(activity.Id);
+            success = _userRepo.SaveChanges();
+            if (!success)
+                return NotFound();
+
+            return Ok(_mapper.Map<ActivityReadDTO>(activity));
         }
 
         [HttpDelete("{id}")]

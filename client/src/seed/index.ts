@@ -87,6 +87,6 @@ export const generateTicket = (): Ticket => {
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Ht-rJ2jpxs6obcf4Q7YoHgHaEo%26pid%3DApi&f=1",
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.-O9sV29ek_6WabRw9G5WgQHaEK%26pid%3DApi&f=1",
     ],
-    activity: generateNotificationSet(10),
+    activity: generateNotificationSet(10).map((n) => n.id),
   };
 };

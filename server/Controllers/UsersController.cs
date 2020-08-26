@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.JsonPatch.Operations;
 using server.Data.AuthorizationHandler;
 using Newtonsoft.Json;
 using server.Data.ActivityData;
-using server.Data.TicketsData;
 using server.Models.ActivityModel;
 using System.Linq;
 

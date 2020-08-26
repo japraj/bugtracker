@@ -40,7 +40,7 @@ const Endpoints: {
   CREATE_TICKET: `${ticketRoute}create`,
   UPDATE_TICKET: `${ticketRoute}patch`,
   DELETE_TICKET: `${ticketRoute}delete`,
-  ADD_COMMENT: `${ticketRoute}addComment`,
+  ADD_COMMENT: `${ticketRoute}comment`,
 
   GET_ALL_ACTIVITY: `${activityRoute}getAll`,
   READ_ALL_NOTIFICATIONS: `${activityRoute}readAll`,
