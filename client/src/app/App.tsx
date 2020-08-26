@@ -8,7 +8,11 @@ import {
   finishedLoading,
   loadUser,
 } from "../flux/slices/authSlice";
-import { setCollapsedTickets, setUsers } from "../flux/slices/contextSlice";
+import {
+  setCollapsedTickets,
+  setUsers,
+  setActivity,
+} from "../flux/slices/contextSlice";
 import { setRecentActivity } from "../flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "../seed";
 import Endpoints from "../constants/api";
@@ -56,16 +60,22 @@ export default hot(() => {
           getNotificationFromDTO
         );
 
-        dispatch(setRecentActivity(notifications));
+        dispatch(setActivity(notifications));
         dispatch(
-          loadUser(
-            generateLocalUserFromDTO(res.session, (ids: number[]) =>
-              notifications.filter(
-                (notification) => ids.indexOf(notification.id) !== -1
-              )
-            )
+          setRecentActivity(
+            notifications.filter((n) => n.message < 11).map((n) => n.id)
           )
         );
+        if (res.session !== null)
+          dispatch(
+            loadUser(
+              generateLocalUserFromDTO(res.session, (ids: number[]) =>
+                notifications.filter(
+                  (notification) => ids.indexOf(notification.id) !== -1
+                )
+              )
+            )
+          );
       })
       .catch((err) => console.log(err))
       .finally(() => dispatch(finishedLoading()));

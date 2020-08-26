@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Notification } from "../../constants/notification";
 
 interface HomeState {
-  recentActivity: Notification[];
+  recentActivity: number[];
 }
 
 const initialState: HomeState = {
@@ -14,20 +13,15 @@ export const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
-    setRecentActivity: {
-      reducer(state, action: PayloadAction<Notification[]>) {
-        state.recentActivity = action.payload;
-      },
-      prepare(payload: Notification[]) {
-        return { payload };
-      },
+    setRecentActivity: (state, action: PayloadAction<number[]>) => {
+      state.recentActivity = action.payload;
     },
   },
 });
 
 export const { setRecentActivity } = homeSlice.actions;
 
-export const selectRecentActivity = (state: RootState): Notification[] =>
+export const selectRecentActivity = (state: RootState): number[] =>
   state.home.recentActivity;
 
 export default homeSlice.reducer;
