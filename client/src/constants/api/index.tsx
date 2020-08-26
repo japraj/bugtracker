@@ -3,6 +3,7 @@ export const serverURL: string = "/api/";
 export const userRoute: string = `${serverURL}users/`;
 export const ticketRoute: string = `${serverURL}tickets/`;
 export const activityRoute: string = `${serverURL}activity/`;
+export const loadRoute: string = `${serverURL}load/`;
 
 const Endpoints: {
   USER_BY_TAG: string;
@@ -22,6 +23,9 @@ const Endpoints: {
 
   GET_ALL_ACTIVITY: string;
   READ_ALL_NOTIFICATIONS: string;
+
+  INITIAL_LOAD: string;
+  SUBSCRIBE: string;
 } = {
   USER_BY_TAG: `${userRoute}byTag`,
   GET_ALL_USERS: `${userRoute}getAllUsers`,
@@ -40,6 +44,9 @@ const Endpoints: {
 
   GET_ALL_ACTIVITY: `${activityRoute}getAll`,
   READ_ALL_NOTIFICATIONS: `${activityRoute}readAll`,
+
+  INITIAL_LOAD: `${loadRoute}initial`,
+  SUBSCRIBE: `${loadRoute}subscribe`,
 };
 
 export default Endpoints;
