@@ -73,14 +73,16 @@ namespace server.Controllers
 
                 bool IsNew(DateTime toCompare) => toCompare.Date > date.Date;
 
-                IEnumerable<TicketCollapsedDTO>? tickets =
-                    _ticketRepo.GetAllTickets()
-                               .Where(t => IsNew(t.UpdateDate))
-                               .Select(ticket => _mapper.Map<TicketCollapsedDTO>(ticket));
-
                 IEnumerable<ActivityReadDTO>? activities = _activityRepo.GetAllActivities()
                                                     .Where(a => IsNew(a.CreationDate))
                                                     .Select(activity => _mapper.Map<ActivityReadDTO>(activity));
+
+                IEnumerable<int> updatedTickets = activities == null ? new List<int>() : activities.Select(a => a.TicketID);
+
+                IEnumerable<TicketCollapsedDTO>? tickets =
+                    _ticketRepo.GetAllTickets()
+                               .Where(t => IsNew(t.UpdateDate) || updatedTickets.Contains(t.Id))
+                               .Select(ticket => _mapper.Map<TicketCollapsedDTO>(ticket));
 
                 IEnumerable<UserReadDTO>? users = _userRepo.GetAllUsers()
                                             .Where(u => IsNew(u.CreationDate))

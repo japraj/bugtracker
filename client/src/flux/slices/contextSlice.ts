@@ -37,7 +37,8 @@ const newReducer = <T extends CollapsedTicket | UserInfo | Notification>(
     var normalized: Normalized<any> = state[origin];
     action.payload.forEach((element: any) => {
       normalized.byKey[element[keyProp]] = element;
-      normalized.allKeys.push(element[keyProp].toString());
+      if (normalized.allKeys.indexOf(element[keyProp].toString()) === -1)
+        normalized.allKeys.push(element[keyProp].toString());
     });
     state[origin] = Object.assign(state[origin], normalized);
   };
