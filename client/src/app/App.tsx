@@ -9,9 +9,9 @@ import {
   loadUser,
 } from "../flux/slices/authSlice";
 import {
-  setCollapsedTickets,
-  setUsers,
-  setActivity,
+  addCollapsedTickets,
+  addUsers,
+  addActivity,
 } from "../flux/slices/contextSlice";
 import { setRecentActivity } from "../flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "../seed";
@@ -52,15 +52,15 @@ export default hot(() => {
       .then((res) => res.json())
       .then((res: any) => {
         dispatch(
-          setCollapsedTickets(res.tickets.map((dto: any) => Object.assign(dto)))
+          addCollapsedTickets(res.tickets.map((dto: any) => Object.assign(dto)))
         );
-        dispatch(setUsers(res.users.map(getUserFromDTO)));
+        dispatch(addUsers(res.users.map(getUserFromDTO)));
 
         var notifications: Notification[] = res.activity.map(
           getNotificationFromDTO
         );
 
-        dispatch(setActivity(notifications));
+        dispatch(addActivity(notifications));
         dispatch(
           setRecentActivity(
             notifications.filter((n) => n.message < 11).map((n) => n.id)

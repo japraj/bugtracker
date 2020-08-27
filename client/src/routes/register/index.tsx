@@ -1,4 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser } from "../../flux/slices/authSlice";
+import { addUsers, selectElementsByKeys } from "../../flux/slices/contextSlice";
+import { generateLocalUserFromDTO, getUserFromDTO } from "../../constants/user";
 import FormPage from "../formPage";
 import Routes from "../../constants/routes";
 import history from "../history";
@@ -12,16 +16,17 @@ interface State {
 }
 
 export default () => {
+  const dispatch = useDispatch();
   const [values, setValues] = React.useState<State>({
     emailError: false,
     usernameError: false,
     passwordError: false,
   });
+  const getNotificationByIds = useSelector(selectElementsByKeys("activity"));
 
   const evaluateError = (err: any): void => {
     try {
       const keys = Object.keys(err.errors);
-
       // Generate toasts
       keys.forEach((key) =>
         err.errors[key].map((msg: string) => toast.error(msg))
@@ -61,8 +66,22 @@ export default () => {
         if (res.Tag === undefined && res.status !== undefined)
           evaluateError(res);
         else {
-          toast.success("Successfully registered an account!");
-          history.push(Routes.LOGIN);
+          dispatch(addUsers([getUserFromDTO(res)]));
+          fetch(Endpoints.LOAD_SESSION, { method: "GET" })
+            .then((load) => load.json())
+            .then((load: any) => {
+              dispatch(
+                loadUser(
+                  generateLocalUserFromDTO(load, (ids: number[]) =>
+                    getNotificationByIds(ids.map((id) => id.toString()))
+                  )
+                )
+              );
+              history.push(Routes.HOME);
+            })
+            .catch(() => {
+              toast.error("Something went wrong; please try again.");
+            });
         }
       })
       .catch((err) => evaluateError(err));

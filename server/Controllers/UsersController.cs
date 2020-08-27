@@ -63,7 +63,8 @@ namespace server.Controllers
             try
             {
                 return Ok(_repository.GetAllUsers().Select(u => _mapper.Map<UserReadDTO>(u)));
-            } catch
+            }
+            catch
             {
                 return NotFound();
             }
@@ -88,9 +89,12 @@ namespace server.Controllers
             User mappedUser = _mapper.Map<User>(user);
             IdentityResult result = await _userManager.CreateAsync(mappedUser, user.Password);
             if (result.Succeeded)
+            {
+                GenerateSession(mappedUser);
                 return CreatedAtRoute(nameof(ByTag),
                                       new { user.Tag },
                                       _mapper.Map<UserReadDTO>(mappedUser));
+            }
             foreach (var error in result.Errors)
             {
                 ModelState.TryAddModelError(error.Code, error.Description);
@@ -114,6 +118,14 @@ namespace server.Controllers
             ClearClientCookie();
 
             // Create a new session
+            GenerateSession(user);
+
+            return NoContent();
+        }
+
+        [NonAction]
+        public void GenerateSession(User user)
+        {
             Session newSession = new Session
             {
                 Token = "",
@@ -132,8 +144,6 @@ namespace server.Controllers
             _repository.SaveChanges();
 
             Response.Cookies.Append(Session.KEY, newSession.Token, cookieOptions);
-
-            return NoContent();
         }
 
         [HttpGet]
