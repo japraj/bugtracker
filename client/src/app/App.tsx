@@ -25,6 +25,7 @@ import {
   Notification,
   getNotificationFromDTO,
 } from "../constants/notification";
+import { getCollapsedTicketFromDTO } from "../constants/ticket";
 
 import FancyLoading, {
   LoadWrapper,
@@ -52,11 +53,11 @@ export default hot(() => {
       .then((res) => res.json())
       .then((res: any) => {
         dispatch(
-          addCollapsedTickets(res.tickets.map((dto: any) => Object.assign(dto)))
+          addCollapsedTickets(res.tickets.map(getCollapsedTicketFromDTO))
         );
         dispatch(addUsers(res.users.map(getUserFromDTO)));
 
-        var notifications: Notification[] = res.activity.map(
+        const notifications: Notification[] = res.activity.map(
           getNotificationFromDTO
         );
 

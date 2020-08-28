@@ -1,8 +1,13 @@
-import { RootState } from "../store";
+import { RootState, AppThunk } from "../store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CollapsedTicket } from "../../constants/ticket";
-import { UserInfo } from "../../constants/user";
-import { Notification } from "../../constants/notification";
+import { UserInfo, getUserFromDTO } from "../../constants/user";
+import {
+  Notification,
+  getNotificationFromDTO,
+} from "../../constants/notification";
+import Endpoints from "../../constants/api";
+import { getCollapsedTicketFromDTO } from "../../constants/ticket";
 
 interface Normalized<T> {
   byKey: {
@@ -79,5 +84,30 @@ export const selectElementsByKeys = (origin: keyof ContextState) => (
   state.context[origin].allKeys
     .filter((key) => keys.indexOf(key) !== -1)
     .map((key) => state.context[origin].byKey[key]);
+
+// Update the local stores based on the server
+export const harmonizeContext = (): AppThunk => (dispatch) => {
+  fetch(Endpoints.SUBSCRIBE, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((res: any) => {
+      if (res.status === undefined)
+        try {
+          const tickets: CollapsedTicket[] = res.tickets.map(
+            getCollapsedTicketFromDTO
+          );
+          const activity: Notification[] = res.activity.map(
+            getNotificationFromDTO
+          );
+          const users: UserInfo[] = res.users.map(getUserFromDTO);
+
+          if (tickets.length > 0) dispatch(addCollapsedTickets(tickets));
+          if (activity.length > 0) dispatch(addActivity(activity));
+          if (users.length > 0) dispatch(addUsers(users));
+        } catch {}
+    })
+    .catch();
+};
 
 export default contextSlice.reducer;

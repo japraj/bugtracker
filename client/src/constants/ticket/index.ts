@@ -77,4 +77,11 @@ export enum TypeLabel {
   "Suggestion",
 }
 
+// The below DTO Map functions do not do anything other than convert the given
+// variable to an object of a specific type. However, it is important that we
+// declare these map functions so that if we ever need to update a model,
+// we only need to update our mappings in one place.
 export const getTicketFromDTO = (dto: any): Ticket => Object.assign({}, dto);
+
+export const getCollapsedTicketFromDTO = (dto: any): CollapsedTicket =>
+  Object.assign({}, dto);
