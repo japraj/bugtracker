@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Rank } from "../../../constants/user";
-import { selectNodesPerPage } from "../../../flux/slices/tableSlice";
+import { selectNodesPerPage } from "../../../flux/slices/homeSlice";
 import { selectAllElements } from "../../../flux/slices/contextSlice";
 import { WidgetWrapper, WidgetHeader } from "../../container/widget";
 import TablePagination from "./pagination";

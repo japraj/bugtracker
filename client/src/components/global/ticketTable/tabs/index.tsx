@@ -1,9 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setTabIndex,
-  selectTabIndex,
-} from "../../../../flux/slices/tableSlice";
+import { setTabIndex, selectTabIndex } from "../../../../flux/slices/homeSlice";
 import { selectAuthSlice } from "../../../../flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
 import { Tab } from "../../../../constants/table";

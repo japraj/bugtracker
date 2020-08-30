@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { initialState } from "../../../../flux/slices/tableSlice";
+import { initialState } from "../../../../flux/slices/homeSlice";
 import {
   setPageIndex,
   setNodesPerPage,
   selectPageIndex,
   selectTotalPages,
-} from "../../../../flux/slices/tableSlice";
+} from "../../../../flux/slices/homeSlice";
 import { theme } from "../../../../constants/materialui";
 import TextField from "../../../input/textfield";
 import { ThemeProvider } from "@material-ui/core/styles";

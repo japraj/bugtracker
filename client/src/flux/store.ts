@@ -2,7 +2,6 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import contextReducer from "./slices/contextSlice";
 import navigationReducer from "./slices/navigationSlice";
-import tableReducer from "./slices/tableSlice";
 import homeReducer from "./slices/homeSlice";
 import ticketReducer from "./slices/ticketSlice";
 import creationReducer from "./slices/creationSlice";
@@ -15,7 +14,6 @@ export const store = configureStore({
     authentication: authReducer,
     context: contextReducer,
     navigation: navigationReducer,
-    table: tableReducer,
     home: homeReducer,
     ticket: ticketReducer,
     creation: creationReducer,
