@@ -22,30 +22,37 @@ const initialNormalized: Normalized<any> = {
 };
 
 interface ContextState {
-  collapsedTickets: Normalized<CollapsedTicket>;
-  users: Normalized<UserInfo>;
-  activity: Normalized<Notification>;
+  lastUpdate: Date;
+  stores: {
+    collapsedTickets: Normalized<CollapsedTicket>;
+    users: Normalized<UserInfo>;
+    activity: Normalized<Notification>;
+  };
 }
 
 export const initialState: ContextState = {
-  collapsedTickets: initialNormalized,
-  users: initialNormalized,
-  activity: initialNormalized,
+  lastUpdate: new Date(0),
+  stores: {
+    collapsedTickets: initialNormalized,
+    users: initialNormalized,
+    activity: initialNormalized,
+  },
 };
 
 const newReducer = <T extends CollapsedTicket | UserInfo | Notification>(
-  origin: keyof ContextState,
+  origin: keyof ContextState["stores"],
   keyProp: string
 ) => {
   return (state: ContextState, action: PayloadAction<T[]>) => {
     if (action.payload.length === 0) return;
-    var normalized: Normalized<any> = state[origin];
+    var normalized: Normalized<any> = state.stores[origin];
     action.payload.forEach((element: any) => {
       normalized.byKey[element[keyProp]] = element;
       if (normalized.allKeys.indexOf(element[keyProp].toString()) === -1)
         normalized.allKeys.push(element[keyProp].toString());
     });
-    state[origin] = Object.assign(state[origin], normalized);
+    state.lastUpdate = new Date();
+    state.stores[origin] = Object.assign(state.stores[origin], normalized);
   };
 };
 
@@ -69,25 +76,31 @@ export const {
 // to be called like so: useSelector(selectElementByKey("foo"));
 // instead of like useSelector(selectElementByKey);
 
-export const selectElementByKey = (origin: keyof ContextState) => (
-  state: RootState
-): ((key: string) => any) => (key: string) => state.context[origin].byKey[key];
+export const selectLastUpdate = (state: RootState): Date =>
+  state.context.lastUpdate;
 
-export const selectAllElements = (origin: keyof ContextState) => (
+export const selectElementByKey = (origin: keyof ContextState["stores"]) => (
+  state: RootState
+): ((key: string) => any) => (key: string) =>
+  state.context.stores[origin].byKey[key];
+
+export const selectAllElements = (origin: keyof ContextState["stores"]) => (
   state: RootState
 ): any[] =>
-  state.context[origin].allKeys.map((key) => state.context[origin].byKey[key]);
+  state.context.stores[origin].allKeys.map(
+    (key) => state.context.stores[origin].byKey[key]
+  );
 
-export const selectElementsByKeys = (origin: keyof ContextState) => (
+export const selectElementsByKeys = (origin: keyof ContextState["stores"]) => (
   state: RootState
 ): ((keys: string[]) => any[]) => (keys: string[]) =>
-  state.context[origin].allKeys
+  state.context.stores[origin].allKeys
     .filter((key) => keys.indexOf(key) !== -1)
-    .map((key) => state.context[origin].byKey[key]);
+    .map((key) => state.context.stores[origin].byKey[key]);
 
 // Update the local stores based on the server
-export const harmonizeContext = (): AppThunk => (dispatch) => {
-  fetch(Endpoints.SUBSCRIBE, {
+export const harmonizeContext = (lastUpdate: Date): AppThunk => (dispatch) => {
+  fetch(`${Endpoints.SUBSCRIBE}/${lastUpdate.toISOString()}`, {
     method: "GET",
   })
     .then((res) => res.json())

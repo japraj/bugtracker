@@ -1,5 +1,3 @@
-import { Notification } from "../notification";
-
 // This file is a collection of constants used throughout the app
 export interface Ticket {
   id: string;

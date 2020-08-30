@@ -2,10 +2,15 @@ import React from "react";
 import Routes from "../../../../constants/routes";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  addComment,
   toggleDisplay,
   selectTicket,
 } from "../../../../flux/slices/ticketSlice";
 import { selectAuthenticated } from "../../../../flux/slices/authSlice";
+import {
+  selectLastUpdate,
+  harmonizeContext,
+} from "../../../../flux/slices/contextSlice";
 import history from "../../../../routes/history";
 import TextField from "@material-ui/core/TextField";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -17,6 +22,7 @@ import styled from "styled-components";
 
 export default () => {
   const dispatch = useDispatch();
+  const lastUpdate: Date = useSelector(selectLastUpdate);
   const ticket = useSelector(selectTicket);
   const authenticated = useSelector(selectAuthenticated);
   const [value, setValue] = React.useState("");
@@ -57,9 +63,11 @@ export default () => {
                 ticketId: ticket.id,
               }),
             })
-              // .then((res) => res.json())
+              .then((res) => res.json())
               .then((res) => {
-                console.log(res);
+                dispatch(addComment(res.id));
+                dispatch(harmonizeContext(lastUpdate));
+                setValue("");
               })
               .catch((e) => {
                 console.log(e);

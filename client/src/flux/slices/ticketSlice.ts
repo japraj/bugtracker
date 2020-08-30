@@ -53,6 +53,11 @@ export const ticketSlice = createSlice({
     toggleDisplay: (state) => {
       state.displayModal = !state.displayModal;
     },
+    addComment: (state, action: PayloadAction<number>) => {
+      var set = Object.assign(state.currentTicket.activity);
+      set.push(action.payload);
+      state.currentTicket.activity = set;
+    },
     loadTicket: (state, action: PayloadAction<Ticket>) => {
       state = Object.assign(state, {
         displayModal: true,
@@ -83,6 +88,7 @@ export const ticketSlice = createSlice({
 });
 
 export const {
+  addComment,
   toggleDisplay,
   loadTicket,
   reportLoadingFailure,
@@ -102,8 +108,8 @@ export const selectTicketSlice = (state: RootState) => state.ticket;
 
 export const selectAvailable = (state: RootState) =>
   generateComplement(
-    state.context.users.allKeys
-      .map((key) => state.context.users.byKey[key])
+    state.context.stores.users.allKeys
+      .map((key) => state.context.stores.users.byKey[key])
       .filter((u: UserInfo) => u.rank > Rank.User)
       .map((u) => u.tag),
     state.ticket.editedTicket.assignees
