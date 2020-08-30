@@ -57,6 +57,9 @@ export const ticketSlice = createSlice({
       var set = Object.assign(state.currentTicket.activity);
       set.push(action.payload);
       state.currentTicket.activity = set;
+      state.currentTicket.updateDate = new Date()
+        .toISOString()
+        .replace("Z", "");
     },
     loadTicket: (state, action: PayloadAction<Ticket>) => {
       state = Object.assign(state, {

@@ -20,9 +20,7 @@ export default ({
           variant={Variant.MODAL}
           // The highlight variant is only applied to actions, not comments.
           // Comments all have their ticketId set to null by default.
-          className={`node ${
-            activity.ticketId === "null" ? "normal" : "highlight"
-          }`}
+          className={`node ${activity.message === 2 ? "normal" : "highlight"}`}
           notification={activity}
         />
       ))}
@@ -52,7 +50,7 @@ const ActivityWrapper = styled.div`
   }
 
   .node {
-    padding: 0.5rem;
+    padding: 0.8rem;
     border-radius: 10px;
 
     h5:hover {
@@ -66,5 +64,6 @@ const ActivityWrapper = styled.div`
 
   .highlight {
     background-color: var(--transparent-highlight);
+    overflow-y: visible;
   }
 `;

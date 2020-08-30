@@ -29,8 +29,6 @@ export default ({
 }) => {
   const dispatch = useDispatch();
   const imgLength: string = `${window.innerWidth > 1100 ? 50 : 40}px`;
-  const commentVariant: boolean = variant === Variant.MODAL;
-
   var isValidId: boolean = true;
   try {
     isValidId = Number(notification.ticketId) !== -1;
@@ -47,7 +45,7 @@ export default ({
   };
 
   return (
-    <Cell className={className} commentVariant={commentVariant}>
+    <Cell className={className} commentVariant={notification.message === 2}>
       <UserLink
         styleConfig={{
           className: "",
@@ -59,7 +57,7 @@ export default ({
         }}
         userTag={notification.author}
       />
-      <CellText commentVariant={commentVariant}>
+      <CellText commentVariant={notification.message === 2}>
         <UserLink
           styleConfig={{
             className: "author",
@@ -81,7 +79,7 @@ export default ({
         <h5
           className={!isValidId ? "disableHoverFx" : ""}
           onClick={() => {
-            if (!commentVariant && isValidId) {
+            if (variant !== Variant.MODAL && isValidId) {
               dispatch(loadTicketById(notification.ticketId));
               onClick();
             }

@@ -110,7 +110,7 @@ export const FieldGrid = styled.div`
     }
   }
 
-  @media (max-width: 1000px) and (min-width: 421px) {
+  @media (max-width: 1000px) and (min-width: 601px) {
     border-bottom: var(--ticket-border);
     grid-template-columns: 1fr 1fr;
 
@@ -128,7 +128,7 @@ export const FieldGrid = styled.div`
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
 
     .gridItem {
@@ -144,7 +144,7 @@ export const Description = styled(TicketSection)`
   flex-direction: column;
 
   h2 {
-    padding-left: 0.5rem;
+    padding-left: 1rem;
     margin-right: auto;
   }
 

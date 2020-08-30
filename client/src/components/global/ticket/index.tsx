@@ -17,6 +17,7 @@ import StackedUserLinks from "../stackedUserLinks";
 import EditModal from "../editModal";
 import ImageGrid from "./imageGrid";
 import Communications from "./communications";
+import { getDateFromISO } from "../timestamp";
 import {
   statusIndicatorLength,
   TicketWrapper,
@@ -70,11 +71,11 @@ export default () => {
         <FieldGrid>
           <TicketField
             name="Creation Date"
-            content={`${new Date(ticket.creationDate).toLocaleString()}`}
+            content={`${getDateFromISO(ticket.creationDate).toLocaleString()}`}
           />
           <TicketField
             name="Last Update"
-            content={`${new Date(ticket.updateDate).toLocaleString()}`}
+            content={`${getDateFromISO(ticket.updateDate).toLocaleString()}`}
           />
           <TicketField
             name="Severity"

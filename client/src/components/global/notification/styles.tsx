@@ -53,7 +53,12 @@ export const CellText = styled.div`
         return `white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;`;
-      return ``;
+      return `
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow: visible;
+        height: 100%;
+      `;
     }}
 
     @media (max-width: 1100px) {
