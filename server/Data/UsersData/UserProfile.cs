@@ -11,6 +11,7 @@ namespace server.Data.UsersData
         {
             // Source -> Target
             CreateMap<User, UserReadDTO>();
+            CreateMap<User, UserCollapsedDTO>();
             CreateMap<UserCreateDTO, User>()
                 .ForMember(user => user.Avatar,
                             option => option.MapFrom(src => ""))

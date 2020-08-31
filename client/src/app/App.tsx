@@ -12,6 +12,7 @@ import {
   addCollapsedTickets,
   addUsers,
   addActivity,
+  harmonizeContext,
 } from "../flux/slices/contextSlice";
 import { setRecentActivity } from "../flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "../seed";
@@ -48,6 +49,7 @@ const Context = React.createContext(initialState);
 
 export default hot(() => {
   const dispatch = useDispatch();
+
   const initialLoad = () => {
     fetch(Endpoints.INITIAL_LOAD, { method: "GET" })
       .then((res) => res.json())
@@ -99,7 +101,17 @@ export default hot(() => {
     // setTimeout(() => dispatch(finishedLoading()), 0);
   };
 
-  React.useEffect(initialLoad, [dispatch]);
+  // period = reciprocal of frequency
+  const updatePeriod = 10 * 60 * 1000;
+  const checkForUpdate = () => dispatch(harmonizeContext(false, updatePeriod));
+
+  React.useEffect(() => {
+    // initial load
+    initialLoad();
+    // subscribe to updates from the server (update every 10 minutes & check every minute if ready)
+    setInterval(checkForUpdate, 1 * 60 * 1000);
+  }, [dispatch]);
+
   const authSlice = useSelector(selectAuthSlice);
   const sideNavWidth = useSelector(selectSideNavWidth);
   return (

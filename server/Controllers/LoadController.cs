@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +47,7 @@ namespace server.Controllers
                                .Select(ticket => _mapper.Map<TicketCollapsedDTO>(ticket));
                 IEnumerable<ActivityReadDTO>? activities = _activityRepo.GetAllActivities()
                                                     .Select(activity => _mapper.Map<ActivityReadDTO>(activity));
-                IEnumerable<UserReadDTO>? users = _userRepo.GetAllUsers().Select(u => _mapper.Map<UserReadDTO>(u));
+                IEnumerable<UserCollapsedDTO>? users = _userRepo.GetAllUsers().Select(u => _mapper.Map<UserCollapsedDTO>(u));
 
                 return Ok(new InitialLoad
                 {
@@ -68,10 +69,17 @@ namespace server.Controllers
             try
             {
                 DateTime date;
-                bool success = DateTime.TryParse(filterDate, out date);
-                if (!success) return BadRequest();
+                try
+                {
+                    date = DateTime.Parse(filterDate, null, DateTimeStyles.RoundtripKind);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
 
-                bool IsNew(DateTime toCompare) => toCompare.Date > date.Date;
+
+                bool IsNew(DateTime toCompare) => toCompare > date || filterDate == "1970-01-01T00:00:00.000Z";
 
                 IEnumerable<ActivityReadDTO>? activities = _activityRepo.GetAllActivities()
                                                     .Where(a => IsNew(a.CreationDate))
@@ -84,9 +92,9 @@ namespace server.Controllers
                                .Where(t => IsNew(t.UpdateDate) || updatedTickets.Contains(t.Id))
                                .Select(ticket => _mapper.Map<TicketCollapsedDTO>(ticket));
 
-                IEnumerable<UserReadDTO>? users = _userRepo.GetAllUsers()
+                IEnumerable<UserCollapsedDTO>? users = _userRepo.GetAllUsers()
                                             .Where(u => IsNew(u.CreationDate))
-                                            .Select(u => _mapper.Map<UserReadDTO>(u));
+                                            .Select(u => _mapper.Map<UserCollapsedDTO>(u));
 
                 return Ok(new SubscribedLoad
                 {

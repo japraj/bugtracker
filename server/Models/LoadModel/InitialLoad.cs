@@ -12,7 +12,7 @@ namespace server.Models.LoadModel
     {
         public IEnumerable<TicketCollapsedDTO> tickets  {get; set;} 
         public IEnumerable<ActivityReadDTO> activity { get; set; }
-        public IEnumerable<UserReadDTO> users { get; set; }
+        public IEnumerable<UserCollapsedDTO> users { get; set; }
         public UserSessionDTO? session { get; set; }
     }
 }

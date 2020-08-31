@@ -22,7 +22,7 @@ const initialNormalized: Normalized<any> = {
 };
 
 interface ContextState {
-  lastUpdate: Date;
+  lastUpdate: string;
   stores: {
     collapsedTickets: Normalized<CollapsedTicket>;
     users: Normalized<UserInfo>;
@@ -31,7 +31,7 @@ interface ContextState {
 }
 
 export const initialState: ContextState = {
-  lastUpdate: new Date(0),
+  lastUpdate: new Date(0).toISOString(),
   stores: {
     collapsedTickets: initialNormalized,
     users: initialNormalized,
@@ -51,7 +51,7 @@ const newReducer = <T extends CollapsedTicket | UserInfo | Notification>(
       if (normalized.allKeys.indexOf(element[keyProp].toString()) === -1)
         normalized.allKeys.push(element[keyProp].toString());
     });
-    state.lastUpdate = new Date();
+    state.lastUpdate = new Date().toISOString();
     state.stores[origin] = Object.assign(state.stores[origin], normalized);
   };
 };
@@ -63,6 +63,9 @@ export const contextSlice = createSlice({
     addCollapsedTickets: newReducer<CollapsedTicket>("collapsedTickets", "id"),
     addUsers: newReducer<UserInfo>("users", "tag"),
     addActivity: newReducer<Notification>("activity", "id"),
+    updateTime: (state) => {
+      state.lastUpdate = new Date().toISOString();
+    },
   },
 });
 
@@ -70,14 +73,12 @@ export const {
   addCollapsedTickets,
   addUsers,
   addActivity,
+  updateTime,
 } = contextSlice.actions;
 
 // The below 'selectors' actually return selectors! they are meant
 // to be called like so: useSelector(selectElementByKey("foo"));
 // instead of like useSelector(selectElementByKey);
-
-export const selectLastUpdate = (state: RootState): Date =>
-  state.context.lastUpdate;
 
 export const selectElementByKey = (origin: keyof ContextState["stores"]) => (
   state: RootState
@@ -99,28 +100,36 @@ export const selectElementsByKeys = (origin: keyof ContextState["stores"]) => (
     .map((key) => state.context.stores[origin].byKey[key]);
 
 // Update the local stores based on the server
-export const harmonizeContext = (lastUpdate: Date): AppThunk => (dispatch) => {
-  fetch(`${Endpoints.SUBSCRIBE}/${lastUpdate.toISOString()}`, {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .then((res: any) => {
-      if (res.status === undefined)
-        try {
-          const tickets: CollapsedTicket[] = res.tickets.map(
-            getCollapsedTicketFromDTO
-          );
-          const activity: Notification[] = res.activity.map(
-            getNotificationFromDTO
-          );
-          const users: UserInfo[] = res.users.map(getUserFromDTO);
-
-          if (tickets.length > 0) dispatch(addCollapsedTickets(tickets));
-          if (activity.length > 0) dispatch(addActivity(activity));
-          if (users.length > 0) dispatch(addUsers(users));
-        } catch {}
+export const harmonizeContext = (
+  forceUpdate: boolean,
+  updatePeriod?: number
+): AppThunk => (dispatch, getState) => {
+  const lastUpdate: Date = new Date(getState().context.lastUpdate);
+  updatePeriod = updatePeriod ? updatePeriod : 0;
+  if (forceUpdate || new Date().getTime() - lastUpdate.getTime() > updatePeriod)
+    fetch(`${Endpoints.SUBSCRIBE}/${lastUpdate.toISOString()}`, {
+      method: "GET",
     })
-    .catch();
+      .then((res) => res.json())
+      .then((res: any) => {
+        if (res.status === undefined)
+          try {
+            const tickets: CollapsedTicket[] = res.tickets.map(
+              getCollapsedTicketFromDTO
+            );
+            const activity: Notification[] = res.activity.map(
+              getNotificationFromDTO
+            );
+            const users: UserInfo[] = res.users.map(getUserFromDTO);
+
+            if (tickets.length > 0) dispatch(addCollapsedTickets(tickets));
+            if (activity.length > 0) dispatch(addActivity(activity));
+            if (users.length > 0) dispatch(addUsers(users));
+            if (!users.length && !activity.length && !tickets.length)
+              dispatch(updateTime());
+          } catch {}
+      })
+      .catch();
 };
 
 export default contextSlice.reducer;
