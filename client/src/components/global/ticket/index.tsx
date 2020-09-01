@@ -17,7 +17,7 @@ import StackedUserLinks from "../stackedUserLinks";
 import EditModal from "../editModal";
 import ImageGrid from "./imageGrid";
 import Communications from "./communications";
-import { getDateFromISO } from "../timestamp";
+import { getDateFromISO } from "../../../constants/date";
 import {
   statusIndicatorLength,
   TicketWrapper,
