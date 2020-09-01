@@ -22,6 +22,7 @@ export default ({
           // Comments all have their ticketId set to null by default.
           className={`node ${activity.message === 2 ? "normal" : "highlight"}`}
           notification={activity}
+          enableCommentVariant={true}
         />
       ))}
       <CommentBox />

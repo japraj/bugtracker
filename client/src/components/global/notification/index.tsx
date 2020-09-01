@@ -21,14 +21,18 @@ export default ({
   className,
   onClick,
   variant,
+  enableCommentVariant,
 }: {
   notification: Notification;
   className: string;
   onClick: () => void;
   variant: Variant;
+  enableCommentVariant?: boolean;
 }) => {
   const dispatch = useDispatch();
   const imgLength: string = `${window.innerWidth > 1100 ? 50 : 40}px`;
+  const commentStyling: boolean =
+    Boolean(enableCommentVariant) && notification.message === 2;
   var isValidId: boolean = true;
   try {
     isValidId = Number(notification.ticketId) !== -1;
@@ -45,7 +49,7 @@ export default ({
   };
 
   return (
-    <Cell className={className} commentVariant={notification.message === 2}>
+    <Cell className={className} commentVariant={commentStyling}>
       <UserLink
         styleConfig={{
           className: "",
@@ -57,7 +61,7 @@ export default ({
         }}
         userTag={notification.author}
       />
-      <CellText commentVariant={notification.message === 2}>
+      <CellText commentVariant={commentStyling}>
         <UserLink
           styleConfig={{
             className: "author",
