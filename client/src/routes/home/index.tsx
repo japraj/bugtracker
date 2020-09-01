@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectRecentActivity } from "../../flux/slices/homeSlice";
 import { selectElementsByKeys } from "../../flux/slices/contextSlice";
-import { Notification } from "../../constants/notification";
+import { Notification, sortNotifications } from "../../constants/notification";
 import RecentActivity from "../../components/global/recentActivity";
 import Table from "../../components/global/ticketTable";
 import CreateLink from "./createLink";
@@ -12,9 +12,10 @@ export default () => {
   const ids: string[] = useSelector(selectRecentActivity).map((i: number) =>
     i.toString()
   );
-  const notificationSet: Notification[] = useSelector(
-    selectElementsByKeys("activity")
-  )(ids);
+  const notificationSet: Notification[] = sortNotifications(
+    useSelector(selectElementsByKeys("activity"))(ids),
+    true
+  );
   return (
     <HomeWrapper>
       <Table className="tableContainer" />
