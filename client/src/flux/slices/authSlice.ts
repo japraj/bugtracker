@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { sortNotifications } from "../../constants/notification";
+import Endpoints from "../../constants/api";
 import { User } from "../../constants/user";
 
 interface AuthState {
@@ -27,21 +29,26 @@ export const authSlice = createSlice({
     finishedLoading: (state) => {
       state.loaded = true;
     },
-    loadUser: {
-      reducer(state, action: PayloadAction<User>) {
-        state.user = action.payload;
-      },
-      prepare(payload: User) {
-        return { payload };
-      },
+    loadUser: (state, action: PayloadAction<User>) => {
+      action.payload.notifications = sortNotifications(
+        action.payload.notifications
+      );
+      state.user = action.payload;
     },
     viewNotifications: (state) => {
-      state.user.notifications = state.user.notifications.map(
-        (notification) => {
-          return Object.assign(notification, {
-            new: false,
-          });
-        }
+      fetch(Endpoints.READ_ALL_NOTIFICATIONS, {
+        method: "PATCH",
+      }).catch((e) => {
+        console.log(e);
+      });
+      state.user.notifications = sortNotifications(
+        state.user.notifications
+          .filter((n) => n.new)
+          .map((notification) =>
+            Object.assign(notification, {
+              new: false,
+            })
+          )
       );
     },
     logout: (state) => {

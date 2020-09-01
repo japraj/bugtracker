@@ -8,7 +8,7 @@ export const NotificationWrapper = styled(ModalContentWrapper)`
   jutsify-content: center;
 
   .notification {
-    padding-left: 1rem;
+    padding: 0.5rem 0 0.5rem 0.8rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     background-color: rgba(255, 255, 255, 0.2);
   }

@@ -62,9 +62,11 @@ namespace server.Controllers
                 return Unauthorized();
             try
             {
-                foreach (int activityID in auth.GetUserFromCookie(Request)?.Activity)
+                IEnumerable<int> ids = auth.GetUserFromCookie(Request)?.Notifications;
+                IEnumerable<Activity>? activities = _repository.GetAllActivities().Where(activity => ids.Contains(activity.Id));
+                                    
+                foreach (Activity activity in activities)
                 {
-                    Activity activity = _repository.GetActivityById(activityID);
                     if (activity == null)
                         return NotFound();
                     else

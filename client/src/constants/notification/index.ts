@@ -1,3 +1,7 @@
+import { getDateFromISO } from "../date";
+
+// A notification is just a record of a change
+// that was applied to an issue or user.
 export interface Notification {
   id: number;
   date: string;
@@ -7,8 +11,32 @@ export interface Notification {
   ticketId: string;
   new: boolean;
 }
-// A notification is just a record of a change
-// that was applied to an issue.
+
+// Sorts notifications first by read/unread and then by date.
+// If the optional dateOnly param is true then do not sort by
+// new.
+export const sortNotifications = (
+  notifications: Notification[],
+  dateOnly?: boolean
+): Notification[] => {
+  // Parse the dates in advance for efficiency (don't need to compute a date multiple times)
+  var dateById: { [id: number]: number } = {};
+  notifications.map((n) => {
+    dateById[n.id] = getDateFromISO(n.date).getTime();
+  });
+
+  notifications = notifications.sort(
+    (n1, n2) => dateById[n2.id] - dateById[n1.id]
+  );
+
+  return dateOnly
+    ? notifications
+    : notifications.sort((n1, n2) => {
+        if (n1.new && !n2.new) return -1;
+        else if (!n1.new && n2.new) return 1;
+        else return 0;
+      });
+};
 
 export const getNotificationFromDTO = (dto: any): Notification =>
   Object.assign({
@@ -18,7 +46,7 @@ export const getNotificationFromDTO = (dto: any): Notification =>
     message: dto.type,
     value: dto.new,
     ticketId: dto.ticketID,
-    new: dto.read,
+    new: !dto.read,
   });
 
 export enum Variant {
