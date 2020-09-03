@@ -25,7 +25,9 @@ namespace server.Data.UsersData
                 .ForMember(user => user.Rank, option => option.MapFrom(src => 1))
                 .ForMember(user => user.CreationDate, option => option.MapFrom(src => DateTime.UtcNow));
             CreateMap<UserCreateDTO, UserReadDTO>();
-            CreateMap<User, UserSessionDTO>();
+            CreateMap<User, UserSessionDTO>()
+                .ForMember(user => user.Assigned, 
+                            option => option.MapFrom<SessionResolver>());
             CreateMap<UserUpdateDTO, User>();
             CreateMap<User, UserUpdateDTO>();
         }

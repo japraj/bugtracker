@@ -13,7 +13,9 @@ export const initialState: AuthState = {
   loaded: false,
   user: {
     authenticated: false,
+    tickets: [],
     notifications: [],
+    assigned: [],
     info: {
       profileImg: "",
       tag: "",

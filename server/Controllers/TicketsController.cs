@@ -86,6 +86,8 @@ namespace server.Controllers
             _ticketRepo.AddTicket(ticket);
             if (_ticketRepo.SaveChanges())
             {
+                author.Tickets.Add(ticket.Id);
+                _userRepo.SaveChanges();
                 activityHandler.AddActivity(ActivityType.CREATE, "", "", author, ticket, author, false, true);
                 return CreatedAtRoute(
                     nameof(ById),

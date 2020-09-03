@@ -6,7 +6,12 @@ import {
   selectNewTicket,
   wipeLocalChanges,
 } from "../../../flux/slices/creationSlice";
-import { getCollapsedTicketFromDTO } from "../../../constants/ticket";
+import { selectUser, loadUser } from "../../../flux/slices/authSlice";
+import { User } from "../../../constants/user";
+import {
+  CollapsedTicket,
+  getCollapsedTicketFromDTO,
+} from "../../../constants/ticket";
 import { addCollapsedTickets } from "../../../flux/slices/contextSlice";
 import Endpoints from "../../../constants/api";
 import FormModal from "../formModal";
@@ -15,6 +20,7 @@ import { toast } from "react-toastify";
 export default () => {
   const dispatch = useDispatch();
   const open: boolean = useSelector(selectDisplayed);
+  const user: User = useSelector(selectUser);
   const ticket = useSelector(selectNewTicket);
   // while close actually toggles the display instead of setting it to false,
   // it can only be called when display = true so it is effectively the same
@@ -32,7 +38,15 @@ export default () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        dispatch(addCollapsedTickets([getCollapsedTicketFromDTO(res)]));
+        const newTicket: CollapsedTicket = getCollapsedTicketFromDTO(res);
+        dispatch(addCollapsedTickets([newTicket]));
+        dispatch(
+          loadUser(
+            Object.assign(user, {
+              tickets: user.tickets.concat([newTicket.id]),
+            })
+          )
+        );
       })
       .catch(() =>
         toast.error("Oops! Something went wrong, please try again.")

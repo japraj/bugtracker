@@ -33,7 +33,7 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
             leftMargin: statLeftMarg,
           }}
         />
-        <h1 onClick={() => dispatch(loadTicketById(ticket.id))}>
+        <h1 onClick={() => dispatch(loadTicketById(ticket.id.toString()))}>
           <TicketTag label={ticket.typeLabel} />
           {ticket.title}
         </h1>

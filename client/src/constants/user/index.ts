@@ -11,6 +11,8 @@ export interface UserInfo {
 export interface User {
   authenticated: boolean;
   notifications: Notification[];
+  tickets: number[];
+  assigned: number[];
   info: UserInfo;
 }
 // Local User (the user that is using the client)
@@ -29,6 +31,8 @@ export const generateLocalUserFromDTO = (
   Object.assign({
     authenticated: true,
     notifications: getNotificationById(dto.notifications),
+    tickets: dto.tickets,
+    assigned: dto.assigned,
     info: {
       tag: dto.tag,
       rank: dto.rank,

@@ -31,7 +31,6 @@ const Endpoints: {
   GET_ALL_USERS: `${userRoute}getAllUsers`,
   REGISTER: `${userRoute}register`,
   LOGIN: `${userRoute}login`,
-  LOAD_SESSION: `${userRoute}loadSession`,
   LOGOUT: `${userRoute}logout`,
   UPDATE_USER: `${userRoute}patch`,
 
@@ -45,6 +44,7 @@ const Endpoints: {
   GET_ALL_ACTIVITY: `${activityRoute}getAll`,
   READ_ALL_NOTIFICATIONS: `${activityRoute}readAll`,
 
+  LOAD_SESSION: `${loadRoute}loadSession`,
   INITIAL_LOAD: `${loadRoute}initial`,
   SUBSCRIBE: `${loadRoute}subscribe`,
 };

@@ -146,17 +146,6 @@ namespace server.Controllers
             Response.Cookies.Append(Session.KEY, newSession.Token, cookieOptions);
         }
 
-        [HttpGet]
-        public ActionResult<UserSessionDTO> LoadSession()
-        {
-            if (!auth.IsAuthenticated(Request))
-                return Unauthorized();
-            User? user = auth.GetUserFromCookie(Request);
-            if (user == null)
-                return NotFound();
-            return Ok(_mapper.Map<UserSessionDTO>(user));
-        }
-
         [HttpPost]
         public IActionResult Logout()
         {

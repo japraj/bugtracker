@@ -36,6 +36,30 @@ namespace server.Controllers
             auth = new Authorization(userRepo, ticketRepo);
         }
 
+        [NonAction]
+        public UserSessionDTO GenerateSessionDTO(User user)
+        {
+            
+            List<int> assigned = auth.HasRank(Rank.Developer, user)
+                ? _ticketRepo.GetAllTickets()
+                    .Where(ticket => ticket.Assignees.Contains(user.Tag))
+                    .Select(t => t.Id)
+                    .ToList()
+                : new List<int>();
+            return _mapper.Map<UserSessionDTO>(user, opt => opt.Items["Assigned"] = assigned);
+        }
+
+        [HttpGet]
+        public ActionResult<UserSessionDTO> LoadSession()
+        {
+            if (!auth.IsAuthenticated(Request))
+                return Unauthorized();
+            User? user = auth.GetUserFromCookie(Request);
+            if (user == null)
+                return NotFound();
+            return Ok(GenerateSessionDTO(user));
+        }
+
         [HttpGet]
         public ActionResult<InitialLoad> Initial()
         {
@@ -54,7 +78,7 @@ namespace server.Controllers
                     tickets = Normalize(tickets),
                     activity = Normalize(activities),
                     users = Normalize(users),
-                    session = user == null ? null : _mapper.Map<UserSessionDTO>(user)
+                    session = user == null ? null : GenerateSessionDTO(user)
                 });
             }
             catch

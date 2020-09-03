@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace server.Models.UserModel
 {
@@ -18,5 +15,7 @@ namespace server.Models.UserModel
         public List<int> Activity { get; set; }
 
         public List<int> Notifications { get; set; }
+
+        public List<int> Assigned { get; set; }
     }
 }

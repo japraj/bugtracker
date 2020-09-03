@@ -36,7 +36,7 @@ export const generateNotificationSet = (howMany: number): Notification[] => {
 
 const generateCollapsedTicket = (): CollapsedTicket => {
   return {
-    id: randomString(),
+    id: randomNum(1100),
     typeLabel: randomNum(2),
     title:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
@@ -56,7 +56,7 @@ export const generateTicketSet = (howMany: number): CollapsedTicket[] => {
 
 export const generateTicket = (): Ticket => {
   return {
-    id: randomString(),
+    id: randomNum(1100),
     typeLabel: randomNum(2),
     title:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",

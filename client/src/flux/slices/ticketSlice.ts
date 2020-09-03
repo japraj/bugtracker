@@ -19,7 +19,7 @@ const initialState: TicketState = {
   displayModal: false,
   failedImages: 0,
   currentTicket: {
-    id: "null",
+    id: -1,
     author: "",
     typeLabel: 0,
     creationDate: "",

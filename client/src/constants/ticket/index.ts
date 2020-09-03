@@ -1,6 +1,6 @@
 // This file is a collection of constants used throughout the app
 export interface Ticket {
-  id: string;
+  id: number;
   typeLabel: number;
   title: string;
   author: string;
@@ -36,7 +36,7 @@ export interface NewTicket {
 }
 
 export interface CollapsedTicket {
-  id: string;
+  id: number;
   typeLabel: number;
   title: string;
   author: string;
