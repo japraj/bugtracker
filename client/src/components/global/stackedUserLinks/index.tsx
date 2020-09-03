@@ -8,27 +8,32 @@ export interface Props {
   maxLinks: number;
   imgLength: string;
   onClick?: () => void;
+  fallback: React.ReactNode;
 }
 
 export default (props: Props) => (
   <AssigneesWrapper>
-    <Assignees max={props.maxLinks}>
-      {props.users.map((userTag) => (
-        <UserLink
-          key={userTag}
-          userTag={userTag}
-          styleConfig={{
-            className: "stacked",
-            showImg: true,
-            imgLength: props.imgLength,
-            internalSpacing: "0",
-            showTag: false,
-            tagSize: "0",
-          }}
-          onRedirect={props.onClick}
-        />
-      ))}
-    </Assignees>
+    {props.users.length === 0 ? (
+      props.fallback
+    ) : (
+      <Assignees max={props.maxLinks}>
+        {props.users.map((userTag) => (
+          <UserLink
+            key={userTag}
+            userTag={userTag}
+            styleConfig={{
+              className: "stacked",
+              showImg: true,
+              imgLength: props.imgLength,
+              internalSpacing: "0",
+              showTag: false,
+              tagSize: "0",
+            }}
+            onRedirect={props.onClick}
+          />
+        ))}
+      </Assignees>
+    )}
   </AssigneesWrapper>
 );
 

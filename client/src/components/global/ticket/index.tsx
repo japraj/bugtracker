@@ -114,6 +114,7 @@ export default () => {
                 maxLinks={mobileDisplay ? 4 : 5}
                 users={ticket.assignees}
                 onClick={close}
+                fallback={<h3>none</h3>}
               />
             }
           />
