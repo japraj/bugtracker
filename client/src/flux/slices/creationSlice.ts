@@ -12,7 +12,6 @@ const initialState: CreationState = {
   newTicket: {
     title: "",
     description: "",
-    status: 0,
     severity: 0,
     reproducibility: 0,
     typeLabel: 0,

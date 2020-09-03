@@ -6,7 +6,11 @@ import {
   selectNewTicket,
   wipeLocalChanges,
 } from "../../../flux/slices/creationSlice";
+import { getCollapsedTicketFromDTO } from "../../../constants/ticket";
+import { addCollapsedTickets } from "../../../flux/slices/contextSlice";
+import Endpoints from "../../../constants/api";
 import FormModal from "../formModal";
+import { toast } from "react-toastify";
 
 export default () => {
   const dispatch = useDispatch();
@@ -18,6 +22,22 @@ export default () => {
   const close = () => dispatch(wipeLocalChanges());
 
   const submit = (): void => {
+    fetch(Endpoints.CREATE_TICKET, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ticket),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(addCollapsedTickets([getCollapsedTicketFromDTO(res)]));
+      })
+      .catch(() =>
+        toast.error("Oops! Something went wrong, please try again.")
+      );
+
     // make a post request here creating a ticket
     // send session key along with it (to provide author
     // and to allow for authorization)

@@ -29,7 +29,6 @@ export interface EditedTicket {
 export interface NewTicket {
   title: string;
   description: string;
-  status: number;
   severity: number;
   reproducibility: number;
   typeLabel: number;
