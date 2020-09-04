@@ -15,6 +15,9 @@ export const Header = styled(WidgetHeader)`
         }
       `
       : ``}
+  .inline-icon {
+    margin-left: 0;
+  }
 `;
 
 export const Title = styled.div`
@@ -29,6 +32,7 @@ export const PaginationContainer = styled.div`
   width: auto;
   height: auto;
   border: none !important;
+  overflow-x: hidden !important;
 
   * {
     min-height: 0 !important;
@@ -42,6 +46,10 @@ export const PaginationContainer = styled.div`
 
   .MuiTablePagination-actions {
     margin-left: 5px;
+  }
+
+  .MuiToolbar-gutters {
+    padding-left: 6px;
   }
 
   button {

@@ -1,8 +1,9 @@
 import React from "react";
 import { Notification, Variant } from "../../../constants/notification";
-import NotificationCell from "../../../components/global/notification";
-import IterableWidget from "../../../components/global/iterableWidget";
+import NotificationCell from "../notification";
+import IterableWidget from "../iterableWidget";
 
+// Used in the home route and user route
 export default ({
   notificationSet,
   className,
@@ -16,7 +17,7 @@ export default ({
     <IterableWidget
       className={className}
       iconName="today"
-      title="Recent Activity"
+      title="Activity"
       elementsPerPage={5}
       set={notificationSet}
       wrapperElement={NotificationCell}
@@ -28,7 +29,7 @@ export default ({
       elementPropName="notification"
       wrapInSection={true}
       nodeClassName={nodeClassName}
-      emptySetFallback="No recent activity"
+      emptySetFallback="No activity"
     />
   );
 };
