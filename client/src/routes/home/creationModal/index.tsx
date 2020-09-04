@@ -14,7 +14,7 @@ import {
 } from "../../../constants/ticket";
 import { addCollapsedTickets } from "../../../flux/slices/contextSlice";
 import Endpoints from "../../../constants/api";
-import FormModal from "../formModal";
+import FormModal from "../../../components/global/formModal";
 import { toast } from "react-toastify";
 
 export default () => {

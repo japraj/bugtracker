@@ -9,7 +9,7 @@ import Avatar from "../avatar";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
 import { Link } from "react-router-dom";
-import NotificationSet from "../notificationSet";
+import NotificationSet from "./notificationSet";
 import Modal from "@material-ui/core/Modal";
 import { Profile, ProfileWidgetWrapper } from "./styles";
 

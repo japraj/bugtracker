@@ -5,7 +5,7 @@ import { selectUser } from "../../../flux/slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../history";
 import Icon from "@material-ui/core/Icon";
-import CreationModal from "../../../components/global/creationModal";
+import CreationModal from "../creationModal";
 import { LinkWrapper, LinkWidget } from "./styles";
 
 export default () => {

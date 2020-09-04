@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { selectRecentActivity } from "../../flux/slices/homeSlice";
 import { selectElementsByKeys } from "../../flux/slices/contextSlice";
 import { Notification, sortNotifications } from "../../constants/notification";
-import RecentActivity from "../../components/global/recentActivity";
-import Table from "../../components/global/ticketTable";
+import RecentActivity from "./recentActivity";
+import Table from "./ticketTable";
 import CreateLink from "./createLink";
 import { HomeWrapper, Aside, MiscContainer } from "./styles";
 

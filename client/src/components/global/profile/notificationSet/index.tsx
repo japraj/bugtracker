@@ -1,6 +1,6 @@
 import React from "react";
-import { Notification, Variant } from "../../../constants/notification";
-import NotificationCell from "../notification";
+import { Notification, Variant } from "../../../../constants/notification";
+import NotificationCell from "../../notification";
 import { NotificationWrapper, EmptyNotificationsBanner } from "./styles";
 
 export default ({

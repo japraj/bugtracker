@@ -10,19 +10,22 @@ import {
 } from "../../../flux/slices/homeSlice";
 import { selectAllElements } from "../../../flux/slices/contextSlice";
 import { selectUser } from "../../../flux/slices/authSlice";
-import { WidgetWrapper, WidgetHeader } from "../../container/widget";
+import {
+  WidgetWrapper,
+  WidgetHeader,
+} from "../../../components/container/widget";
 import TablePagination from "./pagination";
 import TableTabs from "./tabs";
-import TableTicket from "../collapsedTicket";
-import Search from "../../input/search";
-import Select from "../../input/select";
+import TableTicket from "../../../components/global/collapsedTicket";
+import Search from "../../../components/input/search";
+import Select from "../../../components/input/select";
 import {
   sortSelectOptions,
   generateTabSet,
   applySort,
 } from "../../../constants/table";
 import { CollapsedTicket, stringify } from "../../../constants/ticket";
-import { Fallback } from "../../container/widget";
+import { Fallback } from "../../../components/container/widget";
 import styled from "styled-components";
 
 export default (props: { className: string }) => {

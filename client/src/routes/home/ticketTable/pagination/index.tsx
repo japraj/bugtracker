@@ -8,7 +8,7 @@ import {
   selectTotalPages,
 } from "../../../../flux/slices/homeSlice";
 import { theme } from "../../../../constants/materialui";
-import TextField from "../../../input/textfield";
+import TextField from "../../../../components/input/textfield";
 import { ThemeProvider } from "@material-ui/core/styles";
 import {
   TablePaginationContainer,

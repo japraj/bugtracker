@@ -12,7 +12,7 @@ import Rank from "../rank";
 import Update from "../update";
 import IterableWidget from "../../../components/global/iterableWidget";
 import CollapsedTicket from "../../../components/global/collapsedTicket";
-import RecentActivity from "../../../components/global/recentActivity";
+import RecentActivity from "../../home/recentActivity";
 import { Container, WidgetColumn, WidgetRow } from "./styles";
 
 export default () => {

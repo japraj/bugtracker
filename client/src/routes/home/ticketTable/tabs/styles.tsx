@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Rank } from "../../../../constants/user";
-import { WidgetHeader } from "../../../container/widget";
+import { WidgetHeader } from "../../../../components/container/widget";
 
 export const TabContainer = styled(WidgetHeader)`
   padding: 0 !important;

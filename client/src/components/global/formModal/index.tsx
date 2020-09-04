@@ -12,7 +12,7 @@ import {
 } from "../../../constants/global";
 import Select from "../../input/select";
 import TextField from "@material-ui/core/TextField";
-import ImageLinks from "../imageLinks";
+import ImageLinks from "./imageLinks";
 import Modal from "@material-ui/core/Modal";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "../../../constants/materialui";

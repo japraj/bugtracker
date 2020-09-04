@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { WidgetSection } from "../../../container/widget";
+import { WidgetSection } from "../../../../components/container/widget";
 import Pagination from "@material-ui/lab/Pagination";
 
 export const TablePaginationContainer = styled(WidgetSection)`

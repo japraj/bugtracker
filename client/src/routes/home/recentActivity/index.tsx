@@ -1,7 +1,7 @@
 import React from "react";
 import { Notification, Variant } from "../../../constants/notification";
-import NotificationCell from "../notification";
-import IterableWidget from "../iterableWidget";
+import NotificationCell from "../../../components/global/notification";
+import IterableWidget from "../../../components/global/iterableWidget";
 
 export default ({
   notificationSet,

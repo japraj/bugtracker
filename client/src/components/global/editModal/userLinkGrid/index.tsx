@@ -1,5 +1,5 @@
 import React from "react";
-import UserLink from "../userLink";
+import UserLink from "../../userLink";
 import { UserLinkGrid, SetWrapper, UserLinkWrapper, Clickable } from "./styles";
 
 interface Props {

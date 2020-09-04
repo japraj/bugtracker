@@ -13,10 +13,10 @@ import {
 } from "../../../flux/slices/ticketSlice";
 import { selectUser } from "../../../flux/slices/authSlice";
 import Icon from "@material-ui/core/Icon";
-import UserLinkGrid from "../userLinkGrid";
+import UserLinkGrid from "./userLinkGrid";
 import FormModal from "../formModal";
 import ContainerLabel from "../containerLabel";
-import DeletionModal from "../deletionModal";
+import DeletionModal from "./deletionModal";
 import { ButtonWrapper, EditIcon, AssignmentContainer } from "./styles";
 
 export default (props: {

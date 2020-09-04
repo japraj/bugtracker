@@ -1,8 +1,8 @@
 import React from "react";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-import TextfieldButton from "../../input/textfieldButton";
-import ContainerLabel from "../containerLabel";
+import TextfieldButton from "../../../input/textfieldButton";
+import ContainerLabel from "../../containerLabel";
 import { Container, ImageLinkSet, ImageLink, EmptyMessage } from "./styles";
 
 // This enum is only used internally within this component

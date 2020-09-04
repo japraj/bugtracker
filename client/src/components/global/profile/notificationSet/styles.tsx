@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ModalContentWrapper } from "../../container/modalContent";
+import { ModalContentWrapper } from "../../../container/modalContent";
 
 export const NotificationWrapper = styled(ModalContentWrapper)`
   display: flex;
