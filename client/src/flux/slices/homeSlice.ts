@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { Sort } from "../../constants/table";
 
-interface HomeState {
+export interface HomeState {
   recentActivity: number[];
   tabIndex: number;
   pageIndex: number;
   nodesPerPage: number;
   totalPages: number;
-  sort: Sort;
+  sort: string;
 }
 
 export const initialState: HomeState = {
@@ -38,11 +38,14 @@ export const homeSlice = createSlice({
     },
     setNodesPerPage: (state, action: PayloadAction<number>) => {
       if (action.payload < 1) action.payload = 1;
-      else if (action.payload > state.totalPages) action.payload = 50;
+      else if (action.payload > 50) action.payload = 50;
       state.nodesPerPage = action.payload;
     },
     setTotalPages: (state, action: PayloadAction<number>) => {
       state.totalPages = action.payload;
+    },
+    setSort: (state, action: PayloadAction<string>) => {
+      state.sort = action.payload;
     },
   },
 });
@@ -53,6 +56,7 @@ export const {
   setPageIndex,
   setNodesPerPage,
   setTotalPages,
+  setSort,
 } = homeSlice.actions;
 
 export const selectRecentActivity = (state: RootState): number[] =>
@@ -68,5 +72,7 @@ export const selectNodesPerPage = (state: RootState): number =>
 
 export const selectTotalPages = (state: RootState): number =>
   state.home.totalPages;
+
+export const selectHomeSlice = (state: RootState): HomeState => state.home;
 
 export default homeSlice.reducer;

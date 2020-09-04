@@ -50,17 +50,3 @@ export const PaginationContainer = styled.div`
     padding: 0;
   }
 `;
-
-export const Fallback = styled(WidgetSection)`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  h1 {
-    line-height: 1.3;
-    margin-left: 0 !important;
-    padding: 10% 1rem 15%;
-    font-style: italic;
-  }
-`;

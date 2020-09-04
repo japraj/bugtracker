@@ -74,6 +74,36 @@ export enum TypeLabel {
   "Suggestion",
 }
 
+export const stringify = (ticket: CollapsedTicket): string =>
+  Object.keys(ticket).reduce(
+    (acc: string, cur: string, index: number, src: string[]) => {
+      var result: string = "";
+      var value: any = Object.values(ticket)[index];
+      switch (cur) {
+        case "typeLabel":
+          result = TypeLabel[value];
+          break;
+        case "severity":
+          result = Severity[value];
+          break;
+        case "status":
+          result = Status[value];
+          break;
+        case "comments":
+          break;
+        case "id":
+        case "title":
+        case "author":
+        case "updateDate":
+        default:
+          result = cur;
+          break;
+      }
+      return acc + "" + result;
+    },
+    ""
+  );
+
 // The below DTO Map functions do not do anything other than convert the given
 // variable to an object of a specific type. However, it is important that we
 // declare these map functions so that if we ever need to update a model,

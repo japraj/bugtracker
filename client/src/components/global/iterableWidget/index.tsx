@@ -1,10 +1,10 @@
 import React from "react";
-import { WidgetWrapper, WidgetSection } from "../../container/widget";
+import { WidgetWrapper, WidgetSection, Fallback } from "../../container/widget";
 import { theme } from "../../../constants/materialui";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import Icon from "@material-ui/core/Icon";
 import TablePagination from "@material-ui/core/TablePagination";
-import { Header, Title, PaginationContainer, Fallback } from "./styles";
+import { Header, Title, PaginationContainer } from "./styles";
 
 // This is a super generic container component!
 

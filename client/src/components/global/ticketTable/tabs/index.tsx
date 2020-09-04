@@ -6,7 +6,13 @@ import Icon from "@material-ui/core/Icon";
 import { Tab } from "../../../../constants/table";
 import { TabContainer, TabSet, TableTab } from "./styles";
 
-export default ({ tabSet }: { tabSet: Tab[] }) => {
+export default ({
+  tabSet,
+  onChange,
+}: {
+  tabSet: Tab[];
+  onChange: () => void;
+}) => {
   const authSlice = useSelector(selectAuthSlice);
   const userRank: number = authSlice.user.authenticated
     ? authSlice.user.info.rank
@@ -19,7 +25,10 @@ export default ({ tabSet }: { tabSet: Tab[] }) => {
       <TableTab
         key={tab.title}
         className={index === selectedIndex ? "selected" : ""}
-        onClick={() => dispatch(setTabIndex(index))}
+        onClick={() => {
+          dispatch(setTabIndex(index));
+          onChange();
+        }}
         userRank={userRank}
       >
         <Icon className="inline-icon">{tab.iconName}</Icon>

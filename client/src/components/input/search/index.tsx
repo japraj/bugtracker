@@ -7,8 +7,7 @@ import { SearchWrapper, SearchIcon } from "./styles";
 
 interface Props {
   label: string;
-  onChange: () => void;
-  onSubmit: () => void;
+  onChange: (newValue: string) => void;
 }
 
 export default (props: Props) => {
@@ -16,16 +15,23 @@ export default (props: Props) => {
     <ThemeProvider theme={theme}>
       <SearchWrapper>
         <Input
-          onKeyDown={(event: React.KeyboardEvent): void => {
-            if (event.keyCode === 13) {
-              event.preventDefault();
-              event.stopPropagation();
-              props.onSubmit();
-            }
-          }}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            props.onChange(event.target.value)
+          }
+          // onKeyDown={(event: React.KeyboardEvent): void => {
+          //   if (event.keyCode === 13) {
+          //     event.preventDefault();
+          //     event.stopPropagation();
+          //     props.onSubmit();
+          //   }
+          // }}
           placeholder={props.label}
         />
-        <Button className="searchButton hoverfx" onClick={props.onSubmit}>
+        <Button
+          className="searchButton hoverfx"
+          onClick={() => {}}
+          //onClick={props.onSubmit}
+        >
           <SearchIcon>search</SearchIcon>
         </Button>
       </SearchWrapper>

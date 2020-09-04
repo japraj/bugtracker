@@ -14,7 +14,7 @@ import {
   addActivity,
   harmonizeContext,
 } from "../flux/slices/contextSlice";
-import { setRecentActivity } from "../flux/slices/homeSlice";
+import { setRecentActivity, setTotalPages } from "../flux/slices/homeSlice";
 import { generateNotificationSet, generateTicketSet } from "../seed";
 import Endpoints from "../constants/api";
 import {
@@ -26,7 +26,10 @@ import {
   Notification,
   getNotificationFromDTO,
 } from "../constants/notification";
-import { getCollapsedTicketFromDTO } from "../constants/ticket";
+import {
+  CollapsedTicket,
+  getCollapsedTicketFromDTO,
+} from "../constants/ticket";
 
 import FancyLoading, {
   LoadWrapper,
@@ -54,9 +57,12 @@ export default hot(() => {
     fetch(Endpoints.INITIAL_LOAD, { method: "GET" })
       .then((res) => res.json())
       .then((res: any) => {
-        dispatch(
-          addCollapsedTickets(res.tickets.map(getCollapsedTicketFromDTO))
+        const tickets: CollapsedTicket[] = res.tickets.map(
+          getCollapsedTicketFromDTO
         );
+
+        dispatch(addCollapsedTickets(tickets));
+        dispatch(setTotalPages(Math.ceil(tickets.length / 5)));
         dispatch(addUsers(res.users.map(getUserFromDTO)));
 
         const notifications: Notification[] = res.activity.map(

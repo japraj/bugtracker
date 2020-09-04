@@ -1,81 +1,98 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Rank } from "../../../constants/user";
-import { selectNodesPerPage } from "../../../flux/slices/homeSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  HomeState,
+  selectHomeSlice,
+  setTotalPages,
+  setPageIndex,
+  setNodesPerPage,
+  setSort,
+} from "../../../flux/slices/homeSlice";
 import { selectAllElements } from "../../../flux/slices/contextSlice";
+import { selectUser } from "../../../flux/slices/authSlice";
 import { WidgetWrapper, WidgetHeader } from "../../container/widget";
 import TablePagination from "./pagination";
 import TableTabs from "./tabs";
 import TableTicket from "../collapsedTicket";
 import Search from "../../input/search";
 import Select from "../../input/select";
-import { Tab, sortSelectOptions } from "../../../constants/table";
+import {
+  sortSelectOptions,
+  generateTabSet,
+  applySort,
+} from "../../../constants/table";
+import { CollapsedTicket, stringify } from "../../../constants/ticket";
+import { Fallback } from "../../container/widget";
 import styled from "styled-components";
 
-const tabSet: Tab[] = [
-  {
-    iconName: "new_releases",
-    title: "Latest",
-    requiredRank: -1,
-  },
-  {
-    iconName: "assignment_turned_in",
-    title: "Resolved",
-    requiredRank: -1,
-  },
-  {
-    iconName: "cached",
-    title: "Unassigned",
-    requiredRank: Rank.Developer,
-  },
-  {
-    iconName: "confirmation_number",
-    title: "My Issues",
-    requiredRank: Rank.User,
-  },
-  {
-    iconName: "assignment",
-    title: "Assigned",
-    requiredRank: Rank.Developer,
-  },
-  {
-    iconName: "work",
-    title: "Delegated",
-    requiredRank: Rank.Manager,
-  },
-];
+export default (props: { className: string }) => {
+  const dispatch = useDispatch();
+  const [query, setQuery] = React.useState("");
+  const homeSlice: HomeState = useSelector(selectHomeSlice);
+  const pageIndex = homeSlice.pageIndex;
+  const nodesPerPage = homeSlice.nodesPerPage;
+  const users = useSelector(selectAllElements("users"));
+  const tabSet = generateTabSet(
+    useSelector(selectUser),
+    (tag: string) => users.filter((u) => u.tag === tag)[0].rank
+  );
 
-type Props = {
-  className: string;
-};
+  const applyQuery = (set: CollapsedTicket[]): CollapsedTicket[] =>
+    query === ""
+      ? set
+      : set.filter((ticket) =>
+          stringify(ticket).toLowerCase().includes(query.toLowerCase())
+        );
 
-export default (props: Props) => {
-  const nodesPerPage = useSelector(selectNodesPerPage);
-  const ticketSet = useSelector(selectAllElements("collapsedTickets"));
+  const ticketSet: CollapsedTicket[] = applyQuery(
+    applySort(
+      homeSlice.sort,
+      tabSet[homeSlice.tabIndex].filter(
+        useSelector(selectAllElements("collapsedTickets"))
+      )
+    )
+  );
+  const totalPages = Math.ceil(ticketSet.length / nodesPerPage);
+  if (totalPages !== homeSlice.totalPages) dispatch(setTotalPages(totalPages));
+
   return (
     <WidgetWrapper className={props.className}>
-      <TableTabs tabSet={tabSet} />
+      <TableTabs
+        tabSet={tabSet}
+        onChange={() => {
+          dispatch(setPageIndex(0));
+          dispatch(setNodesPerPage(5));
+          dispatch(setTotalPages(Math.ceil(ticketSet.length / 5)));
+        }}
+      />
       <TableControls>
         <Search
           label="Search"
-          onChange={() => {}}
-          onSubmit={() => {
-            console.log("submitted");
+          onChange={(newValue: string) => {
+            setQuery(newValue);
           }}
         />
         <Select
           fixedWidth={true}
           width={150}
           mobileWidth={115}
-          onChange={(newValue: string) => console.log(newValue)}
+          onChange={(newValue: string) => dispatch(setSort(newValue))}
           options={sortSelectOptions}
         />
       </TableControls>
-      {ticketSet
-        .filter((ticket, index) => index < nodesPerPage)
-        .map((ticket, index) => (
-          <TableTicket key={index} ticket={ticket} />
-        ))}
+      {ticketSet.length > 0 ? (
+        ticketSet
+          .filter(
+            (ticket, index) =>
+              index >= nodesPerPage * (pageIndex - 1) &&
+              index < nodesPerPage * pageIndex
+          )
+          .map((ticket, index) => <TableTicket key={index} ticket={ticket} />)
+      ) : (
+        <Fallback>
+          <h1>No tickets found</h1>
+        </Fallback>
+      )}
       <TablePagination nodesPerPage={nodesPerPage} />
     </WidgetWrapper>
   );
