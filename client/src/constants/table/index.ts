@@ -57,7 +57,7 @@ export const generateTabSet = (
   return [
     {
       iconName: "new_releases",
-      title: "Latest",
+      title: "All Issues",
       requiredRank: -1,
       filter: (set: CollapsedTicket[]) => set,
     },
@@ -70,7 +70,7 @@ export const generateTabSet = (
     },
     {
       iconName: "cached",
-      title: "Unassigned",
+      title: "Ongoing",
       requiredRank: Rank.Developer,
       filter: (set: CollapsedTicket[]) =>
         set.filter((t) => t.status === Status["work-in-progress"]),
