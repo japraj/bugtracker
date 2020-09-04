@@ -40,13 +40,6 @@ export default () => {
       .then((res) => {
         const newTicket: CollapsedTicket = getCollapsedTicketFromDTO(res);
         dispatch(addCollapsedTickets([newTicket]));
-        dispatch(
-          loadUser(
-            Object.assign(user, {
-              tickets: user.tickets.concat([newTicket.id]),
-            })
-          )
-        );
       })
       .catch(() =>
         toast.error("Oops! Something went wrong, please try again.")
