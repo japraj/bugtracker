@@ -13,7 +13,7 @@ export interface TicketState {
 }
 
 const generateComplement = (universe: string[], subset: string[]): string[] =>
-  universe.filter((user) => subset.indexOf(user) !== -1);
+  universe.filter((user) => subset.indexOf(user) === -1);
 
 const initialState: TicketState = {
   displayModal: false,
