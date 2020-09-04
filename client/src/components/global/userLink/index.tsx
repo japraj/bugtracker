@@ -2,7 +2,6 @@ import React from "react";
 import Routes from "../../../constants/routes";
 import Popper from "@material-ui/core/Popper";
 import Fade from "@material-ui/core/Fade";
-import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import LinkButton from "../../input/linkButton";
 import { UserInfo } from "../../../constants/user";
@@ -16,6 +15,7 @@ import { useSelector } from "react-redux";
 // I think if there is a way to select a child's parent using css
 // then a css file could be avoided. I found the ':has' selector
 // but currently, it is not supported by any browser (July, 2020)
+import Avatar from "../avatar";
 import "./Popper.css";
 import { ProfileWrapper, ProfileTag, PopperContent, PopperTag } from "./styles";
 
@@ -30,6 +30,7 @@ interface StyleConfig {
   internalSpacing: string;
   showTag: boolean;
   tagSize: string;
+  small?: boolean;
 }
 
 interface Props {
@@ -41,9 +42,7 @@ interface Props {
 export default (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
-  const user: UserInfo = useSelector(selectElementByKey("users"))(
-    props.userTag
-  );
+  var user: UserInfo = useSelector(selectElementByKey("users"))(props.userTag);
   if (!user) return <h1>{"undefined: " + props.userTag}</h1>;
   const rank: RankObject = getRankObj(user.rank);
 
@@ -59,11 +58,9 @@ export default (props: Props) => {
     >
       {props.styleConfig.showImg ? (
         <Avatar
-          src={user.profileImg}
-          style={{
-            width: props.styleConfig.imgLength,
-            height: props.styleConfig.imgLength,
-          }}
+          imgLength={props.styleConfig.imgLength}
+          small={props.styleConfig.small}
+          user={user}
         />
       ) : (
         <React.Fragment />
@@ -86,13 +83,7 @@ export default (props: Props) => {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={150}>
             <PopperContent>
-              <Avatar
-                src={user.profileImg}
-                style={{
-                  width: "70px",
-                  height: "70px",
-                }}
-              />
+              <Avatar imgLength="70px" user={user} />
               <PopperTag>{user.tag}</PopperTag>
               <Chip
                 style={{

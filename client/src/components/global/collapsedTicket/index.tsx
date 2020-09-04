@@ -65,6 +65,7 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
               internalSpacing: "0.5rem",
               showTag: true,
               tagSize: "1.25rem",
+              small: true,
             }}
             userTag={ticket.author}
           />

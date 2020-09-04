@@ -4,7 +4,8 @@ import { selectUser } from "../../../flux/slices/authSlice";
 import { viewNotifications } from "../../../flux/slices/authSlice";
 import Routes from "../../../constants/routes";
 import { Notification, Variant } from "../../../constants/notification";
-import UserLink from "../userLink";
+import { getRankObj } from "../../../constants/user";
+import Avatar from "../avatar";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
 import { Link } from "react-router-dom";
@@ -95,23 +96,23 @@ export default (props: Props) => {
 
   return user.authenticated ? (
     <Profile collapsed={props.collapsed} className={props.className}>
-      <UserLink
-        styleConfig={{
-          className: "",
-          showImg: true,
-          imgLength: length,
-          internalSpacing: "0",
-          showTag: false,
-          tagSize: "0",
-        }}
-        userTag={user.info.tag}
+      <Avatar
+        imgLength={length}
+        user={user.info}
+        small={props.collapsed}
+        large={!props.collapsed}
       />
-
       {props.collapsed ? (
         <React.Fragment />
       ) : (
         <React.Fragment>
-          <h1>{user.info.tag}</h1>
+          <h1
+            style={{
+              color: `var(--theme-${getRankObj(user.info.rank).nameColor})`,
+            }}
+          >
+            {user.info.tag}
+          </h1>
           <ProfileWidgetWrapper>
             <Link
               to={`${Routes.USER}/${user.info.tag}`}
