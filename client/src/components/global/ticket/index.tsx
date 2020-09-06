@@ -37,9 +37,12 @@ export default () => {
   const ticket: Ticket = useSelector(selectTicket);
   const failures: number = useSelector(selectFailures);
   const mobileDisplay: boolean = window.innerWidth < 600;
-  const activity: Notification[] = useSelector(
+  const activitySelector: (ids: string[]) => Notification[] = useSelector(
     selectElementsByKeys("activity")
-  )(ticket.activity.map((id) => id.toString()));
+  );
+  const activity: Notification[] = ticket.activity
+    ? activitySelector(ticket.activity.map((id) => id.toString()))
+    : [];
 
   return (
     <Modal

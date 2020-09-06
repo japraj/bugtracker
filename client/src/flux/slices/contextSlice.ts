@@ -63,6 +63,14 @@ export const contextSlice = createSlice({
     addCollapsedTickets: newReducer<CollapsedTicket>("collapsedTickets", "id"),
     addUsers: newReducer<UserInfo>("users", "tag"),
     addActivity: newReducer<Notification>("activity", "id"),
+    removeCollapsedTicket: (state, action: PayloadAction<number>) => {
+      const index = state.stores.collapsedTickets.allKeys.indexOf(
+        action.payload.toString()
+      );
+      if (index === -1) return;
+      state.stores.collapsedTickets.allKeys.splice(index, 1);
+      delete state.stores.collapsedTickets.byKey[action.payload.toString()];
+    },
     updateTime: (state) => {
       state.lastUpdate = new Date().toISOString();
     },
@@ -73,6 +81,7 @@ export const {
   addCollapsedTickets,
   addUsers,
   addActivity,
+  removeCollapsedTicket,
   updateTime,
 } = contextSlice.actions;
 

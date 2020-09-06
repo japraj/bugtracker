@@ -13,17 +13,21 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { Ticket } from "../../../../constants/ticket";
+import {
+  removeCollapsedTicket,
+  harmonizeContext,
+} from "../../../../flux/slices/contextSlice";
 import { theme, useStyles } from "../../../../constants/materialui";
 import clsx from "clsx";
 import Button from "../../../input/button";
 import { ModalContentWrapper } from "../../../container/modalContent";
+import Endpoints from "../../../../constants/api";
 import styled from "styled-components";
 
 export default (props: { display: boolean }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const ticket: Ticket = useSelector(selectTicket);
+  const ticketId: number = useSelector(selectTicket).id;
   const [state, assignState] = React.useState({
     error: false,
     isOpen: false,
@@ -44,12 +48,20 @@ export default (props: { display: boolean }) => {
   const submit = () => {
     const valid = state.value.toLowerCase() === "delete";
     setState({ error: !valid });
-    if (valid) {
-      dispatch(forceCloseDisplays());
-      // Make fetch request deleting stuff,
-      // remove from store.
-      toast.success(`Successfully deleted issue #${ticket.id}`);
-    }
+    if (valid)
+      fetch(`${Endpoints.DELETE_TICKET}/${ticketId}`, {
+        method: "DELETE",
+      })
+        .then((res: any) => {
+          if (res.status !== 204) return;
+          dispatch(forceCloseDisplays());
+          dispatch(removeCollapsedTicket(ticketId));
+          dispatch(harmonizeContext(true));
+          toast.success(`Successfully deleted issue #${ticketId}`);
+        })
+        .catch(() =>
+          toast.error("Oops! Something went wrong, please try again.")
+        );
   };
 
   return props.display ? (

@@ -3,6 +3,8 @@ import { RootState, AppThunk } from "../store";
 import { Ticket, EditedTicket, getTicketFromDTO } from "../../constants/ticket";
 import Endpoints from "../../constants/api";
 import { UserInfo, Rank } from "../../constants/user";
+import history from "../../routes/history";
+import Routes from "../../constants/routes";
 
 export interface TicketState {
   displayModal: boolean;
@@ -119,14 +121,20 @@ export const selectAvailable = (state: RootState) =>
   );
 
 export const loadTicketById = (id: string): AppThunk => (dispatch) => {
+  const err: () => void = () => {
+    history.push(Routes.DNE404);
+    dispatch(forceCloseDisplays());
+  };
+
   fetch(`${Endpoints.TICKET_BY_ID}/${id}`, {
     method: "GET",
   })
     .then((res) => res.json())
     .then((res: any) => {
-      dispatch(loadTicket(getTicketFromDTO(res)));
+      if (res.status === 200) dispatch(loadTicket(getTicketFromDTO(res)));
+      else err();
     })
-    .catch();
+    .catch(err);
 };
 
 export default ticketSlice.reducer;
