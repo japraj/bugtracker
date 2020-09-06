@@ -41,6 +41,7 @@ const generateCollapsedTicket = (): CollapsedTicket => {
     title:
       "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
     author: getRandom(User).tag,
+    creationDate: new Date().toISOString(),
     updateDate: new Date().toISOString(),
     severity: randomNum(2),
     status: randomNum(2),

@@ -40,6 +40,7 @@ export interface CollapsedTicket {
   typeLabel: number;
   title: string;
   author: string;
+  creationDate: string;
   updateDate: string;
   severity: number;
   status: number;

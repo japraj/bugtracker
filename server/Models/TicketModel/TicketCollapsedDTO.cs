@@ -10,6 +10,8 @@ namespace server.Models.TicketModel
 
         public string Title { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
         public DateTime UpdateDate { get; set; }
 
         public byte TypeLabel { get; set; }
