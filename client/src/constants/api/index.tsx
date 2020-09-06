@@ -49,4 +49,22 @@ const Endpoints: {
   SUBSCRIBE: `${loadRoute}subscribe`,
 };
 
+export interface Patch {
+  path: string;
+  value: string;
+}
+
+// we only use 'replace'
+const patchToOperation = (patch: Patch): object => {
+  patch.path = patch.path.charAt(0) === "/" ? patch.path : `/${patch.path}`;
+  return Object.assign({ op: "replace" }, patch);
+};
+
+export const generatePatchDoc = (set: Patch[] | Patch): string =>
+  JSON.stringify(
+    set.constructor === Array
+      ? set.map(patchToOperation)
+      : [patchToOperation(set as Patch)]
+  );
+
 export default Endpoints;

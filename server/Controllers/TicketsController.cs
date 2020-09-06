@@ -25,8 +25,8 @@ namespace server.Controllers
         // Define maximum value constraints for patch calls
         public static byte MAX_STATUS_INDEX = 2;
         public static byte MAX_SEVERITY_INDEX = 2;
-        public static byte MAX_TYPELABEL_INDEX = 4;
-        public static byte MAX_REPRODUCIBILITY_INDEX = 2;
+        public static byte MAX_TYPELABEL_INDEX = 2;
+        public static byte MAX_REPRODUCIBILITY_INDEX = 4;
 
         private readonly ITicketRepo _ticketRepo;
         private readonly IUserRepo _userRepo;
@@ -143,32 +143,32 @@ namespace server.Controllers
                         return null;
                 }
 
-                switch (patch.path)
+                switch (patch.path.ToLower())
                 {
-                    case "/Title":
-                    case "/Description":
+                    case "/title":
+                    case "/description":
                         if (!isAuthor)
                             return Forbid();
                         else if (JsonConvert.SerializeObject(patch.value).Length == 0)
                             return BadRequest();
                         break;
-                    case "/Status":
+                    case "/status":
                         result = EvaluateSelectorProp(MAX_STATUS_INDEX, true);
                         break;
-                    case "/Severity":
+                    case "/severity":
                         result = EvaluateSelectorProp(MAX_SEVERITY_INDEX, true);
                         break;
-                    case "/Reproducibility":
+                    case "/reproducibility":
                         result = EvaluateSelectorProp(MAX_REPRODUCIBILITY_INDEX, false);
                         break;
-                    case "/TypeLabel":
+                    case "/typelabel":
                         result = EvaluateSelectorProp(MAX_TYPELABEL_INDEX, false);
                         break;
-                    case "/Assignees":
+                    case "/assignees":
                         if (rank < Rank.Manager)
                             return Forbid();
                         break;
-                    case "/ImageLinks":
+                    case "/imagelinks":
                         if (!isAuthor)
                             return Forbid();
                         break;
@@ -189,44 +189,55 @@ namespace server.Controllers
             byte index = 0;
             foreach (Operation<TicketUpdateDTO> patch in patchDoc.Operations)
             {
+
                 // local Wrapper func for AddActivity which passes all static values
-                void AddActivity(ActivityType activity) =>
-                    activityHandler.AddActivity(activity,
-                        ActivityHandler.Stringify(persistentModel
-                                    .GetType()
-                                    .GetProperty(patch.path.Substring(1))
-                                    .GetValue(persistentModel, null)),
-                        ActivityHandler.Stringify(patch.value), requester,
-                        persistentModel, author, index == 0, false);
-
-                switch (patch.path)
+                try
                 {
-                    case "/Title":
-                        AddActivity(ActivityType.TITLE);
-                        break;
-                    case "/Description":
-                        AddActivity(ActivityType.DESCRIPTION);
-                        break;
-                    case "/Status":
-                        AddActivity(ActivityType.STATUS);
-                        break;
-                    case "/Severity":
-                        AddActivity(ActivityType.SEVERITY);
-                        break;
-                    case "/Reproducibility":
-                        AddActivity(ActivityType.REPRODUCIBILITY);
-                        break;
-                    case "/TypeLabel":
-                        AddActivity(ActivityType.TYPELABEL);
-                        break;
-                    case "/Assignees":
-                        AddActivity(ActivityType.ASSIGNEES);
-                        break;
-                    case "/ImageLinks":
-                        AddActivity(ActivityType.LINKS);
-                        break;
-                }
+                    void AddActivity(ActivityType activity) =>
+                        activityHandler.AddActivity(activity,
+                            ActivityHandler.Stringify(
+                                persistentModel
+                                .GetType()
+                                .GetProperties()
+                                .Where(p => p.Name.ToLower().Equals(patch.path.Substring(1).ToLower()))
+                                .ToList()
+                                .First()
+                                .GetValue(persistentModel, null)),
+                            ActivityHandler.Stringify(patch.value), requester,
+                            persistentModel, author, index == 0, false);
 
+                    switch (patch.path.ToLower())
+                    {
+                        case "/title":
+                            AddActivity(ActivityType.TITLE);
+                            break;
+                        case "/description":
+                            AddActivity(ActivityType.DESCRIPTION);
+                            break;
+                        case "/status":
+                            AddActivity(ActivityType.STATUS);
+                            break;
+                        case "/severity":
+                            AddActivity(ActivityType.SEVERITY);
+                            break;
+                        case "/reproducibility":
+                            AddActivity(ActivityType.REPRODUCIBILITY);
+                            break;
+                        case "/typelabel":
+                            AddActivity(ActivityType.TYPELABEL);
+                            break;
+                        case "/assignees":
+                            AddActivity(ActivityType.ASSIGNEES);
+                            break;
+                        case "/imagelinks":
+                            AddActivity(ActivityType.LINKS);
+                            break;
+                    }
+                }
+                catch
+                {
+                    return NotFound();
+                }
                 index++;
             }
 

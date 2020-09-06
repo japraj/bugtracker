@@ -1,8 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { EditedTicket } from "../../../constants/ticket";
+import {
+  Ticket,
+  EditedTicket,
+  getCollapsedTicketFromDTO,
+} from "../../../constants/ticket";
 import { UserInfo, Rank } from "../../../constants/user";
-import { getUsersFromTags, getTagsFromUsers } from "../../../constants/global";
 import {
   updateEdit,
   wipeLocalChanges,
@@ -10,14 +13,48 @@ import {
   TicketState,
   selectTicketSlice,
   selectAvailable,
+  loadTicketById,
 } from "../../../flux/slices/ticketSlice";
+import {
+  harmonizeContext,
+  addCollapsedTickets,
+} from "../../../flux/slices/contextSlice";
 import { selectUser } from "../../../flux/slices/authSlice";
+import Endpoints, { Patch, generatePatchDoc } from "../../../constants/api";
 import Icon from "@material-ui/core/Icon";
 import UserLinkGrid from "./userLinkGrid";
 import FormModal from "../formModal";
 import ContainerLabel from "../containerLabel";
 import DeletionModal from "./deletionModal";
+import { toast } from "react-toastify";
 import { ButtonWrapper, EditIcon, AssignmentContainer } from "./styles";
+
+interface Map {
+  [key: string]: string;
+}
+
+const generateMap = (obj: object): Map => {
+  var map: Map = {};
+  const keySet: string[] = Object.keys(obj);
+  const valueSet: string[] = Object.values(obj);
+  keySet.forEach((key: string, index: number) => (map[key] = valueSet[index]));
+  return map;
+};
+
+const mapModelsToPatchArray = (
+  editedModel: EditedTicket,
+  persistentModel: Ticket
+): Patch[] => {
+  var patchSet: Patch[] = [];
+  const editedMap: Map = generateMap(editedModel);
+  const persistentMap: Map = generateMap(persistentModel);
+
+  Object.keys(editedModel).forEach((key: string) => {
+    if (editedMap[key] !== persistentMap[key])
+      patchSet.push({ path: key, value: editedMap[key] });
+  });
+  return patchSet;
+};
 
 export default (props: {
   maxLinks: number;
@@ -65,7 +102,34 @@ export default (props: {
   };
 
   const submit = (): void => {
-    // make post request
+    fetch(`${Endpoints.UPDATE_TICKET}/${ticketSlice.currentTicket.id}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: generatePatchDoc(
+        mapModelsToPatchArray(editedTicket, ticketSlice.currentTicket)
+      ),
+    })
+      .then((res: any) => {
+        if (res.status !== 204) return;
+        dispatch(harmonizeContext(true));
+        dispatch(
+          addCollapsedTickets([
+            getCollapsedTicketFromDTO(
+              Object.assign({}, editedTicket, {
+                updateDate: new Date().toISOString(),
+              })
+            ),
+          ])
+        );
+        dispatch(loadTicketById(ticketSlice.currentTicket.id.toString()));
+        toast.success("Saved changes.");
+      })
+      .catch(() =>
+        toast.error("Oops! Something went wrong, please try again.")
+      );
     close();
   };
 

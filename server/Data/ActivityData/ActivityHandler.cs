@@ -84,7 +84,8 @@ namespace server.Data.ActivityData
             }
 
             requester.Activity.Add(activity.Id);
-            if (notifyAuthor)
+            // Do not notify the author if they are the same as the requester.
+            if (notifyAuthor && requester.Tag != ticketAuthor.Tag)
                 ticketAuthor.Notifications.Add(activity.Id);
             _userRepo.SaveChanges();
 

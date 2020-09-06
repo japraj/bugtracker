@@ -208,16 +208,16 @@ namespace server.Controllers
                     requester, persistentModel, notify);
 
             // Check that the user is allowed to make the update and that it is valid
-            switch (update.path)
+            switch (update.path.ToLower())
             {
-                case "/Avatar":
+                case "/avatar":
                     if (!isOwner && !auth.HasRank(Rank.Admin, requester))
                         return Forbid();
                     if (JsonConvert.SerializeObject(update.value).Length == 0)
                         return BadRequest();
                     AddActivity(ActivityType.AVATAR, !isOwner);
                     break;
-                case "/Rank":
+                case "/rank":
                     try
                     {
                         string value = JsonConvert.SerializeObject(update.value).ToString();
