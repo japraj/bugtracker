@@ -9,13 +9,17 @@ import styled from "styled-components";
 const formattedDate = (date: string): string =>
   getDateFromISO(date).toLocaleString();
 
+const getFormattedTimeString = (timeString: string): string =>
+  timeString.substring(0, timeString.length - 6) +
+  timeString.substring(timeString.length - 3);
+// v.substring(0, v.length - 6) + v.substring(v.length - 3);
+
 const shortenDate = (dateStr: string): string => {
   // if the date is within the past 24 hrs, then we want to return a time like xx:yy p.m. (in the user's local time)
   // else, we want to return something of the form "dd/mm/yyyy"
   const date: Date = getDateFromISO(dateStr);
   return new Date().getTime() - date.getTime() < 24 * 60 * 60 * 1000
-    ? date.toLocaleTimeString().substring(0, 4) +
-        date.toLocaleTimeString().substring(7)
+    ? getFormattedTimeString(date.toLocaleTimeString())
     : date.toLocaleDateString();
 };
 
