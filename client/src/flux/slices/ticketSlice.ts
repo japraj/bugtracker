@@ -131,7 +131,7 @@ export const loadTicketById = (id: string): AppThunk => (dispatch) => {
   })
     .then((res) => res.json())
     .then((res: any) => {
-      if (res.status === 200) dispatch(loadTicket(getTicketFromDTO(res)));
+      if (res.id && res.id !== -1) dispatch(loadTicket(getTicketFromDTO(res)));
       else err();
     })
     .catch(err);

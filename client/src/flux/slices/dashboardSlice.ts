@@ -31,8 +31,6 @@ export const homeSlice = createSlice({
   },
 });
 
-export const { storeData } = homeSlice.actions;
-
 export const loadData = (): AppThunk => (dispatch, getState) => {
   const state: RootState = getState();
   const tickets: CollapsedTicket[] = state.context.stores.collapsedTickets.allKeys.map(
@@ -58,7 +56,7 @@ export const loadData = (): AppThunk => (dispatch, getState) => {
   });
 
   dispatch(
-    storeData({
+    homeSlice.actions.storeData({
       loaded: true,
       infoData: [
         tickets.length.toString(),
