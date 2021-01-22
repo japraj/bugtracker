@@ -36,6 +36,11 @@ export const TicketHeader = styled.div`
   }
 `;
 
+export const TicketTitle = styled.h1`
+  display: flex;
+  align-items: center;
+`;
+
 export const TicketBody = styled.div`
   width: 100%;
   display: grid;

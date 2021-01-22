@@ -9,6 +9,7 @@ import Timestamp from "../timestamp";
 import {
   TicketWrapper,
   TicketHeader,
+  TicketTitle,
   TicketBody,
   TicketBodyCell,
   statLen,
@@ -33,10 +34,12 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
             leftMargin: statLeftMarg,
           }}
         />
-        <h1 onClick={() => dispatch(loadTicketById(ticket.id.toString()))}>
+        <TicketTitle
+          onClick={() => dispatch(loadTicketById(ticket.id.toString()))}
+        >
           <TicketTag label={ticket.typeLabel} />
           {ticket.title}
-        </h1>
+        </TicketTitle>
       </TicketHeader>
       <TicketBody>
         <TicketBodyCell>
