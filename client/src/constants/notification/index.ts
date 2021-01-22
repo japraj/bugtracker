@@ -1,4 +1,5 @@
 import { getDateFromISO } from "../date";
+import { getRankObj } from "../user";
 
 // A notification is just a record of a change
 // that was applied to an issue or user.
@@ -72,9 +73,11 @@ export const generateGlobalMessage = (notification: Notification): string => {
     case 10:
       return `updated issue #${notification.ticketId}`;
     case 11:
-      return `updated your rank to ${notification.new}`;
+      return `updated your rank to ${
+        getRankObj(parseInt(notification.value)).name
+      }`;
     case 12:
-      return `updated your Avatar to ${notification.new}`;
+      return `updated your Avatar`;
     default:
       return `did something; #${notification.id}`;
   }
