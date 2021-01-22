@@ -1,42 +1,78 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectElementsByKeys } from "../../flux/slices/contextSlice";
-import { loadUser } from "../../flux/slices/userSlice";
-import Endpoints from "../../constants/api";
-import Page from "./page";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  loadUserByTag,
+  selectLoadState,
+  selectActivity,
+  selectTickets,
+} from "../../flux/slices/userSlice";
+import ProfileCard from "./profileCard";
+import Rank from "./rank";
+import Update from "./update";
+import IterableWidget from "../../components/global/iterableWidget";
+import CollapsedTicketComp from "../../components/global/collapsedTicket";
+import RecentActivity from "../../components/global/recentActivity";
+import { Notification } from "../../constants/notification";
+import { CollapsedTicket } from "../../constants/ticket";
+import styled from "styled-components";
+import LoadingRing from "../../components/global/loadingRing/LoadingRing";
+import { selectSideNavWidth } from "../../flux/slices/navigationSlice";
+import { Container, WidgetColumn, WidgetRow } from "./styles";
 
-// This is a wrapper for the page component, meant to separate the
-// loading of a user from the rendering of the page, ensuring that
-// a user is only loaded ONCE, when the client initially opens the
-// /user/:tag route. The alternative is that the user is reloaded
-// every single time the page re-renders, which would result in
-// exponentially more back-end requests and a chance of getting
-// caught in an infinite re-render loop.
+const LoadWrapper = styled.div`
+  position: fixed;
+  left: calc(0.5 * (100vw - 152.2px));
+  top: 35vh;
+
+  @media (max-width: 600px) {
+    position: static;
+    padding-top: 25vh;
+    height: calc(100vh - var(--nav-height) - var(--mobile-nav-height) - 1.5rem);
+  }
+`;
 
 export default ({ match }: { match: any }) => {
   const dispatch = useDispatch();
-  const selectActivity: (keys: string[]) => any[] = useSelector(
-    selectElementsByKeys("activity")
+  React.useEffect(() => {
+    dispatch(loadUserByTag(match.params.tag));
+  }, []);
+  const loading: boolean = useSelector(selectLoadState);
+  // remove notifications related to avatar and rank updates
+  const recentActivity: Notification[] = useSelector(selectActivity).filter(
+    (notification) => notification.message < 11
   );
-  const selectTickets: (keys: string[]) => any[] = useSelector(
-    selectElementsByKeys("collapsedTickets")
-  );
+  const tickets: CollapsedTicket[] = useSelector(selectTickets);
+  const sideNavWidth = useSelector(selectSideNavWidth);
 
-  // load the user via fetch
-  // note: the load user payload requires tickets to be in the form of collapsed
-  // tickets while the backend simply returns a list of strings; we must manually
-  // get the collapsedTicket objects from the table slice.
-  fetch(`${Endpoints.USER_BY_TAG}/${match.params.tag}`, { method: "GET" })
-    .then((res) => res.json())
-    .then((res: any) =>
-      dispatch(
-        loadUser({
-          info: { tag: res.tag, rank: res.rank, profileImg: res.avatar },
-          recentActivity: selectActivity(res.activity),
-          tickets: selectTickets(res.tickets),
-        })
-      )
-    )
-    .catch(() => dispatch(loadUser(undefined)));
-  return <Page />;
+  return loading ? (
+    <LoadWrapper>
+      <LoadingRing />
+    </LoadWrapper>
+  ) : (
+    <Container>
+      <WidgetColumn>
+        <WidgetRow>
+          <ProfileCard />
+          <Rank />
+        </WidgetRow>
+        <Update />
+      </WidgetColumn>
+      <IterableWidget
+        className="ticketSet"
+        iconName="confirmation_number"
+        title="Issues"
+        elementsPerPage={window.innerWidth < 800 ? 5 : 4}
+        set={tickets}
+        wrapperElement={CollapsedTicketComp}
+        defaultProps={{}}
+        elementPropName="ticket"
+        emptySetFallback="This user has not yet submitted any issues"
+      />
+      <RecentActivity
+        notificationSet={recentActivity}
+        className="recentActivity"
+        nodeClassName="activityNode"
+      />
+    </Container>
+  );
 };

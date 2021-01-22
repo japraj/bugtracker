@@ -37,6 +37,9 @@ export const authSlice = createSlice({
       );
       state.user = action.payload;
     },
+    updateAvatar: (state, action: PayloadAction<string>) => {
+      state.user.info.profileImg = action.payload;
+    },
     viewNotifications: (state) => {
       fetch(Endpoints.READ_ALL_NOTIFICATIONS, {
         method: "PATCH",
@@ -64,6 +67,7 @@ export const {
   loadUser,
   viewNotifications,
   logout,
+  updateAvatar,
 } = authSlice.actions;
 
 export const selectAuthSlice = (state: RootState): AuthState =>

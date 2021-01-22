@@ -1,26 +1,29 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState, AppThunk } from "../store";
+import { selectElementsByKeys } from "./contextSlice";
 import { CollapsedTicket } from "../../constants/ticket";
+import Endpoints from "../../constants/api";
 import { UserInfo } from "../../constants/user";
 import { Notification } from "../../constants/notification";
-import { getTagsFromUsers } from "../../constants/global";
-import { User } from "../../seed/predefined";
-import { generateNotificationSet, generateTicketSet } from "../../seed";
+import Routes from "../../constants/routes";
+import history from "../../routes/history";
 
 // This slice is used for viewing other users' profiles!
 // it has nothing to do with the local user/client
 export interface UserState {
+  loading: boolean;
   info: UserInfo;
   stagedUrl: string;
-  recentActivity: Notification[];
-  tickets: CollapsedTicket[];
+  recentActivity: number[];
+  tickets: number[];
 }
 
 export const initialState: UserState = {
+  loading: true,
   info: {
     profileImg: "",
     tag: "",
-    rank: -1,
+    rank: 0,
   },
   stagedUrl: "",
   recentActivity: [],
@@ -28,30 +31,36 @@ export const initialState: UserState = {
 };
 
 interface LoadUserPayload {
-  info: UserInfo;
-  recentActivity: Notification[];
-  tickets: CollapsedTicket[];
+  tag: string;
+  rank: number;
+  avatar: string;
+  profileImg: string;
+  activity: number[];
+  tickets: number[];
 }
+
+// load user with specified tag from server
+export const loadUserByTag = createAsyncThunk<LoadUserPayload, string, {}>(
+  "user/loadUserByTag",
+  async (tag: string, thunk) => {
+    const res = await fetch(`${Endpoints.USER_BY_TAG}/${tag}`, {
+      method: "GET",
+    });
+
+    if (res.status === 404) thunk.rejectWithValue(res.status);
+    else return res.json();
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loadUser: {
-      reducer(state, action: PayloadAction<LoadUserPayload | undefined>) {
-        //  const tag = action.payload;
-        // // try to load user by tag
-        //     const index = getTagsFromUsers(User).indexOf(tag);
-        //    const user = index === -1 ? initialState.info : User[index];
-        if (action.payload !== undefined) {
-          state = Object.assign(state, action.payload, {
-            stagedUrl: action.payload.info.profileImg,
-          });
-        }
-      },
-      prepare(payload: LoadUserPayload | undefined) {
-        return { payload };
-      },
+    // update the user object stored in the userSlice; different
+    // from loading a new user entirely (use loadUserByTag for
+    // that!)
+    updateUser: (state, action: PayloadAction<UserInfo>) => {
+      state = Object.assign(state, { info: action.payload });
     },
     setStaged: {
       reducer(state, action: PayloadAction<string>) {
@@ -62,17 +71,47 @@ export const userSlice = createSlice({
       },
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(loadUserByTag.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(loadUserByTag.fulfilled, (state, { payload }) => {
+      // halt loading, load user into state
+      state.loading = false;
+      state = Object.assign(state, {
+        info: {
+          tag: payload.tag,
+          rank: payload.rank,
+          profileImg: payload.avatar,
+        },
+        recentActivity: payload.activity,
+        tickets: payload.tickets,
+      });
+    });
+    builder.addCase(loadUserByTag.rejected, (state, action) => {
+      // halt loading, and forward user to 404 route
+      state.loading = false;
+      history.push(Routes.DNE404);
+    });
+  },
 });
 
-export const { loadUser, setStaged } = userSlice.actions;
+export const { updateUser, setStaged } = userSlice.actions;
+
+export const selectLoadState = (state: RootState): boolean =>
+  state.user.loading;
 
 export const selectUserInfo = (state: RootState): UserInfo => state.user.info;
 
 export const selectActivity = (state: RootState): Notification[] =>
-  state.user.recentActivity;
+  selectElementsByKeys("activity")(state)(
+    state.user.recentActivity.map((e) => e.toString())
+  );
 
 export const selectTickets = (state: RootState): CollapsedTicket[] =>
-  state.user.tickets;
+  selectElementsByKeys("collapsedTickets")(state)(
+    state.user.tickets.map((e) => e.toString())
+  );
 
 export const selectStaged = (state: RootState): string => state.user.stagedUrl;
 

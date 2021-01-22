@@ -4,22 +4,28 @@ import {
   selectStaged,
   setStaged,
   selectUserInfo,
+  updateUser,
 } from "../../../flux/slices/userSlice";
-import { selectUser } from "../../../flux/slices/authSlice";
+import { updateAvatar, selectUser } from "../../../flux/slices/authSlice";
+import { updateStoredUser } from "../../../flux/slices/contextSlice";
 import {
   WidgetWrapper,
   WidgetHeader,
   WidgetSection,
 } from "../../../components/container/widget";
+import Endpoints from "../../../constants/api";
 import Icon from "@material-ui/core/Icon";
 import Avatar from "@material-ui/core/Avatar";
 import TextfieldButton from "../../../components/input/textfieldButton";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import { UserInfo, Rank } from "../../../constants/user";
 
 export default () => {
-  const isAuthor: boolean =
-    useSelector(selectUser).info.tag === useSelector(selectUserInfo).tag;
+  // local client
+  const client: UserInfo = useSelector(selectUser).info;
+  // user whose profile we are viewing
+  const user: UserInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const stagedUrl = useSelector(selectStaged);
 
@@ -45,10 +51,41 @@ export default () => {
           editable={true}
           buttonIconName="update"
           onSubmit={(value: string | undefined) => {
-            if (isAuthor) {
+            // if client == user (i.e. the client is viewing their own profile) or
+            // if client is an administrator, this operation is allowed
+            if (client.tag === user.tag || client.rank === Rank.Admin) {
               // make a post request to the backend updating the user's profile image
               // use local state
-              toast.success("Successfully updated avatar.");
+              fetch(`${Endpoints.UPDATE_USER}/${user.tag}`, {
+                method: "PATCH",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify([
+                  {
+                    op: "replace",
+                    path: "/Avatar",
+                    value: stagedUrl,
+                  },
+                ]),
+              }).then((res) => {
+                console.log(res);
+                if (res.status === 204) {
+                  var newUser = Object.assign({}, user, {
+                    profileImg: stagedUrl,
+                  });
+                  toast.success("Successfully updated avatar.");
+                  // update user profile page
+                  dispatch(updateUser(newUser));
+                  // update context slice
+                  dispatch(updateStoredUser(newUser));
+                  // if the client is changing their own avatar,
+                  // update the sidebar avatar img too
+                  if (client.tag === user.tag)
+                    dispatch(updateAvatar(stagedUrl));
+                } else toast.error("Something went wrong");
+              });
             } else {
               toast.error(
                 "You do not have sufficient permissions to perform this operation."

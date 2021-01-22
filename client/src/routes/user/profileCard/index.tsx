@@ -19,6 +19,7 @@ export default () => {
           style={{
             width: "140px",
             height: "140px",
+            margin: "auto",
           }}
         />
         <CardBody>

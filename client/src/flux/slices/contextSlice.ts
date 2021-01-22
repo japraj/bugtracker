@@ -21,7 +21,7 @@ const initialNormalized: Normalized<any> = {
   allKeys: [],
 };
 
-interface ContextState {
+export interface ContextState {
   lastUpdate: string;
   stores: {
     collapsedTickets: Normalized<CollapsedTicket>;
@@ -71,6 +71,9 @@ export const contextSlice = createSlice({
       state.stores.collapsedTickets.allKeys.splice(index, 1);
       delete state.stores.collapsedTickets.byKey[action.payload.toString()];
     },
+    updateStoredUser: (state, action: PayloadAction<UserInfo>) => {
+      state.stores.users.byKey[action.payload.tag] = action.payload;
+    },
     updateTime: (state) => {
       state.lastUpdate = new Date().toISOString();
     },
@@ -83,6 +86,7 @@ export const {
   addActivity,
   removeCollapsedTicket,
   updateTime,
+  updateStoredUser,
 } = contextSlice.actions;
 
 // The below 'selectors' actually return selectors! they are meant
