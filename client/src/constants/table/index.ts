@@ -51,6 +51,14 @@ export const applySort = (
   }
 };
 
+// each Tab option has a required rank, and an associated filter;
+// - All Issues does not filter anything (has no rank requirement)
+// - Resolved shows only resolved tickets (has no rank requirement)
+// - Ongoing shows only unresolved tickets (requires rank Developer)
+// - My Issues shows only issues submitted by the local user (requires User rank)
+// - Assigned shows only tickets that the local user is assigned to (req. Developer rank)
+// - Internal shows only tickets that have been submitted by developers, managers, or admins
+//   (req. Developer rank)
 export const generateTabSet = (
   user: User,
   getRankFromUser: (tag: string) => Rank
