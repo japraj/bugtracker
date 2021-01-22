@@ -16,7 +16,6 @@ import { Notification } from "../../constants/notification";
 import { CollapsedTicket } from "../../constants/ticket";
 import styled from "styled-components";
 import LoadingRing from "../../components/global/loadingRing/LoadingRing";
-import { selectSideNavWidth } from "../../flux/slices/navigationSlice";
 import { Container, WidgetColumn, WidgetRow } from "./styles";
 
 const LoadWrapper = styled.div`
@@ -35,14 +34,13 @@ export default ({ match }: { match: any }) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadUserByTag(match.params.tag));
-  }, []);
+  }, [dispatch, match.params.tag]);
   const loading: boolean = useSelector(selectLoadState);
   // remove notifications related to avatar and rank updates
   const recentActivity: Notification[] = useSelector(selectActivity).filter(
     (notification) => notification.message < 11
   );
   const tickets: CollapsedTicket[] = useSelector(selectTickets);
-  const sideNavWidth = useSelector(selectSideNavWidth);
 
   return loading ? (
     <LoadWrapper>

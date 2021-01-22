@@ -1,4 +1,4 @@
-import { WidgetHeader, WidgetSection } from "../../container/widget";
+import { WidgetHeader } from "../../container/widget";
 import styled from "styled-components";
 
 export const Header = styled(WidgetHeader)`

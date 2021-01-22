@@ -6,8 +6,6 @@ import {
   selectNewTicket,
   wipeLocalChanges,
 } from "../../../flux/slices/creationSlice";
-import { selectUser, loadUser } from "../../../flux/slices/authSlice";
-import { User } from "../../../constants/user";
 import {
   CollapsedTicket,
   getCollapsedTicketFromDTO,
@@ -20,7 +18,6 @@ import { toast } from "react-toastify";
 export default () => {
   const dispatch = useDispatch();
   const open: boolean = useSelector(selectDisplayed);
-  const user: User = useSelector(selectUser);
   const ticket = useSelector(selectNewTicket);
   // while close actually toggles the display instead of setting it to false,
   // it can only be called when display = true so it is effectively the same

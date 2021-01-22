@@ -24,6 +24,7 @@ export const sortNotifications = (
   var dateById: { [id: number]: number } = {};
   notifications.map((n) => {
     dateById[n.id] = getDateFromISO(n.date).getTime();
+    return n;
   });
 
   notifications = notifications.sort(

@@ -15,13 +15,9 @@ import {
   harmonizeContext,
 } from "../flux/slices/contextSlice";
 import { setRecentActivity, setTotalPages } from "../flux/slices/homeSlice";
-import { generateNotificationSet, generateTicketSet } from "../seed";
+//import { generateNotificationSet, generateTicketSet } from "../seed";
 import Endpoints from "../constants/api";
-import {
-  User,
-  generateLocalUserFromDTO,
-  getUserFromDTO,
-} from "../constants/user";
+import { generateLocalUserFromDTO, getUserFromDTO } from "../constants/user";
 import {
   Notification,
   getNotificationFromDTO,
@@ -50,10 +46,17 @@ import "./App.css";
 
 const Context = React.createContext(initialState);
 
+// note: period is the reciprocal of frequency
+// we want to ask the server for updates every 10 minutes
+const updatePeriod = 10 * 60 * 1000;
+// we want to check if we are ready to ask the server for an update, once a minute
+const checkPeriod = 1 * 60 * 1000;
+
 export default hot(() => {
   const dispatch = useDispatch();
 
-  const initialLoad = () => {
+  // initial load logic
+  React.useEffect(() => {
     fetch(Endpoints.INITIAL_LOAD, { method: "GET" })
       .then((res) => res.json())
       .then((res: any) => {
@@ -89,6 +92,7 @@ export default hot(() => {
       .catch((err) => console.log(err))
       .finally(() => dispatch(finishedLoading()));
 
+    // Old seeding logic; will not work
     // let user: User = {
     //   authenticated: true,
     //   id: 0,
@@ -100,22 +104,17 @@ export default hot(() => {
     //     rank: Rank.Admin,
     //   },
     // };
-
     // dispatch(loadUser(user));
     // dispatch(setCollapsedTickets(generateTicketSet(20)));
     // dispatch(setRecentActivity(generateNotificationSet(5)));
     // setTimeout(() => dispatch(finishedLoading()), 0);
-  };
 
-  // period = reciprocal of frequency
-  const updatePeriod = 10 * 60 * 1000;
-  const checkForUpdate = () => dispatch(harmonizeContext(false, updatePeriod));
+    const checkForUpdate = () =>
+      dispatch(harmonizeContext(false, updatePeriod));
 
-  React.useEffect(() => {
-    // initial load
-    initialLoad();
-    // subscribe to updates from the server (update every 10 minutes & check every minute if ready)
-    setInterval(checkForUpdate, 1 * 60 * 1000);
+    // subscribe to updates from the server (do the actual update every updatePeriod seconds
+    // but check every minute if we are ready)
+    setInterval(checkForUpdate, checkPeriod);
   }, [dispatch]);
 
   const authSlice = useSelector(selectAuthSlice);

@@ -32,6 +32,7 @@ export const applySort = (
   var dateById: { [id: number]: number } = {};
   tickets.map((t) => {
     dateById[t.id] = getDateFromISO(t.updateDate).getTime();
+    return t;
   });
 
   // Sort by new and any further transformations will be applied on top.

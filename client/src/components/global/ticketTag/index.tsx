@@ -8,6 +8,7 @@ export default ({ label }: { label: number }) => {
     <TicketTag
       className={TypeLabel[label].toLowerCase().replace(/\s+/g, "_")}
       size="small"
+      type={label}
       label={TypeLabel[label]}
     />
   );
@@ -16,4 +17,8 @@ export default ({ label }: { label: number }) => {
 const TicketTag = styled(Chip)`
   font-size: 0.7rem !important;
   margin-right: 0.5rem;
+  span {
+    color: ${(props: { type: number }) =>
+      props.type === TypeLabel.Bug ? "black" : "black"};
+  }
 `;
