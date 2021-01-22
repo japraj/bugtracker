@@ -50,6 +50,9 @@ export interface RankObject {
   nameColor: string;
 }
 
+// note: used to have colored names; decided that color-less names look better.
+// the old names are written in comments beside the current names for easy
+// experimentation
 export const Ranks: RankObject[] = [
   {
     numeric: 0,
@@ -61,25 +64,25 @@ export const Ranks: RankObject[] = [
     numeric: 1,
     name: "User",
     badgeColor: "grey",
-    nameColor: "white",
+    nameColor: "white", // white
   },
   {
     numeric: 2,
     name: "Developer",
     badgeColor: "lightblue",
-    nameColor: "brightblue",
+    nameColor: "white", // brightblue
   },
   {
     numeric: 3,
     name: "Manager",
     badgeColor: "lightgreen",
-    nameColor: "brightgreen",
+    nameColor: "white", //brightgreen
   },
   {
     numeric: 4,
     name: "Admin",
     badgeColor: "darkred",
-    nameColor: "darkred",
+    nameColor: "white", // darkred
   },
 ];
 
