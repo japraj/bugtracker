@@ -1,9 +1,14 @@
 import React from "react";
 import { WidgetWrapper } from "../../../components/container/widget";
 import { Line } from "react-chartjs-2";
+import { ChartPoint } from "chart.js";
 import styled from "styled-components";
 
-export default (props: { title: string; labels: string[]; data: number[] }) => (
+export default (props: {
+  title: string;
+  labels: string[];
+  data: ChartPoint[];
+}) => (
   <Container
     children={
       <Line
@@ -13,7 +18,7 @@ export default (props: { title: string; labels: string[]; data: number[] }) => (
             {
               label: props.title,
               fill: true,
-              lineTension: 0.4,
+              lineTension: 0.05,
               backgroundColor: "rgba(32, 158, 145, 0.45)",
               borderColor: "rgba(32, 158, 145, 1)",
               borderCapStyle: "butt",
@@ -40,6 +45,20 @@ export default (props: { title: string; labels: string[]; data: number[] }) => (
             labels: {
               fontSize: window.innerWidth < 500 ? 20 : 24,
             },
+          },
+          scales: {
+            xAxes: [
+              {
+                type: "time",
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
           },
         }}
       />

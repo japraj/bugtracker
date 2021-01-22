@@ -55,5 +55,8 @@
       "react-hot-loader/babel"
     ]
   },
-  "proxy": "https://localhost:6000"
+  "proxy": "https://localhost:6000",
+  "devDependencies": {
+    "@types/chart.js": "^2.9.29"
+  }
 }

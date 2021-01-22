@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../store";
 import { CollapsedTicket } from "../../constants/ticket";
 import { getDateFromISO } from "../../constants/date";
+import { ChartPoint } from "chart.js";
 
 export interface DashboardState {
   loaded: boolean;
@@ -9,7 +10,7 @@ export interface DashboardState {
   statusData: number[];
   severityData: number[];
   lineLabels: string[];
-  lineData: number[];
+  lineData: ChartPoint[];
 }
 
 const initialState: DashboardState = {
@@ -31,16 +32,22 @@ export const homeSlice = createSlice({
   },
 });
 
+// parse data from ContextSlice and store it in the DashboardState
 export const loadData = (): AppThunk => (dispatch, getState) => {
   const state: RootState = getState();
-  const tickets: CollapsedTicket[] = state.context.stores.collapsedTickets.allKeys.map(
-    (key) => state.context.stores.collapsedTickets.byKey[key]
-  );
+  // get Tickets from ContextSlice and sort by date (oldest to newst)
+  const tickets: CollapsedTicket[] = state.context.stores.collapsedTickets.allKeys
+    .map((key) => state.context.stores.collapsedTickets.byKey[key])
+    .sort(
+      (t1, t2) =>
+        getDateFromISO(t1.creationDate).getTime() -
+        getDateFromISO(t2.creationDate).getTime()
+    );
   const resolved: number = tickets.filter((t) => t.status === 2).length;
   const wip: number = tickets.filter((t) => t.status === 1).length;
   const unassigned: number = tickets.filter((t) => t.status === 0).length;
-  var labels: string[] = [];
 
+  var labels: string[] = [];
   var dataSet: {
     [label: string]: number;
   } = {};
@@ -70,10 +77,16 @@ export const loadData = (): AppThunk => (dispatch, getState) => {
         tickets.filter((t) => t.severity === 1).length,
         tickets.filter((t) => t.severity === 0).length,
       ],
-      lineLabels: Object.keys(dataSet).map((date) =>
-        date.substring(3, date.length - 5)
+      lineLabels: Object.keys(dataSet).map((key: string) =>
+        new Date(key).toLocaleString()
       ),
-      lineData: Object.values(dataSet),
+      // .map((date) =>  date.substring(3, date.length - 5)),
+      lineData: Object.keys(dataSet).map((key: string) => {
+        return {
+          t: new Date(key),
+          y: dataSet[key],
+        };
+      }),
     })
   );
 };
