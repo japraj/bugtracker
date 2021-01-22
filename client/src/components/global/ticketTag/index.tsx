@@ -19,6 +19,6 @@ const TicketTag = styled(Chip)`
   margin-right: 0.5rem;
   span {
     color: ${(props: { type: number }) =>
-      props.type === TypeLabel.Bug ? "black" : "black"};
+      props.type === TypeLabel.Bug ? "white" : "black"};
   }
 `;
