@@ -8,13 +8,11 @@ import {
 } from "../../../flux/slices/creationSlice";
 import FormModal from "../../../components/global/formModal";
 import API from "../../../api";
-import { selectDemoMode } from "../../../flux/slices/authSlice";
 
 export default () => {
   const dispatch = useDispatch();
   const open: boolean = useSelector(selectDisplayed);
   const ticket = useSelector(selectNewTicket);
-  const demo: boolean = useSelector(selectDemoMode);
   // while close actually toggles the display instead of setting it to false,
   // it can only be called when display = true so it is effectively the same
   // as setting display to false.
