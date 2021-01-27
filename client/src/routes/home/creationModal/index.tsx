@@ -6,45 +6,22 @@ import {
   selectNewTicket,
   wipeLocalChanges,
 } from "../../../flux/slices/creationSlice";
-import {
-  CollapsedTicket,
-  getCollapsedTicketFromDTO,
-} from "../../../constants/ticket";
-import { addCollapsedTickets } from "../../../flux/slices/contextSlice";
-import Endpoints from "../../../constants/api";
 import FormModal from "../../../components/global/formModal";
-import { toast } from "react-toastify";
+import API from "../../../api";
+import { selectDemoMode } from "../../../flux/slices/authSlice";
 
 export default () => {
   const dispatch = useDispatch();
   const open: boolean = useSelector(selectDisplayed);
   const ticket = useSelector(selectNewTicket);
+  const demo: boolean = useSelector(selectDemoMode);
   // while close actually toggles the display instead of setting it to false,
   // it can only be called when display = true so it is effectively the same
   // as setting display to false.
   const close = () => dispatch(wipeLocalChanges());
 
   const submit = (): void => {
-    fetch(Endpoints.CREATE_TICKET, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(ticket),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const newTicket: CollapsedTicket = getCollapsedTicketFromDTO(res);
-        dispatch(addCollapsedTickets([newTicket]));
-      })
-      .catch(() =>
-        toast.error("Oops! Something went wrong, please try again.")
-      );
-
-    // make a post request here creating a ticket
-    // send session key along with it (to provide author
-    // and to allow for authorization)
+    dispatch(API.createTicket(ticket));
     close();
   };
 
