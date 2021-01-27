@@ -13,8 +13,8 @@ import {
   TicketState,
   selectTicketSlice,
   selectAvailable,
-  loadTicketById,
 } from "../../../flux/slices/ticketSlice";
+import API from "../../../api";
 import {
   harmonizeContext,
   addCollapsedTickets,
@@ -124,7 +124,7 @@ export default (props: {
             ),
           ])
         );
-        dispatch(loadTicketById(ticketSlice.currentTicket.id.toString()));
+        dispatch(API.loadTicketById(ticketSlice.currentTicket.id.toString()));
         toast.success("Saved changes.");
       })
       .catch(() =>

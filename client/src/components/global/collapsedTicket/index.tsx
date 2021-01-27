@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { loadTicketById } from "../../../flux/slices/ticketSlice";
+import API from "../../../api";
 import StatusIndicator from "../statusIndicator";
 import UserLink from "../userLink";
 import TicketTag from "../ticketTag";
@@ -35,7 +35,7 @@ export default ({ ticket }: { ticket: CollapsedTicket }) => {
           }}
         />
         <TicketTitle
-          onClick={() => dispatch(loadTicketById(ticket.id.toString()))}
+          onClick={() => dispatch(API.loadTicketById(ticket.id.toString()))}
         >
           <TicketTag label={ticket.typeLabel} />
           {ticket.title}

@@ -1,10 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../store";
-import { Ticket, EditedTicket, getTicketFromDTO } from "../../constants/ticket";
-import Endpoints from "../../constants/api";
+import { RootState } from "../store";
+import { Ticket, EditedTicket } from "../../constants/ticket";
 import { UserInfo, Rank } from "../../constants/user";
-import history from "../../routes/history";
-import Routes from "../../constants/routes";
 
 export interface TicketState {
   displayModal: boolean;
@@ -119,22 +116,5 @@ export const selectAvailable = (state: RootState) =>
       .map((u) => u.tag),
     state.ticket.editedTicket.assignees
   );
-
-export const loadTicketById = (id: string): AppThunk => (dispatch) => {
-  const err: () => void = () => {
-    history.push(Routes.DNE404);
-    dispatch(forceCloseDisplays());
-  };
-
-  fetch(`${Endpoints.TICKET_BY_ID}/${id}`, {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .then((res: any) => {
-      if (res.id && res.id !== -1) dispatch(loadTicket(getTicketFromDTO(res)));
-      else err();
-    })
-    .catch(err);
-};
 
 export default ticketSlice.reducer;

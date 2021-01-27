@@ -1,10 +1,10 @@
 import { Action, Dispatch } from "@reduxjs/toolkit";
+import { RootState } from "../../flux/store";
 import { Endpoint } from "../";
 import Endpoints from "../../constants/api";
 import { toast } from "react-toastify";
 import { getCollapsedTicketFromDTO, NewTicket } from "../../constants/ticket";
 import { addCollapsedTickets } from "../../flux/slices/contextSlice";
-import { RootState } from "../../flux/store";
 
 export const createTicket: Endpoint<NewTicket> = {
   normal: (

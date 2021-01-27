@@ -1,7 +1,7 @@
 import React from "react";
 import UserLink from "../userLink";
 import { useDispatch } from "react-redux";
-import { loadTicketById } from "../../../flux/slices/ticketSlice";
+import API from "../../../api";
 import {
   Notification,
   Variant,
@@ -84,7 +84,7 @@ export default ({
           className={!isValidId ? "disableHoverFx" : ""}
           onClick={() => {
             if (variant !== Variant.MODAL && isValidId) {
-              dispatch(loadTicketById(notification.ticketId));
+              dispatch(API.loadTicketById(notification.ticketId));
               onClick();
             }
           }}
