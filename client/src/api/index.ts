@@ -1,8 +1,9 @@
-import { Action, Dispatch } from "@reduxjs/toolkit";
-import { NewTicket } from "../constants/ticket";
+import { Dispatch } from "@reduxjs/toolkit";
+import { EditedTicket, NewTicket } from "../constants/ticket";
 import { AppThunk, RootState } from "../flux/store";
 import { createTicket } from "./endpoints/CreateTicket";
 import { loadTicketById } from "./endpoints/LoadTicketById";
+import { updateTicket } from "./endpoints/UpdateTicket";
 /* 
     Purpose: this module is meant to abstract the interface between the API and the server,
     to allow for seeding/demo users (the goal is to allow users to experience the
@@ -30,7 +31,7 @@ import { loadTicketById } from "./endpoints/LoadTicketById";
 */
 
 type EndpointKey<T> = (
-  dispatch: Dispatch<Action<any>>,
+  dispatch: Dispatch<any>,
   state: RootState,
   t?: T
 ) => void;
@@ -53,8 +54,8 @@ const selectBranch = <T>(endpoint: Endpoint<T>) => (t?: T): AppThunk => (
 interface API {
   // ticket/comments
   createTicket: (arg: NewTicket) => AppThunk;
-  loadTicketById: (arg: string) => void;
-  updateTicket: () => void;
+  loadTicketById: (arg: string) => AppThunk;
+  updateTicket: (arg: EditedTicket) => AppThunk;
   addComment: () => void;
   deleteTicket: () => void;
   // user
@@ -70,7 +71,7 @@ const api: API = {
   // ticket/comments
   createTicket: selectBranch(createTicket),
   loadTicketById: selectBranch(loadTicketById),
-  updateTicket: () => {},
+  updateTicket: selectBranch(updateTicket),
   addComment: () => {},
   deleteTicket: () => {},
   // user
