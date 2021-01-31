@@ -2,6 +2,8 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { EditedTicket, NewTicket } from "../constants/ticket";
 import { AppThunk, RootState } from "../flux/store";
 
+import { initialLoad } from "./endpoints/InitialLoad";
+
 import { createTicket } from "./endpoints/CreateTicket";
 import { loadTicketById } from "./endpoints/LoadTicketById";
 import { updateTicket } from "./endpoints/UpdateTicket";
@@ -64,6 +66,8 @@ const selectBranch = <T>(endpoint: Endpoint<T>) => (t?: T): AppThunk => (
 type APIKey<T> = (arg?: T) => AppThunk;
 
 interface API {
+  // misc
+  initialLoad: () => void;
   // ticket/comments
   createTicket: APIKey<NewTicket>;
   loadTicketById: APIKey<string>;
@@ -80,6 +84,7 @@ interface API {
 }
 
 const api: API = {
+  initialLoad: initialLoad,
   // ticket/comments
   createTicket: selectBranch(createTicket),
   loadTicketById: selectBranch(loadTicketById),
