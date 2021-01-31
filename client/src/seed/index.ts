@@ -1,7 +1,6 @@
 import { Ticket } from "../constants/ticket";
 import { LoadUserPayload, Rank } from "../constants/user";
 import { Notification } from "../constants/notification";
-import { AuthState } from "../flux/slices/authSlice";
 import { Normalized } from "../flux/slices/contextSlice";
 import {
   User,
@@ -11,16 +10,8 @@ import {
   getRandom,
 } from "./predefined";
 
-export const demoAuthState: AuthState = {
-  loaded: true,
-  user: {
-    authenticated: true,
-    tickets: [],
-    notifications: [],
-    assigned: [],
-    info: User.filter((u) => u.tag === "Spongebob")[0],
-  },
-};
+const localUser = "Spongebob";
+export const localUserInfo = User.find((u) => u.tag === localUser)!;
 
 // an implementation of the Fisher-Yates shuffle https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
 const shuffle = <T>(set: T[]): T[] => {
@@ -55,6 +46,7 @@ const randomDate = (n: number): Date => {
   );
 };
 
+// produce a set containing anywhere between 0 to max links to random imgs
 const randomImageSet = (max: number): string[] => {
   var set: string[] = [];
   for (var i = 0; i < randomInt(max); i++)
@@ -67,44 +59,64 @@ const randomImageSet = (max: number): string[] => {
 export interface DataSet {
   users: LoadUserPayload[];
   tickets: Ticket[];
+  activity: Notification[];
   notifications: Notification[];
+  assigned: number[];
 }
 
 export const generateDataSet = (): DataSet => {
-  var userSet: LoadUserPayload[] = User.map((u) =>
+  var users: LoadUserPayload[] = User.map((u) =>
     Object.assign({ activity: [], tickets: [] }, u)
   );
-  var ticketSet: Ticket[] = [];
-  var notificationSet: Notification[] = [];
-
+  var tickets: Ticket[] = [];
+  var activity: Notification[] = [];
+  // tickets that local user is assigned to
+  var assigned: number[] = [];
+  // activity on tickets that the local user has created or is assigned to
   var notifications: number[] = [];
+
+  var activitySubset: number[] = [];
+  // assignable is set of users with rank developer or higher
   var assignable = User.filter((u) => u.rank > Rank.User).map((u) => u.tag);
-  var notificationIds: number[] = genIntSet(50, 200);
-  var notificationIndex: number = 0;
+  // this is a shuffled set containing all integers in the range [50, 250]
+  var activityIds: number[] = genIntSet(50, 200);
+  // the index that we are currently on, corresponds to activityIds -
+  //
+  var activityIndex: number = 0;
+  // intermediate vars
   var jump: number;
   var creationDate: Date;
   var updateDate: Date;
   var ticket: Ticket;
-  var index;
+  var index: number;
+  var isAssigned: boolean;
 
   for (var i = 6; i <= 50; i++) {
-    // we have ~200 notifications & ~50 tickets so we want an average of 4 notifications per
+    // we have ~200 activities & ~50 tickets so we want an average of 4 notifications per
     // ticket - that is why 7 is used below (mean of the distribution ~ 4)
-    if (notificationIndex < 200) {
+    if (activityIndex < 200) {
+      // select a random sequence of activity ids, starting from activityIndex,
+      // and add it to the ticket
       jump = randomInt(7);
-      if (jump + notificationIndex >= 200) jump = 200 - notificationIndex - 1;
-      notifications = notificationIds.slice(
-        notificationIndex,
-        jump + notificationIndex + 1
+      if (jump + activityIndex >= 200) jump = 200 - activityIndex - 1;
+      activitySubset = activityIds.slice(
+        activityIndex,
+        jump + activityIndex + 1
       );
-      notificationIndex += jump;
+      activityIndex += jump;
     }
 
     creationDate = randomDate(14);
     updateDate = randomDate(14);
-    if (updateDate < creationDate || notifications.length === 0)
+    // if the updateDate is before the creation date, or there are no activities
+    // (which implies that there were no updates), use default val for updateDate
+    if (updateDate < creationDate || activitySubset.length === 0)
       updateDate = creationDate;
 
+    // randomize all fields of the ticket; most of the magic constants below are just random values.
+    // some fields like typeLabel (and all other ticket flags) must not be changed though.
+    // List of properties whose vals may be tweaked (as in - the params passed to the functions can be changed):
+    // title, description, assignees, imageLinks
     ticket = {
       id: i,
       typeLabel: randomInt(2),
@@ -118,10 +130,17 @@ export const generateDataSet = (): DataSet => {
       status: randomInt(2),
       assignees: shuffle(assignable).slice(0, randomInt(assignable.length / 2)), // random subset of the developers+
       imageLinks: randomImageSet(5),
-      activity: notifications,
+      activity: activitySubset,
     };
 
-    notificationSet.push({
+    isAssigned = ticket.assignees.indexOf(localUser) !== -1;
+
+    if (isAssigned) assigned.push(ticket.id);
+    if (isAssigned || ticket.author === localUser)
+      notifications = notifications.concat(ticket.activity);
+
+    // generate a notification for the creation of this ticket
+    activity.push({
       id: i,
       ticketId: i.toString(),
       date: ticket.creationDate,
@@ -131,42 +150,51 @@ export const generateDataSet = (): DataSet => {
       new: false,
     });
 
-    index = userSet.map((u) => u.tag).indexOf(ticket.author);
-    userSet[index].activity.push(i);
-    userSet[index].tickets.push(i);
+    // add the above ticket & notification to the author obj
+    index = users.map((u) => u.tag).indexOf(ticket.author);
+    users[index].activity.push(i);
+    users[index].tickets.push(i);
 
-    ticketSet.push(ticket);
+    tickets.push(ticket);
   }
 
-  ticketSet.forEach((ticket: Ticket) => {
+  // for every notification id that is used by a ticket, generate a notification
+  // and add that notification to the user
+  tickets.forEach((ticket: Ticket) => {
     ticket.activity.forEach((id) => {
-      notificationSet.push({
+      var notification = {
         id: id,
         ticketId: ticket.id.toString(),
         date: ticket.updateDate,
-        author: ticket.author,
+        author: getRandom(User).tag,
         message: randomBool() && randomBool() ? 2 : randomInt(7) + 3,
         value: randomString(50),
         new: randomBool(),
-      });
+      };
+
+      activity.push(notification);
+      index = users.map((u) => u.tag).indexOf(ticket.author);
+      users[index].activity.push(id);
     });
   });
 
   return {
-    tickets: ticketSet,
-    notifications: notificationSet,
-    users: userSet,
+    tickets: tickets,
+    activity: activity,
+    users: users,
+    notifications: notifications.map(
+      (id) => activity.find((a) => a.id === id)!
+    ),
+    assigned: assigned,
   };
 };
 
 export const arrayToNormalized = <T>(set: T[], key: keyof T): Normalized<T> => {
-  const c = {
+  return {
     byKey: set.reduce((acc, elt) => {
       acc[elt[key]] = elt;
       return acc;
     }, Object.assign({})),
     allKeys: set.map((element) => `${element[key]}`),
   };
-  console.log(c);
-  return c;
 };

@@ -79,8 +79,6 @@ export const contextSlice = createSlice({
       state.lastUpdate = new Date().toISOString();
     },
     seedData: (state, action: PayloadAction<DataSet>) => {
-      const notificationIds = action.payload.notifications.map((n) => n.id);
-
       state = Object.assign(state, {
         stores: {
           collapsedTickets: arrayToNormalized(
@@ -97,9 +95,9 @@ export const contextSlice = createSlice({
                 comments: t.activity.reduce((totalComments, activityId) => {
                   // find the notification with id activityId and check if it is the comment type
                   // if it is the comment type, add 1 to total comments; else do not change it
-                  return action.payload.notifications[
-                    notificationIds.indexOf(activityId)
-                  ].message === 2
+                  return action.payload.activity.find(
+                    (a) => a.id === activityId
+                  )!.message === 2
                     ? totalComments + 1
                     : totalComments;
                 }, 0),
@@ -117,7 +115,7 @@ export const contextSlice = createSlice({
             }),
             "tag"
           ),
-          activity: arrayToNormalized(action.payload.notifications, "id"),
+          activity: arrayToNormalized(action.payload.activity, "id"),
         },
       });
     },

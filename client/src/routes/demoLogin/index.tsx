@@ -20,7 +20,7 @@ export default () => {
         <Button
           onClick={() => {
             const dataSet: DataSet = generateDataSet();
-            dispatch(setDemo());
+            dispatch(setDemo(dataSet));
             dispatch(seedData(dataSet));
             dispatch(initDemoSlice(dataSet));
           }}

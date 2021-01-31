@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { sortNotifications } from "../../constants/notification";
 import { User } from "../../constants/user";
-import { demoAuthState } from "../../seed";
+import { DataSet, localUserInfo } from "../../seed";
 
 export interface AuthState {
   loaded: boolean;
@@ -54,8 +54,17 @@ export const authSlice = createSlice({
     logout: (state) => {
       state = Object.assign(state, initialState, { loaded: true });
     },
-    setDemo: (state) => {
-      state = Object.assign(state, demoAuthState);
+    setDemo: (state, action: PayloadAction<DataSet>) => {
+      state = Object.assign(state, {
+        loaded: true,
+        user: {
+          authenticated: true,
+          tickets: [],
+          notifications: sortNotifications(action.payload.notifications),
+          assigned: action.payload.assigned,
+          info: localUserInfo,
+        },
+      });
     },
   },
 });
