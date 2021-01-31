@@ -10,6 +10,7 @@ import { deleteTicket } from "./endpoints/DeleteTicket";
 
 import { getUserByTag } from "./endpoints/GetUserByTag";
 import { updateUserRank } from "./endpoints/UpdateUserRank";
+import { updateUserAvatar } from "./endpoints/UpdateUserAvatar";
 /* 
     Purpose: this module is meant to abstract the interface between the API and the server,
     to allow for seeding/demo users (the goal is to allow users to experience the
@@ -69,7 +70,7 @@ interface API {
   // user
   loadUserByTag: APIKey<string>;
   updateUserRank: APIKey<number>;
-  updateUserAvatar: () => void;
+  updateUserAvatar: APIKey<undefined>;
   // local client
   logout: () => void;
   readNotifications: () => void;
@@ -85,7 +86,7 @@ const api: API = {
   // user
   loadUserByTag: selectBranch(getUserByTag),
   updateUserRank: selectBranch(updateUserRank),
-  updateUserAvatar: () => {},
+  updateUserAvatar: selectBranch(updateUserAvatar),
   // local client
   logout: () => {},
   readNotifications: () => {},
