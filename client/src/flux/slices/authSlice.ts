@@ -2,16 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { sortNotifications } from "../../constants/notification";
 import { User } from "../../constants/user";
+import { demoAuthState } from "../../seed";
 
-interface AuthState {
+export interface AuthState {
   loaded: boolean;
-  demoMode: boolean;
   user: User;
 }
 
 export const initialState: AuthState = {
   loaded: false,
-  demoMode: false,
   user: {
     authenticated: false,
     tickets: [],
@@ -55,6 +54,9 @@ export const authSlice = createSlice({
     logout: (state) => {
       state = Object.assign(state, initialState, { loaded: true });
     },
+    setDemo: (state) => {
+      state = Object.assign(state, demoAuthState);
+    },
   },
 });
 
@@ -64,6 +66,7 @@ export const {
   viewNotifications,
   logout,
   updateAvatar,
+  setDemo,
 } = authSlice.actions;
 
 export const selectAuthSlice = (state: RootState): AuthState =>
@@ -76,8 +79,5 @@ export const selectUserRank = (state: RootState): number =>
 
 export const selectAuthenticated = (state: RootState): boolean =>
   state.authentication.user.authenticated;
-
-export const selectDemoMode = (state: RootState): boolean =>
-  state.authentication.demoMode;
 
 export default authSlice.reducer;

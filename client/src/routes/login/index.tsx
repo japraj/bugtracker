@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectDemoMode } from "../../flux/slices/authSlice";
+import { selectDemoMode } from "../../flux/slices/demoSlice";
 import FormPage from "../formPage";
 import HyperLink from "../../components/global/hyperLink";
 import { toast } from "react-toastify";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectDemoMode } from "../../flux/slices/authSlice";
+import { selectDemoMode } from "../../flux/slices/demoSlice";
 import { addUsers } from "../../flux/slices/contextSlice";
 import { getUserFromDTO } from "../../constants/user";
 import FormPage from "../formPage";

@@ -8,15 +8,16 @@ import {
 } from "../../constants/notification";
 import Endpoints from "../../constants/api";
 import { getCollapsedTicketFromDTO } from "../../constants/ticket";
+import { DataSet, arrayToNormalized } from "../../seed";
 
-interface Normalized<T> {
+export interface Normalized<T> {
   byKey: {
     [key: string]: T;
   };
   allKeys: string[];
 }
 
-const initialNormalized: Normalized<any> = {
+export const initialNormalized: Normalized<any> = {
   byKey: {},
   allKeys: [],
 };
@@ -77,6 +78,49 @@ export const contextSlice = createSlice({
     updateTime: (state) => {
       state.lastUpdate = new Date().toISOString();
     },
+    seedData: (state, action: PayloadAction<DataSet>) => {
+      const notificationIds = action.payload.notifications.map((n) => n.id);
+
+      state = Object.assign(state, {
+        stores: {
+          collapsedTickets: arrayToNormalized(
+            action.payload.tickets.map((t) => {
+              return {
+                id: t.id,
+                typeLabel: t.typeLabel,
+                title: t.title,
+                author: t.author,
+                creationDate: t.creationDate,
+                updateDate: t.updateDate,
+                severity: t.severity,
+                status: t.status,
+                comments: t.activity.reduce((totalComments, activityId) => {
+                  // find the notification with id activityId and check if it is the comment type
+                  // if it is the comment type, add 1 to total comments; else do not change it
+                  return action.payload.notifications[
+                    notificationIds.indexOf(activityId)
+                  ].message === 2
+                    ? totalComments + 1
+                    : totalComments;
+                }, 0),
+              };
+            }),
+            "id"
+          ),
+          users: arrayToNormalized(
+            action.payload.users.map((u) => {
+              return {
+                tag: u.tag,
+                profileImg: u.profileImg,
+                rank: u.rank,
+              };
+            }),
+            "tag"
+          ),
+          activity: arrayToNormalized(action.payload.notifications, "id"),
+        },
+      });
+    },
   },
 });
 
@@ -87,6 +131,7 @@ export const {
   removeCollapsedTicket,
   updateTime,
   updateStoredUser,
+  seedData,
 } = contextSlice.actions;
 
 // The below 'selectors' actually return selectors! they are meant
@@ -119,7 +164,7 @@ export const harmonizeContext = (
 ): AppThunk => (dispatch, getState) => {
   const state: RootState = getState();
   // if demoMode, we do not want the harmonizer to mess up our state so kill the execution
-  if (state.authentication.demoMode) return;
+  if (state.demo.demoMode) return;
 
   const lastUpdate: Date = new Date(state.context.lastUpdate);
   updatePeriod = updatePeriod ? updatePeriod : 0;

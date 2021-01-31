@@ -3,25 +3,32 @@ import { UserInfo, Rank } from "../constants/user";
 export const getRandom = <T>(set: Array<T>): T =>
   set[Math.floor(Math.random() * set.length)];
 
-export const randomNum = (maxValue: number): number =>
+export const randomInt = (maxValue: number): number =>
   Math.floor(Math.random() * (maxValue + 1));
 
-export const randomString = (): string =>
-  Math.random().toString(36).substr(2, 50);
+export const randomString = (length: number): string => {
+  var str: string = "";
+  while (str.length < length) {
+    try {
+      str += " " + Math.random().toString(36).substr(3, 50);
+    } catch {}
+  }
+  return str;
+};
 
 export const randomBool = (): boolean => Math.random() < 0.5;
 
 export const User: UserInfo[] = [
   {
-    tag: "Spongebob",
-    profileImg:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fsmashbroslawlorigins%2Fimages%2F4%2F47%2FSpongebob.png%2Frevision%2Flatest%3Fcb%3D20181103164034&f=1&nofb=1",
-    rank: Rank.User,
-  },
-  {
     tag: "Patrick",
     profileImg:
       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fen.spongepedia.org%2Fimages%2Fthumb%2Ff%2Ff3%2FPatrick_als_Kind.jpg%2F175px-Patrick_als_Kind.jpg&f=1&nofb=1",
+    rank: Rank.User,
+  },
+  {
+    tag: "Gary the Snail",
+    profileImg:
+      "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fstatic.tvtropes.org%2Fpmwiki%2Fpub%2Fimages%2Fgary_the_snail_reval_6504.jpg&f=1&nofb=1",
     rank: Rank.User,
   },
   {
@@ -49,17 +56,17 @@ export const User: UserInfo[] = [
     rank: Rank.Manager,
   },
   {
-    tag: "Gary the Snail",
-    profileImg:
-      "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fstatic.tvtropes.org%2Fpmwiki%2Fpub%2Fimages%2Fgary_the_snail_reval_6504.jpg&f=1&nofb=1",
-    rank: Rank.Admin,
-  },
-  {
     tag: "Karen",
     profileImg:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fspongebob%2Fimages%2F5%2F57%2FFriend_or_Foe_36.png%2Frevision%2Flatest%2Fscale-to-width-down%2F180%3Fcb%3D20130908170922&f=1&nofb=1",
     rank: Rank.Admin,
   },
+  {
+    tag: "Spongebob",
+    profileImg:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette.wikia.nocookie.net%2Fsmashbroslawlorigins%2Fimages%2F4%2F47%2FSpongebob.png%2Frevision%2Flatest%3Fcb%3D20181103164034&f=1&nofb=1",
+    rank: Rank.Admin,
+  },
 ];
 
-export const Status: string[] = ["resolved", "work-in-progress", "new"];
+export const Tag: string[] = User.map((u) => u.tag);

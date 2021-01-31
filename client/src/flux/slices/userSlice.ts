@@ -3,7 +3,7 @@ import { RootState } from "../store";
 import { selectElementsByKeys } from "./contextSlice";
 import { CollapsedTicket } from "../../constants/ticket";
 import Endpoints from "../../constants/api";
-import { UserInfo } from "../../constants/user";
+import { UserInfo, LoadUserPayload } from "../../constants/user";
 import { Notification } from "../../constants/notification";
 import Routes from "../../constants/routes";
 import history from "../../routes/history";
@@ -29,15 +29,6 @@ export const initialState: UserState = {
   recentActivity: [],
   tickets: [],
 };
-
-interface LoadUserPayload {
-  tag: string;
-  rank: number;
-  avatar: string;
-  profileImg: string;
-  activity: number[];
-  tickets: number[];
-}
 
 // load user with specified tag from server
 export const loadUserByTag = createAsyncThunk<LoadUserPayload, string, {}>(
@@ -82,7 +73,7 @@ export const userSlice = createSlice({
         info: {
           tag: payload.tag,
           rank: payload.rank,
-          profileImg: payload.avatar,
+          profileImg: payload.profileImg,
         },
         recentActivity: payload.activity,
         tickets: payload.tickets,

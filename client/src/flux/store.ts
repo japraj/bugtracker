@@ -7,6 +7,7 @@ import ticketReducer from "./slices/ticketSlice";
 import creationReducer from "./slices/creationSlice";
 import userReducer from "./slices/userSlice";
 import dashboardReducer from "./slices/dashboardSlice";
+import demoReducer from "./slices/demoSlice";
 
 // All reducers must be declared here!
 export const store = configureStore({
@@ -19,6 +20,7 @@ export const store = configureStore({
     creation: creationReducer,
     user: userReducer,
     dashboard: dashboardReducer,
+    demo: demoReducer,
   },
 });
 

@@ -17,6 +17,15 @@ export interface User {
 }
 // Local User (the user that is using the client)
 
+export interface LoadUserPayload {
+  tag: string;
+  rank: number;
+  profileImg: string;
+  activity: number[];
+  tickets: number[];
+}
+// Server User Obj - used for user pages
+
 export const getUserFromDTO = (dto: any) =>
   Object.assign({
     tag: dto.tag,

@@ -58,8 +58,9 @@ const selectBranch = <T>(endpoint: Endpoint<T>) => (t?: T): AppThunk => (
   getState
 ) => {
   const state: RootState = getState();
-  const branch: EndpointKey<T> =
-    state.authentication.loaded && false ? endpoint.demo : endpoint.normal;
+  const branch: EndpointKey<T> = state.demo.demoMode
+    ? endpoint.demo
+    : endpoint.normal;
   return branch(dispatch, state, t);
 };
 

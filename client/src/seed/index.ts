@@ -1,93 +1,173 @@
-import { CollapsedTicket, Ticket } from "../constants/ticket";
-import { UserInfo } from "../constants/user";
+import { Ticket } from "../constants/ticket";
+import { LoadUserPayload, Rank } from "../constants/user";
 import { Notification } from "../constants/notification";
+import { AuthState } from "../flux/slices/authSlice";
+import { Normalized } from "../flux/slices/contextSlice";
 import {
   User,
-  getRandom,
-  randomNum,
+  Tag,
+  randomInt,
   randomString,
   randomBool,
+  getRandom,
 } from "./predefined";
 
-export const generateUserSet = (howMany: number): UserInfo[] => {
-  let userSet: UserInfo[] = [];
-  for (let i = 0; i < howMany; i++) userSet.push(getRandom(User));
-  return userSet;
+export const demoAuthState: AuthState = {
+  loaded: true,
+  user: {
+    authenticated: true,
+    tickets: [],
+    notifications: [],
+    assigned: [],
+    info: User.filter((u) => u.tag === "Spongebob")[0],
+  },
 };
 
-const generateNotification = (): Notification => {
+// an implementation of the Fisher-Yates shuffle https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+const shuffle = <T>(set: T[]): T[] => {
+  var elt: T;
+  var j: number;
+
+  for (var i = set.length - 1; i > 0; i--) {
+    j = randomInt(i);
+    elt = set[j];
+    set[j] = set[i];
+    set[i] = elt;
+  }
+
+  return set;
+};
+
+// produces a shuffled set of all ints in [start, start + length]
+const genIntSet = (start: number, length: number): number[] => {
+  var set: number[] = [];
+  for (var i = start; i <= start + length; i++) set.push(i);
+  return shuffle(set);
+};
+
+// produces a random date within past n days
+const randomDate = (n: number): Date => {
+  return new Date(
+    new Date().getTime() -
+      (randomInt(n) * 24 * 3600 * 1000 +
+        randomInt(24) * 3600 +
+        randomInt(3600) * 1000 +
+        randomInt(1000))
+  );
+};
+
+const randomImageSet = (max: number): string[] => {
+  var set: string[] = [];
+  for (var i = 0; i < randomInt(max); i++)
+    set.push(
+      `placeimg.com/${randomInt(500) + 500}/${randomInt(350) + 350}/any`
+    );
+  return set;
+};
+
+export interface DataSet {
+  users: LoadUserPayload[];
+  tickets: Ticket[];
+  notifications: Notification[];
+}
+
+export const generateDataSet = (): DataSet => {
+  var userSet: LoadUserPayload[] = User.map((u) =>
+    Object.assign({ activity: [], tickets: [] }, u)
+  );
+  var ticketSet: Ticket[] = [];
+  var notificationSet: Notification[] = [];
+
+  var notifications: number[] = [];
+  var assignable = User.filter((u) => u.rank > Rank.User).map((u) => u.tag);
+  var notificationIds: number[] = genIntSet(50, 200);
+  var notificationIndex: number = 0;
+  var jump: number;
+  var creationDate: Date;
+  var updateDate: Date;
+  var ticket: Ticket;
+  var index;
+
+  for (var i = 6; i <= 50; i++) {
+    // we have ~200 notifications & ~50 tickets so we want an average of 4 notifications per
+    // ticket - that is why 7 is used below (mean of the distribution ~ 4)
+    if (notificationIndex < 200) {
+      jump = randomInt(7);
+      if (jump + notificationIndex >= 200) jump = 200 - notificationIndex - 1;
+      notifications = notificationIds.slice(
+        notificationIndex,
+        jump + notificationIndex + 1
+      );
+      notificationIndex += jump;
+    }
+
+    creationDate = randomDate(14);
+    updateDate = randomDate(14);
+    if (updateDate < creationDate || notifications.length === 0)
+      updateDate = creationDate;
+
+    ticket = {
+      id: i,
+      typeLabel: randomInt(2),
+      title: randomString(randomInt(30) + 5),
+      author: getRandom(User).tag,
+      creationDate: creationDate.toISOString(),
+      updateDate: updateDate.toISOString(),
+      description: randomString(randomInt(300) + 50),
+      reproducibility: randomInt(2),
+      severity: randomInt(2),
+      status: randomInt(2),
+      assignees: shuffle(assignable).slice(0, randomInt(assignable.length / 2)), // random subset of the developers+
+      imageLinks: randomImageSet(5),
+      activity: notifications,
+    };
+
+    notificationSet.push({
+      id: i,
+      ticketId: i.toString(),
+      date: ticket.creationDate,
+      author: ticket.author,
+      message: 0,
+      value: "",
+      new: false,
+    });
+
+    index = userSet.map((u) => u.tag).indexOf(ticket.author);
+    userSet[index].activity.push(i);
+    userSet[index].tickets.push(i);
+
+    ticketSet.push(ticket);
+  }
+
+  ticketSet.forEach((ticket: Ticket) => {
+    ticket.activity.forEach((id) => {
+      notificationSet.push({
+        id: id,
+        ticketId: ticket.id.toString(),
+        date: ticket.updateDate,
+        author: ticket.author,
+        message: randomBool() && randomBool() ? 2 : randomInt(7) + 3,
+        value: randomString(50),
+        new: randomBool(),
+      });
+    });
+  });
+
   return {
-    id: randomNum(1000),
-    ticketId: Math.random() < 0.25 ? "null" : randomString(),
-    date: "99/99/9999",
-    author: getRandom(User).tag,
-    message: randomNum(12),
-    value: randomString(),
-    new: randomBool(),
+    tickets: ticketSet,
+    notifications: notificationSet,
+    users: userSet,
   };
 };
 
-export const generateNotificationSet = (howMany: number): Notification[] => {
-  let notificationSet: Notification[] = [];
-  for (let i = 0; i < howMany; i++)
-    notificationSet.push(generateNotification());
-  return notificationSet;
-};
-
-const generateCollapsedTicket = (): CollapsedTicket => {
-  return {
-    id: randomNum(1100),
-    typeLabel: randomNum(2),
-    title:
-      "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione vitae occaecati aut. Fugit quia voluptatem officia ut voluptatem eveniet. Dolorum consectetur officia cum. Sed voluptatibus asperiores quibusdam non unde ducimus minima.",
-    author: getRandom(User).tag,
-    creationDate: new Date().toISOString(),
-    updateDate: new Date().toISOString(),
-    severity: randomNum(2),
-    status: randomNum(2),
-    comments: randomNum(99),
+export const arrayToNormalized = <T>(set: T[], key: keyof T): Normalized<T> => {
+  const c = {
+    byKey: set.reduce((acc, elt) => {
+      acc[elt[key]] = elt;
+      return acc;
+    }, Object.assign({})),
+    allKeys: set.map((element) => `${element[key]}`),
   };
-};
-
-export const generateTicketSet = (howMany: number): CollapsedTicket[] => {
-  let ticketSet: CollapsedTicket[] = [];
-  for (let i = 0; i < howMany; i++) ticketSet.push(generateCollapsedTicket());
-  return ticketSet;
-};
-
-export const generateTicket = (): Ticket => {
-  return {
-    id: randomNum(1100),
-    typeLabel: randomNum(2),
-    title:
-      "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
-    author: getRandom(User).tag,
-    creationDate: new Date().toISOString(),
-    updateDate: new Date().toISOString(),
-    description:
-      "Quam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et rationeQuam error accusamus rem modi sunt molestiae iure sunt. Beatae aut incidunt placeat et ratione",
-    reproducibility: randomNum(2),
-    severity: randomNum(2),
-    status: randomNum(2),
-    assignees: [
-      User[0].tag,
-      User[1].tag,
-      User[2].tag,
-      User[3].tag,
-      User[4].tag,
-    ],
-    imageLinks: [
-      randomString() +
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7%26pid%3DApi&f=1",
-      randomString(),
-      randomString(),
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.lY_aBb-eS63mPvz0-Jk8xAHaFj%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.foHhqoYr9QQbQgVQQCWFFQHaEo%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.W4tnaUqnR-WzQOyc0dqvEgHaEK%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.eV1yBtQ0xPhr0n56ewhcxwHaFj%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Ht-rJ2jpxs6obcf4Q7YoHgHaEo%26pid%3DApi&f=1",
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.-O9sV29ek_6WabRw9G5WgQHaEK%26pid%3DApi&f=1",
-    ],
-    activity: generateNotificationSet(10).map((n) => n.id),
-  };
+  console.log(c);
+  return c;
 };

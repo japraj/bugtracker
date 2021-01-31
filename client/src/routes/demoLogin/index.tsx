@@ -1,4 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setDemo } from "../../flux/slices/authSlice";
+import { seedData } from "../../flux/slices/contextSlice";
+import { initDemoSlice } from "../../flux/slices/demoSlice";
+import { generateDataSet, DataSet } from "../../seed";
 import {
   DarkWidgetWrapper,
   DarkWidget,
@@ -8,10 +13,18 @@ import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
 
 export default () => {
+  const dispatch = useDispatch();
   return (
     <DarkWidgetWrapper>
       <Container>
-        <Button>
+        <Button
+          onClick={() => {
+            const dataSet: DataSet = generateDataSet();
+            dispatch(setDemo());
+            dispatch(seedData(dataSet));
+            dispatch(initDemoSlice(dataSet));
+          }}
+        >
           <Icon className="icon">perm_contact_calendar</Icon>
           <h1>Demo Login</h1>
         </Button>
