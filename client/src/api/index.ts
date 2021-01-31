@@ -4,6 +4,7 @@ import { AppThunk, RootState } from "../flux/store";
 import { createTicket } from "./endpoints/CreateTicket";
 import { loadTicketById } from "./endpoints/LoadTicketById";
 import { updateTicket } from "./endpoints/UpdateTicket";
+import { newComment } from "./endpoints/AddComment";
 /* 
     Purpose: this module is meant to abstract the interface between the API and the server,
     to allow for seeding/demo users (the goal is to allow users to experience the
@@ -51,12 +52,14 @@ const selectBranch = <T>(endpoint: Endpoint<T>) => (t?: T): AppThunk => (
   return branch(dispatch, state, t);
 };
 
+type APIKey<T> = (arg: T) => AppThunk;
+
 interface API {
   // ticket/comments
-  createTicket: (arg: NewTicket) => AppThunk;
-  loadTicketById: (arg: string) => AppThunk;
-  updateTicket: (arg: EditedTicket) => AppThunk;
-  addComment: () => void;
+  createTicket: APIKey<NewTicket>;
+  loadTicketById: APIKey<string>;
+  updateTicket: APIKey<EditedTicket>;
+  addComment: APIKey<string>;
   deleteTicket: () => void;
   // user
   loadUserByTag: () => void;
@@ -72,7 +75,7 @@ const api: API = {
   createTicket: selectBranch(createTicket),
   loadTicketById: selectBranch(loadTicketById),
   updateTicket: selectBranch(updateTicket),
-  addComment: () => {},
+  addComment: selectBranch(newComment),
   deleteTicket: () => {},
   // user
   loadUserByTag: () => {},
