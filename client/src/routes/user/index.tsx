@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  loadUserByTag,
   selectLoadState,
   selectActivity,
   selectTickets,
 } from "../../flux/slices/userSlice";
+import API from "../../api";
 import ProfileCard from "./profileCard";
 import Rank from "./rank";
 import Update from "./update";
@@ -33,7 +33,7 @@ const LoadWrapper = styled.div`
 export default ({ match }: { match: any }) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(loadUserByTag(match.params.tag));
+    dispatch(API.loadUserByTag(match.params.tag));
   }, [dispatch, match.params.tag]);
   const loading: boolean = useSelector(selectLoadState);
   // remove notifications related to avatar and rank updates

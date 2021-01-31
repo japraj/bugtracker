@@ -1,12 +1,14 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { EditedTicket, NewTicket } from "../constants/ticket";
 import { AppThunk, RootState } from "../flux/store";
+
 import { createTicket } from "./endpoints/CreateTicket";
 import { loadTicketById } from "./endpoints/LoadTicketById";
 import { updateTicket } from "./endpoints/UpdateTicket";
 import { newComment } from "./endpoints/AddComment";
 import { deleteTicket } from "./endpoints/DeleteTicket";
 
+import { getUserByTag } from "./endpoints/GetUserByTag";
 /* 
     Purpose: this module is meant to abstract the interface between the API and the server,
     to allow for seeding/demo users (the goal is to allow users to experience the
@@ -54,7 +56,7 @@ const selectBranch = <T>(endpoint: Endpoint<T>) => (t?: T): AppThunk => (
   return branch(dispatch, state, t);
 };
 
-type APIKey<T> = (arg: T) => AppThunk;
+type APIKey<T> = (arg?: T) => AppThunk;
 
 interface API {
   // ticket/comments
@@ -64,7 +66,7 @@ interface API {
   addComment: APIKey<string>;
   deleteTicket: APIKey<undefined>;
   // user
-  loadUserByTag: () => void;
+  loadUserByTag: APIKey<string>;
   updateUserRank: () => void;
   updateUserAvatar: () => void;
   // local client
@@ -80,7 +82,7 @@ const api: API = {
   addComment: selectBranch(newComment),
   deleteTicket: selectBranch(deleteTicket),
   // user
-  loadUserByTag: () => {},
+  loadUserByTag: selectBranch(getUserByTag),
   updateUserRank: () => {},
   updateUserAvatar: () => {},
   // local client
