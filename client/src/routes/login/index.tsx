@@ -1,19 +1,15 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../../flux/slices/authSlice";
-import { selectElementsByKeys } from "../../flux/slices/contextSlice";
+import { useDispatch } from "react-redux";
 import FormPage from "../formPage";
 import HyperLink from "../../components/global/hyperLink";
 import { toast } from "react-toastify";
-import history from "../history";
 import Routes from "../../constants/routes";
-import { generateLocalUserFromDTO } from "../../constants/user";
 import Endpoints from "../../constants/api";
+import API from "../../api";
 import styled from "styled-components";
 
 export default () => {
   const dispatch = useDispatch();
-  const getNotificationByIds = useSelector(selectElementsByKeys("activity"));
   const [error, setError] = React.useState(false);
 
   const verifyValues = (fields: string[]) => () => {
@@ -30,24 +26,7 @@ export default () => {
       }),
     })
       .then(() => {
-        fetch(Endpoints.LOAD_SESSION, { method: "GET" })
-          .then((res) => res.json())
-          .then((res: any) => {
-            console.log(res);
-            if (res.Tag === undefined && res.status !== undefined)
-              throw new Error();
-            dispatch(
-              loadUser(
-                generateLocalUserFromDTO(res, (ids: number[]) =>
-                  getNotificationByIds(ids.map((id) => id.toString()))
-                )
-              )
-            );
-            history.push(Routes.HOME);
-          })
-          .catch(() => {
-            setError(true);
-          });
+        dispatch(API.loadSession(() => setError(true)));
       })
       .catch(() => {
         toast.error("Error, please try again.");

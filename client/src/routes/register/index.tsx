@@ -1,12 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../../flux/slices/authSlice";
-import { addUsers, selectElementsByKeys } from "../../flux/slices/contextSlice";
-import { generateLocalUserFromDTO, getUserFromDTO } from "../../constants/user";
+import { useDispatch } from "react-redux";
+import { addUsers } from "../../flux/slices/contextSlice";
+import { getUserFromDTO } from "../../constants/user";
 import FormPage from "../formPage";
-import Routes from "../../constants/routes";
-import history from "../history";
 import Endpoints from "../../constants/api";
+import API from "../../api";
 import { toast } from "react-toastify";
 
 interface State {
@@ -22,7 +20,6 @@ export default () => {
     usernameError: false,
     passwordError: false,
   });
-  const getNotificationByIds = useSelector(selectElementsByKeys("activity"));
 
   const evaluateError = (err: any): void => {
     try {
@@ -67,21 +64,11 @@ export default () => {
           evaluateError(res);
         else {
           dispatch(addUsers([getUserFromDTO(res)]));
-          fetch(Endpoints.LOAD_SESSION, { method: "GET" })
-            .then((load) => load.json())
-            .then((load: any) => {
-              dispatch(
-                loadUser(
-                  generateLocalUserFromDTO(load, (ids: number[]) =>
-                    getNotificationByIds(ids.map((id) => id.toString()))
-                  )
-                )
-              );
-              history.push(Routes.HOME);
-            })
-            .catch(() => {
+          dispatch(
+            API.loadSession(() => {
               toast.error("Something went wrong; please try again.");
-            });
+            })
+          );
         }
       })
       .catch((err) => evaluateError(err));

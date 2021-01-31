@@ -3,6 +3,7 @@ import { EditedTicket, NewTicket } from "../constants/ticket";
 import { AppThunk, RootState } from "../flux/store";
 
 import { initialLoad } from "./endpoints/InitialLoad";
+import { loadSession } from "./endpoints/LoadSession";
 
 import { createTicket } from "./endpoints/CreateTicket";
 import { loadTicketById } from "./endpoints/LoadTicketById";
@@ -68,6 +69,7 @@ type APIKey<T> = (arg?: T) => AppThunk;
 interface API {
   // misc
   initialLoad: () => void;
+  loadSession: (err: () => void) => void;
   // ticket/comments
   createTicket: APIKey<NewTicket>;
   loadTicketById: APIKey<string>;
@@ -84,7 +86,9 @@ interface API {
 }
 
 const api: API = {
+  // misc
   initialLoad: initialLoad,
+  loadSession: loadSession,
   // ticket/comments
   createTicket: selectBranch(createTicket),
   loadTicketById: selectBranch(loadTicketById),
