@@ -1,5 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDemoMode } from "../../flux/slices/authSlice";
 import { addUsers } from "../../flux/slices/contextSlice";
 import { getUserFromDTO } from "../../constants/user";
 import FormPage from "../formPage";
@@ -15,6 +16,7 @@ interface State {
 
 export default () => {
   const dispatch = useDispatch();
+  const demoMode: boolean = useSelector(selectDemoMode);
   const [values, setValues] = React.useState<State>({
     emailError: false,
     usernameError: false,
@@ -45,6 +47,13 @@ export default () => {
   };
 
   const verifyValues = (fields: string[]) => () => {
+    if (demoMode) {
+      toast.error(
+        "Sorry, this feature is unavailable. Reload the page to exit the demo."
+      );
+      return;
+    }
+
     fetch(Endpoints.REGISTER, {
       method: "POST",
       headers: {

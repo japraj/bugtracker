@@ -1,5 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDemoMode } from "../../flux/slices/authSlice";
 import FormPage from "../formPage";
 import HyperLink from "../../components/global/hyperLink";
 import { toast } from "react-toastify";
@@ -10,9 +11,16 @@ import styled from "styled-components";
 
 export default () => {
   const dispatch = useDispatch();
+  const demoMode: boolean = useSelector(selectDemoMode);
   const [error, setError] = React.useState(false);
 
   const verifyValues = (fields: string[]) => () => {
+    if (demoMode) {
+      toast.error(
+        "Sorry, this feature is unavailable. Reload the page to exit the demo."
+      );
+      return;
+    }
     // verify inputs
     fetch(Endpoints.LOGIN, {
       method: "POST",

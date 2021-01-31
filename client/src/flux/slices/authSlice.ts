@@ -5,11 +5,13 @@ import { User } from "../../constants/user";
 
 interface AuthState {
   loaded: boolean;
+  demoMode: boolean;
   user: User;
 }
 
 export const initialState: AuthState = {
   loaded: false,
+  demoMode: false,
   user: {
     authenticated: false,
     tickets: [],
@@ -74,5 +76,8 @@ export const selectUserRank = (state: RootState): number =>
 
 export const selectAuthenticated = (state: RootState): boolean =>
   state.authentication.user.authenticated;
+
+export const selectDemoMode = (state: RootState): boolean =>
+  state.authentication.demoMode;
 
 export default authSlice.reducer;

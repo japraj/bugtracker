@@ -117,7 +117,11 @@ export const harmonizeContext = (
   forceUpdate: boolean,
   updatePeriod?: number
 ): AppThunk => (dispatch, getState) => {
-  const lastUpdate: Date = new Date(getState().context.lastUpdate);
+  const state: RootState = getState();
+  // if demoMode, we do not want the harmonizer to mess up our state so kill the execution
+  if (state.authentication.demoMode) return;
+
+  const lastUpdate: Date = new Date(state.context.lastUpdate);
   updatePeriod = updatePeriod ? updatePeriod : 0;
   if (forceUpdate || new Date().getTime() - lastUpdate.getTime() > updatePeriod)
     fetch(`${Endpoints.SUBSCRIBE}/${lastUpdate.toISOString()}`, {
