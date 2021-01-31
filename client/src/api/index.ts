@@ -5,6 +5,8 @@ import { createTicket } from "./endpoints/CreateTicket";
 import { loadTicketById } from "./endpoints/LoadTicketById";
 import { updateTicket } from "./endpoints/UpdateTicket";
 import { newComment } from "./endpoints/AddComment";
+import { deleteTicket } from "./endpoints/DeleteTicket";
+
 /* 
     Purpose: this module is meant to abstract the interface between the API and the server,
     to allow for seeding/demo users (the goal is to allow users to experience the
@@ -60,7 +62,7 @@ interface API {
   loadTicketById: APIKey<string>;
   updateTicket: APIKey<EditedTicket>;
   addComment: APIKey<string>;
-  deleteTicket: () => void;
+  deleteTicket: APIKey<undefined>;
   // user
   loadUserByTag: () => void;
   updateUserRank: () => void;
@@ -76,7 +78,7 @@ const api: API = {
   loadTicketById: selectBranch(loadTicketById),
   updateTicket: selectBranch(updateTicket),
   addComment: selectBranch(newComment),
-  deleteTicket: () => {},
+  deleteTicket: selectBranch(deleteTicket),
   // user
   loadUserByTag: () => {},
   updateUserRank: () => {},

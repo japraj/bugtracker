@@ -1,10 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  forceCloseDisplays,
-  selectTicket,
-} from "../../../../flux/slices/ticketSlice";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import Modal from "@material-ui/core/Modal";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -13,21 +8,16 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { ThemeProvider } from "@material-ui/core/styles";
-import {
-  removeCollapsedTicket,
-  harmonizeContext,
-} from "../../../../flux/slices/contextSlice";
 import { theme, useStyles } from "../../../../constants/materialui";
 import clsx from "clsx";
 import Button from "../../../input/button";
 import { ModalContentWrapper } from "../../../container/modalContent";
-import Endpoints from "../../../../constants/api";
+import API from "../../../../api";
 import styled from "styled-components";
 
 export default (props: { display: boolean }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const ticketId: number = useSelector(selectTicket).id;
   const [state, assignState] = React.useState({
     error: false,
     isOpen: false,
@@ -48,20 +38,7 @@ export default (props: { display: boolean }) => {
   const submit = () => {
     const valid = state.value.toLowerCase() === "delete";
     setState({ error: !valid });
-    if (valid)
-      fetch(`${Endpoints.DELETE_TICKET}/${ticketId}`, {
-        method: "DELETE",
-      })
-        .then((res: any) => {
-          if (res.status !== 204) return;
-          dispatch(forceCloseDisplays());
-          dispatch(removeCollapsedTicket(ticketId));
-          dispatch(harmonizeContext(true));
-          toast.success(`Successfully deleted issue #${ticketId}`);
-        })
-        .catch(() =>
-          toast.error("Oops! Something went wrong, please try again.")
-        );
+    if (valid) dispatch(API.deleteTicket(undefined));
   };
 
   return props.display ? (
