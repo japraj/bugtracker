@@ -68,5 +68,3 @@ export const User: UserInfo[] = [
     rank: Rank.Admin,
   },
 ];
-
-export const Tag: string[] = User.map((u) => u.tag);
