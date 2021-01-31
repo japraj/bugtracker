@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../../flux/slices/authSlice";
 import { viewNotifications } from "../../../flux/slices/authSlice";
+import API from "../../../api";
 import Routes from "../../../constants/routes";
 import { Notification, Variant } from "../../../constants/notification";
 import { getRankObj } from "../../../constants/user";
@@ -39,6 +40,7 @@ export default (props: Props) => {
     // send a request to server setting all new notifications to viewed
     // and locally set all notifications to viewed too
     if (notificationsAmount > 0) {
+      dispatch(API.readNotifications());
       dispatch(viewNotifications());
       // Send a request to the server here.
     }

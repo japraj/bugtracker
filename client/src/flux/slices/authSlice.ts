@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { sortNotifications } from "../../constants/notification";
-import Endpoints from "../../constants/api";
 import { User } from "../../constants/user";
 
 interface AuthState {
@@ -41,11 +40,6 @@ export const authSlice = createSlice({
       state.user.info.profileImg = action.payload;
     },
     viewNotifications: (state) => {
-      fetch(Endpoints.READ_ALL_NOTIFICATIONS, {
-        method: "PATCH",
-      }).catch((e) => {
-        console.log(e);
-      });
       state.user.notifications = sortNotifications(
         state.user.notifications
           .filter((n) => n.new)
