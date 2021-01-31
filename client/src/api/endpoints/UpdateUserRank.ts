@@ -21,7 +21,6 @@ export const updateUserRank: Endpoint<number> = {
         },
       ]),
     }).then((res) => {
-      console.log(res);
       if (res.status === 204) {
         toast.success("Successfully updated user's rank.");
         dispatch(

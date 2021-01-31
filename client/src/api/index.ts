@@ -34,13 +34,12 @@ import { readNotifications } from "./endpoints/ReadNotifications";
         const dispatch: Dispatch<Action<any>> = useDispatch()
         dispatch(API.createTicket(ticket));
 
-    Note: there are several endpoints not abstracted here: login, register, 
-    loadSession, initialLoad, subscribe - most of these are simply disabled in demo mode
-    (there is no special branching logic associated with them) so their inclusion here 
-    would only serve to unnecessarily increase complexity. The API abstraction was
-    added near the end of development which is another reason for this inconsistency;
-    it is simpler and easier to leave those api calls as they are instead of aiming
-    for 100% encapsulation of serverside interactions with this module
+    Note: there are three endpoints not present here: login, register, and subscribe.
+    All of these endpoints are just disabled on demo mode - there is no branching logic.
+    Abstracting these would only serve to unnecessarily increase complexity. The API
+    abstraction was added near the end of development which is another reason for this
+    inconsistency; it is simpler and easier to leave those api calls as they are instead
+    of aiming for 100% encapsulation of serverside interactions with this module.
 */
 
 type EndpointKey<T> = (

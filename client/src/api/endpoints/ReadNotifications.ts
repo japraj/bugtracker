@@ -7,9 +7,7 @@ export const readNotifications: Endpoint<undefined> = {
   normal: (dispatch: Dispatch<Action<any>>, state: RootState) => {
     fetch(Endpoints.READ_ALL_NOTIFICATIONS, {
       method: "PATCH",
-    }).catch((e) => {
-      console.log(e);
-    });
+    }).catch(() => {});
   },
   demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {},
 };

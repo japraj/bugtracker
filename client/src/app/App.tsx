@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { hot } from "react-hot-loader/root";
 
 import { initialState, selectAuthSlice } from "../flux/slices/authSlice";
-
 import API from "../api";
 
 import FancyLoading, {
@@ -24,12 +23,6 @@ import Routes from "../routes/Routes";
 import "./App.css";
 
 const Context = React.createContext(initialState);
-
-// // note: period is the reciprocal of frequency
-// // we want to ask the server for updates every 10 minutes
-// const updatePeriod = 10 * 60 * 1000;
-// // we want to check if we are ready to ask the server for an update, once a minute
-// const checkPeriod = 1 * 60 * 1000;
 
 export default hot(() => {
   const dispatch = useDispatch();

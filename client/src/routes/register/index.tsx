@@ -59,10 +59,9 @@ export default () => {
     })
       .then((res) => res.json())
       .then((res: any) => {
-        console.log(res);
-        if (res.Tag === undefined && res.status !== undefined)
+        if (res.Tag === undefined && res.status !== undefined) {
           evaluateError(res);
-        else {
+        } else {
           dispatch(addUsers([getUserFromDTO(res)]));
           dispatch(
             API.loadSession(() => {

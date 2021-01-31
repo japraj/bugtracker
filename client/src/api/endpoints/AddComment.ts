@@ -25,7 +25,6 @@ export const newComment: Endpoint<string> = {
         dispatch(harmonizeContext(true));
       })
       .catch((e) => {
-        console.log(e);
         toast.error("Error, please try again.");
       });
   },

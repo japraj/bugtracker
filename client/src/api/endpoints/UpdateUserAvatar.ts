@@ -23,7 +23,6 @@ export const updateUserAvatar: Endpoint<undefined> = {
         },
       ]),
     }).then((res) => {
-      console.log(res);
       if (res.status === 204) {
         var newUser = Object.assign({}, state.user.info, {
           profileImg: state.user.stagedUrl,
