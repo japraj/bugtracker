@@ -11,6 +11,7 @@ import {
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
+import { setRecentActivity } from "../../flux/slices/homeSlice";
 
 export default () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default () => {
           onClick={() => {
             const dataSet: DataSet = generateDataSet();
             dispatch(setDemo(dataSet));
+            dispatch(setRecentActivity(dataSet.activity.map((a) => a.id)));
             dispatch(seedData(dataSet));
             dispatch(initDemoSlice(dataSet));
           }}

@@ -15,6 +15,7 @@ import {
   addCollapsedTickets,
 } from "../../flux/slices/contextSlice";
 import { addTicket } from "../../flux/slices/demoSlice";
+import { setRecentActivity } from "../../flux/slices/homeSlice";
 
 export const createTicket: Endpoint<NewTicket> = {
   normal: (
@@ -81,5 +82,8 @@ export const createTicket: Endpoint<NewTicket> = {
     dispatch(addTicket(mappedTicket));
     dispatch(addCollapsedTickets([getCollapsedTicketFromDTO(mappedTicket)]));
     dispatch(addActivity([creationActivity]));
+    dispatch(
+      setRecentActivity(state.home.recentActivity.concat(creationActivity.id))
+    );
   },
 };
