@@ -10,6 +10,7 @@ import {
   Ticket,
 } from "../../constants/ticket";
 import { Notification } from "../../constants/notification";
+import { getNextId } from "../../constants/demo";
 import {
   addActivity,
   addCollapsedTickets,
@@ -46,12 +47,6 @@ export const createTicket: Endpoint<NewTicket> = {
   ) => {
     if (!ticket) return;
     // produce a 'created ticket' activity and update stores
-
-    // find largest id in set and add 1 to it to get nextId
-    const getNextId = (keys: string[]): number =>
-      keys
-        .map((v: string) => (v as unknown) as number)
-        .reduce((acc, current) => (current > acc ? current : acc), -1) + 1;
 
     var mappedTicket: Ticket = {
       id: getNextId(state.demo.tickets.allKeys),

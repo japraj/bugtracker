@@ -3,7 +3,7 @@ import { RootState } from "../store";
 import { LoadUserPayload } from "../../constants/user";
 import { Normalized, initialNormalized } from "./contextSlice";
 import { Ticket } from "../../constants/ticket";
-import { DataSet, arrayToNormalized } from "../../seed";
+import { DataSet, arrayToNormalized, localUserInfo } from "../../seed";
 
 export interface DemoState {
   demoMode: boolean;
@@ -33,10 +33,20 @@ export const demoSlice = createSlice({
       if (state.tickets.allKeys.indexOf(action.payload.id.toString()))
         state.tickets.allKeys.push(action.payload.id.toString());
     },
+    updateUserActivity: (state, action: PayloadAction<number[]>) => {
+      var user: LoadUserPayload = state.users.byKey[localUserInfo.tag];
+      state.users.byKey[localUserInfo.tag] = Object.assign({}, user, {
+        activity: user.activity.concat(action.payload),
+      });
+    },
   },
 });
 
-export const { initDemoSlice, addTicket } = demoSlice.actions;
+export const {
+  initDemoSlice,
+  addTicket,
+  updateUserActivity,
+} = demoSlice.actions;
 
 export const selectDemoMode = (state: RootState): boolean =>
   state.demo.demoMode;
