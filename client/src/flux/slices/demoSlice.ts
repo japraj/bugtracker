@@ -28,10 +28,15 @@ export const demoSlice = createSlice({
         tickets: arrayToNormalized(action.payload.tickets, "id"),
       });
     },
+    addTicket: (state, action: PayloadAction<Ticket>) => {
+      state.tickets.byKey[action.payload.id.toString()] = action.payload;
+      if (state.tickets.allKeys.indexOf(action.payload.id.toString()))
+        state.tickets.allKeys.push(action.payload.id.toString());
+    },
   },
 });
 
-export const { initDemoSlice } = demoSlice.actions;
+export const { initDemoSlice, addTicket } = demoSlice.actions;
 
 export const selectDemoMode = (state: RootState): boolean =>
   state.demo.demoMode;

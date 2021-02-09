@@ -3,8 +3,18 @@ import { RootState } from "../../flux/store";
 import { Endpoint } from "../";
 import Endpoints from "../../constants/api";
 import { toast } from "react-toastify";
-import { getCollapsedTicketFromDTO, NewTicket } from "../../constants/ticket";
-import { addCollapsedTickets } from "../../flux/slices/contextSlice";
+import {
+  getCollapsedTicketFromDTO,
+  NewTicket,
+  Status,
+  Ticket,
+} from "../../constants/ticket";
+import { Notification } from "../../constants/notification";
+import {
+  addActivity,
+  addCollapsedTickets,
+} from "../../flux/slices/contextSlice";
+import { addTicket } from "../../flux/slices/demoSlice";
 
 export const createTicket: Endpoint<NewTicket> = {
   normal: (
@@ -33,7 +43,43 @@ export const createTicket: Endpoint<NewTicket> = {
     state: RootState,
     ticket?: NewTicket
   ) => {
-    // need to add ticket object to local database object
-    // and call addTicket() after mapping it to a CollapsedTicket
+    if (!ticket) return;
+    // produce a 'created ticket' activity and update stores
+
+    // find largest id in set and add 1 to it to get nextId
+    const getNextId = (keys: string[]): number =>
+      keys
+        .map((v: string) => (v as unknown) as number)
+        .reduce((acc, current) => (current > acc ? current : acc), -1) + 1;
+
+    var mappedTicket: Ticket = {
+      id: getNextId(state.demo.tickets.allKeys),
+      typeLabel: ticket.typeLabel,
+      title: ticket.title,
+      author: state.authentication.user.info.tag,
+      creationDate: new Date().toISOString(),
+      updateDate: new Date().toISOString(),
+      description: ticket.description,
+      reproducibility: ticket.reproducibility,
+      severity: ticket.severity,
+      status: Status.unresolved,
+      assignees: [],
+      imageLinks: ticket.imageLinks,
+      activity: [getNextId(state.context.stores.activity.allKeys)],
+    };
+
+    var creationActivity: Notification = {
+      id: mappedTicket.activity[0],
+      ticketId: mappedTicket.id.toString(),
+      date: mappedTicket.creationDate,
+      author: mappedTicket.author,
+      message: 0,
+      value: "",
+      new: false,
+    };
+
+    dispatch(addTicket(mappedTicket));
+    dispatch(addCollapsedTickets([getCollapsedTicketFromDTO(mappedTicket)]));
+    dispatch(addActivity([creationActivity]));
   },
 };

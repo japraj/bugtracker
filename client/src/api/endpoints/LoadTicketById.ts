@@ -27,5 +27,7 @@ export const loadTicketById: Endpoint<string> = {
       })
       .catch(err);
   },
-  demo: (dispatch: Dispatch<Action<any>>, state: RootState, id?: string) => {},
+  demo: (dispatch: Dispatch<Action<any>>, state: RootState, id?: string) => {
+    dispatch(loadTicket(state.demo.tickets.byKey[id!]));
+  },
 };
