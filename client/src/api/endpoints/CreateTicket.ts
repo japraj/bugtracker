@@ -80,7 +80,9 @@ export const createTicket: Endpoint<NewTicket> = {
     };
 
     dispatch(addTicket(mappedTicket));
-    dispatch(addCollapsedTickets([getCollapsedTicketFromDTO(mappedTicket)]));
+    dispatch(
+      addCollapsedTickets([Object.assign({}, mappedTicket, { comments: 0 })])
+    );
     dispatch(addActivity([creationActivity]));
     dispatch(
       setRecentActivity(state.home.recentActivity.concat(creationActivity.id))
