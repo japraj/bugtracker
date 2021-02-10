@@ -81,7 +81,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(loadUserByTag.rejected, (state, action) => {
       // halt loading, and forward user to 404 route
-      state.loading = false;
+      //state.loading = false;
       history.push(Routes.DNE404);
     });
   },

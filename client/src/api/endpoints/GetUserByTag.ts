@@ -7,5 +7,13 @@ export const getUserByTag: Endpoint<string> = {
   normal: (dispatch: Dispatch<any>, state: RootState, name?: string) => {
     dispatch(loadUserByTag(name!));
   },
-  demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {},
+  demo: (dispatch: Dispatch<Action<any>>, state: RootState, name?: string) => {
+    dispatch(
+      loadUserByTag.fulfilled(
+        state.demo.users.byKey[name!],
+        "fulfilled",
+        "fulfilled"
+      )
+    );
+  },
 };
