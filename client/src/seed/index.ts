@@ -65,9 +65,13 @@ export interface DataSet {
 }
 
 export const generateDataSet = (): DataSet => {
-  var users: LoadUserPayload[] = User.map((u) =>
-    Object.assign({ activity: [], tickets: [] }, u)
+  var users: { [key: string]: LoadUserPayload } = {};
+  User.map((u) => Object.assign({ activity: [], tickets: [] }, u)).forEach(
+    (u) => {
+      users[u.tag] = u;
+    }
   );
+
   var tickets: Ticket[] = [];
   var activity: Notification[] = [];
   // tickets that local user is assigned to
@@ -151,9 +155,8 @@ export const generateDataSet = (): DataSet => {
     });
 
     // add the above ticket & notification to the author obj
-    index = users.map((u) => u.tag).indexOf(ticket.author);
-    users[index].activity.push(i);
-    users[index].tickets.push(i);
+    users[ticket.author].activity.push(i);
+    users[ticket.author].tickets.push(i);
 
     tickets.push(ticket);
   }
@@ -173,15 +176,14 @@ export const generateDataSet = (): DataSet => {
       };
 
       activity.push(notification);
-      index = users.map((u) => u.tag).indexOf(ticket.author);
-      users[index].activity.push(id);
+      users[notification.author].activity.push(id);
     });
   });
 
   return {
     tickets: tickets,
     activity: activity,
-    users: users,
+    users: Object.values(users),
     notifications: notifications.map(
       (id) => activity.find((a) => a.id === id)!
     ),

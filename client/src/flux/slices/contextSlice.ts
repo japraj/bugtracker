@@ -151,8 +151,8 @@ export const selectAllElements = (origin: keyof ContextState["stores"]) => (
 export const selectElementsByKeys = (origin: keyof ContextState["stores"]) => (
   state: RootState
 ): ((keys: string[]) => any[]) => (keys: string[]) =>
-  state.context.stores[origin].allKeys
-    .filter((key) => keys.indexOf(key) !== -1)
+  keys
+    .filter((key) => state.context.stores[origin].allKeys.indexOf(key) !== -1)
     .map((key) => state.context.stores[origin].byKey[key]);
 
 // Update the local stores based on the server
