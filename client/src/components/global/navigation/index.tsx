@@ -10,6 +10,7 @@ import {
 import { collapsedWidth, extendedWidth } from "../../../constants/navigation";
 import Routes from "../../../constants/routes";
 import API from "../../../api";
+import { User } from "../../../constants/user";
 
 export type NavigationItem = {
   path: string;
@@ -52,7 +53,7 @@ const authNavSet: NavigationItem[] = [HomeItem, DashboardItem, LogoutItem];
 
 // Container class for SideNav and TopNav, meant to handle the logic
 // for both components.
-export default () => {
+export default ({ user }: { user: User }) => {
   const dispatch = useDispatch();
   const authenticated: boolean = useSelector(selectAuthenticated);
   const collapsed: boolean = useSelector(selectCollapsed);
@@ -66,6 +67,7 @@ export default () => {
         toggleCollapsed={collapsed ? () => {} : toggle}
         logout={() => dispatch(API.logout())}
         logoutItem={LogoutItem}
+        user={user}
       />
     </React.Fragment>
   );

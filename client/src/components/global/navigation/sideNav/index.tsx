@@ -5,6 +5,7 @@ import Profile from "../../profile";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Icon from "@material-ui/core/Icon";
 import { SideNav, GlassPane, NavLink } from "./styles";
+import { User } from "../../../../constants/user";
 
 export default ({
   authenticated,
@@ -15,6 +16,7 @@ export default ({
   toggleCollapsed,
   logout,
   logoutItem,
+  user,
 }: {
   authenticated: boolean;
   collapsed: boolean;
@@ -24,6 +26,7 @@ export default ({
   toggleCollapsed: () => void;
   logout: () => void;
   logoutItem: NavigationItem;
+  user: User;
 }) => {
   const location = useLocation().pathname;
   const NavLinkSet = navItemSet.map((navItem) =>
@@ -80,6 +83,7 @@ export default ({
           collapsed={collapsed}
           toggleCollapsed={toggleCollapsed}
           className="profileWrapper"
+          user={user}
         />
         {window.innerWidth < 600 && collapsed ? (
           <div className="mobileNavigationWidget">
@@ -91,6 +95,7 @@ export default ({
                   collapsed={collapsed}
                   toggleCollapsed={toggleCollapsed}
                   className=""
+                  user={user}
                 />
               </div>
             ) : (

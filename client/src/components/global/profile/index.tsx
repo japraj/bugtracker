@@ -5,7 +5,7 @@ import { viewNotifications } from "../../../flux/slices/authSlice";
 import API from "../../../api";
 import Routes from "../../../constants/routes";
 import { Notification, Variant } from "../../../constants/notification";
-import { getRankObj } from "../../../constants/user";
+import { getRankObj, User } from "../../../constants/user";
 import Avatar from "../avatar";
 import Badge from "@material-ui/core/Badge";
 import Icon from "@material-ui/core/Icon";
@@ -19,6 +19,7 @@ interface Props {
   toggleCollapsed: () => void;
   className: string;
   showNotificationsOnly: boolean;
+  user: User;
 }
 
 // Displays the user's profileImg/tag, a link to the settings page,
@@ -28,7 +29,7 @@ interface Props {
 // in the nav bar
 export default (props: Props) => {
   const [open, setOpen] = React.useState(false);
-  const user = useSelector(selectUser);
+  const user = props.user;
   const dispatch = useDispatch();
 
   const notificationsAmount = user.notifications.filter(

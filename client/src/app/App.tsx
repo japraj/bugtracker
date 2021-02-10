@@ -43,7 +43,7 @@ export default hot(() => {
             outside the ContentWrapper. Note that Navigation must be within the Router
             component because it uses a location hook
           */}
-          <Navigation />
+          <Navigation user={authSlice.user} />
           <ContentWrapper {...{ sideNavWidth }}>
             <Routes />
           </ContentWrapper>
