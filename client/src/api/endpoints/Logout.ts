@@ -18,5 +18,9 @@ export const logoutUser: Endpoint<undefined> = {
         toast.error("Oops, something went wrong! Please try again.")
       );
   },
-  demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {},
+  demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {
+    toast.error(
+      "Unavailable in the Demo. To exit, please refresh the browser."
+    );
+  },
 };

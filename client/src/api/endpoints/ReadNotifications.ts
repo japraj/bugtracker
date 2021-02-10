@@ -9,5 +9,7 @@ export const readNotifications: Endpoint<undefined> = {
       method: "PATCH",
     }).catch(() => {});
   },
-  demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {},
+  demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {
+    // don't need to do anything; it is already taken care of by the authSlice reducer
+  },
 };
