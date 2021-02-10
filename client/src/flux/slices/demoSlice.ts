@@ -39,6 +39,32 @@ export const demoSlice = createSlice({
         activity: user.activity.concat(action.payload),
       });
     },
+    removeTicketRefs: (
+      state,
+      action: PayloadAction<{
+        ticketId: number;
+        activities: number[];
+      }>
+    ) => {
+      // clean users
+      state.users.allKeys.forEach((key: string) => {
+        // if the user is the author of the ticket, delete the ref
+        if (state.users.byKey[key].tickets.includes(action.payload.ticketId)) {
+          state.users.byKey[key].tickets = state.users.byKey[
+            key
+          ].tickets.filter((id) => id !== action.payload.ticketId);
+        }
+        // remove all refs to the deleted ticket in user.activity
+        state.users.byKey[key].activity = state.users.byKey[
+          key
+        ].activity.filter((id) => !action.payload.activities.includes(id));
+      });
+      // clean tickets
+      state.tickets.allKeys.filter(
+        (t) => t !== action.payload.ticketId.toString()
+      );
+      delete state.tickets.byKey[action.payload.ticketId];
+    },
   },
 });
 
@@ -46,6 +72,7 @@ export const {
   initDemoSlice,
   addTicket,
   updateUserActivity,
+  removeTicketRefs,
 } = demoSlice.actions;
 
 export const selectDemoMode = (state: RootState): boolean =>

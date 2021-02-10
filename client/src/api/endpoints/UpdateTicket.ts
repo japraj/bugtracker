@@ -168,5 +168,6 @@ export const updateTicket: Endpoint<EditedTicket> = {
       )
     );
     dispatch(loadTicket(newTicket));
+    toast.success("Saved changes.");
   },
 };
