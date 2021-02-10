@@ -95,9 +95,10 @@ export const contextSlice = createSlice({
                 comments: t.activity.reduce((totalComments, activityId) => {
                   // find the notification with id activityId and check if it is the comment type
                   // if it is the comment type, add 1 to total comments; else do not change it
-                  return action.payload.activity.find(
+                  var activity = action.payload.activity.find(
                     (a) => a.id === activityId
-                  )!.message === 2
+                  );
+                  return activity && activity.message === 2
                     ? totalComments + 1
                     : totalComments;
                 }, 0),

@@ -123,7 +123,9 @@ export default () => {
           />
         </FieldGrid>
         <Description>
-          <h2>Description:</h2>
+          {
+            //<h2>Description:</h2> commented out as it does not look great.
+          }
           <p>{ticket.description}</p>
         </Description>
         {ticket.imageLinks.length === 0 ||

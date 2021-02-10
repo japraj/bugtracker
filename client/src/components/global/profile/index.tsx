@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from "../../../flux/slices/authSlice";
+import { useDispatch } from "react-redux";
 import { viewNotifications } from "../../../flux/slices/authSlice";
 import API from "../../../api";
 import Routes from "../../../constants/routes";
