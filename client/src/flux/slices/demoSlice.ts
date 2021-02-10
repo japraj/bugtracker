@@ -33,6 +33,9 @@ export const demoSlice = createSlice({
       if (state.tickets.allKeys.indexOf(action.payload.id.toString()))
         state.tickets.allKeys.push(action.payload.id.toString());
     },
+    updateDemoUser: (state, action: PayloadAction<LoadUserPayload>) => {
+      state.users.byKey[action.payload.tag] = action.payload;
+    },
     updateUserActivity: (state, action: PayloadAction<number[]>) => {
       var user: LoadUserPayload = state.users.byKey[localUserInfo.tag];
       state.users.byKey[localUserInfo.tag] = Object.assign({}, user, {
@@ -73,6 +76,7 @@ export const {
   addTicket,
   updateUserActivity,
   removeTicketRefs,
+  updateDemoUser,
 } = demoSlice.actions;
 
 export const selectDemoMode = (state: RootState): boolean =>

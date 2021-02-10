@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { updateAvatar } from "../../flux/slices/authSlice";
 import { updateStoredUser } from "../../flux/slices/contextSlice";
 import { updateUser } from "../../flux/slices/userSlice";
+import { updateDemoUser } from "../../flux/slices/demoSlice";
 
 export const updateUserAvatar: Endpoint<undefined> = {
   normal: (dispatch: Dispatch<Action<any>>, state: RootState) => {
@@ -39,5 +40,27 @@ export const updateUserAvatar: Endpoint<undefined> = {
       } else toast.error("Something went wrong");
     });
   },
-  demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {},
+  demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {
+    var newUser = Object.assign({}, state.user.info, {
+      profileImg: state.user.stagedUrl,
+    });
+    // update demo
+    dispatch(
+      updateDemoUser(
+        Object.assign({}, newUser, {
+          activity: state.user.recentActivity,
+          tickets: state.user.tickets,
+        })
+      )
+    );
+    toast.success("Successfully updated avatar.");
+    // update user profile page
+    dispatch(updateUser(newUser));
+    // update context slice
+    dispatch(updateStoredUser(newUser));
+    // if the client is changing their own avatar,
+    // update the sidebar avatar img too
+    if (state.authentication.user.info.tag === state.user.info.tag)
+      dispatch(updateAvatar(state.user.stagedUrl));
+  },
 };
