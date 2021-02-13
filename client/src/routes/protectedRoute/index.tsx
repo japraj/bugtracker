@@ -17,24 +17,26 @@ export default ({
   requireAuth,
   component,
   path,
+  exact,
 }: {
   requireAuth: boolean;
   component: React.ReactNode;
   path: any;
+  exact?: boolean;
 }) => {
   const authenticated: boolean = useSelector(selectAuthenticated);
   return (
     <Route
       path={path}
-      render={(props) => {
-        return authenticated === requireAuth ? (
+      render={(props) =>
+        authenticated === requireAuth ? (
           component
         ) : (
           <Redirect
             to={{ pathname: requireAuth ? Routes.LOGIN_REQUIRED : Routes.HOME }}
           />
-        );
-      }}
+        )
+      }
     />
   );
 };

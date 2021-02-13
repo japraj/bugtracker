@@ -1,7 +1,7 @@
-import { createBrowserHistory } from "history";
+import { createHashHistory } from "history";
 
 // Allows for programmatic routing control.
 // See Login/register form buttons' onClick
 // function for an example of usage.
 
-export default createBrowserHistory({});
+export default createHashHistory();

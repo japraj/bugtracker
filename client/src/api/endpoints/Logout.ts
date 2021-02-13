@@ -19,8 +19,7 @@ export const logoutUser: Endpoint<undefined> = {
       );
   },
   demo: (dispatch: Dispatch<Action<any>>, state: RootState) => {
-    toast.error(
-      "Unavailable in the Demo. To exit, please refresh the browser."
-    );
+    history.push(Routes.DEMO);
+    window.location.reload();
   },
 };

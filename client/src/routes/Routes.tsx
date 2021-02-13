@@ -28,6 +28,7 @@ export default () => {
         requireAuth={false}
         path={Routes.DEMO}
         component={<DemoLogin />}
+        exact={true}
       />
       <ProtectedRoute
         requireAuth={false}

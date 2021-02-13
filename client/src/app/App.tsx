@@ -16,8 +16,7 @@ import { selectSideNavWidth } from "../flux/slices/navigationSlice";
 
 import TicketModal from "../components/global/ticket";
 
-import { Router } from "react-router-dom";
-import history from "../routes/history";
+import { HashRouter } from "react-router-dom";
 import Routes from "../routes/Routes";
 
 import "./App.css";
@@ -37,7 +36,7 @@ export default hot(() => {
   return (
     <Context.Provider value={authSlice}>
       {authSlice.loaded ? (
-        <Router history={history}>
+        <HashRouter>
           {/*
             Navigation is a persistent component, present in all pages, so it is kept
             outside the ContentWrapper. Note that Navigation must be within the Router
@@ -49,7 +48,7 @@ export default hot(() => {
           </ContentWrapper>
           <TicketModal />
           <ToastContainer />
-        </Router>
+        </HashRouter>
       ) : (
         <LoadWrapper>
           <FancyLoading />

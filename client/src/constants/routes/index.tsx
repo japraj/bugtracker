@@ -1,3 +1,4 @@
+// Note: be sure to specify 'exact=true' in the Routes file if changing root
 enum Routes {
   HOME = "/",
   DASHBOARD = "/dashboard",
