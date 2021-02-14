@@ -1,9 +1,8 @@
 <h2 align="center">A mobile-first Issue management CRUD app with authentication, authorization, and more!</h2>
 
 <h3 align="center">
-<a href="https://japraj.github.io/bugtracker/#/demoStart">View the app live!</a>
   <img alt="Lines of Code" src="https://img.shields.io/tokei/lines/github/japraj/bugtracker">
-
+<a href="https://japraj.github.io/bugtracker/#/demoStart">View the app live!</a>
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
 </h3>
 
