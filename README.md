@@ -39,8 +39,6 @@
 
 ![Image of site homepage](https://i.imgur.com/1gdtA5m.png)
 
-_The app on mobile; it is fully responsive_
-
 # Features and Permissions Hierarchy
 
 _Unauthenticated Users can..._
@@ -91,7 +89,7 @@ _Administrators can..._
 
 ![Project Directory Example](https://i.imgur.com/jsZcZK6.png) ![App on mobile](https://i.imgur.com/Ug6141V.png)
 
-_One of the largest directories of this project and a pic of the app on a tablet_
+_One of the largest directories of this project and a pic of the app on mobile; it is fully responsive_
 
 Clientside: the project is split up into 5 main directories. Always look at the index.ts file of a directory first!
 
