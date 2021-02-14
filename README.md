@@ -1,17 +1,19 @@
+<h1 align="center">A mobile-first Issue management CRUD app with authentication, authorization, and more! Made by Japraj Sandhu</h1>
+
+<h3 align="center">
+  <a href="https://japraj.github.io/bugtracker/#/demoStart">View the app live!</a>
+</h3>
+
 ![Image of site homepage](https://i.imgur.com/1gdtA5m.png)
 
 <p align="center">
-<img alt="Lines of Code" src="https://img.shields.io/tokei/lines/github/japraj/bugtracker">
+  <img alt="Lines of Code" src="https://img.shields.io/tokei/lines/github/japraj/bugtracker">
 
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/japraj/bugtracker">
-
-<img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
 </p>
 <hr>
-	
-**A mobile-first Issue management CRUD app with authentication, authorization, and more! Made by Japraj Sandhu**
 
-<img alt="gif walking through the app" src="">
+<img alt="gif walking through the app" src="https://github.com/japraj/bugtracker/blob/master/demo.gif?raw=true">
 
 # Technology Stack
 
@@ -38,6 +40,8 @@
 - Uses cookie-based sessions for authorization and .Net Core Identity for authentication
 
 ![App on mobile](https://i.imgur.com/Ug6141V.png)
+
+_The app on mobile; it is fully responsive_
 
 # Features and Permissions Hierarchy
 
@@ -87,9 +91,9 @@ _Administrators can..._
 
 # Project Structure
 
-![Project Directory Example](https://i.imgur.com/jsZcZK6.png) ![Image of app on a tablet](https://i.imgur.com/N9wSXhb.png)
+![Project Directory Example](https://i.imgur.com/jsZcZK6.png) ![Image of app on a tablet](https://i.imgur.com/cAKLb4A.png)
 
-_Picture of one of the largest directories of this project and the app on a tablet_
+_One of the largest directories of this project and a pic of the app on a tablet_
 
 Clientside: the project is split up into 5 main directories. Always look at the index.ts file of a directory first!
 
@@ -98,7 +102,7 @@ Clientside: the project is split up into 5 main directories. Always look at the 
   - container: these components wrap pages and other components
   - global: reusable components for building routes. Avatar and iterable widget are two examples of components that are used _everywhere_
   - input: reusable form elements
-- routes: the main pages of the app and routing is handled in the index file
+- routes: the main pages of the app and routing is handled in the Routes.tsx file
 - constants: interfaces, enums, static functions, etc. - all constants are placed here so that our imports are clean and simple (it gets messy when you have constants in the components folders)
 - flux: all the state management logic is present here (the app uses Redux); each big feature of the app gets a slice file, which encapsulates all interactions in a single module
 
@@ -131,7 +135,7 @@ Requirements: must have npm to run the client, and the .NET Core SDK and Postgre
 
 5. Run `dotnet ef` - if this produces an error message, run `dotnet tool install dotnet-ef`
 
-6. Run `psql -U postgres` and input your password. Next, run `CREATE DATABASE BugTracker;`, name case sensitive. If you get an error, see https://www.postgresql.org/docs/13/tutorial-createdb.html; if you wish to use a different name, you must update the `Database` field of the connection string in `appsettings.json` in step 8.
+6. Run `psql -U postgres` and input your password. Next, run `CREATE DATABASE BugTracker;`, name case sensitive. If you get an error, see https://www.postgresql.org/docs/13/tutorial-createdb.html; if you wish to use a different name, you must update the `Database` field of the connection string in `appsettings.json` in step 9.
 
 7. Run `CREATE USER bugtracker WITH PASSWORD 'put a password here';` (insert your own password) and then `GRANT ALL PRIVILEGES ON DATABASE "BugTracker" to bugtracker;` followed by `\q`
 
