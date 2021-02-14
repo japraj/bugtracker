@@ -1,16 +1,17 @@
 <h2 align="center">A mobile-first Issue management CRUD app with authentication, authorization, and more!</h2>
 
 <h3 align="center">
-  <a href="https://japraj.github.io/bugtracker/#/demoStart">View the app live!</a>
+  <img alt="Lines of Code" src="https://img.shields.io/tokei/lines/github/japraj/bugtracker">
+
+<a href="https://japraj.github.io/bugtracker/#/demoStart">View the app live!</a>
+
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
 </h3>
 
 <img alt="gif walking through the app" src="https://github.com/japraj/bugtracker/blob/master/demo.gif?raw=true">
 
-<p align="center">
-  <img alt="Lines of Code" src="https://img.shields.io/tokei/lines/github/japraj/bugtracker">
+_I apologize for the poor quality of the gif_
 
-  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-</p>
 <hr>
 
 # Technology Stack
