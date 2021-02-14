@@ -1,10 +1,10 @@
-<h1 align="center">A mobile-first Issue management CRUD app with authentication, authorization, and more! Made by Japraj Sandhu</h1>
+<h2 align="center">A mobile-first Issue management CRUD app with authentication, authorization, and more!</h2>
 
 <h3 align="center">
   <a href="https://japraj.github.io/bugtracker/#/demoStart">View the app live!</a>
 </h3>
 
-![Image of site homepage](https://i.imgur.com/1gdtA5m.png)
+<img alt="gif walking through the app" src="https://github.com/japraj/bugtracker/blob/master/demo.gif?raw=true">
 
 <p align="center">
   <img alt="Lines of Code" src="https://img.shields.io/tokei/lines/github/japraj/bugtracker">
@@ -12,8 +12,6 @@
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
 </p>
 <hr>
-
-<img alt="gif walking through the app" src="https://github.com/japraj/bugtracker/blob/master/demo.gif?raw=true">
 
 # Technology Stack
 
@@ -39,7 +37,7 @@
 
 - Uses cookie-based sessions for authorization and .Net Core Identity for authentication
 
-![App on mobile](https://i.imgur.com/Ug6141V.png)
+![Image of site homepage](https://i.imgur.com/1gdtA5m.png)
 
 _The app on mobile; it is fully responsive_
 
@@ -91,7 +89,7 @@ _Administrators can..._
 
 # Project Structure
 
-![Project Directory Example](https://i.imgur.com/jsZcZK6.png) ![Image of app on a tablet](https://i.imgur.com/cAKLb4A.png)
+![Project Directory Example](https://i.imgur.com/jsZcZK6.png) ![App on mobile](https://i.imgur.com/Ug6141V.png)
 
 _One of the largest directories of this project and a pic of the app on a tablet_
 
