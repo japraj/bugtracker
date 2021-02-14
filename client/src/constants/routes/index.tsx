@@ -3,6 +3,7 @@ enum Routes {
   HOME = "/",
   DASHBOARD = "/dashboard",
   DEMO = "/demo",
+  FORCE_DEMO = "/demoStart",
   REGISTER = "/register",
   LOGIN = "/login",
   FORGOT_PASS = "/forgotPassword",

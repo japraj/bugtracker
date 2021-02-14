@@ -31,6 +31,7 @@ export const newComment: Endpoint<string> = {
       .then((res) => {
         dispatch(addComment(res.id));
         dispatch(harmonizeContext(true));
+        toast.success("Successfully added a comment!");
       })
       .catch((e) => {
         toast.error("Error, please try again.");
@@ -71,5 +72,6 @@ export const newComment: Endpoint<string> = {
     );
     dispatch(addActivity([activity]));
     dispatch(setRecentActivity(state.home.recentActivity.concat(activity.id)));
+    toast.success("Successfully added a comment!");
   },
 };

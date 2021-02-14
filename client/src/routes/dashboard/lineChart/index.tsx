@@ -18,7 +18,7 @@ export default (props: {
             {
               label: props.title,
               fill: true,
-              lineTension: 0.05,
+              lineTension: 0.25,
               backgroundColor: "rgba(32, 158, 145, 0.45)",
               borderColor: "rgba(32, 158, 145, 1)",
               borderCapStyle: "butt",

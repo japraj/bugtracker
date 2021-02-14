@@ -32,6 +32,7 @@ interface Props {
   close: () => void;
   update: (change: object) => void;
   submit: () => void;
+  selectValues: (number | string | undefined)[];
   submitButtonText: string;
   displaySelects: boolean;
   disableStatus?: boolean;
@@ -65,12 +66,14 @@ export default (props: Props) => {
                 }
                 options={mapEnumToSelectOption("Status", Status)}
                 disabled={props.disableStatus}
+                value={props.selectValues[0]}
               />
               <TicketFormSelect
                 onChange={(newValue: string) =>
                   props.update({ severity: keyToIndex(newValue, Severity) })
                 }
                 options={mapEnumToSelectOption("Severity", Severity)}
+                value={props.selectValues[1]}
               />
             </React.Fragment>
           ) : (
@@ -83,12 +86,14 @@ export default (props: Props) => {
               })
             }
             options={mapEnumToSelectOption("Reproducibility", Reproducibility)}
+            value={props.selectValues[2]}
           />
           <TicketFormSelect
             onChange={(newValue: string) =>
               props.update({ typeLabel: keyToIndex(newValue, TypeLabel) })
             }
             options={mapEnumToSelectOption("Tag", TypeLabel)}
+            value={props.selectValues[3]}
           />
         </SelectGrid>
         <TextWrapper display={props.displayAuthor}>
@@ -140,6 +145,7 @@ const TicketFormSelect = (props: {
   onChange: (newValue: string) => void;
   options: SelectOption[];
   disabled?: boolean;
+  value?: number | string | undefined;
 }) => (
   <SelectWrapper>
     <Select

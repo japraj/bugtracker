@@ -3,12 +3,15 @@ import { RootState } from "../../flux/store";
 import { Endpoint } from "../";
 import { loadUserByTag } from "../../flux/slices/userSlice";
 import { sortNotifications } from "../../constants/notification";
+import { forceCloseDisplays } from "../../flux/slices/ticketSlice";
 
 export const getUserByTag: Endpoint<string> = {
   normal: (dispatch: Dispatch<any>, state: RootState, name?: string) => {
+    dispatch(forceCloseDisplays());
     dispatch(loadUserByTag(name!));
   },
   demo: (dispatch: Dispatch<Action<any>>, state: RootState, name?: string) => {
+    dispatch(forceCloseDisplays());
     dispatch(
       loadUserByTag.fulfilled(
         Object.assign({}, state.demo.users.byKey[name!], {

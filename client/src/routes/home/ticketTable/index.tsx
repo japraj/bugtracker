@@ -44,7 +44,10 @@ export default (props: { className: string }) => {
     query === ""
       ? set
       : set.filter((ticket) =>
-          stringify(ticket).toLowerCase().includes(query.toLowerCase())
+          Object.values(ticket)
+            .reduce((acc, str) => acc + str + " ", "")
+            .toLowerCase()
+            .includes(query.toLowerCase())
         );
 
   const ticketSet: CollapsedTicket[] = applyQuery(

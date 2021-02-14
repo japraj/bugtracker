@@ -11,6 +11,7 @@ import ErrorPage from "./errorPage";
 import Login from "./login";
 import Register from "./register";
 import DemoLogin from "./demoLogin";
+import ForceDemo from "./forceDemo";
 import ForgotPassword from "./forgotPassword";
 import ResetPassword from "./resetPassword";
 import User from "./user";
@@ -29,6 +30,11 @@ export default () => {
         path={Routes.DEMO}
         component={<DemoLogin />}
         exact={true}
+      />
+      <ProtectedRoute
+        requireAuth={false}
+        path={Routes.FORCE_DEMO}
+        component={<ForceDemo />}
       />
       <ProtectedRoute
         requireAuth={false}

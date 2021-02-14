@@ -91,6 +91,12 @@ export default (props: {
         defaultTitle={props.title}
         defaultDesc={props.description}
         defaultLinks={editedTicket.imageLinks}
+        selectValues={[
+          ticketSlice.currentTicket.status,
+          ticketSlice.currentTicket.severity,
+          ticketSlice.currentTicket.reproducibility,
+          ticketSlice.currentTicket.typeLabel,
+        ]}
         injectedNode={
           <AssignmentContainer display={rank > Rank.Developer}>
             <ContainerLabel label="Assignees" />

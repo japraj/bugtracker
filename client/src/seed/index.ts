@@ -107,7 +107,7 @@ export const generateDataSet = (): DataSet => {
     creationDate: new Date().toISOString(),
     updateDate: new Date().toISOString(),
     description:
-      "Hello and welcome! You are viewing a special version of my webapp that gives you administrator privileges and a randomly generated set of users, posts, and comments. Any changes you make are deleted as soon as you refresh your browser. If you are interested in a full description of my site or its source code, see the repo at github.com/japraj/bugtracker. You can start by adding a comment using the textbox below, or editing the ticket with the icon on the bottom right!",
+      "Hello and welcome! You are viewing a special version of my webapp that gives you administrator privileges and a randomly generated set of users, posts, and comments. Any changes you make are deleted as soon as you refresh your browser. If you are interested in a full description of my site or its source code, see the repo at github.com/japraj/bugtracker. You can start by adding a comment using the textbox below, or editing the ticket with the icon on the bottom right. Tip: try hovering over user avatars!",
     reproducibility: randomInt(2),
     severity: randomInt(2),
     status: randomInt(2),
@@ -115,6 +115,7 @@ export const generateDataSet = (): DataSet => {
     imageLinks: [],
     activity: [],
   });
+  users[localUser].tickets.push(1);
 
   for (var i = 6; i <= 50; i++) {
     // we have ~200 activities & ~50 tickets so we want an average of 4 notifications per

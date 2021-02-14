@@ -33,9 +33,10 @@ export const createTicket: Endpoint<NewTicket> = {
       body: JSON.stringify(ticket),
     })
       .then((res) => res.json())
-      .then((res) =>
-        dispatch(addCollapsedTickets([getCollapsedTicketFromDTO(res)]))
-      )
+      .then((res) => {
+        dispatch(addCollapsedTickets([getCollapsedTicketFromDTO(res)]));
+        toast.success("Successfully created a ticket!");
+      })
       .catch(() =>
         toast.error("Oops! Something went wrong, please try again.")
       );
@@ -82,5 +83,6 @@ export const createTicket: Endpoint<NewTicket> = {
     dispatch(
       setRecentActivity(state.home.recentActivity.concat(creationActivity.id))
     );
+    toast.success("Successfully created a ticket!");
   },
 };

@@ -34,6 +34,7 @@ export default () => {
       }}
       submit={submit}
       submitButtonText="Submit"
+      selectValues={[0, 0, 0, 0]}
       displaySelects={true}
       displayDevSelects={true}
       disableStatus={true}

@@ -58,7 +58,7 @@ export const initialLoad = (): AppThunk => (dispatch, getState): void => {
         );
     })
     .catch(() => {})
-    .finally(() => dispatch(finishedLoading()));
+    .finally(() => setTimeout(() => dispatch(finishedLoading()), 2000));
 
   const checkForUpdate = () => dispatch(harmonizeContext(false, updatePeriod));
 

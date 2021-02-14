@@ -131,9 +131,10 @@ export const updateTicket: Endpoint<EditedTicket> = {
           activity.message = 10;
           break;
       }
-
-      activities.push(activity);
-      activityId++;
+      if (activity.message !== 0) {
+        activities.push(activity);
+        activityId++;
+      }
     });
     var ids: number[] = activities.map((a) => a.id);
 
